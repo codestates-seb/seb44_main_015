@@ -4,7 +4,7 @@ import { Colors } from '../../Assets/ColorTheme';
 const NameCard = () => {
   return (
     <>
-      <Card>
+      <CardStyled>
         <UpperWrapper>
           <NameWrapper>김땡땡</NameWrapper>
           <PhoneEmailWrapper>
@@ -18,14 +18,14 @@ const NameCard = () => {
           <Tag>#정시출근</Tag>
           <Tag>#꼼꼼함</Tag>
         </TagWrapper>
-      </Card>
+      </CardStyled>
     </>
   );
 };
 
 export default NameCard;
 
-const Card = styled.div`
+export const CardStyled = styled.div`
   position: absolute;
   width: 360px;
   height: 210px;
@@ -79,7 +79,7 @@ const EmailWrapper = styled.div`
   color: ${Colors.Gray4};
 `;
 
-const TagWrapper = styled.div`
+export const TagWrapper = styled.div`
   display: flex;
   width: 296px;
   height: 27px;
@@ -87,10 +87,10 @@ const TagWrapper = styled.div`
 
   gap: 4px;
   flex-shrink: 0;
-  margin: 65px 40px 24px 24px;
+  margin: ${(props) => props.margin || '65px 40px 24px 24px'};
 `;
 
-const Tag = styled.div`
+export const Tag = styled.div`
   display: flex;
   padding: 4px 8px;
   justify-content: center;
@@ -104,4 +104,5 @@ const Tag = styled.div`
 
   border: 1px solid ${Colors.Gray3};
   border-radius: 16px;
+  background-color: ${(props) => props.backgroundColor || `${Colors.Bgwhite}`};
 `;
