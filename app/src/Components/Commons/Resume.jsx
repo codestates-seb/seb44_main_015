@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { Colors } from '../../Assets/ColorTheme';
+
 const Resume = () => {
   return (
     <div>
       <ResumeCardStyled>
         <ResumeWrapper>
-          <ResumeTitle>이력</ResumeTitle>
+          <ResumeTitleStyled>이력</ResumeTitleStyled>
           <ResumeDetailWrapper>
             <ResumeDetail>코드스테이츠 44기</ResumeDetail>
             <ResumeDetail>프리해요 프론트엔드 개발</ResumeDetail>
@@ -39,7 +40,7 @@ export const ResumeWrapper = styled.div`
   margin: 24px 151px 24px 24px;
 `;
 
-export const ResumeTitle = styled.div`
+export const ResumeTitleStyled = styled.h3`
   font-size: 16px;
   font-weight: 700;
   font-style: normal;

@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import { Colors } from '../../Assets/ColorTheme';
 
-const WideButton = () => {
+const WideButton = ({ content }) => {
   return (
     <>
-      <WideButtonStyled>명함·이력 수정하기</WideButtonStyled>
+      <WideButtonStyled>
+        {content ? content : '명함·이력 수정하기'}
+      </WideButtonStyled>
     </>
   );
 };
@@ -19,6 +21,7 @@ export const WideButtonStyled = styled.button`
   width: 360px;
   height: 56px;
   padding: 16px;
+  margin-top: ${(props) => props.fontWeight || '24px'};
 
   text-align: center;
   font-size: 16px;

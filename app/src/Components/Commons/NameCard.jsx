@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Colors } from '../../Assets/ColorTheme';
+import { TagStyled, TagWrapperStyled } from './Tag';
 
 const NameCard = () => {
   return (
@@ -12,12 +13,12 @@ const NameCard = () => {
             <EmailWrapper>freehaeyo@freehaeyo.com</EmailWrapper>
           </PhoneEmailWrapper>
         </UpperWrapper>
-        <TagWrapper>
-          <Tag>#프론트엔드</Tag>
-          <Tag>#백엔드</Tag>
-          <Tag>#정시출근</Tag>
-          <Tag>#꼼꼼함</Tag>
-        </TagWrapper>
+        <TagWrapperStyled>
+          <TagStyled>#프론트엔드</TagStyled>
+          <TagStyled>#백엔드</TagStyled>
+          <TagStyled>#정시출근</TagStyled>
+          <TagStyled>#꼼꼼함</TagStyled>
+        </TagWrapperStyled>
       </CardStyled>
     </>
   );
@@ -77,32 +78,4 @@ const EmailWrapper = styled.div`
   font-weight: 300;
   line-height: normal;
   color: ${Colors.Gray4};
-`;
-
-export const TagWrapper = styled.div`
-  display: flex;
-  width: 296px;
-  height: 27px;
-  align-items: flex-start;
-
-  gap: 4px;
-  flex-shrink: 0;
-  margin: ${(props) => props.margin || '65px 40px 24px 24px'};
-`;
-
-export const Tag = styled.div`
-  display: flex;
-  padding: 4px 8px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-
-  color: ${Colors.mainPurple};
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 300;
-
-  border: 1px solid ${Colors.Gray3};
-  border-radius: 16px;
-  background-color: ${(props) => props.backgroundColor || `${Colors.Bgwhite}`};
 `;
