@@ -1,14 +1,5 @@
 import styled from 'styled-components';
-
-const ButtonStyled = styled.button`
-    background-color:${(props) => props.backgroundColor || '#f2f2f2'};
-    color:#999999;
-    width:${(props) => props.width || '100px'};
-    padding: 16px 0px;
-    border-radius: 16px;
-    border:none;
-    cursor:pointer;
-`
+import { Colors } from '../../Assets/ColorTheme';
 
 function DisabledButton({content, width, backgroundColor}){
 
@@ -20,3 +11,14 @@ function DisabledButton({content, width, backgroundColor}){
 }
 
 export default DisabledButton;
+const ButtonStyled = styled.button`
+    width:${(props) => props.width || '100px'};
+    padding: 16px 0px;
+    text-align:center;
+    background-color:${(props) => props.backgroundColor || `${Colors.Gray1}`};
+    font-weight: 700;
+    color:${Colors.Gray3};
+    border-radius: 16px;
+    border:none;
+    cursor:pointer;
+`

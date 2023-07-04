@@ -1,15 +1,5 @@
 import styled from 'styled-components';
-
-const ButtonStyled = styled.button`
-    background-color:#D0ABFF;
-    color:#ffffff;
-    width:${(props) => props.width || '100px'};
-    padding: 16px 0px;
-    border-radius: 16px;
-    border:none;
-    cursor:pointer;
-    transition:0.3s;
-`
+import { Colors } from '../../Assets/ColorTheme';
 
 function SubButton({content, width}){
 
@@ -21,3 +11,16 @@ function SubButton({content, width}){
 }
 
 export default SubButton;
+
+const ButtonStyled = styled.button`
+    width:${(props) => props.width || '100px'};
+    padding: 16px 0px;
+    text-align:center;
+    background-color:${Colors.secondPurple};
+    color:${Colors.Bgwhite};
+    font-weight: 700;
+    border-radius: 16px;
+    border:none;
+    cursor:pointer;
+    transition:0.3s;
+`
