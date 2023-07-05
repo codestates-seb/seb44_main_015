@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 import { Colors } from '../../Assets/Theme';
 
-const NoLineTag = ({ name }) => {
+const NoLineTag = ({ name, color, backgroundColor, fontSize, fontWeight }) => {
   return (
     <NoLineTagStyled
-    //아래는 보라태그 쓸경우 설정할 프롭스들입니다. 회색태그 쓸경우 하기 프롭 주석이나 삭제처리해주세요.
-    // color={Colors.mainPurple}
-    // backgroundColor={Colors.thirdPurple}
-    // fontSize="12px"
-    // fontWeight="400"
+      color={color}
+      backgroundColor={backgroundColor}
+      fontSize={fontSize}
+      fontWeight={fontWeight}
     >
       {name}
     </NoLineTagStyled>
