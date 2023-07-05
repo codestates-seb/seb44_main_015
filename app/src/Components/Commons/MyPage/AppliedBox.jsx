@@ -35,7 +35,9 @@ const AppliedBox = ({ title, message, number = 0 }) => {
               {Messages.careeringMessage}
             </InfoStyled>
           </InfoWrapperStyled>
-          <OutlineButton content={Messages.showCareerBtn} width={'360px'} />
+          <ButtonWrapperStyled>
+            <OutlineButton content={Messages.showCareerBtn} width={'360px'} />
+          </ButtonWrapperStyled>
         </ZeroCardStyled>
       )}
     </BigCardStyled>
@@ -44,8 +46,13 @@ const AppliedBox = ({ title, message, number = 0 }) => {
 
 export default AppliedBox;
 
-export const BigCardStyled = styled.div`
+export const ButtonWrapperStyled = styled.div`
   position: absolute;
+  margin: 24px 158px 24px 134px; //546px
+`;
+
+export const BigCardStyled = styled.div`
+  position: relative;
   width: 676px;
   height: 419px;
   border: 1px solid ${Colors.Gray2};
@@ -94,7 +101,7 @@ const InfoWrapperStyled = styled.div`
   align-items: center;
   gap: 4px;
   flex-shrink: 0;
-  margin: 95px 177px 24px 190px;
+  margin: 95px 177px 0 190px;
 `;
 
 const InfoStyled = styled.span`

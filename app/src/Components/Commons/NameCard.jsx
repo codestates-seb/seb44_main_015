@@ -10,14 +10,12 @@ const NameCard = ({ name, phone, email, stack }) => {
         <UpperWrapperStyled>
           <NameWrapperStyled name={name}>{name}</NameWrapperStyled>
           <InnerWrapperStyled>
-            <PhoneWrapperStyled phone={phone}>{phone}</PhoneWrapperStyled>
-            <EmailWrapperStyled email={email}>{email}</EmailWrapperStyled>
+            <PhoneWrapperStyled $phone={phone}>{phone}</PhoneWrapperStyled>
+            <EmailWrapperStyled $email={email}>{email}</EmailWrapperStyled>
           </InnerWrapperStyled>
         </UpperWrapperStyled>
         <TagWrapperStyled>
-          {stack.map((tag) => (
-            <Tag key={tag} content={tag} />
-          ))}
+          {stack && stack.map((tag) => <Tag key={tag} content={tag} />)}
         </TagWrapperStyled>
       </NameCardStyled>
     </>
@@ -30,6 +28,7 @@ export const NameCardStyled = styled.div`
   position: absolute;
   width: 360px;
   height: 210px;
+  margin: 144px 890px 964px 190px;
   border: 1px solid ${Colors.Gray2};
   border-radius: 16px;
   color: ${Colors.mainPurple};
