@@ -1,15 +1,5 @@
 import styled from 'styled-components';
-
-const ButtonStyled = styled.button`
-    background-color:#ffffff;
-    color:#7000FF;
-    width:${(props) => props.width || '100px'};
-    padding: 16px 0px;
-    border-radius: 16px;
-    border:1px solid #7000FF;
-    cursor:pointer;
-    transition:0.3s;
-`
+import { Colors } from '../../Assets/ColorTheme';
 
 function OutlineButton({content, width}){
 
@@ -21,3 +11,16 @@ function OutlineButton({content, width}){
 }
 
 export default OutlineButton;
+
+const ButtonStyled = styled.button`
+    width:${(props) => props.width || '100px'};
+    padding: 16px 0px;
+    text-align:center;
+    background-color:${Colors.Bgwhite};
+    color:${Colors.mainPurple};
+    border-radius: 16px;
+    border:1px solid ${Colors.mainPurple};
+    cursor:pointer;
+    transition:0.3s;
+`
+

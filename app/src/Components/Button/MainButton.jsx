@@ -1,21 +1,5 @@
 import styled from 'styled-components';
-
-const ButtonStyled = styled.button`
-  background-color:#7000FF;
-  color:#ffffff;
-  width:${(props) => props.width || '100px'};
-  padding: 16px 0px;
-  border-radius: 16px;
-  border:none;
-  cursor:pointer;
-  transition:0.3s;
-  &:hover{
-    background-color:#D0ABFF;
-  }
-  &:focus{
-    background-color:#4E00B1;
-  }
-`
+import { Colors } from '../../Assets/ColorTheme';
 
 function MainButton({content, width}){
 
@@ -27,3 +11,22 @@ function MainButton({content, width}){
 }
 
 export default MainButton;
+
+const ButtonStyled = styled.button`
+  width:${(props) => props.width || '100px'};
+  padding: 16px 0px;
+  text-align:center;
+  background-color:${Colors.mainPurple};
+  color:${Colors.Bgwhite};
+  font-weight: 700;
+  border-radius: 16px;
+  border:none;
+  cursor:pointer;
+  transition:0.3s;
+  &:hover{
+    background-color:${Colors.secondPurple};
+  }
+  &:focus{
+    background-color:#4E00B1;
+  }
+`

@@ -8,6 +8,7 @@ export const Colors = {
   Gray3: '#999999',
   Gray4: '#333333',
   Bgwhite: '#ffffff',
+  Error: '#ff2727',
 };
 
 export const Messages = {
