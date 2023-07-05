@@ -2,7 +2,7 @@ package main.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import main.user.dto.UserDto;
-import main.user.entity.UserEntity;
+import main.user.entity.User;
 import main.user.mapper.UserMapper;
 import main.user.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -24,8 +24,8 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity postUser(@Valid @RequestBody UserDto.Post userPostDto){
-        UserEntity user = userMapper.userPostDtoToUser(userPostDto);
-        UserEntity createUser = userService.createUser(user);
+        User user = userMapper.userPostDtoToUser(userPostDto);
+        User createUser = userService.createUser(user);
         return new ResponseEntity<>(userMapper.userToUserResponseDto(createUser), HttpStatus.CREATED);
     }
 
@@ -38,11 +38,18 @@ public class UserController {
             본인확인 로직 추가
         */
         userPatchDto.setUserId(userId);
-        UserEntity user = userMapper.userPatchDtoToUser(userPatchDto);
-        UserEntity updateUser = userService.updateUser(user);
+        User user = userMapper.userPatchDtoToUser(userPatchDto);
+        User updateUser = userService.updateUser(user);
 
         return new ResponseEntity<>(userMapper.userToUserResponseDto(updateUser), HttpStatus.OK);
     }
 
+    @GetMapping("/{user_id}")
+    public ResponseEntity getUser(@PathVariable("user_id") @Positive long userId){
+
+        User findUser = userService.findUser(userId);
+
+        return new ResponseEntity<>(userMapper.userToUserResponseDto(findUser), HttpStatus.OK);
+    }
 
 }

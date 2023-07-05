@@ -1,9 +1,8 @@
 package main.user.service;
 
 import lombok.RequiredArgsConstructor;
-import main.user.entity.UserEntity;
+import main.user.entity.User;
 import main.user.repository.UserRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,7 +12,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UserEntity createUser(UserEntity user){
+    public User createUser(User user){
 
         verifyExistEmail(user.getEmail());
 
@@ -22,21 +21,27 @@ public class UserService {
         Role 저장 추가
         */
 
-        UserEntity savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(user);
         return savedUser;
     }
 
-    public UserEntity updateUser(UserEntity user){
+    public User updateUser(User user){
 
-        UserEntity updatedUser = userRepository.save(user);
+        User updatedUser = userRepository.save(user);
         return updatedUser;
     }
 
 
+    public User findUser(long userId){
+        return new User(); // 임시
+    }
+
     private void verifyExistEmail(String email) {
-        Optional<UserEntity> useremail = userRepository.findByEmail(email);
+        Optional<User> useremail = userRepository.findByEmail(email);
         if (useremail.isPresent())
             //throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
             throw new IllegalArgumentException(); // 임시로넣음
     }
+
+
 }
