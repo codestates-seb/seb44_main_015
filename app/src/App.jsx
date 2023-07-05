@@ -1,12 +1,7 @@
 import './App.css';
-import TextArea from './Components/Commons/TextArea';
 
 function App() {
-
-  return (
-  <>
-  </>
-  );
+  return <></>;
 }
 
 export default App;

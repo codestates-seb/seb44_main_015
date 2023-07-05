@@ -1,41 +1,42 @@
 import styled from 'styled-components';
-import { Colors } from '../../Assets/ColorTheme';
-import { ResumeWrapper, ResumeCardStyled, ResumeTitleStyled } from './Resume';
-import { TagStyled, TagWrapperStyled } from './Tag';
+import { Colors } from '../../Assets/Theme';
+import { CardWrapperStyled, CardStyled, CardTitleStyled } from './Resume';
+import { TagWrapperStyled } from './Tag';
+import Tag from './Tag';
 
 const CompanyDetail = () => {
+  const sampleTags = ['#프론트엔드', '#백엔드', '#정시출근', '#꼼꼼함'];
   return (
     <>
-      <ResumeCardStyled>
-        <ResumeWrapper>
-          <UpperWrapper>
-            <ResumeTitleStyled>회사 소개</ResumeTitleStyled>
-            <CompanyDetailWrapper>
+      <CardStyled>
+        <CardWrapperStyled>
+          <UpperWrapperStyled>
+            <CardTitleStyled>회사 소개</CardTitleStyled>
+            <CompanyDetailWrapperStyled>
               안녕하세요 저희는 프리해요입니다. 반갑습니다. 회사 소개글 적는
               창입니다.
-            </CompanyDetailWrapper>
-          </UpperWrapper>
+            </CompanyDetailWrapperStyled>
+          </UpperWrapperStyled>
           <TagWrapperStyled style={{ margin: '24px 24px 24px 0' }}>
-            <TagStyled>#프론트엔드</TagStyled>
-            <TagStyled>#백엔드</TagStyled>
-            <TagStyled>#정시출근</TagStyled>
-            <TagStyled>#꼼꼼함</TagStyled>
+            {sampleTags.map((tag) => (
+              <Tag key={tag} name={tag} />
+            ))}
           </TagWrapperStyled>
-        </ResumeWrapper>
-      </ResumeCardStyled>
+        </CardWrapperStyled>
+      </CardStyled>
     </>
   );
 };
 
 export default CompanyDetail;
 
-const UpperWrapper = styled.div`
+const UpperWrapperStyled = styled.div`
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
 `;
-const CompanyDetailWrapper = styled.div`
+const CompanyDetailWrapperStyled = styled.p`
   width: 312px;
   height: auto;
   margin-top: 8px;

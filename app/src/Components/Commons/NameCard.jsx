@@ -1,32 +1,33 @@
 import styled from 'styled-components';
-import { Colors } from '../../Assets/ColorTheme';
-import { TagStyled, TagWrapperStyled } from './Tag';
+import { Colors } from '../../Assets/Theme';
+import { TagWrapperStyled } from './Tag';
+import Tag from './Tag';
 
 const NameCard = () => {
+  const sampleTags = ['#프론트엔드', '#백엔드', '#정시출근', '#꼼꼼함'];
   return (
     <>
-      <CardStyled>
-        <UpperWrapper>
-          <NameWrapper>김땡땡</NameWrapper>
-          <PhoneEmailWrapper>
-            <PhoneNumberWrapper>010 2222 2222</PhoneNumberWrapper>
-            <EmailWrapper>freehaeyo@freehaeyo.com</EmailWrapper>
-          </PhoneEmailWrapper>
-        </UpperWrapper>
+      <NameCardStyled>
+        <UpperWrapperStyled>
+          <NameWrapperStyled>김땡땡</NameWrapperStyled>
+          <InnerWrapperStyled>
+            <PhoneWrapperStyled>010 2222 2222</PhoneWrapperStyled>
+            <EmailWrapperStyled>freehaeyo@freehaeyo.com</EmailWrapperStyled>
+          </InnerWrapperStyled>
+        </UpperWrapperStyled>
         <TagWrapperStyled>
-          <TagStyled>#프론트엔드</TagStyled>
-          <TagStyled>#백엔드</TagStyled>
-          <TagStyled>#정시출근</TagStyled>
-          <TagStyled>#꼼꼼함</TagStyled>
+          {sampleTags.map((tag) => (
+            <Tag key={tag} name={tag} />
+          ))}
         </TagWrapperStyled>
-      </CardStyled>
+      </NameCardStyled>
     </>
   );
 };
 
 export default NameCard;
 
-export const CardStyled = styled.div`
+export const NameCardStyled = styled.div`
   position: absolute;
   width: 360px;
   height: 210px;
@@ -36,7 +37,7 @@ export const CardStyled = styled.div`
   background-color: ${Colors.Bgwhite};
 `;
 
-const UpperWrapper = styled.div`
+const UpperWrapperStyled = styled.div`
   display: flex;
   width: 158px;
   height: 70px;
@@ -48,14 +49,14 @@ const UpperWrapper = styled.div`
   margin: 24px 178px 65px 24px;
 `;
 
-const NameWrapper = styled.div`
+const NameWrapperStyled = styled.span`
   font-size: 16px;
   font-weight: 500;
   line-height: normal;
   color: ${Colors.mainPurple};
 `;
 
-const PhoneEmailWrapper = styled.div`
+const InnerWrapperStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -64,7 +65,7 @@ const PhoneEmailWrapper = styled.div`
   height: 38px;
   margin-top: 8px;
 `;
-const PhoneNumberWrapper = styled.div`
+const PhoneWrapperStyled = styled.span`
   font-size: 13px;
   font-style: normal;
   font-weight: 300;
@@ -72,7 +73,7 @@ const PhoneNumberWrapper = styled.div`
   color: ${Colors.Gray4};
 `;
 
-const EmailWrapper = styled.div`
+const EmailWrapperStyled = styled.div`
   font-size: 13px;
   font-style: normal;
   font-weight: 300;
