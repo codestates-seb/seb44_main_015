@@ -1,12 +1,7 @@
 import './App.css';
-import Footer from './Components/Commons/Layouts/Footer';
 
 function App() {
-  return (
-    <>
-      <Footer></Footer>
-    </>
-  );
+  return <></>;
 }
 
 export default App;
