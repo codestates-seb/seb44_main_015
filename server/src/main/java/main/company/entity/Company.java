@@ -1,4 +1,4 @@
 package main.company.entity;
 
-public class CcompanyEntity {
+public class Company {
 }

@@ -1,4 +1,4 @@
 package main.card.entity;
 
-public class CardEntity {
+public class Card {
 }

@@ -1,4 +1,4 @@
 package main.notice.entity;
 
-public class NoticeEntity {
+public class Notice {
 }
