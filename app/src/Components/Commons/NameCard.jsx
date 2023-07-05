@@ -3,21 +3,20 @@ import { Colors } from '../../Assets/Theme';
 import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
 
-const NameCard = () => {
-  const sampleTags = ['#프론트엔드', '#백엔드', '#정시출근', '#꼼꼼함'];
+const NameCard = ({ name, phone, email, stack }) => {
   return (
     <>
       <NameCardStyled>
         <UpperWrapperStyled>
-          <NameWrapperStyled>김땡땡</NameWrapperStyled>
+          <NameWrapperStyled name={name}>{name}</NameWrapperStyled>
           <InnerWrapperStyled>
-            <PhoneWrapperStyled>010 2222 2222</PhoneWrapperStyled>
-            <EmailWrapperStyled>freehaeyo@freehaeyo.com</EmailWrapperStyled>
+            <PhoneWrapperStyled phone={phone}>{phone}</PhoneWrapperStyled>
+            <EmailWrapperStyled email={email}>{email}</EmailWrapperStyled>
           </InnerWrapperStyled>
         </UpperWrapperStyled>
         <TagWrapperStyled>
-          {sampleTags.map((tag) => (
-            <Tag key={tag} name={tag} />
+          {stack.map((tag) => (
+            <Tag key={tag} content={tag} />
           ))}
         </TagWrapperStyled>
       </NameCardStyled>
@@ -50,10 +49,12 @@ const UpperWrapperStyled = styled.div`
 `;
 
 const NameWrapperStyled = styled.span`
+  color: ${Colors.mainPurple};
+  font-style: normal;
   font-size: 16px;
   font-weight: 500;
   line-height: normal;
-  color: ${Colors.mainPurple};
+  line-height: normal;
 `;
 
 const InnerWrapperStyled = styled.div`
@@ -66,17 +67,17 @@ const InnerWrapperStyled = styled.div`
   margin-top: 8px;
 `;
 const PhoneWrapperStyled = styled.span`
+  color: ${Colors.Gray4};
   font-size: 13px;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
-  color: ${Colors.Gray4};
 `;
 
 const EmailWrapperStyled = styled.div`
+  color: ${Colors.Gray4};
   font-size: 13px;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
-  color: ${Colors.Gray4};
 `;

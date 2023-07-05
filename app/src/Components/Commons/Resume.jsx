@@ -1,16 +1,22 @@
 import styled from 'styled-components';
 import { Colors } from '../../Assets/Theme';
 
-const Resume = () => {
+const Resume = ({ resume, com1, com2, com3 }) => {
   return (
     <div>
       <CardStyled>
         <CardWrapperStyled>
           <CardTitleStyled>이력</CardTitleStyled>
           <ResumeDetailWrapperStyled>
-            <ResumeDetailStyled>코드스테이츠 44기</ResumeDetailStyled>
-            <ResumeDetailStyled>프리해요 프론트엔드 개발</ResumeDetailStyled>
-            <ResumeDetailStyled>그만자고15나 백엔드 개발</ResumeDetailStyled>
+            {resume.map((oneresume) => (
+              <ResumeDetailStyled key={oneresume}>
+                {oneresume}
+              </ResumeDetailStyled>
+            ))}
+
+            <ResumeDetailStyled>{com1}</ResumeDetailStyled>
+            <ResumeDetailStyled>{com2}</ResumeDetailStyled>
+            <ResumeDetailStyled>{com3}</ResumeDetailStyled>
           </ResumeDetailWrapperStyled>
         </CardWrapperStyled>
       </CardStyled>
@@ -48,12 +54,12 @@ export const CardTitleStyled = styled.h3`
   color: ${Colors.Gray3};
 `;
 
-const ResumeDetailWrapperStyled = styled.ul`
+export const ResumeDetailWrapperStyled = styled.ul`
   width: 185px;
   padding-left: 13px;
 `;
 
-const ResumeDetailStyled = styled.li`
+export const ResumeDetailStyled = styled.li`
   padding-left: 5px;
   padding-bottom: 4px;
   text-align: left;
