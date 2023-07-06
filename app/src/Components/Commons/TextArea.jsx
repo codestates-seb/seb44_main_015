@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Colors } from '../../Assets/ColorTheme';
+import { Colors } from '../../Assets/Theme';
 
 function TextArea({
   title,
