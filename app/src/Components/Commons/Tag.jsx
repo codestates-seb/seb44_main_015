@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Colors } from '../../Assets/Theme';
 
-const Tag = ({ content }) => {
-  return <TagStyled key={content}>{content}</TagStyled>;
+const Tag = ({ content, className }) => {
+  return <TagStyled className={className} key={content}>{content}</TagStyled>;
 };
 
 export default Tag;
@@ -31,6 +31,24 @@ export const TagStyled = styled.li`
   border: 1px solid ${Colors.Gray3};
   border-radius: 16px;
   background-color: ${(props) => props.backgroundColor || `${Colors.Bgwhite}`};
+
+    &.mediumSelected{
+      padding:16px;
+      width: 192px;
+      border: 1px solid ${Colors.mainPurple};
+      font-size:16px;
+      font-weight:700;
+      box-sizing:border-box;
+    }
+
+    &.mediumUnSelected{
+      padding:16px;
+      width:192px;
+      border:1px solid ${Colors.Gray2};
+      font-size:16px;
+      color:${Colors.Gray3};
+      font-weight:400;
+    }
 `;
 
 //사용하실때 TagWrapperStyled도 같이 가져가셔야 합니다...!!
