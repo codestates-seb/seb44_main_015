@@ -13,6 +13,7 @@ export const Colors = {
 
 export const Messages = {
   default: '콘텐츠 준비중입니다.',
+  appliedBoardTitle: '지원 현황',
 
   cardInTitle: '명함 넣은 회사',
   cardInMessage: '아직 명함을 넣은 회사가 없어요!',
