@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Colors } from '../../Assets/Theme';
 
-const Tag = ({ name }) => {
-  return <TagStyled>{name}</TagStyled>;
+const Tag = ({ content }) => {
+  return <TagStyled key={content}>{content}</TagStyled>;
 };
 
 export default Tag;
@@ -24,6 +24,7 @@ export const TagStyled = styled.li`
   padding: 4px 8px;
   gap: 10px;
   color: ${Colors.mainPurple};
+  text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   font-size: 13px;
   font-style: normal;
   font-weight: 300;
@@ -37,7 +38,7 @@ export const TagStyled = styled.li`
 {
   /* <TagWrapperStyled>
 {sampleTags.map((tag) => (
-  <Tag key={tag} name={tag} />
+  <Tag key={tag} content={tag} />
 ))}
 </TagWrapperStyled> */
 }

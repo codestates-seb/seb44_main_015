@@ -8,6 +8,13 @@ const NoLineTag = ({ name, color, backgroundColor, fontSize, fontWeight }) => {
       backgroundColor={backgroundColor}
       fontSize={fontSize}
       fontWeight={fontWeight}
+      //보라태그 사용할경우 주석만 복사해서 사용하시면 됩니다.
+      //<NoLineTag
+      // color={Colors.mainPurple}
+      // backgroundColor={Colors.thirdPurple}
+      // fontSize="12px"
+      // fontWeight="400"
+      // />
     >
       {name}
     </NoLineTagStyled>
@@ -16,6 +23,7 @@ const NoLineTag = ({ name, color, backgroundColor, fontSize, fontWeight }) => {
 
 export default NoLineTag;
 
+//Tag사용해야할때 TagWrapperStyled로 감싸야하기때문에 이파일에도 아래 컴포넌트 두겠습니다. 추후삭제예정
 export const TagWrapperStyled = styled.ul`
   display: flex;
   flex-shrink: 0;
