@@ -38,7 +38,7 @@ export const CardWrapperStyled = styled.div`
   align-items: flex-start;
   width: 280px;
   height: auto;
-  margin: 24px 24px 24px 24px; //151px
+  margin: 24px 24px 24px 24px;
 `;
 
 export const CardTitleStyled = styled.h3`
@@ -52,14 +52,13 @@ export const CardTitleStyled = styled.h3`
 `;
 
 export const ResumeDetailWrapperStyled = styled.ul`
-  width: 185px; //185
-  padding-left: 13px; //13px
+  width: 185px;
+  padding-left: 13px;
 `;
 
 export const ResumeDetailStyled = styled.li`
-  width: 250px; //185
-  padding-left: 3px; //13px
-  //padding-left: 5px;
+  width: 250px;
+  padding-left: 3px;
   padding-bottom: 5px;
   text-align: left;
   color: ${Colors.Gray4};
@@ -67,6 +66,4 @@ export const ResumeDetailStyled = styled.li`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  //gap: 4px;
-  //background-color: pink;
 `;

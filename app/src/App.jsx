@@ -1,12 +1,7 @@
 import './App.css';
-import MyPageFreelancer from './Pages/MyPageFreelancer';
 
 function App() {
-  return (
-    <>
-      <MyPageFreelancer />
-    </>
-  );
+  return <></>;
 }
 
 export default App;

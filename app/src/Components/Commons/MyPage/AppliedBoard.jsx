@@ -26,7 +26,6 @@ const AppliedBoard = () => {
 export default AppliedBoard;
 
 export const BigCardStyled = styled.div`
-  position: relative;
   width: 676px;
   height: 184px;
   border: 1px solid ${Colors.Gray2};
@@ -45,20 +44,16 @@ const NameWrapperStyled = styled.h3`
   line-height: normal;
 `;
 
-const ListWrapperStyled = styled.div`
+const ListWrapperStyled = styled.ul`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 410px;
   height: 83px;
   margin: 35px 133px 31px 133px;
-  /* display: inline-flex;
-  align-items: flex-start;
-  gap: 72px; */
-  //background-color: pink;
 `;
 
-const BoxWrapperStyled = styled.div`
+const BoxWrapperStyled = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;

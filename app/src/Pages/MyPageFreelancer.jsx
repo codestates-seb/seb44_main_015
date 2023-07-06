@@ -10,46 +10,53 @@ import AppliedBox from '../Components/Commons/MyPage/AppliedBox';
 import AppliedBoard from '../Components/Commons/MyPage/AppliedBoard';
 
 const MyPageFreelancer = () => {
-  const [info, setInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
-    setInfo(FakeUserInfo[0]);
-    //console.log(info);
+    setUserInfo(FakeUserInfo[0]);
   }, []);
 
-  const { name, email, phone, stack, resume } = info;
+  const { name, email, phone, stack, resume } = userInfo;
 
   return (
-    <div>
-      <NameCard name={name} email={email} phone={phone} stack={stack} />
-      <Resume resume={resume} />
-      <ButtonWrapperStyled>
-        <OutlineButton width={'360px'} content={Messages.cardEditBtn} />
-      </ButtonWrapperStyled>
-      <BoxWrapperStyled>
+    <main>
+      <LeftSectionStyled>
+        <NameCard name={name} email={email} phone={phone} stack={stack} />
+        <Resume resume={resume} />
+        <ButtonWrapperStyled>
+          <OutlineButton width={'360px'} content={Messages.cardEditBtn} />
+        </ButtonWrapperStyled>
+      </LeftSectionStyled>
+      <RightSectionStyled>
         <AppliedBoard />
         <AppliedBox />
         <AppliedBox
           title={Messages.bookmarkedTitle}
           message={Messages.bookmarkedMessage}
         />
-      </BoxWrapperStyled>
-    </div>
+      </RightSectionStyled>
+    </main> //main태그 변경예정
   );
 };
 
 export default MyPageFreelancer;
 
-export const ButtonWrapperStyled = styled.div`
-  position: absolute;
-  margin: 537px 890px 716px 190px; //546px
+export const LeftSectionStyled = styled.section`
+  display: flex;
+  flex-flow: row wrap;
+  align-content: space-between;
 `;
 
-export const BoxWrapperStyled = styled.div`
+export const ButtonWrapperStyled = styled.div`
+  position: absolute;
+  margin: 537px 890px 716px 190px;
+`;
+
+export const RightSectionStyled = styled.section`
   display: flex;
   flex-flow: row wrap;
   align-content: space-between;
   width: 676px;
   height: 1054px;
-  margin: 144px 190px 120px 574px; //546px555px
+  margin: 144px 190px 120px 574px;
 `;

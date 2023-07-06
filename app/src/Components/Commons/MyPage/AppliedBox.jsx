@@ -48,7 +48,7 @@ export default AppliedBox;
 
 export const ButtonWrapperStyled = styled.div`
   position: absolute;
-  margin: 24px 158px 24px 134px; //546px
+  margin: 24px 158px 24px 134px;
 `;
 
 export const BigCardStyled = styled.div`
@@ -59,8 +59,6 @@ export const BigCardStyled = styled.div`
   border-radius: 16px;
   color: ${Colors.Gray4};
   background-color: ${Colors.Bgwhite};
-  //
-  //margin: 100px;
 `;
 
 const NameWrapperStyled = styled.h3`
