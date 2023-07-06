@@ -49,7 +49,7 @@ export const LeftSectionStyled = styled.section`
 
 export const ButtonWrapperStyled = styled.div`
   position: absolute;
-  margin: 537px 890px 716px 190px;
+  margin: 580px 890px 716px 190px; //537px 890px 716px 190px;freelancer페이지마진
 `;
 
 export const RightSectionStyled = styled.section`
@@ -57,6 +57,6 @@ export const RightSectionStyled = styled.section`
   flex-flow: row wrap;
   align-content: space-between;
   width: 676px;
-  height: 1054px;
+  height: ${(props) => props.height || '1054px'};
   margin: 144px 190px 120px 574px;
 `;

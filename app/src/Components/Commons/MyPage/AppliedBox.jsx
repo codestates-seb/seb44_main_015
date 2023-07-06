@@ -3,40 +3,43 @@ import styled from 'styled-components';
 import { Colors, Messages } from '../../../Assets/Theme';
 import OutlineButton from '../../Button/OutlineButton';
 //import axios from '../../../Api/Axios';
+import PlusCareerButton from './PlusCareerButton';
 
-const AppliedBox = ({ title, message, number = 0 }) => {
-  // const [info, setInfo] = useState({});
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const response = await axios.get('/1');
-  //     //console.log(response.data);
-  //     setInfo(response.data);
-  //   }
-  //   fetchData();
-  // }, []);
-
+const AppliedBox = ({
+  title,
+  message,
+  smallmessage,
+  number = 0,
+  height,
+  zeroheight,
+  content,
+}) => {
   return (
-    <BigCardStyled>
+    <BigCardStyled height={height}>
       <NameWrapperStyled>
         {title ? title : `${Messages.cardInTitle}`}
+        <PlusCareerButton />
         <NumberWrapperStyled>{number}</NumberWrapperStyled>
       </NameWrapperStyled>
 
       {number ? (
         <div>다른 컴포넌트</div>
       ) : (
-        <ZeroCardStyled>
+        <ZeroCardStyled zeroheight={zeroheight}>
           <InfoWrapperStyled>
             <InfoStyled>
               {message ? message : `${Messages.cardInMessage}`}
             </InfoStyled>
-            <InfoStyled style={{ fontWeight: '400' }}>
-              {Messages.careeringMessage}
+            <InfoStyled fontWeight={'400'}>
+              {smallmessage ? smallmessage : Messages.careeringMessage}
             </InfoStyled>
           </InfoWrapperStyled>
           <ButtonWrapperStyled>
-            <OutlineButton content={Messages.showCareerBtn} width={'360px'} />
+            {content ? (
+              <OutlineButton content={content} width={'360px'}>
+                {Messages.showCareerBtn}
+              </OutlineButton>
+            ) : null}
           </ButtonWrapperStyled>
         </ZeroCardStyled>
       )}
@@ -54,7 +57,7 @@ export const ButtonWrapperStyled = styled.div`
 export const BigCardStyled = styled.div`
   position: relative;
   width: 676px;
-  height: 419px;
+  height: ${(props) => props.height || '419px'};
   border: 1px solid ${Colors.Gray2};
   border-radius: 16px;
   color: ${Colors.Gray4};
@@ -83,7 +86,7 @@ const NumberWrapperStyled = styled.span`
 const ZeroCardStyled = styled.div`
   position: absolute;
   width: 628px;
-  height: 320px;
+  height: ${(props) => props.zeroheight || '320px'};
   flex-shrink: 0;
   margin: 0px 24px 32px 24px;
   border: 1px solid ${Colors.Gray2};
@@ -109,3 +112,14 @@ const InfoStyled = styled.span`
   font-weight: ${(props) => props.fontWeight || '700'};
   line-height: normal;
 `;
+
+// const [info, setInfo] = useState({});
+
+// useEffect(() => {
+//   async function fetchData() {
+//     const response = await axios.get('/1');
+//     //console.log(response.data);
+//     setInfo(response.data);
+//   }
+//   fetchData();
+// }, []);

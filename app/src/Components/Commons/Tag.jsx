@@ -9,6 +9,8 @@ export default Tag;
 
 export const TagWrapperStyled = styled.ul`
   display: flex;
+  flex-flow: row wrap;
+  align-content: space-between;
   flex-shrink: 0;
   width: 296px;
   height: 27px;

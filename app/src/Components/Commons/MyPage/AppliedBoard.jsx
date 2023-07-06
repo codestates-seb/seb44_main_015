@@ -34,7 +34,7 @@ export const BigCardStyled = styled.div`
   background-color: ${Colors.Bgwhite};
 `;
 
-const NameWrapperStyled = styled.h3`
+export const NameWrapperStyled = styled.h3`
   display: flex;
   margin: 24px 518px 24px 24px;
   color: ${(props) => props.backgroundColor || `${Colors.Gray4}`};
@@ -44,7 +44,7 @@ const NameWrapperStyled = styled.h3`
   line-height: normal;
 `;
 
-const ListWrapperStyled = styled.ul`
+export const ListWrapperStyled = styled.ul`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -53,13 +53,13 @@ const ListWrapperStyled = styled.ul`
   margin: 35px 133px 31px 133px;
 `;
 
-const BoxWrapperStyled = styled.li`
+export const BoxWrapperStyled = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const NumberStyled = styled.span`
+export const NumberStyled = styled.span`
   color: ${Colors.Gray4};
   font-size: 40px;
   font-style: normal;
@@ -67,7 +67,7 @@ const NumberStyled = styled.span`
   line-height: normal;
 `;
 
-const InfoStyled = styled.span`
+export const InfoStyled = styled.span`
   color: ${Colors.Gray4};
   text-align: center;
   font-size: 16px;
