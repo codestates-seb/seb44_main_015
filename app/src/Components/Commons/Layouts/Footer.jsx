@@ -1,5 +1,5 @@
-import { styled } from 'styled-components';
 import { Colors } from '../../../Assets/ColorTheme';
+import { styled } from 'styled-components';
 import Logo from '../../../Assets/Icons/Logo.png';
 import GithubLogo from '../../../Assets/Icons/GithubLogo.png';
 
@@ -32,7 +32,6 @@ const Footer = () => {
 export default Footer;
 
 const FooterContainerStyled = styled.footer`
-  box-sizing: border-box;
   position: fixed;
   bottom: 0;
   display: flex;
@@ -40,12 +39,12 @@ const FooterContainerStyled = styled.footer`
   height: 223px;
   padding: 49.15px 190px 49.15px 190px;
   border-top: 1px solid ${Colors.Gray2};
+  box-sizing: border-box;
   overflow-x: auto; // 스크롤 추가
 `;
 
 const InformationContainerStyled = styled.div`
   display: flex;
-  flex: 2; // 너비를 늘리 때, 어느정도의 변화를 원하는지 논의해야 할 듯.
   flex-direction: column;
   min-width: 127px;
   align-items: flex-start;
@@ -68,18 +67,16 @@ const EmailStyled = styled.p`
 `;
 
 const TeamIntroductionStyled = styled(EmailStyled)`
-  color: ${Colors.Gray2};
+  color: ${Colors.Gray3};
 `;
 
-const TermsContainerStyled = styled.div`
+const TermsContainerStyled = styled.ul`
   display: flex;
-  flex: 7; // 너비를 늘리 때, 어느정도의 변화를 원하는지 논의해야 할 듯.
   min-width: 600px;
   align-items: flex-start;
 `;
 
-const TermsStyled = styled.a`
-  // 나중에 링크를 추가할 수도 있을 것 같아서 a를 사용했습니다.
+const TermsStyled = styled.li`
   margin: 0 20px;
   color: ${Colors.Gray4};
   font-size: 12px;
