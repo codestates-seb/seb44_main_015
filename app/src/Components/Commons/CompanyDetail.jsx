@@ -7,7 +7,7 @@ import Tag from './Tag';
 const CompanyDetail = ({ detail, stack }) => {
   return (
     <>
-      <CardStyled>
+      <CardStyled marginTop={'166px'}>
         <CardWrapperStyled>
           <UpperWrapperStyled>
             <CardTitleStyled>회사 소개</CardTitleStyled>

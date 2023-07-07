@@ -6,6 +6,11 @@
   font-family: Noto Sans CJK KR;
 }
 
+main {
+  width: 1060px;
+  margin: 0 auto;
+}
+
 html,
 body,
 div,

@@ -9,6 +9,7 @@ import {
   ButtonWrapperStyled,
   LeftSectionStyled,
   RightSectionStyled,
+  MainContainerStyled,
 } from './MyPageFreelancer';
 import OutlineButton from '../Components/Button/OutlineButton';
 import AppliedBox from '../Components/Commons/MyPage/AppliedBox';
@@ -23,11 +24,11 @@ const MyPageCompany = () => {
 
   const { name, email, phone, stack, detail } = companyInfo;
   return (
-    <main>
+    <MainContainerStyled>
       <LeftSectionStyled>
         <CompanyCard name={name} phone={phone} email={email} />
         <CompanyDetail stack={stack} detail={detail} />
-        <ButtonWrapperStyled>
+        <ButtonWrapperStyled marginTop={'434px'}>
           <OutlineButton
             width={'360px'}
             content={Messages.companyCardEditBtn}
@@ -53,7 +54,7 @@ const MyPageCompany = () => {
           smallmessage={' '}
         />
       </RightSectionStyled>
-    </main>
+    </MainContainerStyled>
   );
 };
 
