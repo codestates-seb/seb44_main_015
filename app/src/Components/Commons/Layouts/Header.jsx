@@ -36,6 +36,7 @@ const HeaderContainerStyled = styled.header`
   padding: 14px 190px;
   border-bottom: 1px solid ${Colors.Gray2};
   box-sizing: border-box;
+  background-color: ${Colors.Bgwhite};
 `;
 
 const LogoStyled = styled.img`
