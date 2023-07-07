@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Colors } from '../../Assets/Theme';
 
-const Tag = ({ content, className }) => {
-  return <TagStyled className={className} key={content}>{content}</TagStyled>;
+const Tag = ({ children, ...props }) => {
+  return <TagStyled {...props} key={children}>{children}</TagStyled>;
 };
 
 export default Tag;
