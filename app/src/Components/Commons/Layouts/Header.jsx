@@ -7,8 +7,9 @@ import Profile from '../../../Assets/Icons/Profile.png';
 const Header = () => {
   return (
     <HeaderContainerStyled>
-      <LogoStyled src={Logo} alt="로고" />
-      <TilteStyled>프리해요</TilteStyled>
+      <h1>
+        <LogoStyled src={Logo} alt="로고" />
+      </h1>
       <NavContainerStyled>
         <NavStyled>채용</NavStyled>
         <NavStyled>개발진</NavStyled>
@@ -36,10 +37,6 @@ const HeaderContainerStyled = styled.header`
   border-bottom: 1px solid ${Colors.Gray2};
   box-sizing: border-box;
   background-color: ${Colors.Bgwhite};
-`;
-
-const TilteStyled = styled.h1`
-  display: none;
 `;
 
 const LogoStyled = styled.img`
