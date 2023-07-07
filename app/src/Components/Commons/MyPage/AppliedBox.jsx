@@ -18,7 +18,7 @@ const AppliedBox = ({
     <BigCardStyled height={height}>
       <NameWrapperStyled>
         {title ? title : `${Messages.cardInTitle}`}
-        <PlusCareerButton />
+        {title === `${Messages.openTitle}` ? <PlusCareerButton /> : null}
         <NumberWrapperStyled>{number}</NumberWrapperStyled>
       </NameWrapperStyled>
 

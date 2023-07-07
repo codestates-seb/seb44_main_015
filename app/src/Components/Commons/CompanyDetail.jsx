@@ -14,7 +14,7 @@ const CompanyDetail = ({ detail, stack }) => {
             <CompanyDetailWrapperStyled>{detail}</CompanyDetailWrapperStyled>
           </UpperWrapperStyled>
           <TagWrapperStyled style={{ margin: '24px 24px 24px 0' }}>
-            {stack && stack.map((tag) => <Tag key={tag} content={tag} />)}
+            {stack && stack.map((tag) => <Tag key={tag} children={tag} />)}
           </TagWrapperStyled>
         </CardWrapperStyled>
       </CardStyled>

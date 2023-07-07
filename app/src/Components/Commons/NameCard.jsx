@@ -15,7 +15,7 @@ const NameCard = ({ name, phone, email, stack }) => {
           </InnerWrapperStyled>
         </UpperWrapperStyled>
         <TagWrapperStyled>
-          {stack && stack.map((tag) => <Tag key={tag} content={tag} />)}
+          {stack && stack.map((tag) => <Tag key={tag} children={tag} />)}
         </TagWrapperStyled>
       </NameCardStyled>
     </>
