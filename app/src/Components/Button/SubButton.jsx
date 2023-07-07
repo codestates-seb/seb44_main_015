@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Colors } from '../../Assets/ColorTheme';
+import { Colors } from '../../Assets/Theme';
 
 function SubButton({content, width}){
 
@@ -23,4 +23,6 @@ const ButtonStyled = styled.button`
     border:none;
     cursor:pointer;
     transition:0.3s;
+    line-height:24px;
+    font-size:16px;
 `

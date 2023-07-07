@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Colors } from '../../Assets/ColorTheme';
+import { Colors } from '../../Assets/Theme';
 
 function TextArea({
   title,
@@ -59,6 +59,12 @@ const TextareaStyled = styled.textarea`
   color: ${Colors.Gray4};
   font-size: 16px;
   line-height: 24px;
+  resize:none;
+  font-weight:400;
+  font-family: 'Noto Sans KR', sans-serif;
+  &::placeholder {
+    color: ${Colors.Gray2};
+  }
 `;
 
 const ErrorStyled = styled.p`
