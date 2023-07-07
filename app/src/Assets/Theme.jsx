@@ -21,6 +21,8 @@ export const Messages = {
   bookmarkedTitle: '북마크한 회사',
   bookmarkedMessage: '북마크한 회사가 없어요!',
 
+  noOpenCareerTitle: '아직 열린 채용이 없어요!',
+
   selectedTitle: '채택된 명함',
   openTitle: '열린 채용',
   closedTitle: '지난 채용',

@@ -35,7 +35,7 @@ export const NameCardStyled = styled.div`
   background-color: ${Colors.Bgwhite};
 `;
 
-const UpperWrapperStyled = styled.div`
+export const UpperWrapperStyled = styled.div`
   display: flex;
   width: 158px;
   height: 70px;
@@ -47,7 +47,7 @@ const UpperWrapperStyled = styled.div`
   margin: 24px 178px 65px 24px;
 `;
 
-const NameWrapperStyled = styled.span`
+export const NameWrapperStyled = styled.span`
   color: ${Colors.mainPurple};
   font-style: normal;
   font-size: 16px;
@@ -56,7 +56,7 @@ const NameWrapperStyled = styled.span`
   line-height: normal;
 `;
 
-const InnerWrapperStyled = styled.div`
+export const InnerWrapperStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -65,7 +65,7 @@ const InnerWrapperStyled = styled.div`
   height: 38px;
   margin-top: 8px;
 `;
-const PhoneWrapperStyled = styled.span`
+export const PhoneWrapperStyled = styled.span`
   color: ${Colors.Gray4};
   font-size: 13px;
   font-style: normal;
@@ -73,7 +73,7 @@ const PhoneWrapperStyled = styled.span`
   line-height: normal;
 `;
 
-const EmailWrapperStyled = styled.div`
+export const EmailWrapperStyled = styled.div`
   color: ${Colors.Gray4};
   font-size: 13px;
   font-style: normal;
