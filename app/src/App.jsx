@@ -1,11 +1,6 @@
 import './App.css';
-import EmploymentCard from './Components/Commons/EmploymentCard';
 function App() {
-  return (
-    <>
-      <EmploymentCard></EmploymentCard>
-    </>
-  );
+  return <></>;
 }
 
 export default App;
