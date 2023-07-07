@@ -8,6 +8,7 @@ const Header = () => {
   return (
     <HeaderContainerStyled>
       <LogoStyled src={Logo} alt="로고" />
+      <TitleStyled>프리해요</TitleStyled>
       <NavContainerStyled>
         <NavStyled>채용</NavStyled>
         <NavStyled>개발진</NavStyled>
@@ -34,6 +35,10 @@ const HeaderContainerStyled = styled.header`
   padding: 14px 190px;
   border-bottom: 1px solid ${Colors.Gray2};
   box-sizing: border-box;
+`;
+
+const TitleStyled = styled.h1`
+  display: none;
 `;
 
 const LogoStyled = styled.img`
@@ -79,7 +84,7 @@ const SearchStyled = styled.img`
 const AuthContainerStyled = styled.div`
   display: flex;
 `;
-const LoginStyled = styled.div`
+const LoginStyled = styled.p`
   width: 37px;
   margin-left: 32px;
   color: ${Colors.Gray4};
@@ -99,7 +104,7 @@ const SignupStyled = styled(LoginStyled)`
   width: 50px;
   margin-left: 9px;
   padding-left: 9px;
-  border-left: 1px solid ${Colors.Gray4};
+  border-left: 1px solid ${Colors.Gray3};
 `;
 
 const ProfileStyled = styled.img`
