@@ -25,7 +25,8 @@ export const CardStyled = styled.div`
   position: absolute;
   width: 360px;
   height: auto;
-  margin: 310px 890px 788px 190px; //370pxtop
+  margin-top: ${(props) => props.marginTop || '230px'};
+  //margin: 310px 890px 788px 190px; //370pxtop
   color: ${Colors.Gray3};
   border: 1px solid ${Colors.Gray2};
   border-radius: 16px;

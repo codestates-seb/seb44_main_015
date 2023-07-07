@@ -28,7 +28,7 @@ export const NameCardStyled = styled.div`
   position: absolute;
   width: 360px;
   height: 210px;
-  margin: 144px 890px 964px 190px;
+  //margin: 144px 890px 964px 190px;
   border: 1px solid ${Colors.Gray2};
   border-radius: 16px;
   color: ${Colors.mainPurple};

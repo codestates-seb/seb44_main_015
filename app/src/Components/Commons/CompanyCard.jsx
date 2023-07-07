@@ -35,7 +35,7 @@ export const CompanyCardStyled = styled.div`
   position: absolute;
   width: 360px;
   height: 150px;
-  margin: 144px 890px 16px 190px; //788px
+  //margin: 144px 890px 16px 190px; //788px
   color: ${Colors.Gray3};
   border: 1px solid ${Colors.Gray2};
   border-radius: 16px;
