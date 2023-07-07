@@ -41,6 +41,7 @@ const FooterContainerStyled = styled.footer`
   border-top: 1px solid ${Colors.Gray2};
   box-sizing: border-box;
   overflow-x: auto; // 스크롤 추가
+  background-color: ${Colors.Bgwhite};
 `;
 
 const InformationContainerStyled = styled.div`
