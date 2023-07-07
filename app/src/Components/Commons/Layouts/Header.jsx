@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <HeaderContainerStyled>
       <h1>
-        <LogoStyled src={Logo} alt="로고" />
+        <LogoStyled src={Logo} alt="프리해요" />
       </h1>
       <NavContainerStyled>
         <NavStyled>채용</NavStyled>
