@@ -43,15 +43,15 @@ const EmploymentCard = () => {
 export default EmploymentCard;
 
 const EmploymentCardStyled = styled.div`
-  display: flex;
   position: absolute;
-  width: 248px;
-  height: 320px;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 248px;
+  height: 320px;
   padding: 24px;
-  border-radius: 16px;
   box-sizing: border-box;
+  border-radius: 16px;
   border: 1px solid ${Colors.Gray2};
   background-color: ${Colors.Bgwhite};
 `;
@@ -63,19 +63,19 @@ const UpperWrapperStyled = styled.div`
 `;
 
 const TitleStyled = styled.h1`
+  width: 195px;
+  height: 30px;
+  margin-top: 9px;
+  margin-bottom: 16px;
+  overflow: hidden; // 내용이 컨테이너를 넘어갈 경우 숨김
+  text-overflow: ellipsis; // 텍스트가 넘칠 경우 '...' 으로 표시
+  white-space: nowrap; // 텍스트가 길어져도 한 줄에 나타나도록 설정
   color: ${Colors.Gray4};
   font-family: Noto Sans CJK KR;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  width: 195px;
-  height: 30px;
-  overflow: hidden; // 내용이 컨테이너를 넘어갈 경우 숨김
-  text-overflow: ellipsis; // 텍스트가 넘칠 경우 '...' 으로 표시
-  white-space: nowrap; // 텍스트가 길어져도 한 줄에 나타나도록 설정
-  margin-top: 9px;
-  margin-bottom: 16px;
 `;
 const CompanyNameStyled = styled.h2`
   color: ${Colors.Gray4};
