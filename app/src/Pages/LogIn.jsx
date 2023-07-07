@@ -1,9 +1,11 @@
-import styled from 'styled-components';
-import { useState, useEffect } from 'react';
 import {Colors} from '../Assets/Theme';
 import Tag from '../Components/Commons/Tag';
 import TextArea from '../Components/Commons/TextArea';
 import MainButton from '../Components/Button/MainButton';
+
+import { useState, useEffect } from 'react';
+
+import styled from 'styled-components';
 
 import Logo from '../Assets/Icons/Logo.png';
 
