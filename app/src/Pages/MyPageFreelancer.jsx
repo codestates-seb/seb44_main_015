@@ -29,10 +29,11 @@ const MyPageFreelancer = () => {
       </LeftSectionStyled>
       <RightSectionStyled>
         <AppliedBoard />
-        <AppliedBox />
+        <AppliedBox content={Messages.showCareerBtn} />
         <AppliedBox
           title={Messages.bookmarkedTitle}
           message={Messages.bookmarkedMessage}
+          content={Messages.showCareerBtn}
         />
       </RightSectionStyled>
     </MainContainerStyled>
