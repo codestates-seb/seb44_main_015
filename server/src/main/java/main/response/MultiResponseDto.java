@@ -7,10 +7,11 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 @Getter
-public class MultiResponseDto {
+public class MultiResponseDto<T> {
     private PageInfo pageInfo;
+    private List<T> data;
 
-    public MultiResponseDto(List<QuestionDto.GETAllResponse> questionResponseDtos, Page page) {
+    public MultiResponseDto(List<T> data, Page page) {
         this.pageInfo = new PageInfo(page.getNumber() + 1,
                 page.getSize(), page.getTotalElements(), page.getTotalPages());
 
