@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import {
   NameCardStyled,
-  //UpperWrapperStyled,
   NameWrapperStyled,
   InnerWrapperStyled,
   PhoneWrapperStyled,
@@ -35,7 +34,6 @@ export const CompanyCardStyled = styled.div`
   position: absolute;
   width: 360px;
   height: 150px;
-  //margin: 144px 890px 16px 190px; //788px
   color: ${Colors.Gray3};
   border: 1px solid ${Colors.Gray2};
   border-radius: 16px;
@@ -48,7 +46,6 @@ export const UpperWrapperStyled = styled.div`
   height: 70px;
   flex-direction: column;
   align-items: flex-start;
-  //gap: 8px;
   flex-shrink: 0;
 
   margin: 18px 178px 65px 24px;

@@ -26,7 +26,6 @@ export const CardStyled = styled.div`
   width: 360px;
   height: auto;
   margin-top: ${(props) => props.marginTop || '230px'};
-  //margin: 310px 890px 788px 190px; //370pxtop
   color: ${Colors.Gray3};
   border: 1px solid ${Colors.Gray2};
   border-radius: 16px;
@@ -43,13 +42,11 @@ export const CardWrapperStyled = styled.div`
 `;
 
 export const CardTitleStyled = styled.h3`
-  //padding-bottom: 8px;
   color: ${Colors.Gray3};
   font-size: 16px;
   font-weight: 700;
   font-style: normal;
   line-height: normal;
-  //gap: 8px;
 `;
 
 export const ResumeDetailWrapperStyled = styled.ul`

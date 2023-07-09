@@ -35,7 +35,7 @@ const MyPageFreelancer = () => {
           message={Messages.bookmarkedMessage}
         />
       </RightSectionStyled>
-    </MainContainerStyled> //main태그 변경예정
+    </MainContainerStyled>
   );
 };
 
@@ -54,16 +54,12 @@ export const LeftSectionStyled = styled.section`
   flex-flow: row wrap;
   align-content: space-between;
   width: 360px;
-  //height: ${(props) => props.height || '450px'};
-  //flex-direction: column;
-  margin-top: 94px; //헤더와 간격
-  //margin-left: 0;
+  margin-top: 94px;
 `;
 
 export const ButtonWrapperStyled = styled.div`
   position: absolute;
   margin-top: ${(props) => props.marginTop || '390px'};
-  //margin: 580px 890px 716px 190px; //537px 890px 716px 190px;freelancer페이지마진
 `;
 
 export const RightSectionStyled = styled.section`
@@ -72,8 +68,7 @@ export const RightSectionStyled = styled.section`
   align-content: space-between;
   width: 676px;
   height: ${(props) => props.height || '1054px'};
-  //margin: 144px 190px 120px 574px;
   margin-left: 384px;
-  margin-bottom: 120px; //하단과 간격
+  margin-bottom: 120px;
   margin-top: 94px;
 `;
