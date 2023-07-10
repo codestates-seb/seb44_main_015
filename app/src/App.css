@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+
 #root {
   /* max-width: 1060px;
   margin: 0 auto; */
   /* padding: 2rem; */
   color: #333333;
   font-family: Noto Sans CJK KR;
+}
+
+main {
+  width: 1060px;
+  margin: 0 auto;
 }
 
 html,
@@ -132,4 +139,9 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+main {
+  width:1060px;
+  margin:0 auto;
 }

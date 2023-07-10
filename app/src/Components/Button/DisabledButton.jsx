@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Colors } from '../../Assets/ColorTheme';
+import { Colors } from '../../Assets/Theme';
 
 function DisabledButton({content, width, backgroundColor}){
 
@@ -21,4 +21,6 @@ const ButtonStyled = styled.button`
     border-radius: 16px;
     border:none;
     cursor:pointer;
+    line-height:24px;
+    font-size:16px;
 `

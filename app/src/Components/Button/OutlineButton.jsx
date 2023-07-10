@@ -19,4 +19,6 @@ const ButtonStyled = styled.button`
   border: 1px solid ${Colors.mainPurple};
   cursor: pointer;
   transition: 0.3s;
+  line-height:24px;
+  font-size:16px;
 `;

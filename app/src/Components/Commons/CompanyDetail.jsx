@@ -4,23 +4,17 @@ import { CardWrapperStyled, CardStyled, CardTitleStyled } from './Resume';
 import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
 
-const CompanyDetail = () => {
-  const sampleTags = ['#프론트엔드', '#백엔드', '#정시출근', '#꼼꼼함'];
+const CompanyDetail = ({ detail, stack }) => {
   return (
     <>
-      <CardStyled>
+      <CardStyled marginTop={'166px'}>
         <CardWrapperStyled>
           <UpperWrapperStyled>
             <CardTitleStyled>회사 소개</CardTitleStyled>
-            <CompanyDetailWrapperStyled>
-              안녕하세요 저희는 프리해요입니다. 반갑습니다. 회사 소개글 적는
-              창입니다.
-            </CompanyDetailWrapperStyled>
+            <CompanyDetailWrapperStyled>{detail}</CompanyDetailWrapperStyled>
           </UpperWrapperStyled>
           <TagWrapperStyled style={{ margin: '24px 24px 24px 0' }}>
-            {sampleTags.map((tag) => (
-              <Tag key={tag} name={tag} />
-            ))}
+            {stack && stack.map((tag) => <Tag key={tag} content={tag} />)}
           </TagWrapperStyled>
         </CardWrapperStyled>
       </CardStyled>
