@@ -1,9 +1,12 @@
 import { styled } from 'styled-components';
-import NoLineTag from './NoLineTag'; // 컴포넌트 자체를 가져오기.
-import { TagWrapperStyled } from './NoLineTag'; // 스타일드 컴포넌트를 가져오기.
+import NoLineTag from './NoLineTag';
 import { Colors } from '../../Assets/Theme';
+import FakeUserInfo from '../../Api/FakeUserInfo.json';
 
-const EmploymentCard = (duedate, title, name, region, stack) => {
+const EmploymentCard = () => {
+  const userInfo = FakeUserInfo[0];
+  const { duedate, title, name, region, stack } = userInfo.employment;
+
   return (
     <>
       <EmploymentCardStyled>
@@ -17,19 +20,19 @@ const EmploymentCard = (duedate, title, name, region, stack) => {
           ></NoLineTag>
           <TitleStyled title={title}>{title}</TitleStyled>
           <CompanyNameStyled name={name}>{name}</CompanyNameStyled>
-          {/* 사이간격벌리자 */}
           <RegionStyled region={region}>{region}</RegionStyled>
         </UpperWrapperStyled>
         <TagContainerStyled>
           {stack &&
-            stack.map((tag) => (
+            stack.map((tag, index) => (
               <NoLineTag
+                key={index}
                 name={tag}
                 color={Colors.Gray4}
                 backgroundColor={Colors.Gray1}
                 fontSize="12px"
                 fontWeight="300"
-              ></NoLineTag>
+              />
             ))}
         </TagContainerStyled>
       </EmploymentCardStyled>
@@ -62,7 +65,7 @@ const UpperWrapperStyled = styled.div`
 const TitleStyled = styled.h3`
   width: 195px;
   height: 30px;
-  margin-top: 9px;
+  margin-top: 13px;
   margin-bottom: 16px;
   overflow: hidden; // 내용이 컨테이너를 넘어갈 경우 숨김
   text-overflow: ellipsis; // 텍스트가 넘칠 경우 '...' 으로 표시
@@ -84,6 +87,7 @@ const CompanyNameStyled = styled.p`
 `;
 
 const RegionStyled = styled.address`
+  margin-top: 3px;
   color: ${Colors.Gray3};
   font-family: Noto Sans CJK KR;
   font-size: 13px;
