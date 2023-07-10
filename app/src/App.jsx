@@ -5,7 +5,7 @@ import MyPageFreelancer from './Pages/MyPageFreelancer';
 function App() {
   return (
     <>
-      <MyPageFreelancer />
+      <MyPageCompany />
     </>
   );
 }

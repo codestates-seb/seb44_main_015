@@ -52,15 +52,15 @@ export const MainContainerStyled = styled.main`
 
 export const LeftSectionStyled = styled.section`
   display: flex;
-  flex-flow: row wrap;
-  align-content: space-between;
+  flex-direction: column;
   width: 360px;
+  height: auto;
   margin-top: 94px;
 `;
 
 export const ButtonWrapperStyled = styled.div`
-  position: absolute;
-  margin-top: ${(props) => props.marginTop || '390px'};
+  position: relative;
+  margin-top: 16px;
 `;
 
 export const RightSectionStyled = styled.section`
@@ -69,7 +69,7 @@ export const RightSectionStyled = styled.section`
   align-content: space-between;
   width: 676px;
   height: ${(props) => props.height || '1054px'};
-  margin-left: 384px;
+  margin-left: 24px;
   margin-bottom: 120px;
   margin-top: 94px;
 `;

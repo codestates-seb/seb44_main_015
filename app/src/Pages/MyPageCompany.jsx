@@ -28,7 +28,7 @@ const MyPageCompany = () => {
       <LeftSectionStyled>
         <CompanyCard name={name} phone={phone} email={email} />
         <CompanyDetail stack={stack} detail={detail} />
-        <ButtonWrapperStyled marginTop={'434px'}>
+        <ButtonWrapperStyled>
           <OutlineButton
             width={'360px'}
             content={Messages.companyCardEditBtn}

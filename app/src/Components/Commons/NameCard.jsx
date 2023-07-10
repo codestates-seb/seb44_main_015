@@ -25,7 +25,7 @@ const NameCard = ({ name, phone, email, stack }) => {
 export default NameCard;
 
 export const NameCardStyled = styled.div`
-  position: absolute;
+  position: relative;
   width: 360px;
   height: 210px;
   border: 1px solid ${Colors.Gray2};

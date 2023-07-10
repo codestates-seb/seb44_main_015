@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import {
-  NameCardStyled,
   NameWrapperStyled,
   InnerWrapperStyled,
   PhoneWrapperStyled,
@@ -31,7 +30,7 @@ const CompanyCard = ({ name, phone, email }) => {
 export default CompanyCard;
 
 export const CompanyCardStyled = styled.div`
-  position: absolute;
+  position: relative;
   width: 360px;
   height: 150px;
   color: ${Colors.Gray3};
