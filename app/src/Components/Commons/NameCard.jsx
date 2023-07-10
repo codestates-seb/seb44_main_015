@@ -14,6 +14,7 @@ const NameCard = ({ name, phone, email, stack }) => {
             <EmailWrapperStyled $email={email}>{email}</EmailWrapperStyled>
           </InnerWrapperStyled>
         </UpperWrapperStyled>
+
         <TagWrapperStyled>
           {stack && stack.map((tag) => <Tag key={tag} children={tag} />)}
         </TagWrapperStyled>
@@ -42,8 +43,7 @@ export const UpperWrapperStyled = styled.div`
   align-items: flex-start;
   gap: 8px;
   flex-shrink: 0;
-
-  margin: 24px 178px 65px 24px;
+  margin: ${(props) => props.margin || '24px 178px 65px 24px'};
 `;
 
 export const NameWrapperStyled = styled.span`

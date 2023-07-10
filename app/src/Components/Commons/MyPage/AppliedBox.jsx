@@ -62,6 +62,7 @@ export const BigCardStyled = styled.div`
   border-radius: 16px;
   color: ${Colors.Gray4};
   background-color: ${Colors.Bgwhite};
+  margin-top: 16px;
 `;
 
 const NameWrapperStyled = styled.h3`

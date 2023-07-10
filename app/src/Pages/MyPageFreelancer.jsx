@@ -8,6 +8,8 @@ import OutlineButton from '../Components/Button/OutlineButton';
 import FakeUserInfo from '../Api/FakeUserInfo.json';
 import AppliedBox from '../Components/Commons/MyPage/AppliedBox';
 import AppliedBoard from '../Components/Commons/MyPage/AppliedBoard';
+import MiddleHeader from '../Components/Commons/MiddleHeader';
+import { TitleWrapperStyled } from './MyPageCompany';
 
 const MyPageFreelancer = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -19,24 +21,29 @@ const MyPageFreelancer = () => {
   const { name, email, phone, stack, resume } = userInfo;
 
   return (
-    <MainContainerStyled>
-      <LeftSectionStyled>
-        <NameCard name={name} email={email} phone={phone} stack={stack} />
-        <Resume resume={resume} />
-        <ButtonWrapperStyled>
-          <OutlineButton width={'360px'} content={Messages.cardEditBtn} />
-        </ButtonWrapperStyled>
-      </LeftSectionStyled>
-      <RightSectionStyled>
-        <AppliedBoard />
-        <AppliedBox content={Messages.showCareerBtn} />
-        <AppliedBox
-          title={Messages.bookmarkedTitle}
-          message={Messages.bookmarkedMessage}
-          content={Messages.showCareerBtn}
-        />
-      </RightSectionStyled>
-    </MainContainerStyled>
+    <>
+      <TitleWrapperStyled>
+        <MiddleHeader midtitle={Messages.myPage} />
+      </TitleWrapperStyled>
+      <MainContainerStyled>
+        <LeftSectionStyled>
+          <NameCard name={name} email={email} phone={phone} stack={stack} />
+          <Resume resume={resume} />
+          <ButtonWrapperStyled>
+            <OutlineButton width={'360px'} content={Messages.cardEditBtn} />
+          </ButtonWrapperStyled>
+        </LeftSectionStyled>
+        <RightSectionStyled>
+          <AppliedBoard />
+          <AppliedBox content={Messages.showCareerBtn} />
+          <AppliedBox
+            title={Messages.bookmarkedTitle}
+            message={Messages.bookmarkedMessage}
+            content={Messages.showCareerBtn}
+          />
+        </RightSectionStyled>
+      </MainContainerStyled>
+    </>
   );
 };
 
@@ -55,7 +62,7 @@ export const LeftSectionStyled = styled.section`
   flex-direction: column;
   width: 360px;
   height: auto;
-  margin-top: 94px;
+  margin-top: 24px;
 `;
 
 export const ButtonWrapperStyled = styled.div`
@@ -65,11 +72,9 @@ export const ButtonWrapperStyled = styled.div`
 
 export const RightSectionStyled = styled.section`
   display: flex;
-  flex-flow: row wrap;
-  align-content: space-between;
+  flex-direction: column;
   width: 676px;
-  height: ${(props) => props.height || '1054px'};
   margin-left: 24px;
   margin-bottom: 120px;
-  margin-top: 94px;
+  margin-top: 24px;
 `;
