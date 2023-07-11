@@ -102,8 +102,7 @@ const SignupStyled = styled(LoginStyled)`
   width: 50px;
   margin-left: 9px;
   padding-left: 9px;
-  border-left: 1px solid ${Colors.Gray3};
-
+  border-left: 1px solid ${Colors.Gray4};
 `;
 
 const ProfileStyled = styled.img`
