@@ -30,7 +30,6 @@ const CompanyCard = ({ name, phone, email }) => {
 export default CompanyCard;
 
 export const CompanyCardStyled = styled.div`
-  position: relative;
   width: 360px;
   height: 150px;
   color: ${Colors.Gray3};
@@ -46,6 +45,5 @@ export const UpperWrapperStyled = styled.div`
   flex-direction: column;
   align-items: flex-start;
   flex-shrink: 0;
-
   margin: 18px 178px 65px 24px;
 `;

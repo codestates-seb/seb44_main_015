@@ -55,7 +55,6 @@ export const ButtonWrapperStyled = styled.div`
 `;
 
 export const BigCardStyled = styled.div`
-  position: relative;
   width: 676px;
   height: ${(props) => props.height || '419px'};
   border: 1px solid ${Colors.Gray2};
