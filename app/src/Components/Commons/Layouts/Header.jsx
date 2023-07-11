@@ -33,6 +33,7 @@ const HeaderContainerStyled = styled.header`
   align-items: center;
   width: 100vw;
   height: 50px;
+  min-width: 1440px;
   padding: 14px 190px;
   border-bottom: 1px solid ${Colors.Gray2};
   box-sizing: border-box;

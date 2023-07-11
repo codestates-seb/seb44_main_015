@@ -1,9 +1,9 @@
 import './App.css';
-import EmploymentCard from './Components/Commons/EmploymentCard';
+import MainPage from './Pages/MainPage';
 function App() {
   return (
     <>
-      <EmploymentCard></EmploymentCard>
+      <MainPage></MainPage>
     </>
   );
 }

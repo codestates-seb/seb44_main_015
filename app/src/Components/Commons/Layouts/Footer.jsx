@@ -37,6 +37,7 @@ const FooterContainerStyled = styled.footer`
   display: flex;
   width: 100%;
   height: 223px;
+  min-width: 1440px;
   padding: 49.15px 190px;
   border-top: 1px solid ${Colors.Gray2};
   box-sizing: border-box;
