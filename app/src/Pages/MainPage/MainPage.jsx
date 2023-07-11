@@ -5,6 +5,7 @@ import Footer from '../../Components/Commons/Layouts/Footer';
 import Banner from './Banner';
 import SecoondBanner from './SecondBanner';
 import NewEmployment from './NewEmployment';
+import CardOfTheWeek from './CardOfTheWeek';
 
 const MainPage = () => {
   return (
@@ -14,6 +15,7 @@ const MainPage = () => {
         <Banner />
         <SecoondBanner />
         <NewEmployment />
+        <CardOfTheWeek />
         <Footer />
       </MainPageContainerStyled>
     </>

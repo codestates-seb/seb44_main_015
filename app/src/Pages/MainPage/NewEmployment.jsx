@@ -39,7 +39,7 @@ const TitleStyled = styled.h3`
   text-align: center;
   margin-bottom: 41px;
 `;
-const EmploymentCardContainerStyled = styled.div`
+const EmploymentCardContainerStyled = styled.ul`
   display: flex;
   flex-direction: row;
   gap: 22px;

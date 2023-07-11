@@ -87,6 +87,10 @@ const TermsStyled = styled.li`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  &:hover {
+    font-weight: 700;
+    cursor: pointer;
+  }
 `;
 
 const GithubLinkStyled = styled.a`
