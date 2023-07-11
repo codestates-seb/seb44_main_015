@@ -32,7 +32,7 @@ const Footer = () => {
 export default Footer;
 
 const FooterContainerStyled = styled.footer`
-  position: fixed;
+  position: relative;
   bottom: 0;
   display: flex;
   width: 100%;
@@ -41,7 +41,8 @@ const FooterContainerStyled = styled.footer`
   padding: 49.15px 190px;
   border-top: 1px solid ${Colors.Gray2};
   box-sizing: border-box;
-  overflow-x: auto; // 스크롤 추가
+  z-index: 1;
+  background-color: ${Colors.Bgwhite};
 `;
 
 const InformationContainerStyled = styled.div`

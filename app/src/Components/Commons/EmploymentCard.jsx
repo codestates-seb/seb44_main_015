@@ -1,11 +1,10 @@
 import { styled } from 'styled-components';
 import NoLineTag from './NoLineTag';
 import { Colors } from '../../Assets/Theme';
-import FakeUserInfo from '../../Api/FakeUserInfo.json';
+import FakeEmploymentInfo from '../../Api/FakeEmploymentInfo.json';
 
-const EmploymentCard = () => {
-  const userInfo = FakeUserInfo[0];
-  const { duedate, title, name, region, stack } = userInfo.employment;
+const EmploymentCard = ({ employmentInfo }) => {
+  const { duedate, title, name, region, stack } = employmentInfo;
 
   return (
     <>
@@ -43,7 +42,7 @@ const EmploymentCard = () => {
 export default EmploymentCard;
 
 const EmploymentCardStyled = styled.li`
-  position: absolute;
+  /* position: absolute; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
