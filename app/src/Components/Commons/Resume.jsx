@@ -7,12 +7,14 @@ const Resume = ({ resume }) => {
       <CardStyled>
         <CardWrapperStyled>
           <CardTitleStyled>이력</CardTitleStyled>
-          {resume &&
-            resume.map((oneresume) => (
-              <ResumeDetailStyled key={oneresume}>
-                {oneresume}
-              </ResumeDetailStyled>
-            ))}
+          <ResumeDetailWrapperStyled>
+            {resume &&
+              resume.map((oneresume) => (
+                <ResumeDetailStyled key={oneresume}>
+                  {oneresume}
+                </ResumeDetailStyled>
+              ))}
+          </ResumeDetailWrapperStyled>
         </CardWrapperStyled>
       </CardStyled>
     </div>
@@ -22,10 +24,10 @@ const Resume = ({ resume }) => {
 export default Resume;
 
 export const CardStyled = styled.div`
-  position: absolute;
+  position: relative;
   width: 360px;
   height: auto;
-  margin: 310px 890px 788px 190px; //370pxtop
+  margin-top: 16px;
   color: ${Colors.Gray3};
   border: 1px solid ${Colors.Gray2};
   border-radius: 16px;
@@ -42,28 +44,41 @@ export const CardWrapperStyled = styled.div`
 `;
 
 export const CardTitleStyled = styled.h3`
-  //padding-bottom: 8px;
   color: ${Colors.Gray3};
   font-size: 16px;
   font-weight: 700;
   font-style: normal;
   line-height: normal;
-  //gap: 8px;
 `;
 
 export const ResumeDetailWrapperStyled = styled.ul`
-  width: 185px;
-  padding-left: 13px;
+  width: 300px;
 `;
 
 export const ResumeDetailStyled = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 8px;
   width: 250px;
-  padding-left: 3px;
-  padding-bottom: 5px;
+  padding-left: 2px;
+  margin-bottom: 5px;
   text-align: left;
   color: ${Colors.Gray4};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  &:first-child {
+    margin-top: 8px;
+  }
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    margin-right: 8px;
+    margin-bottom: 2.5px;
+    background-color: #333;
+    border-radius: 100%;
+  }
 `;

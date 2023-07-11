@@ -104,6 +104,7 @@ const SignupStyled = styled(LoginStyled)`
   margin-left: 9px;
   padding-left: 9px;
   border-left: 1px solid ${Colors.Gray3};
+
 `;
 
 const ProfileStyled = styled.img`

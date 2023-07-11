@@ -9,10 +9,12 @@ import {
   ButtonWrapperStyled,
   LeftSectionStyled,
   RightSectionStyled,
+  MainContainerStyled,
 } from './MyPageFreelancer';
 import OutlineButton from '../Components/Button/OutlineButton';
 import AppliedBox from '../Components/Commons/MyPage/AppliedBox';
 import CareerBoard from '../Components/Commons/MyPage/CareerBoard';
+import MiddleHeader from '../Components/Commons/MiddleHeader';
 
 const MyPageCompany = () => {
   const [companyInfo, setCompanyInfo] = useState({});
@@ -23,38 +25,48 @@ const MyPageCompany = () => {
 
   const { name, email, phone, stack, detail } = companyInfo;
   return (
-    <main>
-      <LeftSectionStyled>
-        <CompanyCard name={name} phone={phone} email={email} />
-        <CompanyDetail stack={stack} detail={detail} />
-        <ButtonWrapperStyled>
-          <OutlineButton
-            width={'360px'}
-            content={Messages.companyCardEditBtn}
-          />
-        </ButtonWrapperStyled>
-      </LeftSectionStyled>
+    <>
+      <TitleWrapperStyled>
+        <MiddleHeader midtitle={Messages.myPage} />
+      </TitleWrapperStyled>
+      <MainContainerStyled>
+        <LeftSectionStyled>
+          <CompanyCard name={name} phone={phone} email={email} />
+          <CompanyDetail stack={stack} detail={detail} />
+          <ButtonWrapperStyled>
+            <OutlineButton
+              width={'360px'}
+              content={Messages.companyCardEditBtn}
+            />
+          </ButtonWrapperStyled>
+        </LeftSectionStyled>
 
-      <RightSectionStyled height={'902px'}>
-        <CareerBoard />
-        <AppliedBox
-          height={'343px'}
-          zeroheight={'244px'}
-          title={Messages.openTitle}
-          message={Messages.noOpenCareerTitle}
-          smallmessage={Messages.careerUpMessage}
-          content={Messages.plusCareerBtn}
-        />
-        <AppliedBox
-          height={'343px'}
-          zeroheight={'244px'}
-          title={Messages.closedTitle}
-          message={Messages.noCareerMessage}
-          smallmessage={' '}
-        />
-      </RightSectionStyled>
-    </main>
+        <RightSectionStyled height={'902px'}>
+          <CareerBoard />
+          <AppliedBox
+            height={'343px'}
+            zeroheight={'244px'}
+            title={Messages.openTitle}
+            message={Messages.noOpenCareerTitle}
+            smallmessage={Messages.careerUpMessage}
+            content={Messages.plusCareerBtn}
+          />
+          <AppliedBox
+            height={'343px'}
+            zeroheight={'244px'}
+            title={Messages.closedTitle}
+            message={Messages.noCareerMessage}
+            smallmessage={' '}
+          />
+        </RightSectionStyled>
+      </MainContainerStyled>
+    </>
   );
 };
 
 export default MyPageCompany;
+
+export const TitleWrapperStyled = styled.div`
+  display: flex;
+  margin-left: 190px;
+`;

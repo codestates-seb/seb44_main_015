@@ -37,4 +37,11 @@ export const Messages = {
   plusCareerBtn: '+ 채용 추가하기',
   plusResumeBtn: '+ 이력 추가하기',
   editBtn: '수정하기',
+  myPage: '마이페이지',
+  editMypageFree: '개인 정보 수정',
+  editMypageCom: '회사 정보 수정',
+  cardInList: '받은 명함',
+  introduce: '개발진 소개',
+  careerEnroll: '채용 올리기',
+  selectNameCard: '명함 채택하기',
 };

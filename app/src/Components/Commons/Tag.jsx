@@ -35,21 +35,24 @@ export const TagStyled = styled.li`
   background-color: ${(props) => props.backgroundColor || `${Colors.Bgwhite}`};
 
     &.mediumSelected{
-      padding:16px;
+      padding:16px 0 16px;
       width: 192px;
       border: 1px solid ${Colors.mainPurple};
+      background-color: ${Colors.thirdPurple};
       font-size:16px;
       font-weight:700;
       box-sizing:border-box;
+      cursor:pointer;
     }
 
     &.mediumUnSelected{
-      padding:16px;
+      padding:16px 0 16px;
       width:192px;
       border:1px solid ${Colors.Gray2};
       font-size:16px;
       color:${Colors.Gray3};
       font-weight:400;
+      cursor:pointer;
     }
 `;
 
