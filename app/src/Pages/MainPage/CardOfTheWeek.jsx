@@ -1,7 +1,7 @@
-import { styled } from 'styled-components';
+import NameCard from '../../Components/Commons/NameCard';
 import FakeUserInfo from '../../Api/FakeUserInfo.json';
 import { Colors } from '../../Assets/Theme';
-import NameCard from '../../Components/Commons/NameCard';
+import { styled } from 'styled-components';
 
 const CardOfTheWeek = () => {
   const userData = FakeUserInfo.slice(0, 4);
@@ -11,8 +11,8 @@ const CardOfTheWeek = () => {
       <CardOfTheWeekStyled>
         <TitleStyled>🏆 금주의 명함</TitleStyled>
         <CardContainerStyled>
-          {userDataData.map((UserInfo) => (
-            <NameCard key={employmentInfo.id} employmentInfo={employmentInfo} />
+          {userData.map((userInfo) => (
+            <NameCard key={userInfo.id} userInfo={userInfo} />
           ))}
         </CardContainerStyled>
       </CardOfTheWeekStyled>
@@ -25,10 +25,14 @@ export default CardOfTheWeek;
 const CardOfTheWeekStyled = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${Colors.Gray1};
+  align-items: center;
   width: 100%;
+  background-color: ${Colors.Gray1};
 `;
+
 const TitleStyled = styled.h3`
+  margin-bottom: 41px;
+  margin-top: 64px;
   color: var(--gray-4, #333);
   font-family: Noto Sans KR;
   font-size: 24px;
@@ -36,11 +40,13 @@ const TitleStyled = styled.h3`
   font-weight: 700;
   line-height: 35px;
   text-align: center;
-  margin-bottom: 41px;
-  margin-top: 64px;
 `;
-const CardContainerStyled = styled.div`
+
+const CardContainerStyled = styled.ul`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  width: 746px;
   gap: 22px;
+  margin-bottom: 90px;
 `;

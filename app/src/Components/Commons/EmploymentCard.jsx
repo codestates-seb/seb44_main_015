@@ -1,7 +1,7 @@
-import { styled } from 'styled-components';
 import NoLineTag from './NoLineTag';
-import { Colors } from '../../Assets/Theme';
 import FakeEmploymentInfo from '../../Api/FakeEmploymentInfo.json';
+import { Colors } from '../../Assets/Theme';
+import { styled } from 'styled-components';
 
 const EmploymentCard = ({ employmentInfo }) => {
   const { duedate, title, name, region, stack } = employmentInfo;
@@ -49,9 +49,9 @@ const EmploymentCardStyled = styled.li`
   width: 248px;
   height: 320px;
   padding: 24px;
-  box-sizing: border-box;
   border-radius: 16px;
   border: 1px solid ${Colors.Gray2};
+  box-sizing: border-box;
   background-color: ${Colors.Bgwhite};
 `;
 
@@ -76,6 +76,7 @@ const TitleStyled = styled.h3`
   font-weight: 700;
   line-height: normal;
 `;
+
 const CompanyNameStyled = styled.p`
   color: ${Colors.Gray4};
   font-family: Noto Sans CJK KR;

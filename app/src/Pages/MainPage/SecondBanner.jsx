@@ -15,14 +15,14 @@ const SecondBanner = () => {
 export default SecondBanner;
 
 const SecondBannerStyled = styled.div`
-  background-image: url(${SecondBannerImg});
   display: flex;
   flex-direction: column;
   width: 1060px;
   height: 106px;
   margin-top: 80px;
-  box-sizing: border-box;
   margin-bottom: 64px;
+  box-sizing: border-box;
+  background-image: url(${SecondBannerImg});
 `;
 
 const TitleStyled = styled.p`

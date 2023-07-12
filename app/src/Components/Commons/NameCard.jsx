@@ -3,7 +3,8 @@ import { Colors } from '../../Assets/Theme';
 import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
 
-const NameCard = ({ name, phone, email, stack }) => {
+const NameCard = ({ userInfo }) => {
+  const { name, phone, email, stack } = userInfo;
   return (
     <>
       <NameCardStyled>

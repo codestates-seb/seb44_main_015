@@ -15,7 +15,7 @@ const MainPage = () => {
         <Banner />
         <SecoondBanner />
         <NewEmployment />
-        {/* <CardOfTheWeek /> */}
+        <CardOfTheWeek />
         <Footer />
       </MainPageContainerStyled>
     </>

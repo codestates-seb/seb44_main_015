@@ -1,5 +1,5 @@
-import { styled } from 'styled-components';
 import { Colors } from '../../../Assets/Theme';
+import { styled } from 'styled-components';
 import Logo from '../../../Assets/Icons/Logo.png';
 import GithubLogo from '../../../Assets/Icons/GithubLogo.png';
 

@@ -1,5 +1,5 @@
-import { styled } from 'styled-components';
 import { Colors } from '../../../Assets/Theme';
+import { styled } from 'styled-components';
 import Logo from '../../../Assets/Icons/Logo.png';
 import Search from '../../../Assets/Icons/Search.png';
 import Profile from '../../../Assets/Icons/Profile.png';
@@ -50,7 +50,6 @@ const NavContainerStyled = styled.ul`
   display: flex;
   flex: 6; // 수정가능
   align-items: center;
-  //list-style-type: none;
   min-width: 500px;
   height: 50px;
   gap: 10px;
@@ -83,6 +82,7 @@ const SearchStyled = styled.img`
 const AuthContainerStyled = styled.div`
   display: flex;
 `;
+
 const LoginStyled = styled.p`
   width: 37px;
   margin-left: 32px;
@@ -104,7 +104,6 @@ const SignupStyled = styled(LoginStyled)`
   margin-left: 9px;
   padding-left: 9px;
   border-left: 1px solid ${Colors.Gray3};
-
 `;
 
 const ProfileStyled = styled.img`

@@ -1,6 +1,6 @@
+import { Colors } from '../../Assets/Theme';
 import { styled } from 'styled-components';
 import BannerImg from '../../Assets/Icons/BannerImg.png';
-import { Colors } from '../../Assets/Theme';
 
 const Banner = () => {
   return (
@@ -28,15 +28,17 @@ const BannerContainerStyled = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: ${Colors.secondPurple};
   width: 100%;
   height: 530px;
+  background-color: ${Colors.secondPurple};
 `;
+
 const LeftSideContainerStyled = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 600px;
 `;
+
 const BannerTextWrapperStyled = styled.div`
   max-width: 400px;
   height: 118px;
@@ -50,11 +52,12 @@ const BannerTextWrapperStyled = styled.div`
   margin-left: 190px;
   text-align: left;
 `;
+
 const TagContainerStyled = styled.ul`
   display: flex;
-  margin-left: 190px;
   gap: 10px;
   margin-top: 18px;
+  margin-left: 190px;
 `;
 
 const TagStyled = styled.li`
@@ -71,9 +74,9 @@ const TagStyled = styled.li`
 `;
 
 const BannerStyled = styled.img`
+  width: 543px;
+  height: 448px;
   margin-top: 96px;
   margin-right: 190px;
   margin-left: 105px;
-  width: 543px;
-  height: 448px;
 `;
