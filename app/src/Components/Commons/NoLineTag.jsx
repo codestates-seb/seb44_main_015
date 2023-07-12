@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import { Colors } from '../../Assets/Theme';
 
-const NoLineTag = ({ name, color, backgroundColor, fontSize, fontWeight }) => {
+const NoLineTag = ({ name, color, backgroundColor, fontSize, fontWeight, className}) => {
   return (
     <NoLineTagStyled
       color={color}
       backgroundColor={backgroundColor}
       fontSize={fontSize}
       fontWeight={fontWeight}
+      className={className}
       //보라태그 사용할경우 주석만 복사해서 사용하시면 됩니다.
       //<NoLineTag
       // color={Colors.mainPurple}
@@ -48,4 +49,13 @@ export const NoLineTagStyled = styled.li`
   border: 1px solid transparent;
   border-radius: 16px;
   background-color: ${(props) => props.backgroundColor || `${Colors.Gray1}`};
+
+  &.select{
+    color: ${Colors.mainPurple};
+    background-color: ${Colors.Bgwhite};
+    border: 1px solid ${Colors.mainPurple};
+  }
+  &.cursor{
+    cursor: pointer;
+  }
 `;
