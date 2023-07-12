@@ -1,5 +1,5 @@
-import { styled } from 'styled-components';
 import { Colors } from '../../../Assets/Theme';
+import { styled } from 'styled-components';
 import Logo from '../../../Assets/Icons/Logo.png';
 import Search from '../../../Assets/Icons/Search.png';
 import Profile from '../../../Assets/Icons/Profile.png';
@@ -33,6 +33,7 @@ const HeaderContainerStyled = styled.header`
   align-items: center;
   width: 100vw;
   height: 50px;
+  min-width: 1440px;
   padding: 14px 190px;
   border-bottom: 1px solid ${Colors.Gray2};
   box-sizing: border-box;
@@ -47,9 +48,8 @@ const LogoStyled = styled.img`
 
 const NavContainerStyled = styled.ul`
   display: flex;
-  flex: 6; // 수정가능
+  flex: 6;
   align-items: center;
-  //list-style-type: none;
   min-width: 500px;
   height: 50px;
   gap: 10px;
@@ -60,7 +60,6 @@ const NavContainerStyled = styled.ul`
 const NavStyled = styled.li`
   margin-right: 10px;
   color: ${Colors.Gray4};
-  font-family: Noto Sans CJK KR;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -82,11 +81,11 @@ const SearchStyled = styled.img`
 const AuthContainerStyled = styled.div`
   display: flex;
 `;
+
 const LoginStyled = styled.p`
   width: 37px;
   margin-left: 32px;
   color: ${Colors.Gray4};
-  font-family: Noto Sans CJK KR;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -103,7 +102,6 @@ const SignupStyled = styled(LoginStyled)`
   margin-left: 9px;
   padding-left: 9px;
   border-left: 1px solid ${Colors.Gray3};
-
 `;
 
 const ProfileStyled = styled.img`

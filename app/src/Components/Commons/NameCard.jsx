@@ -5,6 +5,7 @@ import Tag from './Tag';
 import SelectedButton from '../Button/SelectedButton';
 
 const NameCard = ({ name, phone, email, stack, className }) => {
+
   return (
     <>
       <NameCardStyled>

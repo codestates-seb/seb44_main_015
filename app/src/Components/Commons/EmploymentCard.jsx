@@ -1,39 +1,38 @@
-import { styled } from 'styled-components';
-import NoLineTag from './NoLineTag'; // 컴포넌트 자체를 가져오기.
-import { TagWrapperStyled } from './NoLineTag'; // 스타일드 컴포넌트를 가져오기.
+import NoLineTag from './NoLineTag';
+import FakeEmploymentInfo from '../../Api/FakeEmploymentInfo.json';
 import { Colors } from '../../Assets/Theme';
+import { styled } from 'styled-components';
 
-const EmploymentCard = () => {
+const EmploymentCard = ({ employmentInfo }) => {
+  const { duedate, title, name, region, stack } = employmentInfo;
+
   return (
     <>
       <EmploymentCardStyled>
         <UpperWrapperStyled>
           <NoLineTag
-            name="D-300"
+            name={duedate}
             color={Colors.mainPurple}
             backgroundColor={Colors.thirdPurple}
             fontSize="12px"
             fontWeight="400"
           ></NoLineTag>
-          <TitleStyled>프론트엔드 리액트 개발자 1명 모집</TitleStyled>
-          <CompanyNameStyled>(주)프리해요 코오퍼레이션</CompanyNameStyled>
-          <RegionStyled>서울</RegionStyled>
+          <TitleStyled title={title}>{title}</TitleStyled>
+          <CompanyNameStyled name={name}>{name}</CompanyNameStyled>
+          <RegionStyled region={region}>{region}</RegionStyled>
         </UpperWrapperStyled>
         <TagContainerStyled>
-          <NoLineTag
-            name="50인 이상"
-            color={Colors.Gray4}
-            backgroundColor={Colors.Gray1}
-            fontSize="12px"
-            fontWeight="300"
-          ></NoLineTag>
-          <NoLineTag
-            name="수평적 문화"
-            color={Colors.Gray4}
-            backgroundColor={Colors.Gray1}
-            fontSize="12px"
-            fontWeight="300"
-          ></NoLineTag>
+          {stack &&
+            stack.map((tag, index) => (
+              <NoLineTag
+                key={index}
+                name={tag}
+                color={Colors.Gray4}
+                backgroundColor={Colors.Gray1}
+                fontSize="12px"
+                fontWeight="300"
+              />
+            ))}
         </TagContainerStyled>
       </EmploymentCardStyled>
     </>
@@ -42,17 +41,17 @@ const EmploymentCard = () => {
 
 export default EmploymentCard;
 
-const EmploymentCardStyled = styled.div`
-  position: absolute;
+const EmploymentCardStyled = styled.li`
+  /* position: absolute; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 248px;
   height: 320px;
   padding: 24px;
-  box-sizing: border-box;
   border-radius: 16px;
   border: 1px solid ${Colors.Gray2};
+  box-sizing: border-box;
   background-color: ${Colors.Bgwhite};
 `;
 
@@ -62,10 +61,10 @@ const UpperWrapperStyled = styled.div`
   flex-direction: column;
 `;
 
-const TitleStyled = styled.h1`
+const TitleStyled = styled.h3`
   width: 195px;
   height: 30px;
-  margin-top: 9px;
+  margin-top: 13px;
   margin-bottom: 16px;
   overflow: hidden; // 내용이 컨테이너를 넘어갈 경우 숨김
   text-overflow: ellipsis; // 텍스트가 넘칠 경우 '...' 으로 표시
@@ -77,7 +76,8 @@ const TitleStyled = styled.h1`
   font-weight: 700;
   line-height: normal;
 `;
-const CompanyNameStyled = styled.h2`
+
+const CompanyNameStyled = styled.p`
   color: ${Colors.Gray4};
   font-family: Noto Sans CJK KR;
   font-size: 16px;
@@ -87,6 +87,7 @@ const CompanyNameStyled = styled.h2`
 `;
 
 const RegionStyled = styled.address`
+  margin-top: 3px;
   color: ${Colors.Gray3};
   font-family: Noto Sans CJK KR;
   font-size: 13px;
@@ -95,7 +96,7 @@ const RegionStyled = styled.address`
   line-height: normal;
 `;
 
-const TagContainerStyled = styled.div`
+const TagContainerStyled = styled.ul`
   display: flex;
   flex-wrap: wrap-reverse;
   gap: 8px 4px;
