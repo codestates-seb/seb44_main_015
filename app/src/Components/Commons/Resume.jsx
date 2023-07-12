@@ -67,7 +67,7 @@ export const ResumeDetailStyled = styled.li`
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: 23px;
   &:first-child {
     margin-top: 8px;
   }
@@ -78,7 +78,7 @@ export const ResumeDetailStyled = styled.li`
     height: 4px;
     margin-right: 8px;
     margin-bottom: 2.5px;
-    background-color: #333;
+    background-color: ${Colors.Gray4};
     border-radius: 100%;
   }
 `;

@@ -3,8 +3,9 @@ import { useState } from 'react';
 import selectedImg from '../../Assets/Icons/selected.png';
 import unselectedImg from '../../Assets/Icons/unselected.png';
 
-const SelectedButton = () => {
+const SelectedButton = ({ className }) => {
   const [changeImg, setChangeImg] = useState(unselectedImg);
+  //const [showSelectedBtn, setShowSelectedBtn] = useState(false);
   const ImageHandler = () => {
     if (changeImg === unselectedImg) {
       setChangeImg(selectedImg);
@@ -18,6 +19,7 @@ const SelectedButton = () => {
       alt="selectedButton"
       src={changeImg}
       onClick={ImageHandler}
+      className={className}
     ></ButtonStyled>
   );
 };
@@ -30,4 +32,7 @@ export const ButtonStyled = styled.img`
   flex-shrink: 0;
   cursor: pointer;
   margin: 24px 24px 87px 0;
+  &.hide {
+    display: none;
+  }
 `;
