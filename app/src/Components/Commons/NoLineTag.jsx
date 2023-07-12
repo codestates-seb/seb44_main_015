@@ -5,7 +5,7 @@ const NoLineTag = ({ name, color, backgroundColor, fontSize, fontWeight }) => {
   return (
     <NoLineTagStyled
       color={color}
-      backgroundColor={backgroundColor}
+      $backgroundColor={backgroundColor}
       fontSize={fontSize}
       fontWeight={fontWeight}
       //보라태그 사용할경우 주석만 복사해서 사용하시면 됩니다.
@@ -24,7 +24,7 @@ const NoLineTag = ({ name, color, backgroundColor, fontSize, fontWeight }) => {
 export default NoLineTag;
 
 //Tag사용해야할때 TagWrapperStyled로 감싸야하기때문에 이파일에도 아래 컴포넌트 두겠습니다. 추후삭제예정
-export const TagWrapperStyled = styled.ul`
+export const TagWrapperStyled = styled.div`
   display: flex;
   flex-shrink: 0;
   width: ${(props) => props.width || '296px'}; //184px -> 채용카드안
@@ -34,7 +34,7 @@ export const TagWrapperStyled = styled.ul`
   margin: ${(props) => props.margin || '65px 40px 0px 24px'};
 `;
 
-export const NoLineTagStyled = styled.li`
+export const NoLineTagStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

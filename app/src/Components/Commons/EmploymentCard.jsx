@@ -19,7 +19,7 @@ const EmploymentCard = ({ employmentInfo }) => {
           ></NoLineTag>
           <TitleStyled title={title}>{title}</TitleStyled>
           <CompanyNameStyled name={name}>{name}</CompanyNameStyled>
-          <RegionStyled region={region}>{region}</RegionStyled>
+          <RegionStyled $region={region}>{region}</RegionStyled>
         </UpperWrapperStyled>
         <TagContainerStyled>
           {stack &&

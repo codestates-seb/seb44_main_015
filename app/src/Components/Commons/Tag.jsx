@@ -2,7 +2,11 @@ import styled from 'styled-components';
 import { Colors } from '../../Assets/Theme';
 
 const Tag = ({ children, ...props }) => {
-  return <TagStyled {...props} key={children}>{children}</TagStyled>;
+  return (
+    <TagStyled {...props} key={children}>
+      {children}
+    </TagStyled>
+  );
 };
 
 export default Tag;
@@ -34,26 +38,26 @@ export const TagStyled = styled.li`
   border-radius: 16px;
   background-color: ${(props) => props.backgroundColor || `${Colors.Bgwhite}`};
 
-    &.mediumSelected{
-      padding:16px 0 16px;
-      width: 192px;
-      border: 1px solid ${Colors.mainPurple};
-      background-color: ${Colors.thirdPurple};
-      font-size:16px;
-      font-weight:700;
-      box-sizing:border-box;
-      cursor:pointer;
-    }
+  &.mediumSelected {
+    padding: 16px 0 16px;
+    width: 192px;
+    border: 1px solid ${Colors.mainPurple};
+    background-color: ${Colors.thirdPurple};
+    font-size: 16px;
+    font-weight: 700;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
 
-    &.mediumUnSelected{
-      padding:16px 0 16px;
-      width:192px;
-      border:1px solid ${Colors.Gray2};
-      font-size:16px;
-      color:${Colors.Gray3};
-      font-weight:400;
-      cursor:pointer;
-    }
+  &.mediumUnSelected {
+    padding: 16px 0 16px;
+    width: 192px;
+    border: 1px solid ${Colors.Gray2};
+    font-size: 16px;
+    color: ${Colors.Gray3};
+    font-weight: 400;
+    cursor: pointer;
+  }
 `;
 
 //사용하실때 TagWrapperStyled도 같이 가져가셔야 합니다...!!
