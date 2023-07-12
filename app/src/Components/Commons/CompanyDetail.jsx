@@ -39,5 +39,5 @@ const CompanyDetailWrapperStyled = styled.p`
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 24px;
 `;

@@ -9,7 +9,7 @@ import FakeUserInfo from '../Api/FakeUserInfo.json';
 import AppliedBox from '../Components/Commons/MyPage/AppliedBox';
 import AppliedBoard from '../Components/Commons/MyPage/AppliedBoard';
 import MiddleHeader from '../Components/Commons/MiddleHeader';
-import { TitleWrapperStyled } from './MyPageCompany';
+import { BodyBackgroundStyled } from './LogIn';
 
 const MyPageFreelancer = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -21,29 +21,37 @@ const MyPageFreelancer = () => {
   const { name, email, phone, stack, resume } = userInfo;
 
   return (
-    <>
-      <TitleWrapperStyled>
-        <MiddleHeader midtitle={Messages.myPage} />
-      </TitleWrapperStyled>
+    <BodyBackgroundStyled>
       <MainContainerStyled>
-        <LeftSectionStyled>
-          <NameCard name={name} email={email} phone={phone} stack={stack} />
-          <Resume resume={resume} />
-          <ButtonWrapperStyled>
-            <OutlineButton width={'360px'} content={Messages.cardEditBtn} />
-          </ButtonWrapperStyled>
-        </LeftSectionStyled>
-        <RightSectionStyled>
-          <AppliedBoard />
-          <AppliedBox content={Messages.showCareerBtn} />
-          <AppliedBox
-            title={Messages.bookmarkedTitle}
-            message={Messages.bookmarkedMessage}
-            content={Messages.showCareerBtn}
-          />
-        </RightSectionStyled>
+        <TotalWrapperStyled>
+          <TitleWrapperStyled>
+            <MiddleHeader midtitle={Messages.myPage} />
+          </TitleWrapperStyled>
+          <LeftSectionStyled>
+            <NameCard
+              name={name}
+              email={email}
+              phone={phone}
+              stack={stack}
+              className={'hide'}
+            />
+            <Resume resume={resume} />
+            <ButtonWrapperStyled>
+              <OutlineButton width={'360px'} content={Messages.cardEditBtn} />
+            </ButtonWrapperStyled>
+          </LeftSectionStyled>
+          <RightSectionStyled>
+            <AppliedBoard />
+            <AppliedBox content={Messages.showCareerBtn} />
+            <AppliedBox
+              title={Messages.bookmarkedTitle}
+              message={Messages.bookmarkedMessage}
+              content={Messages.showCareerBtn}
+            />
+          </RightSectionStyled>
+        </TotalWrapperStyled>
       </MainContainerStyled>
-    </>
+    </BodyBackgroundStyled>
   );
 };
 
@@ -77,4 +85,18 @@ export const RightSectionStyled = styled.section`
   margin-left: 24px;
   margin-bottom: 120px;
   margin-top: 24px;
+`;
+
+export const TitleWrapperStyled = styled.div`
+  display: flex;
+  width: 1060px;
+`;
+
+export const TotalWrapperStyled = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: 40px auto 132px;
+  width: 1060px;
+  height: 100%;
 `;
