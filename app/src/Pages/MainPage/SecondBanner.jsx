@@ -1,3 +1,4 @@
+import { Colors } from '../../Assets/Theme';
 import { styled } from 'styled-components';
 import SecondBannerImg from '../../Assets/Icons/SecondBannerImg.png';
 
@@ -14,7 +15,7 @@ const SecondBanner = () => {
 
 export default SecondBanner;
 
-const SecondBannerStyled = styled.div`
+const SecondBannerStyled = styled.section`
   display: flex;
   flex-direction: column;
   width: 1060px;
@@ -28,8 +29,7 @@ const SecondBannerStyled = styled.div`
 const TitleStyled = styled.p`
   margin-top: 23px;
   margin-left: 24px;
-  color: var(--gray-4, #333);
-  font-family: Noto Sans KR;
+  color: ${Colors.Gray4};
   font-size: 24px;
   font-style: normal;
   font-weight: 700;

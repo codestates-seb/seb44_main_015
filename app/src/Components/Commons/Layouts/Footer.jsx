@@ -62,7 +62,6 @@ const EmailStyled = styled.p`
   margin: 8px 0 0 0;
   text-align: left;
   font-size: 12px;
-  font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -83,7 +82,6 @@ const TermsStyled = styled.li`
   margin: 0 20px;
   color: ${Colors.Gray4};
   font-size: 12px;
-  font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -105,7 +103,6 @@ const GithubLinkStyled = styled.a`
   background: ${Colors.secondPurple};
   color: #000;
   font-size: 12px;
-  font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: 400;
   line-height: normal;

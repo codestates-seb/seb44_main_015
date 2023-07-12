@@ -48,7 +48,7 @@ const LogoStyled = styled.img`
 
 const NavContainerStyled = styled.ul`
   display: flex;
-  flex: 6; // 수정가능
+  flex: 6;
   align-items: center;
   min-width: 500px;
   height: 50px;
@@ -60,7 +60,6 @@ const NavContainerStyled = styled.ul`
 const NavStyled = styled.li`
   margin-right: 10px;
   color: ${Colors.Gray4};
-  font-family: Noto Sans CJK KR;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -87,7 +86,6 @@ const LoginStyled = styled.p`
   width: 37px;
   margin-left: 32px;
   color: ${Colors.Gray4};
-  font-family: Noto Sans CJK KR;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

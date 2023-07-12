@@ -1,5 +1,6 @@
 import EmploymentCard from '../../Components/Commons/EmploymentCard';
 import FakeEmploymentInfo from '../../Api/FakeEmploymentInfo.json';
+import { Colors } from '../../Assets/Theme';
 import { styled } from 'styled-components';
 
 const NewEmployment = () => {
@@ -24,7 +25,7 @@ const NewEmployment = () => {
 
 export default NewEmployment;
 
-const NewEmploymentContainerStyled = styled.div`
+const NewEmploymentContainerStyled = styled.section`
   display: flex;
   flex-direction: column;
   margin-bottom: 80px;
@@ -32,8 +33,7 @@ const NewEmploymentContainerStyled = styled.div`
 
 const TitleStyled = styled.h3`
   margin-bottom: 41px;
-  color: var(--gray-4, #333);
-  font-family: Noto Sans KR;
+  color: ${Colors.Gray4};
   font-size: 24px;
   font-style: normal;
   font-weight: 700;

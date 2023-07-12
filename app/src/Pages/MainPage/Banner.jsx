@@ -24,7 +24,7 @@ const Banner = () => {
 
 export default Banner;
 
-const BannerContainerStyled = styled.div`
+const BannerContainerStyled = styled.section`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -42,8 +42,7 @@ const LeftSideContainerStyled = styled.div`
 const BannerTextWrapperStyled = styled.div`
   max-width: 400px;
   height: 118px;
-  color: #fff;
-  font-family: Noto Sans CJK KR;
+  color: ${Colors.Bgwhite};
   font-size: 40px;
   font-style: normal;
   font-weight: 700;
@@ -65,8 +64,7 @@ const TagStyled = styled.li`
   padding: 8px 12px;
   border-radius: 100px;
   background: rgba(255, 255, 255, 0.7);
-  color: var(--main, #7000ff);
-  font-family: Noto Sans CJK KR;
+  color: ${Colors.mainPurple};
   font-size: 15px;
   font-style: normal;
   font-weight: 700;
