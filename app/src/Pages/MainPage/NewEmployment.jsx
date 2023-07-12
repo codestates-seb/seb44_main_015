@@ -41,7 +41,7 @@ const TitleStyled = styled.h3`
   text-align: center;
 `;
 
-const EmploymentCardContainerStyled = styled.ul`
+export const EmploymentCardContainerStyled = styled.ul`
   display: flex;
   flex-direction: row;
   gap: 22px;

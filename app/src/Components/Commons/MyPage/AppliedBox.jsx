@@ -4,16 +4,21 @@ import { Colors, Messages } from '../../../Assets/Theme';
 import OutlineButton from '../../Button/OutlineButton';
 //import axios from '../../../Api/Axios';
 import PlusCareerButton from './PlusCareerButton';
+import EmploymentCard from '../EmploymentCard';
+import FakeEmploymentInfo from '../../../Api/FakeEmploymentInfo.json';
+import { EmploymentCardContainerStyled } from '../../../Pages/MainPage/NewEmployment';
 
 const AppliedBox = ({
   title,
   message,
   smallmessage,
-  number = 0,
+  number,
   height,
   zeroheight,
   content,
 }) => {
+  const employmentData = FakeEmploymentInfo.slice(0, 4);
+
   return (
     <BigCardStyled height={height}>
       <NameWrapperStyled>
@@ -23,7 +28,16 @@ const AppliedBox = ({
       </NameWrapperStyled>
 
       {number ? (
-        <div>다른 컴포넌트</div>
+        <ScrollStyled>
+          <EmploymentCardContainerStyled>
+            {employmentData.map((employmentInfo) => (
+              <EmploymentCard
+                key={employmentInfo.id}
+                employmentInfo={employmentInfo}
+              />
+            ))}
+          </EmploymentCardContainerStyled>
+        </ScrollStyled>
       ) : (
         <ZeroCardStyled zeroheight={zeroheight}>
           <InfoWrapperStyled>
@@ -123,3 +137,8 @@ const InfoStyled = styled.span`
 //   }
 //   fetchData();
 // }, []);
+
+const ScrollStyled = styled.div`
+  overflow: scroll;
+  margin: 0 24px;
+`;
