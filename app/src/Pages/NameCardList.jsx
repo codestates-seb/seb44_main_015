@@ -27,14 +27,16 @@ const NameCardList = () => {
           <CardListWrapperStyled>
             {userListInfo &&
               userListInfo.map((onecard, idx) => (
-                <NameCard
-                  key={idx}
-                  name={onecard.name}
-                  email={onecard.email}
-                  phone={onecard.phone}
-                  stack={onecard.stack}
-                  className={null}
-                ></NameCard>
+                <li>
+                  <NameCard
+                    key={idx}
+                    name={onecard.name}
+                    email={onecard.email}
+                    phone={onecard.phone}
+                    stack={onecard.stack}
+                    className={null}
+                  ></NameCard>
+                </li>
               ))}
           </CardListWrapperStyled>
         </TotalWrapperStyled>
@@ -45,7 +47,7 @@ const NameCardList = () => {
 
 export default NameCardList;
 
-export const CardListWrapperStyled = styled.div`
+export const CardListWrapperStyled = styled.ul`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;

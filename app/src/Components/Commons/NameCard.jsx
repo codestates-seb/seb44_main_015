@@ -5,7 +5,6 @@ import Tag from './Tag';
 import SelectedButton from '../Button/SelectedButton';
 
 const NameCard = ({ name, phone, email, stack, className }) => {
-
   return (
     <>
       <NameCardStyled>
@@ -30,7 +29,7 @@ const NameCard = ({ name, phone, email, stack, className }) => {
 
 export default NameCard;
 
-export const NameCardStyled = styled.ul`
+export const NameCardStyled = styled.div`
   width: 360px;
   height: 210px;
   border: 1px solid ${Colors.Gray2};
@@ -39,7 +38,7 @@ export const NameCardStyled = styled.ul`
   background-color: ${Colors.Bgwhite};
 `;
 
-export const UpperWrapperStyled = styled.li`
+export const UpperWrapperStyled = styled.div`
   display: flex;
   width: 158px;
   height: 70px;
