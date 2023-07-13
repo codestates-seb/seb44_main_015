@@ -3,6 +3,8 @@ package main.user.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import main.card.entity.Card;
+import main.notice.entity.Notice;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -74,6 +76,29 @@ public class UserDto {
         @NotBlank
         private String name;
 
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class ProfileResponse{
+        private long userId;
+
+        @Email
+        @NotBlank
+        private String email;
+
+        @NotBlank
+        private String phone;
+
+        @NotBlank
+        private String name;
+
+        private List<Tag> tags;
+
+        private Card card;
+
+        private List<Notice> notices;
     }
 
 }
