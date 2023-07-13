@@ -4,7 +4,10 @@ import lombok.Getter;
 
 public enum ExceptionCode {
     USER_NOT_FOUND(404, "User email not found"),
-    USER_EXISTS(409, "User email exists");
+    NOTICE_NOT_FOUND(404, "Notice not found"),
+    CARD_NOT_FOUND(404,"Card not found"),
+    USER_EXISTS(409, "User email exists"),
+    CARD_CHECK_EXISTS(409, "Card check exists");
 
 
 
