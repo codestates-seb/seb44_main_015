@@ -42,8 +42,9 @@ const MyPageFreelancer = () => {
           </LeftSectionStyled>
           <RightSectionStyled>
             <AppliedBoard />
-            <AppliedBox content={Messages.showCareerBtn} />
+            <AppliedBox number={5} content={Messages.showCareerBtn} />
             <AppliedBox
+              number={5}
               title={Messages.bookmarkedTitle}
               message={Messages.bookmarkedMessage}
               content={Messages.showCareerBtn}

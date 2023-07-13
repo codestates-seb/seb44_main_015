@@ -4,8 +4,10 @@ import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
 import SelectedButton from '../Button/SelectedButton';
 
+
 const NameCard = ({ userInfo, className }) => {
   const { name, phone, email, stack } = userInfo;
+
 
   return (
     <>

@@ -105,10 +105,10 @@ const LogInWrapperStyled = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 40px auto 132px;
-  padding: 80px 60px 80px;
   width: 520px;
   height: 100%;
+  margin: 40px auto 132px;
+  padding: 80px 60px 80px;
   text-align: left;
   background-color: ${Colors.Bgwhite};
   border: 1px solid ${Colors.Gray2};
