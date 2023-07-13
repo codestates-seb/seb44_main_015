@@ -4,10 +4,8 @@ import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
 import SelectedButton from '../Button/SelectedButton';
 
-
 const NameCard = ({ userInfo, className }) => {
   const { name, phone, email, stack } = userInfo;
-
 
   return (
     <>
@@ -23,7 +21,7 @@ const NameCard = ({ userInfo, className }) => {
           <SelectedButton className={className} />
         </FormerWrapperStyled>
 
-        <TagWrapperStyled $margin={'0 40px 0px 24px'}>
+        <TagWrapperStyled margin={'0 40px 0px 24px'}>
           {stack && stack.map((tag) => <Tag key={tag} children={tag} />)}
         </TagWrapperStyled>
       </NameCardStyled>

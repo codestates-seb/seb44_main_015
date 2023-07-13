@@ -1,6 +1,5 @@
 import NoLineTag from './NoLineTag';
-import FakeEmploymentInfo from '../../Api/FakeEmploymentInfo.json';
-import { Colors } from '../../Assets/Theme';
+import { Colors, Messages } from '../../Assets/Theme';
 import { styled } from 'styled-components';
 
 const EmploymentCard = ({ employmentInfo }) => {
@@ -10,13 +9,21 @@ const EmploymentCard = ({ employmentInfo }) => {
     <>
       <EmploymentCardStyled>
         <UpperWrapperStyled>
-          <NoLineTag
-            name={duedate}
-            color={Colors.mainPurple}
-            backgroundColor={Colors.thirdPurple}
-            fontSize="12px"
-            fontWeight="400"
-          ></NoLineTag>
+          {duedate === `${Messages.closedTitle}` ? (
+            <NoLineTag
+              name={Messages.closedTitle}
+              fontSize="12px"
+              fontWeight="400"
+            />
+          ) : (
+            <NoLineTag
+              name={duedate}
+              color={Colors.mainPurple}
+              backgroundColor={Colors.thirdPurple}
+              fontSize="12px"
+              fontWeight="400"
+            ></NoLineTag>
+          )}
           <TitleStyled title={title}>{title}</TitleStyled>
           <CompanyNameStyled name={name}>{name}</CompanyNameStyled>
           <RegionStyled $region={region}>{region}</RegionStyled>
@@ -41,7 +48,7 @@ const EmploymentCard = ({ employmentInfo }) => {
 
 export default EmploymentCard;
 
-const EmploymentCardStyled = styled.li`
+export const EmploymentCardStyled = styled.li`
   /* position: absolute; */
   display: flex;
   flex-direction: column;
@@ -55,13 +62,13 @@ const EmploymentCardStyled = styled.li`
   background-color: ${Colors.Bgwhite};
 `;
 
-const UpperWrapperStyled = styled.div`
+export const UpperWrapperStyled = styled.div`
   display: flex;
   align-items: flex-start;
   flex-direction: column;
 `;
 
-const TitleStyled = styled.h3`
+export const TitleStyled = styled.h3`
   width: 195px;
   height: 30px;
   margin-top: 13px;
@@ -77,7 +84,7 @@ const TitleStyled = styled.h3`
   line-height: normal;
 `;
 
-const CompanyNameStyled = styled.p`
+export const CompanyNameStyled = styled.p`
   color: ${Colors.Gray4};
   font-family: Noto Sans CJK KR;
   font-size: 16px;
@@ -86,7 +93,7 @@ const CompanyNameStyled = styled.p`
   line-height: normal;
 `;
 
-const RegionStyled = styled.address`
+export const RegionStyled = styled.address`
   margin-top: 3px;
   color: ${Colors.Gray3};
   font-family: Noto Sans CJK KR;

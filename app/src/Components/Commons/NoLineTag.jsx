@@ -5,7 +5,7 @@ const NoLineTag = ({ name, color, backgroundColor, fontSize, fontWeight }) => {
   return (
     <NoLineTagStyled
       color={color}
-      $backgroundColor={backgroundColor}
+      backgroundColor={backgroundColor}
       fontSize={fontSize}
       fontWeight={fontWeight}
       //보라태그 사용할경우 주석만 복사해서 사용하시면 됩니다.
