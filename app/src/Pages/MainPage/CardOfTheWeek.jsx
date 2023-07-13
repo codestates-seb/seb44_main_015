@@ -12,7 +12,7 @@ const CardOfTheWeek = () => {
         <TitleStyled>🏆 금주의 명함</TitleStyled>
         <CardContainerStyled>
           {userData.map((userInfo) => (
-            <NameCard key={userInfo.id} userInfo={userInfo} />
+            <NameCard key={userInfo.id} userInfo={userInfo} className="hide" />
           ))}
         </CardContainerStyled>
       </CardOfTheWeekStyled>
