@@ -11,6 +11,7 @@ import main.notice.entity.Notice;
 import main.notice.mapper.NoticeMapper;
 import main.notice.service.NoticeService;
 import main.user.dto.UserDto;
+import main.user.service.UserService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/notice")
@@ -31,6 +34,7 @@ public class NoticeController {
     private final NoticeMapper noticeMapper;
     private final CardCheckMapper cardCheckMapper;
     private final CardService cardService;
+    private final UserService userService;
 
 
     @PostMapping("/{notice_id}/card/{card_id}")
@@ -49,13 +53,18 @@ public class NoticeController {
     @PostMapping("/{notice_id}/bookmark")
     public ResponseEntity putCard(@PathVariable("notice_id") @Positive long noticeId,
                                   Authentication authentication){
-        // authentication 에서 userid추출
-        /**
-         * 임시 userId
-         */
-        Long userId = 1L;
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long userId = ((Number) principal.get("userId")).longValue();
 
+
+        userService.addBookmark(userId, noticeId);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity getNotices(){
+        List<Notice> notices = noticeService.findNotices();
+        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
     }
 
     @GetMapping("/{notice_id}")

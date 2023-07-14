@@ -60,4 +60,6 @@ public class CardCheckDto {
         private List<Tag> userTags;
 
     }
+
+
 }

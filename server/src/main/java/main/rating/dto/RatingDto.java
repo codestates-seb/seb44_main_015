@@ -18,6 +18,9 @@ public class RatingDto {
     public static class Post{
         private User user;
         private Notice notice;
+
+        @NotBlank
+        private Long noticeId;
         @NotBlank
         private int score;
     }

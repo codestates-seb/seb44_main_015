@@ -11,6 +11,8 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RatingMapper {
 
+    @Mapping(target = "noticeId", ignore = true)
+    Rating ratingPostDtoToRating(RatingDto.Post post);
 
     @Mapping(source = "rating.notice.company", target = "companyId")
     @Mapping(source = "rating.notice", target = "noticeId")

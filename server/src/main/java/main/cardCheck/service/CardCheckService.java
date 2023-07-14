@@ -23,6 +23,10 @@ public class CardCheckService {
         return cardCheckRepository.save(cardCheck);
     }
 
+    public List<CardCheck> findCardChecksUser(long userId){
+        return cardCheckRepository.findByCheckedAndCardUserUserId(0, userId);
+    }
+
     public List<CardCheck> findCardChecks(long noticeId){
         return cardCheckRepository.findByNoticeNoticeIdOrderByCreatedAtAsc(noticeId);
     }

@@ -3,6 +3,8 @@ package main.user.service;
 import lombok.RequiredArgsConstructor;
 import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
+import main.notice.entity.Notice;
+import main.notice.repository.NoticeRepository;
 import main.security.utils.CustomAuthorityUtils;
 import main.user.entity.User;
 import main.user.repository.UserRepository;
@@ -18,6 +20,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+    private final NoticeRepository noticeRepository;
 
     public User createUser(User user){
 
@@ -34,12 +37,24 @@ public class UserService {
         return savedUser;
     }
 
+    public void addBookmark(Long userId, Long noticeId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        Notice notice = noticeRepository.findById(noticeId).orElseThrow();
+
+        user.getBookmarks().add(notice);
+        userRepository.save(user);
+    }
+
     public User updateUser(User user){
 
         User updatedUser = userRepository.save(user);
         return updatedUser;
     }
 
+    public List<Notice> findBookmarks(Long userId){
+        User user = findVerifiedUser(userId);
+        return user.getBookmarks();
+    }
 
     public User findUser(long userId){
 
@@ -47,12 +62,23 @@ public class UserService {
         return findUser;
     }
 
+    public User findUserByCard(long cardId){
+
+        return userRepository.findByCardCardId(cardId).orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+    }
+
     public List<User> findUsers(){
         return userRepository.findAll();
     }
 
+    public void logoutUser(Long userId){
+        User user = findVerifiedUser(userId);
+        user.setRefreshToken(null);
+        userRepository.save(user);
+    }
 
-    public void deleteUser(long userId){
+    public void deleteUser(Long userId){
         User findUser = findVerifiedUser(userId);
 
         userRepository.delete(findUser);
@@ -62,7 +88,7 @@ public class UserService {
         if (userEmail.isPresent())
             throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
     }
-    public User findVerifiedUser(long userId) {
+    public User findVerifiedUser(Long userId) {
         Optional<User> optionalUser =
                 userRepository.findByUserId(userId);
 
