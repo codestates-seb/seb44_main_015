@@ -26,10 +26,10 @@ public class Company {
     private Long companyId;
 
     @Column(nullable = false)
-    private String Phone;
+    private String phone;
 
     @Column(nullable = false)
-    private String Person;
+    private String person;
 
     @Column(nullable = false)
     private String name;
