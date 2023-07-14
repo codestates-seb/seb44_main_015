@@ -7,6 +7,7 @@ import main.card.entity.Card;
 import main.notice.entity.Notice;
 import main.rating.entity.Rating;
 import main.resume.entity.Resume;
+import main.tag.entity.Tag;
 
 import javax.persistence.*;
 import java.util.ArrayList;

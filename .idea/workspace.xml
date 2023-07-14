@@ -4,35 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f92a3aed-2cd2-408f-9eca-9c0d5e1268f9" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="c76fbe39-b54e-41d8-a428-fd619d0fa884" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/seb44_main_015.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/main/tag/entity/Tag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/main015.main.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/Main015Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/card/controller/card_controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Card/controller/cardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/card/dto/card_dto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Card/dto/cardDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/card/entity/card_entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Card/entity/cardEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/card/mapper/card_mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Card/mapper/cardMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/card/repository/card_repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Card/repository/cardRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/card/service/card_service.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Card/service/cardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/company/controller/company_controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Company/controller/companyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/company/dto/company_dto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Company/dto/companyDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/company/entity/company_entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Company/entity/companyEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/company/mapper/company_mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Company/mapper/companyMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/company/repository/company_repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Company/repository/companyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/company/service/company_service.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Company/service/companyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/notice/controller/notice_controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Notice/controller/noticeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/notice/dto/notice_dto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Notice/dto/noticeDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/notice/entity/notice_entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Notice/entity/noticeEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/notice/mapper/notice_mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Notice/mapper/noticeMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/notice/repository/notice_repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Notice/repository/noticeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/notice/service/notice_service.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/Notice/service/noticeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/user/controller/user_controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/User/controller/userController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/user/dto/user_dto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/User/dto/userDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/user/entity/user_entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/User/entity/userEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/user/mapper/user_mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/User/mapper/userMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/user/repository/user_repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/User/repository/userRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main015/user/service/user_service.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/User/service/userService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/main015/Main015ApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/main/MainApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/main/company/entity/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/company/entity/Company.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/main/notice/entity/Notice.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/notice/entity/Notice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/main/user/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/user/entity/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,82 +45,52 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="BE_feat/company" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectId" id="2S2yiII9VgWLpZQLQoAmxI5eUdo" />
+  <component name="ProjectId" id="2S9aNTmX2papup1YOqc4j5ZdPy0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/psaon/OneDrive/바탕 화면/그만자고15나/Code/seb44_main_015&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;프로젝트&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/psaon/OneDrive/바탕 화면/그만자고15나/Code/seb44_main_015",
+    "project.structure.last.edited": "프로젝트",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
-  <component name="RunManager">
-    <configuration name="MainApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="main.MainApplication" />
-      <module name="main015.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="main.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-      <option name="AUTO_RESTART" value="false" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="애플리케이션.MainApplication" />
-      </list>
-    </recent_temporary>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\psaon\OneDrive\바탕 화면\그만자고15나\Code\seb44_main_015\server\src\main\java" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
-      <changelist id="f92a3aed-2cd2-408f-9eca-9c0d5e1268f9" name="변경" comment="" />
-      <created>1688359095843</created>
+      <changelist id="c76fbe39-b54e-41d8-a428-fd619d0fa884" name="변경" comment="" />
+      <created>1688561213080</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1688359095843</updated>
+      <updated>1688561213080</updated>
     </task>
-    <task id="LOCAL-00001" summary="[BE] 임시세팅">
-      <created>1688359247747</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1688359247747</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="[BE] 임시세팅" />
-    <option name="LAST_COMMIT_MESSAGE" value="[BE] 임시세팅" />
   </component>
 </project>

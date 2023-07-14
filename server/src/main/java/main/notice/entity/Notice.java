@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.cardCheck.entity.CardCheck;
 import main.company.entity.Company;
+import main.tag.entity.Tag;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
