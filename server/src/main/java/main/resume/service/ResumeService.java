@@ -17,4 +17,7 @@ public class ResumeService {
     public Resume updateResume(Resume resume){
         return resumeRepository.save(resume);
     }
+    public void deleteResume(Long resumeId){
+        resumeRepository.deleteById(resumeId);
+    }
 }

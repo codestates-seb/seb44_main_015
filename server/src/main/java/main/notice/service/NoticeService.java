@@ -6,8 +6,10 @@ import main.exception.ExceptionCode;
 import main.notice.entity.Notice;
 import main.notice.repository.NoticeRepository;
 import main.user.entity.User;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,7 +22,9 @@ public class NoticeService {
         return findNotice;
     }
 
-
+    public List<Notice> findNotices(){
+        return noticeRepository.findAll();
+    }
 
 
     public Notice findVerifiedNotice(long noticeId) {

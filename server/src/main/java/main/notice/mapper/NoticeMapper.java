@@ -6,6 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface NoticeMapper {
 
@@ -20,5 +22,7 @@ public interface NoticeMapper {
     NoticeDto.ResponseDetail noticeToNoticeResponseDetailDto(Notice notice);
 
     @Mapping(source = "company.name", target = "companyName")
-    NoticeDto.ResponseDetail noticeToNoticeResponseDto(Notice notice);
+    NoticeDto.Response noticeToNoticeResponseDto(Notice notice);
+
+    List<NoticeDto.Response> noticesToNoticeResponseDtos(List<Notice> notices);
 }

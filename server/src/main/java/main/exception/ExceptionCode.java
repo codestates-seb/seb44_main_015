@@ -7,6 +7,7 @@ public enum ExceptionCode {
     NOTICE_NOT_FOUND(404, "Notice not found"),
     CARD_NOT_FOUND(404,"Card not found"),
     USER_EXISTS(409, "User email exists"),
+    RATING_EXISTS(409, "Rating exists"),
     CARD_CHECK_EXISTS(409, "Card check exists");
 
 

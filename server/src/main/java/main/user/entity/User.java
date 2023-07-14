@@ -44,7 +44,7 @@ public class User {
     private List<String> roles = new ArrayList<>();
 
     @Column
-    private String refreshtoken;
+    private String refreshToken;
 
     @Column
     private double avgRating;

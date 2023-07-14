@@ -1,6 +1,10 @@
 package main.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import main.cardCheck.entity.CardCheck;
+import main.cardCheck.service.CardCheckService;
+import main.notice.entity.Notice;
+import main.notice.mapper.NoticeMapper;
 import main.rating.entity.Rating;
 import main.rating.mapper.RatingMapper;
 import main.rating.repository.RatingRepository;
@@ -23,6 +27,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -36,6 +41,8 @@ public class UserController {
     private final RatingService ratingService;
     private final ResumeMapper resumeMapper;
     private final ResumeService resumeService;
+    private final NoticeMapper noticeMapper;
+    private final CardCheckService cardCheckService;
 
     @PostMapping("/signup")
     public ResponseEntity postUser(@Valid @RequestBody UserDto.Post userPostDto){
@@ -95,10 +102,9 @@ public class UserController {
 
     @GetMapping("/{user_id}/bookmark")
     public ResponseEntity getUserBookmark(@PathVariable("user_id") @Positive long userId){
-        //notice와 합치고 수정필요
-        User findUser = userService.findUser(userId);
+        List<Notice> bookmarks = userService.findBookmarks(userId);
 
-        return new ResponseEntity<>(userMapper.userToUserResponseDto(findUser), HttpStatus.OK);
+        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(bookmarks), HttpStatus.OK);
     }
 
     @GetMapping("/{user_id}/rating")
@@ -111,10 +117,14 @@ public class UserController {
 
     @GetMapping("/{user_id}/notice")
     public ResponseEntity getUserNotice(@PathVariable("user_id") @Positive long userId){
-        //notice와 합치고 수정필요
-        User findUser = userService.findUser(userId);
 
-        return new ResponseEntity<>(userMapper.userToUserResponseDto(findUser), HttpStatus.OK);
+        List<CardCheck> cardChecks = cardCheckService.findCardChecksUser(userId);
+        List<Notice> notices = cardChecks.stream()
+                .map(CardCheck::getNotice)
+                .collect(Collectors.toList());
+
+
+        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
     }
 
     @GetMapping
@@ -125,16 +135,31 @@ public class UserController {
         return new ResponseEntity<>(userMapper.usersToUserResponseDtos(users), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{userId}")
-    public ResponseEntity deleteUser(@PathVariable("userId") long userId,
+    @DeleteMapping("/delete/{user_id}")
+    public ResponseEntity deleteUser(@PathVariable("user_id") long userId,
                                      Authentication authentication){
         Map<String,Object> principal = (Map) authentication.getPrincipal();
-        long authuserId = ((Number) principal.get("userId")).longValue();
+        long authuserId = ((Number) principal.get("user_id")).longValue();
 
         if(authuserId != userId){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         userService.deleteUser(userId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/{user_id}/resume/{resume_id}")
+    public ResponseEntity deleteResume(@PathVariable("user_id") long userId,
+                                       @PathVariable("resume_id") long resumeId,
+                                       Authentication authentication){
+        Map<String,Object> principal = (Map) authentication.getPrincipal();
+        long authuserId = ((Number) principal.get("user_id")).longValue();
+
+        if(authuserId != userId){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        resumeService.deleteResume(resumeId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

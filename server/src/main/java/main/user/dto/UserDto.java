@@ -28,12 +28,10 @@ public class UserDto {
 
         @NotBlank
         private String name;
-/**
-       나중에 작성
+
         private List<Tag> tags;
 
         private List<Resume> resumes;
-*/
 
     }
 
