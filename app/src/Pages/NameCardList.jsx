@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import FakeUserInfo from '../Api/FakeUserInfo.json';
 import { useState, useEffect } from 'react';
-import MiddleHeader from '../Components/Commons/MiddleHeader';
-import { MainContainerStyled } from '../Pages/MyPageFreelancer';
 import { Messages } from '../Assets/Theme';
+import { BodyBackgroundStyled } from './LogIn';
+import { MainContainerStyled } from '../Pages/MyPageFreelancer';
+import MiddleHeader from '../Components/Commons/MiddleHeader';
 import MainButton from '../Components/Button/MainButton';
 import NameCard from '../Components/Commons/NameCard';
-import { BodyBackgroundStyled } from './LogIn';
+import FakeUserInfo from '../Api/FakeUserInfo.json';
 
 const NameCardList = () => {
   const [userListInfo, setUserListInfo] = useState([]);
@@ -26,13 +26,10 @@ const NameCardList = () => {
 
           <CardListWrapperStyled>
             {userListInfo &&
-              userListInfo.map((onecard, idx) => (
+              userListInfo.map((onecard) => (
                 <NameCard
-                  key={idx}
-                  name={onecard.name}
-                  email={onecard.email}
-                  phone={onecard.phone}
-                  stack={onecard.stack}
+                  key={onecard.id}
+                  userInfo={onecard}
                   className={null}
                 ></NameCard>
               ))}

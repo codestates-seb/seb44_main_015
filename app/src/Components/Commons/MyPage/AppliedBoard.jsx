@@ -1,22 +1,30 @@
 import styled from 'styled-components';
-import { Colors, Messages } from '../../../Assets/Theme';
+import { Colors } from '../../../Assets/Theme';
 
-const AppliedBoard = () => {
+const AppliedBoard = ({
+  title,
+  info1,
+  info2,
+  info3,
+  info1Number,
+  info2Number,
+  info3Number,
+}) => {
   return (
     <BigCardStyled>
-      <NameWrapperStyled>{Messages.appliedBoardTitle}</NameWrapperStyled>
+      <NameWrapperStyled>{title}</NameWrapperStyled>
       <ListWrapperStyled>
         <BoxWrapperStyled>
-          <NumberStyled>0</NumberStyled>
-          <InfoStyled>{Messages.cardInTitle}</InfoStyled>
+          <NumberStyled>{info1Number}</NumberStyled>
+          <InfoStyled>{info1}</InfoStyled>
         </BoxWrapperStyled>
         <BoxWrapperStyled>
-          <NumberStyled>0</NumberStyled>
-          <InfoStyled>{Messages.selectedTitle}</InfoStyled>
+          <NumberStyled>{info2Number}</NumberStyled>
+          <InfoStyled>{info2}</InfoStyled>
         </BoxWrapperStyled>
         <BoxWrapperStyled>
-          <NumberStyled>0</NumberStyled>
-          <InfoStyled>{Messages.bookmarkedTitle}</InfoStyled>
+          <NumberStyled>{info3Number}</NumberStyled>
+          <InfoStyled>{info3}</InfoStyled>
         </BoxWrapperStyled>
       </ListWrapperStyled>
     </BigCardStyled>
