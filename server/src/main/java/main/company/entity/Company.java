@@ -1,9 +1,5 @@
 package main.company.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import main.rating.entity.Rating;
 import main.notice.entity.Notice;
 import main.tag.entity.Tag;
@@ -13,7 +9,9 @@ import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
