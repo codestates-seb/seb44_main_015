@@ -49,18 +49,18 @@ public class User {
 
     @Column
     private double avgRating;
-    @ManyToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
 
     @ManyToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
     private List<Notice> bookmarks = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Card card;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Resume> resumes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Rating> ratings = new ArrayList<>();
 }

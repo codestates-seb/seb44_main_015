@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.card.entity.Card;
 import main.notice.entity.Notice;
+import main.resume.entity.Resume;
+import main.tag.entity.Tag;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

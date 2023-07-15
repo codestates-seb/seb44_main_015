@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.card.entity.Card;
 import main.notice.entity.Notice;
+import main.tag.entity.Tag;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;

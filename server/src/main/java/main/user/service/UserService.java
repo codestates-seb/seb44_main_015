@@ -6,6 +6,7 @@ import main.exception.ExceptionCode;
 import main.notice.entity.Notice;
 import main.notice.repository.NoticeRepository;
 import main.security.utils.CustomAuthorityUtils;
+import main.tag.entity.Tag;
 import main.user.entity.User;
 import main.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,6 +43,12 @@ public class UserService {
         Notice notice = noticeRepository.findById(noticeId).orElseThrow();
 
         user.getBookmarks().add(notice);
+        userRepository.save(user);
+    }
+
+    public void addTag(Long userId, Tag tag){
+        User user = findVerifiedUser(userId);
+        user.getTags().add(tag);
         userRepository.save(user);
     }
 

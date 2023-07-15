@@ -13,6 +13,7 @@ import main.resume.dto.ResumeDto;
 import main.resume.entity.Resume;
 import main.resume.mapper.ResumeMapper;
 import main.resume.service.ResumeService;
+import main.tag.entity.Tag;
 import main.user.dto.UserDto;
 import main.user.entity.User;
 import main.user.mapper.UserMapper;
@@ -60,7 +61,14 @@ public class UserController {
         Resume createdResume = resumeService.createResume(resumeMapper.resumePostDtoToResume(resumeDto));
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
+    @PostMapping("/{user_id}/tag")
+    public ResponseEntity postResume(@PathVariable("user_id") @Positive long userId,
+                                     @Valid @RequestBody Tag tag,
+                                     Authentication authentication){
+        userService.addTag(userId, tag);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PatchMapping("/profile/{user_id}")
@@ -147,6 +155,7 @@ public class UserController {
         userService.deleteUser(userId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
 
     @DeleteMapping("/{user_id}/resume/{resume_id}")
     public ResponseEntity deleteResume(@PathVariable("user_id") long userId,

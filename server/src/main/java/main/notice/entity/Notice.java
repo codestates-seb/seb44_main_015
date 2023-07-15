@@ -50,6 +50,6 @@ public class Notice {
     @OneToMany(mappedBy = "notice", cascade = CascadeType.PERSIST)
     private List<CardCheck> cardChecks = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "notice", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "notice", cascade = CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
 }

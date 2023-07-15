@@ -17,6 +17,15 @@ import java.util.Optional;
 public class NoticeService {
     private final NoticeRepository noticeRepository;
 
+    public Notice createNotice(Notice notice){
+        return noticeRepository.save(notice);
+    }
+
+    public Notice updateNotice(Notice notice){
+        findVerifiedNotice(notice.getNoticeId());
+        return noticeRepository.save(notice);
+    }
+
     public Notice findNotice(Long noticeId){
         Notice findNotice = findVerifiedNotice(noticeId);
         return findNotice;
