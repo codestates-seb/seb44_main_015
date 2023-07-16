@@ -1,9 +1,8 @@
-package main.rating.entity;
+package main.bookmark.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.company.entity.Company;
 import main.notice.entity.Notice;
 import main.user.entity.User;
 
@@ -13,13 +12,10 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Rating {
+public class Bookmark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ratingId;
-
-    @Column
-    private int score;
+    private Long bookmarkId;
 
     @ManyToOne
     @JoinColumn(name = "NOTICE_ID")

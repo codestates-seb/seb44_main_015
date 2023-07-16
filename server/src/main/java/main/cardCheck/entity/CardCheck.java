@@ -29,10 +29,10 @@ public class CardCheck {
     private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "card_id")
+    @JoinColumn(name = "CARD_ID")
     private Card card;
 
     @ManyToOne
-    @JoinColumn(name = "notice_id")
+    @JoinColumn(name = "NOTICE_ID")
     private Notice notice;
 }

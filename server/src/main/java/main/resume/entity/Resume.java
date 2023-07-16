@@ -21,5 +21,6 @@ public class Resume {
     private String content;
 
     @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User user;
 }

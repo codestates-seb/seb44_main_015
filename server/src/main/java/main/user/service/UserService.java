@@ -38,6 +38,7 @@ public class UserService {
         return savedUser;
     }
 
+/*
     public void addBookmark(Long userId, Long noticeId) {
         User user = userRepository.findById(userId).orElseThrow();
         Notice notice = noticeRepository.findById(noticeId).orElseThrow();
@@ -45,12 +46,8 @@ public class UserService {
         user.getBookmarks().add(notice);
         userRepository.save(user);
     }
+*/
 
-    public void addTag(Long userId, Tag tag){
-        User user = findVerifiedUser(userId);
-        user.getTags().add(tag);
-        userRepository.save(user);
-    }
 
     public User updateUser(User user){
 
@@ -58,10 +55,12 @@ public class UserService {
         return updatedUser;
     }
 
+/*
     public List<Notice> findBookmarks(Long userId){
         User user = findVerifiedUser(userId);
         return user.getBookmarks();
     }
+*/
 
     public User findUser(long userId){
 

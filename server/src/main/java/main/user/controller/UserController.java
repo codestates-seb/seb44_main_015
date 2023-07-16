@@ -18,6 +18,7 @@ import main.user.dto.UserDto;
 import main.user.entity.User;
 import main.user.mapper.UserMapper;
 import main.user.service.UserService;
+import main.userTag.service.UserTagService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -44,6 +45,7 @@ public class UserController {
     private final ResumeService resumeService;
     private final NoticeMapper noticeMapper;
     private final CardCheckService cardCheckService;
+    private final UserTagService userTagService;
 
     @PostMapping("/signup")
     public ResponseEntity postUser(@Valid @RequestBody UserDto.Post userPostDto){
@@ -65,9 +67,9 @@ public class UserController {
 
     @PostMapping("/{user_id}/tag")
     public ResponseEntity postResume(@PathVariable("user_id") @Positive long userId,
-                                     @Valid @RequestBody Tag tag,
+                                     @RequestBody long tagId,
                                      Authentication authentication){
-        userService.addTag(userId, tag);
+        userTagService.createUserTag(userId,tagId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -108,12 +110,14 @@ public class UserController {
         return new ResponseEntity<>(userMapper.userToUserResponseDto(findUser), HttpStatus.OK);
     }
 
+/*
     @GetMapping("/{user_id}/bookmark")
     public ResponseEntity getUserBookmark(@PathVariable("user_id") @Positive long userId){
         List<Notice> bookmarks = userService.findBookmarks(userId);
 
         return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(bookmarks), HttpStatus.OK);
     }
+*/
 
     @GetMapping("/{user_id}/rating")
     public ResponseEntity getUserRating(@PathVariable("user_id") @Positive long userId){

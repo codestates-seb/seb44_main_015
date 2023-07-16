@@ -3,6 +3,8 @@ package main.company.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import main.card.entity.Card;
+import main.notice.entity.Notice;
 import main.tag.entity.Tag;
 
 import javax.validation.constraints.Email;
@@ -14,15 +16,53 @@ import java.util.List;
 @NoArgsConstructor
 public class CompanyDto {
 
-    @Email
-    @NotBlank
-    private String email;
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Post{
 
-    @NotBlank
-    private String phone;
+        @Email
+        @NotBlank
+        private String email;
 
-    private String intro;
+        @NotBlank
+        private String phone;
 
-    private List<Tag> tag;
+        @NotBlank
+        private String password;
+
+        private String address;
+
+        private String intro;
+
+        private String person;
+
+        private List<Tag> tag;
+
+    }
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Patch{
+
+        private Long companyId;
+
+        @Email
+        @NotBlank
+        private String email;
+
+        @NotBlank
+        private String phone;
+
+        @NotBlank
+        private String password;
+
+        private String address;
+
+        private String intro;
+
+        private String person;
+
+    }
 
 }

@@ -36,6 +36,16 @@ public class NoticeController {
     private final CardService cardService;
     private final UserService userService;
 
+    @PostMapping
+    public ResponseEntity postNotice(@Valid @RequestBody NoticeDto.Post noticePostDto,
+                                     Authentication authentication){
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long companyId = ((Number) principal.get("id")).longValue();
+        List<Long> tagIds = noticePostDto.getTagIds();
+        Notice notice = noticeMapper.noticePostDtoToNotice(noticePostDto);
+        noticeService.createNotice(companyId, tagIds, notice);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
 
     @PostMapping("/{notice_id}/card/{card_id}")
     public ResponseEntity putCard(@PathVariable("notice_id") @Positive long noticeId,
@@ -46,24 +56,46 @@ public class NoticeController {
         putCardDto.setCard(cardService.findCard(cardId));
         putCardDto.setNotice(noticeService.findNotice(noticeId));
 
-        cardCheckMapper.cardCheckPostDtoToCardCheck(putCardDto);
+        cardCheckService.createCardCheck(cardCheckMapper.cardCheckPostDtoToCardCheck(putCardDto));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+/*
     @PostMapping("/{notice_id}/bookmark")
-    public ResponseEntity putCard(@PathVariable("notice_id") @Positive long noticeId,
+    public ResponseEntity postBookmark(@PathVariable("notice_id") @Positive long noticeId,
                                   Authentication authentication){
         Map<String, Object> principal = (Map) authentication.getPrincipal();
-        Long userId = ((Number) principal.get("userId")).longValue();
+        Long userId = ((Number) principal.get("id")).longValue();
 
 
         userService.addBookmark(userId, noticeId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+*/
+
+    @PatchMapping("/{notice_id}")
+    public ResponseEntity patchNotice(@PathVariable("notice_id") @Positive long noticeId,
+                                      @Valid @RequestBody NoticeDto.Patch noticePatchDto,
+                                       Authentication authentication){
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long companyId = ((Number) principal.get("id")).longValue();
+        if(companyId != noticeService.findNotice(noticeId).getCompany().getCompanyId()){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        noticeService.updateNotice(noticeMapper.noticePatchDtoToNotice(noticePatchDto));
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @GetMapping
     public ResponseEntity getNotices(){
         List<Notice> notices = noticeService.findNotices();
+        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
+    }
+
+    @GetMapping("/new")
+    public ResponseEntity getNewNotices(@RequestParam(required = false, defaultValue = "10") int limit,
+                                        @RequestParam(required = false, defaultValue = "00") int page){
+        List<Notice> notices = noticeService.findNoticesPage(page,limit);
         return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
     }
 

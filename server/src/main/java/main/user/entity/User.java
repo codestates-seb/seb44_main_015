@@ -3,11 +3,13 @@ package main.user.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import main.bookmark.entity.Bookmark;
 import main.card.entity.Card;
 import main.notice.entity.Notice;
 import main.rating.entity.Rating;
 import main.resume.entity.Resume;
 import main.tag.entity.Tag;
+import main.userTag.entity.UserTag;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -49,11 +51,12 @@ public class User {
 
     @Column
     private double avgRating;
-    @ManyToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Tag> tags = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserTag> userTags = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-    private List<Notice> bookmarks = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Bookmark> bookmarks = new ArrayList<>();
+
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Card card;

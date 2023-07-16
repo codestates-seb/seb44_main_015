@@ -28,26 +28,26 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
     @Override
-    public CustomUserDetails loadUserByUsername(String userTypeEmail) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userTypeEmail) throws UsernameNotFoundException {
         String[] userTypeEmails = userTypeEmail.split(":");
         String userType = userTypeEmails[0];
         String email = userTypeEmails[1];
 
-        /*if(userType.toUpperCase().equals("COMPANY")){
+        if(userType.toUpperCase().equals("COMPANY")){
             Optional<Company> optionalCompany = companyRepository.findByEmail(email);
             Company findCompany = optionalCompany.orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMPANY_NOT_FOUND));
             return new CustomCompanyDetails(findCompany);
-        }*/
+        }
 
- //       else{
+        else{
             Optional<User> optionalUser = userRepository.findByEmail(email);
             User findUser = optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
             return new CustomUserDetails(findUser);
-  //      }
+        }
 
     }
 
-    private final class CustomUserDetails extends User implements UserDetails {
+    public final class CustomUserDetails extends User implements UserDetails {
         CustomUserDetails(User user) {
             setUserId(user.getUserId());
             setName(user.getName());
@@ -86,9 +86,9 @@ public class CustomUserDetailsService implements UserDetailsService {
             return true;
         }
     }
-    /*private final class CustomCompanyDetails extends Company implements UserDetails {
+    public final class CustomCompanyDetails extends Company implements UserDetails {
         CustomCompanyDetails(Company company) {
-            setCompanyId(company.getUserId());
+            setCompanyId(company.getCompanyId());
             setName(company.getName());
             setEmail(company.getEmail());
             setPassword(company.getPassword());
@@ -126,5 +126,5 @@ public class CustomUserDetailsService implements UserDetailsService {
         public boolean isEnabled() {
             return true;
         }
-    }*/
+    }
 }

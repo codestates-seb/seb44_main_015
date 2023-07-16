@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.company.entity.Company;
+import main.noticeTag.entity.NoticeTag;
 import main.tag.entity.Tag;
 
 import javax.validation.constraints.Email;
@@ -28,7 +29,7 @@ public class NoticeDto {
         @NotBlank
         private String content;
 
-        private List<Tag> tags;
+        private List<Long> tagIds;
 
         @NotBlank
         private LocalDateTime deadline;
@@ -43,15 +44,13 @@ public class NoticeDto {
     public static class Patch{
 
         private Long noticeId;
-        @NotBlank
+
         private String title;
 
-        @NotBlank
+
         private String content;
 
-        private List<Tag> tags;
 
-        @NotBlank
         private LocalDateTime deadline;
 
 

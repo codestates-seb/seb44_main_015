@@ -1,11 +1,10 @@
-package main.rating.entity;
+package main.noticeTag.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.company.entity.Company;
+import main.tag.entity.Tag;
 import main.notice.entity.Notice;
-import main.user.entity.User;
 
 import javax.persistence.*;
 
@@ -13,19 +12,16 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Rating {
+public class NoticeTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ratingId;
-
-    @Column
-    private int score;
+    private Long noticeTagId;
 
     @ManyToOne
     @JoinColumn(name = "NOTICE_ID")
     private Notice notice;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @JoinColumn(name = "TAG_ID")
+    private Tag tag;
 }

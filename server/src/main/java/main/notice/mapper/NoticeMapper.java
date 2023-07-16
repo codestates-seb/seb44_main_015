@@ -11,7 +11,9 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface NoticeMapper {
 
-//    Notice noticePatchDtoToNotice(NoticeDto.Patch noticePatchDto);
+    Notice noticePostDtoToNotice(NoticeDto.Post noticePostDto);
+
+    Notice noticePatchDtoToNotice(NoticeDto.Patch noticePatchDto);
 
     @Mapping(source = "company.name", target = "companyName")
     @Mapping(source = "company.intro", target = "companyIntro")

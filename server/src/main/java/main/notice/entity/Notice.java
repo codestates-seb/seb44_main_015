@@ -3,8 +3,10 @@ package main.notice.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import main.bookmark.entity.Bookmark;
 import main.cardCheck.entity.CardCheck;
 import main.company.entity.Company;
+import main.noticeTag.entity.NoticeTag;
 import main.tag.entity.Tag;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -44,12 +46,16 @@ public class Notice {
     private LocalDateTime deadline;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "COMPANY_ID")
     private Company company;
 
-    @OneToMany(mappedBy = "notice", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
     private List<CardCheck> cardChecks = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "notice", cascade = CascadeType.ALL)
-    private List<Tag> tags = new ArrayList<>();
+    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
+    private List<NoticeTag> noticeTags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
+    private List<Bookmark> bookmarks = new ArrayList<>();
+
 }
