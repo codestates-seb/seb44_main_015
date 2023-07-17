@@ -4,8 +4,8 @@ import { Colors } from '../../../Assets/Theme';
 const TagList = () => {
   return (
     <>
-      <TagListWrapperStyled>
-        <TagListContainerStyled>
+      <UpperContainerStyled>
+        <TagContainerStyled>
           <TagStyled>연봉 상위 1%</TagStyled>
           <TagStyled>연봉 상위 5%</TagStyled>
           <TagStyled>연봉 상위 5%</TagStyled>
@@ -22,14 +22,14 @@ const TagList = () => {
           <TagStyled>연봉 상위 5%</TagStyled>
           <TagStyled>연봉 상위 5%</TagStyled>
           <TagStyled>연봉 상위 5%</TagStyled>
-        </TagListContainerStyled>
-      </TagListWrapperStyled>
+        </TagContainerStyled>
+      </UpperContainerStyled>
     </>
   );
 };
 
 export default TagList;
-const TagListWrapperStyled = styled.div`
+const UpperContainerStyled = styled.div`
   display: flex;
   height: 212px;
   width: 100%;
@@ -37,7 +37,7 @@ const TagListWrapperStyled = styled.div`
   align-items: center;
 `;
 
-const TagListContainerStyled = styled.div`
+const TagContainerStyled = styled.div`
   min-width: 1440px;
   width: 100%;
   display: flex;
@@ -66,5 +66,6 @@ const TagStyled = styled.div`
     border-color: ${Colors.mainPurple};
     color: ${Colors.mainPurple};
     font-weight: 400px;
+    cursor: pointer;
   }
 `;

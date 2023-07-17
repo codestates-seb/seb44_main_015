@@ -7,7 +7,7 @@ const EmploymentCardList = () => {
 
   return (
     <>
-      <NewEmploymentContainerStyled>
+      <LowerContainerStyled>
         <EmploymentCardContainerStyled>
           {employmentData.map((employmentInfo) => (
             <EmploymentCard
@@ -16,14 +16,14 @@ const EmploymentCardList = () => {
             />
           ))}
         </EmploymentCardContainerStyled>
-      </NewEmploymentContainerStyled>
+      </LowerContainerStyled>
     </>
   );
 };
 
 export default EmploymentCardList;
 
-const NewEmploymentContainerStyled = styled.section`
+const LowerContainerStyled = styled.section`
   display: flex;
   flex-wrap: wrap;
   height: 100%;

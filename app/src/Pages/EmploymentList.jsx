@@ -21,11 +21,11 @@ export default EmploymentPage;
 
 const EmploymentPageContainerStyled = styled.div`
   display: flex;
-  min-width: 1080px;
-  height: auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-width: 1080px;
+  height: auto;
   box-sizing: border-box;
   overflow-x: auto;
 `;
