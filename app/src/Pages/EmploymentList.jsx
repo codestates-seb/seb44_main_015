@@ -4,28 +4,28 @@ import TagList from '../Components/Commons/EmploymentPage/TagList';
 import EmploymentCardList from '../Components/Commons/EmploymentPage/EmploymentCardList';
 import { styled } from 'styled-components';
 
-const EmploymentPage = () => {
+const EmploymentList = () => {
   return (
     <>
       <Header />
-      <EmploymentPageContainerStyled>
+      <EmploymentListContainerStyled>
         <TagList />
         <EmploymentCardList></EmploymentCardList>
-      </EmploymentPageContainerStyled>
+      </EmploymentListContainerStyled>
       <Footer />
     </>
   );
 };
 
-export default EmploymentPage;
+export default EmploymentList;
 
-const EmploymentPageContainerStyled = styled.div`
+const EmploymentListContainerStyled = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-width: 1080px;
+  min-width: 1440px;
   height: auto;
   box-sizing: border-box;
-  overflow-x: auto;
+  /* overflow-x: auto; */
 `;

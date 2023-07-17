@@ -38,8 +38,6 @@ const UpperContainerStyled = styled.div`
 `;
 
 const TagContainerStyled = styled.div`
-  min-width: 1440px;
-  width: 100%;
   display: flex;
   box-sizing: border-box;
   padding: 80px 190px 30px 190px;
