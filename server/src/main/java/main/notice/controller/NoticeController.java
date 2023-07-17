@@ -1,6 +1,8 @@
 package main.notice.controller;
 
 import lombok.RequiredArgsConstructor;
+import main.bookmark.service.BookmarkService;
+import main.card.entity.Card;
 import main.card.service.CardService;
 import main.cardCheck.dto.CardCheckDto;
 import main.cardCheck.entity.CardCheck;
@@ -11,6 +13,7 @@ import main.notice.entity.Notice;
 import main.notice.mapper.NoticeMapper;
 import main.notice.service.NoticeService;
 import main.user.dto.UserDto;
+import main.user.entity.User;
 import main.user.service.UserService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -35,6 +38,7 @@ public class NoticeController {
     private final CardCheckMapper cardCheckMapper;
     private final CardService cardService;
     private final UserService userService;
+    private final BookmarkService bookmarkService;
 
     @PostMapping
     public ResponseEntity postNotice(@Valid @RequestBody NoticeDto.Post noticePostDto,
@@ -47,31 +51,33 @@ public class NoticeController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @PostMapping("/{notice_id}/card/{card_id}")
+    @PostMapping("/{notice_id}/card")
     public ResponseEntity putCard(@PathVariable("notice_id") @Positive long noticeId,
-                                  @PathVariable("card_id") @Positive long cardId,
                                   Authentication authentication){
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long userId = ((Number) principal.get("id")).longValue();
+        User user = userService.findUser(userId);
+
+        Card findCard = user.getCard();
+
         CardCheckDto.Post putCardDto = new CardCheckDto.Post();
 
-        putCardDto.setCard(cardService.findCard(cardId));
+        putCardDto.setCard(findCard);
         putCardDto.setNotice(noticeService.findNotice(noticeId));
 
         cardCheckService.createCardCheck(cardCheckMapper.cardCheckPostDtoToCardCheck(putCardDto));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-/*
     @PostMapping("/{notice_id}/bookmark")
     public ResponseEntity postBookmark(@PathVariable("notice_id") @Positive long noticeId,
                                   Authentication authentication){
         Map<String, Object> principal = (Map) authentication.getPrincipal();
         Long userId = ((Number) principal.get("id")).longValue();
 
-
-        userService.addBookmark(userId, noticeId);
+        bookmarkService.createBookmark(userId, noticeId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-*/
 
     @PatchMapping("/{notice_id}")
     public ResponseEntity patchNotice(@PathVariable("notice_id") @Positive long noticeId,
@@ -118,10 +124,26 @@ public class NoticeController {
                                          @PathVariable("check_id") @Positive long cardCheckId,
                                          @Valid @RequestBody CardCheckDto.Patch cardCheckPatchDto,
                                          Authentication authentication){
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long companyId = ((Number) principal.get("id")).longValue();
+        if(companyId != noticeService.findNotice(noticeId).getCompany().getCompanyId()){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+
         cardCheckPatchDto.setCardCheckId(cardCheckId);
         cardCheckService.updateCardCheck(cardCheckMapper.cardCheckPatchDtoToCardCheck(cardCheckPatchDto));
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @DeleteMapping("/{notice_id}")
+    public ResponseEntity deleteNotice(@PathVariable("notice_id") @Positive long noticeId,
+                                       Authentication authentication){
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long companyId = ((Number) principal.get("id")).longValue();
+        if(companyId != noticeService.findNotice(noticeId).getCompany().getCompanyId()){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        noticeService.deleteNotice(noticeId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }

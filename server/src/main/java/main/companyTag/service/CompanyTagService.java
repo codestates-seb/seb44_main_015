@@ -7,6 +7,7 @@ import main.company.entity.Company;
 import main.company.service.CompanyService;
 import main.companyTag.entity.CompanyTag;
 import main.companyTag.repository.CompanyTagRepository;
+import main.noticeTag.entity.NoticeTag;
 import main.tag.entity.Tag;
 import main.tag.service.TagService;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,11 @@ public class CompanyTagService {
 
         return companyTagRepository.save(companyTag);
 
+    }
+
+    public void deleteCompanyTag(Long companyId, Long tagId){
+        CompanyTag companyTag = companyTagRepository.findByCompanyCompanyIdAndTagTagId(companyId, tagId).orElseThrow();
+        companyTagRepository.delete(companyTag);
     }
 
     public List<CompanyTag> findCompanyTags(Long companyId){

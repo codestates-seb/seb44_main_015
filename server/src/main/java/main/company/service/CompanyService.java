@@ -48,8 +48,14 @@ public class CompanyService {
     }
 
     public Company updateCompanyProfile(Company company) {
+        Company findCompany = findVerifiedCompany(company.getCompanyId());
 
-        return companyRepository.save(company);
+        Optional.ofNullable(company.getPassword())
+                .ifPresent(password -> findCompany.setPassword(passwordEncoder.encode(password)));
+        Optional.ofNullable(company.getRefreshToken())
+                .ifPresent(refreshToken -> findCompany.setRefreshToken(refreshToken));
+
+        return companyRepository.save(findCompany);
 
     }
 

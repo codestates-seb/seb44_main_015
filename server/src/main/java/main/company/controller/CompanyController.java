@@ -17,11 +17,13 @@ import main.tag.entity.Tag;
 import main.tag.mapper.TagMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.*;
 import java.util.Optional;
 
@@ -38,7 +40,7 @@ public class CompanyController {
     private final NoticeService noticeService;
     private final NoticeMapper noticeMapper;
 
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity signUpCompany(@Valid @RequestBody CompanyDto.Post companyPostDto){
         companyService.createCompany(companyMapper.companyPostDtoToCompany(companyPostDto));
 
@@ -53,9 +55,15 @@ public class CompanyController {
     }
 
     @PatchMapping("/profile/{company_id}")
-    public ResponseEntity<String> updateCompanyProfile(
-            @PathVariable("company_id") Long companyId,
-            @Valid @RequestBody CompanyDto.Patch companyPatchDto) {
+    public ResponseEntity<String> updateCompanyProfile(@PathVariable("company_id") Long companyId,
+                                                       @Valid @RequestBody CompanyDto.Patch companyPatchDto,
+                                                       Authentication authentication) {
+
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long authCompanyId = ((Number) principal.get("id")).longValue();
+        if(companyId != authCompanyId){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
 
         Company company = companyMapper.companyPatchDtoToCompany(companyPatchDto);
         company.setCompanyId(companyId);
@@ -72,6 +80,20 @@ public class CompanyController {
     public ResponseEntity getCompanyTags(@PathVariable("company_id") Long companyId){
         List<CompanyTag> companyTags = companyTagService.findCompanyTags(companyId);
         return new ResponseEntity<>(tagMapper.companyTagsToTagResponses(companyTags), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{company_id}/tag/{tag_id}")
+    public ResponseEntity deleteUserTag(@PathVariable("company_id") @Positive long companyId,
+                                        @PathVariable("tag_id") @Positive long tagId,
+                                        Authentication authentication) {
+
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long checkCompanyId = ((Number) principal.get("id")).longValue();
+        if (companyId != checkCompanyId) {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        companyTagService.deleteCompanyTag(companyId,tagId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{company_id}/notice")

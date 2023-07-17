@@ -27,10 +27,10 @@ public class User {
     @Column(nullable = false, unique = true, updatable = false)
     private String email;
 
-    @Column
+    @Column(nullable = false)
     private String password;
 
-    @Column
+    @Column(nullable = false)
     private String phone;
 
     @Column(nullable = false, unique = false)
@@ -66,4 +66,12 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Rating> ratings = new ArrayList<>();
+
+    public void setAvgRating(){
+        double i = 0;
+        for(Rating rating :this.getRatings()){
+            i += rating.getScore();
+        }
+        this.setAvgRating(i/this.getRatings().size());
+    }
 }

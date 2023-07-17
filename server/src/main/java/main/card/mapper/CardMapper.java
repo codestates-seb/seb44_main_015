@@ -1,4 +1,5 @@
 package main.card.mapper;
 
-public class CardMapper {
+public interface CardMapper {
+
 }

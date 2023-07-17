@@ -10,6 +10,7 @@ import main.notice.entity.Notice;
 import main.notice.service.NoticeService;
 import main.noticeTag.entity.NoticeTag;
 import main.noticeTag.repository.NoticeTagRepository;
+import main.userTag.entity.UserTag;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -30,6 +31,10 @@ public class NoticeTagService {
 
         return noticeTagRepository.save(noticeTag);
 
+    }
+    public void deleteNoticeTag(Long noticeId, Long tagId){
+        NoticeTag noticeTag = noticeTagRepository.findByNoticeNoticeIdAndTagTagId(noticeId, tagId).orElseThrow();
+        noticeTagRepository.delete(noticeTag);
     }
 
     private void verifyExistNoticeTag(Long noticeId, Long tagId){

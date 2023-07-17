@@ -31,7 +31,7 @@ public class UserDto {
         @NotBlank
         private String name;
 
-        private List<Tag> tags;
+        private List<Long> tagIds;
 
         private List<Resume> resumes;
 

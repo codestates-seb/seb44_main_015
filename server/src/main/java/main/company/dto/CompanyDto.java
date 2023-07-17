@@ -31,6 +31,9 @@ public class CompanyDto {
         @NotBlank
         private String password;
 
+        @NotBlank
+        private String name;
+
         private String address;
 
         private String intro;
@@ -54,7 +57,7 @@ public class CompanyDto {
         @NotBlank
         private String phone;
 
-        @NotBlank
+
         private String password;
 
         private String address;

@@ -16,6 +16,12 @@ public class CardService {
 
     private final CardRepository cardRepository;
 
+    public Card createCard(User user){
+        Card card = new Card();
+        card.setUser(user);
+        return cardRepository.save(card);
+    }
+
     public Card findCard(Long cardId){
         return findVerifiedCard(cardId);
     }

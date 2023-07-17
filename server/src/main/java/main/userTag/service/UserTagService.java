@@ -7,6 +7,7 @@ import main.exception.ExceptionCode;
 import main.tag.entity.Tag;
 import main.tag.service.TagService;
 import main.user.entity.User;
+import main.user.repository.UserRepository;
 import main.user.service.UserService;
 import main.userTag.entity.UserTag;
 import main.userTag.repository.UserTagRepository;
@@ -18,11 +19,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserTagService {
     private final UserTagRepository userTagRepository;
-    private final UserService userService;
+    private final UserRepository userRepository;
     private final TagService tagService;
 
     public UserTag createUserTag(Long userId, Long tagId){
-        User user = userService.findUser(userId);
+        User user = userRepository.findByUserId(userId).orElseThrow();
         Tag tag = tagService.findTag(tagId);
         UserTag userTag = new UserTag();
         userTag.setTag(tag);
@@ -30,6 +31,11 @@ public class UserTagService {
 
         return userTagRepository.save(userTag);
 
+    }
+
+    public void deleteUserTag(Long userId, Long tagId){
+        UserTag userTag = userTagRepository.findByUserUserIdAndTagTagId(userId, tagId).orElseThrow();
+        userTagRepository.delete(userTag);
     }
 
     private void verifyExistUserTag(Long userId, Long tagId){

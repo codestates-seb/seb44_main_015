@@ -9,7 +9,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://database-1.cgxb4bo4zmgn.ap-northeast-2.rds.amazonaws.com/FreeDB?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://database-1.cgxb4bo4zmgn.ap-northeast-2.rds.amazonaws.com/Test?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     username: admin
     password: q1w2e3r4
   jpa:
