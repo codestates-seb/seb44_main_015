@@ -43,7 +43,7 @@ public class UserDto {
     public static class Patch{
 
         private long userId;
-        @NotBlank
+
         private String password;
 
         @NotBlank
