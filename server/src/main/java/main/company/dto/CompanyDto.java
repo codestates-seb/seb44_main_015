@@ -40,7 +40,7 @@ public class CompanyDto {
 
         private String person;
 
-        private List<Tag> tag;
+        private List<Long> tagIds;
 
     }
     @Getter

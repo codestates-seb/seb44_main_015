@@ -61,6 +61,11 @@ public class UserController {
     public ResponseEntity postResume(@PathVariable("user_id") @Positive long userId,
                                      @Valid @RequestBody ResumeDto.Post resumeDto,
                                      Authentication authentication){
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long checkUserId = ((Number) principal.get("id")).longValue();
+        if(userId != checkUserId){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
         User user = userService.findUser(userId);
         resumeDto.setUser(user);
         Resume createdResume = resumeService.createResume(resumeMapper.resumePostDtoToResume(resumeDto));
