@@ -1,15 +1,13 @@
-import EmploymentCard from '../../Components/Commons/EmploymentCard';
-import FakeEmploymentInfo from '../../Api/FakeEmploymentInfo.json';
-import { Colors } from '../../Assets/Theme';
+import EmploymentCard from '../EmploymentCard';
+import FakeEmploymentInfo from '../../../Api/FakeEmploymentInfo.json';
 import { styled } from 'styled-components';
 
-const NewEmployment = () => {
-  const employmentData = FakeEmploymentInfo.slice(0, 4);
+const EmploymentCardList = () => {
+  const employmentData = FakeEmploymentInfo;
 
   return (
     <>
       <NewEmploymentContainerStyled>
-        <TitleStyled>⚡ 신규 채용</TitleStyled>
         <EmploymentCardContainerStyled>
           {employmentData.map((employmentInfo) => (
             <EmploymentCard
@@ -23,26 +21,21 @@ const NewEmployment = () => {
   );
 };
 
-export default NewEmployment;
+export default EmploymentCardList;
 
 const NewEmploymentContainerStyled = styled.section`
   display: flex;
-  flex-direction: column;
-  margin-bottom: 80px;
-`;
-
-const TitleStyled = styled.h3`
-  margin-bottom: 41px;
-  color: ${Colors.Gray4};
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 35px;
-  text-align: center;
+  flex-wrap: wrap;
+  height: 100%;
+  padding: 40px 190px 40px 190px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
 `;
 
 const EmploymentCardContainerStyled = styled.ul`
   display: flex;
+  flex-wrap: wrap; // 너비를 벗어나면 밑으로 내려가게 함
   flex-direction: row;
   gap: 22px;
 `;

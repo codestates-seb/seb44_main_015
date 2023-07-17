@@ -94,7 +94,7 @@ const HomeLinkWrapperStyled = styled.div`
 
 const HomeLinkStyled = styled.a`
   text-align: right;
-  lineheight: 36px;
+  line-height: 36px;
   font-size: 14px;
   color: ${Colors.Gray3};
   font-weight: 400;

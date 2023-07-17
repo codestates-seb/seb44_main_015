@@ -1,6 +1,6 @@
-import NameCard from '../../Components/Commons/NameCard';
-import FakeUserInfo from '../../Api/FakeUserInfo.json';
-import { Colors } from '../../Assets/Theme';
+import NameCard from '../../Commons/NameCard';
+import FakeUserInfo from '../../../Api/FakeUserInfo.json';
+import { Colors } from '../../../Assets/Theme';
 import { styled } from 'styled-components';
 
 const CardOfTheWeek = () => {

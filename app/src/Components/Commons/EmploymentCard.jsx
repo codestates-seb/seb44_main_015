@@ -1,5 +1,5 @@
 import NoLineTag from './NoLineTag';
-import FakeEmploymentInfo from '../../Api/FakeEmploymentInfo.json';
+
 import { Colors } from '../../Assets/Theme';
 import { styled } from 'styled-components';
 
