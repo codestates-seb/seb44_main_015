@@ -9,6 +9,7 @@ import main.company.entity.Company;
 import main.security.jwt.JwtTokenizer;
 import main.security.jwt.dto.LoginDto;
 import main.security.jwt.dto.TokenResponseDto;
+import main.security.jwt.service.CustomUserDetailsService;
 import main.user.entity.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -46,27 +47,45 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws ServletException, IOException {
-        User user = (User) authResult.getPrincipal();
+        Object principal = authResult.getPrincipal();
+        if(principal instanceof CustomUserDetailsService.CustomUserDetails) {
+            User user = (User) principal;
+            String accessToken = delegateAccessToken(user);
+            String refreshToken = delegateRefreshToken(user);
+            Long userId = user.getUserId();
+            Integer expiration = jwtTokenizer.getAccessTokenExpirationMinutes();
 
-        String accessToken = delegateAccessToken(user);
-        String refreshToken = delegateRefreshToken(user);
-        Long userId = user.getUserId();
-        Integer expiration = jwtTokenizer.getAccessTokenExpirationMinutes();
+            response.setHeader("Authorization", "Bearer" + accessToken);
+            response.setHeader("Refresh", refreshToken);
+            Gson gson = new Gson();
+            response.getWriter().println(gson.toJson(new TokenResponseDto(userId, expiration, accessToken, refreshToken)));
+            user.setRefreshToken(refreshToken);
 
-        response.setHeader("Authorization", "Bearer"+ accessToken);
-        response.setHeader("Refresh", refreshToken);
-        Gson gson = new Gson();
-        response.getWriter().println(gson.toJson(new TokenResponseDto(userId, expiration, accessToken, refreshToken)));
-        user.setRefreshtoken(refreshToken);
+            this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
+        }
+        else if(principal instanceof CustomUserDetailsService.CustomCompanyDetails){
+            Company company = (Company) principal;
+            String accessToken = delegateAccessToken(company);
+            String refreshToken = delegateRefreshToken(company);
+            Long companyId = company.getCompanyId();
+            Integer expiration = jwtTokenizer.getAccessTokenExpirationMinutes();
 
-        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
+            response.setHeader("Authorization", "Bearer" + accessToken);
+            response.setHeader("Refresh", refreshToken);
+            Gson gson = new Gson();
+            response.getWriter().println(gson.toJson(new TokenResponseDto(companyId, expiration, accessToken, refreshToken)));
+            company.setRefreshToken(refreshToken);
+
+            this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
+
+        }
     }
 
     private String delegateAccessToken(User user){
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", user.getEmail());
         claims.put("roles", user.getRoles());
-        claims.put("userId", user.getUserId());
+        claims.put("id", user.getUserId());
 
         String subject = user.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
@@ -77,14 +96,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         return accessToken;
     }
-/*
     private String delegateAccessToken(Company company){
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", company.getEmail());
         claims.put("roles", company.getRoles());
         claims.put("id", company.getCompanyId());
 
-        String subject = user.getEmail();
+        String subject = company.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
 
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
@@ -93,10 +111,18 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         return accessToken;
     }
-    */
 
     private String delegateRefreshToken(User user){
         String subject = user.getEmail();
+        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+
+        String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
+
+        return refreshToken;
+    }
+    private String delegateRefreshToken(Company company){
+        String subject = company.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 

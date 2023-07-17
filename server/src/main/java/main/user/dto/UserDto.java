@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.card.entity.Card;
 import main.notice.entity.Notice;
+import main.resume.entity.Resume;
+import main.tag.entity.Tag;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -29,7 +31,7 @@ public class UserDto {
         @NotBlank
         private String name;
 
-        private List<Tag> tags;
+        private List<Long> tagIds;
 
         private List<Resume> resumes;
 
@@ -93,8 +95,7 @@ public class UserDto {
         private String name;
 
         private List<Tag> tags;
-
-        private Card card;
+        
 
         private List<Notice> notices;
     }

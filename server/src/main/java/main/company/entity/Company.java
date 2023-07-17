@@ -1,9 +1,6 @@
 package main.company.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import main.companyTag.entity.CompanyTag;
 import main.rating.entity.Rating;
 import main.notice.entity.Notice;
 import main.tag.entity.Tag;
@@ -13,7 +10,9 @@ import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
@@ -46,14 +45,17 @@ public class Company {
     @Column
     private String intro;
 
-    @OneToMany(mappedBy = "company")
+    @Column
+    private String refreshToken;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Notice> notices = new ArrayList<>();
 
-    @OneToMany(mappedBy = "company")
-    private List<Rating> ratings = new ArrayList<>();
-
-    @ManyToMany(mappedBy = "company")
-    private List<Tag> tags = new ArrayList<>();
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<CompanyTag> companyTags = new ArrayList<>();
 
 
 

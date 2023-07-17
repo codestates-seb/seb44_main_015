@@ -20,7 +20,10 @@ public class RatingService {
     public Rating createRating(Rating rating){
 
         verifyExistRating(rating);
-        return ratingRepository.save(rating);
+        Rating createRating = ratingRepository.save(rating);
+        User user = createRating.getUser();
+        user.setAvgRating();
+        return createRating;
     }
 
     public List<Rating> findRatings(Long userId){

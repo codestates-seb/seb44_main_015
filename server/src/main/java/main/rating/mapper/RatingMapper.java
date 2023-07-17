@@ -11,12 +11,11 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RatingMapper {
 
-    @Mapping(target = "noticeId", ignore = true)
     Rating ratingPostDtoToRating(RatingDto.Post post);
 
-    @Mapping(source = "rating.notice.company", target = "companyId")
-    @Mapping(source = "rating.notice", target = "noticeId")
-    @Mapping(source = "rating.user", target = "userId")
+    @Mapping(source = "rating.notice.company.companyId", target = "companyId")
+    @Mapping(source = "rating.notice.noticeId", target = "noticeId")
+    @Mapping(source = "rating.user.userId", target = "userId")
     RatingDto.Response ratingToRatingResponseDto(Rating rating);
 
     List<RatingDto.Response> ratingsToRatingResponseDtos(List<Rating> ratings);

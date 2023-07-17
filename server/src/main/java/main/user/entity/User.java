@@ -3,11 +3,13 @@ package main.user.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import main.bookmark.entity.Bookmark;
 import main.card.entity.Card;
 import main.notice.entity.Notice;
 import main.rating.entity.Rating;
 import main.resume.entity.Resume;
 import main.tag.entity.Tag;
+import main.userTag.entity.UserTag;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,10 +27,10 @@ public class User {
     @Column(nullable = false, unique = true, updatable = false)
     private String email;
 
-    @Column
+    @Column(nullable = false)
     private String password;
 
-    @Column
+    @Column(nullable = false)
     private String phone;
 
     @Column(nullable = false, unique = false)
@@ -49,18 +51,27 @@ public class User {
 
     @Column
     private double avgRating;
-    @ManyToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-    private List<Tag> tags = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserTag> userTags = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
-    private List<Notice> bookmarks = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Bookmark> bookmarks = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Card card;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Resume> resumes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Rating> ratings = new ArrayList<>();
+
+    public void setAvgRating(){
+        double i = 0;
+        for(Rating rating :this.getRatings()){
+            i += rating.getScore();
+        }
+        this.setAvgRating(i/this.getRatings().size());
+    }
 }

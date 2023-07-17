@@ -22,8 +22,10 @@ public class Rating {
     private int score;
 
     @ManyToOne
+    @JoinColumn(name = "NOTICE_ID")
     private Notice notice;
 
     @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User user;
 }

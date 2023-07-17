@@ -16,11 +16,13 @@ public interface CardCheckMapper {
     CardCheck cardCheckPostDtoToCardCheck(CardCheckDto.Post cardCheck);
 
     CardCheck cardCheckPatchDtoToCardCheck(CardCheckDto.Patch cardCheck);
+/*
     @Mapping(source = "cardCheck.card.user.tags", target = "userTags")
     @Mapping(source = "cardCheck.card.user.phone", target = "userPhone")
     @Mapping(source = "cardCheck.card.user.email", target = "userEmail")
     @Mapping(source = "cardCheck.card.user.name", target = "userName")
     CardCheckDto.Response cardCheckToCardCheckResponseDto(CardCheck cardCheck);
+*/
 
     List<CardCheckDto.Response> cardChecksToCardCheckResponseDtos(List<CardCheck> cardChecks);
 }

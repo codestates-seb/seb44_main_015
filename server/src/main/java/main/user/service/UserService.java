@@ -1,13 +1,16 @@
 package main.user.service;
 
 import lombok.RequiredArgsConstructor;
+import main.company.entity.Company;
 import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
 import main.notice.entity.Notice;
 import main.notice.repository.NoticeRepository;
 import main.security.utils.CustomAuthorityUtils;
+import main.tag.entity.Tag;
 import main.user.entity.User;
 import main.user.repository.UserRepository;
+import main.userTag.service.UserTagService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +24,9 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final NoticeRepository noticeRepository;
+    private final UserTagService userTagService;
 
-    public User createUser(User user){
+    public User createUser(List<Long> tagIds,User user){
 
         verifyExistEmail(user.getEmail());
 
@@ -34,9 +38,14 @@ public class UserService {
 
         User savedUser = userRepository.save(user);
 
+        Long userId = savedUser.getUserId();
+        for(Long tagId : tagIds){
+            savedUser.getUserTags().add(userTagService.createUserTag(userId, tagId));
+        }
         return savedUser;
     }
 
+/*
     public void addBookmark(Long userId, Long noticeId) {
         User user = userRepository.findById(userId).orElseThrow();
         Notice notice = noticeRepository.findById(noticeId).orElseThrow();
@@ -44,21 +53,41 @@ public class UserService {
         user.getBookmarks().add(notice);
         userRepository.save(user);
     }
+*/
+
 
     public User updateUser(User user){
 
-        User updatedUser = userRepository.save(user);
+        User findUser = findVerifiedUser(user.getUserId());
+
+        Optional.ofNullable(user.getPassword())
+                .ifPresent(password -> findUser.setPassword(passwordEncoder.encode(password)));
+        Optional.ofNullable(user.getAvgRating())
+                .ifPresent(avgRating -> findUser.setAvgRating(avgRating));
+        Optional.ofNullable(user.getRefreshToken())
+                .ifPresent(refreshToken -> findUser.setRefreshToken(refreshToken));
+
+        User updatedUser = userRepository.save(findUser);
         return updatedUser;
     }
 
+/*
     public List<Notice> findBookmarks(Long userId){
         User user = findVerifiedUser(userId);
         return user.getBookmarks();
     }
+*/
 
     public User findUser(long userId){
 
         User findUser = findVerifiedUser(userId);
+        return findUser;
+    }
+
+    public User findOtherUser(long userId){
+
+        User findUser = findVerifiedUser(userId);
+        findUser.getCard().addViewCount();
         return findUser;
     }
 

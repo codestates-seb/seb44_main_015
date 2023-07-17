@@ -1,6 +1,8 @@
 package main.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import main.bookmark.entity.Bookmark;
+import main.bookmark.service.BookmarkService;
 import main.cardCheck.entity.CardCheck;
 import main.cardCheck.service.CardCheckService;
 import main.notice.entity.Notice;
@@ -13,10 +15,12 @@ import main.resume.dto.ResumeDto;
 import main.resume.entity.Resume;
 import main.resume.mapper.ResumeMapper;
 import main.resume.service.ResumeService;
+import main.tag.entity.Tag;
 import main.user.dto.UserDto;
 import main.user.entity.User;
 import main.user.mapper.UserMapper;
 import main.user.service.UserService;
+import main.userTag.service.UserTagService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -43,11 +47,13 @@ public class UserController {
     private final ResumeService resumeService;
     private final NoticeMapper noticeMapper;
     private final CardCheckService cardCheckService;
+    private final UserTagService userTagService;
+    private final BookmarkService bookmarkService;
 
     @PostMapping("/signup")
     public ResponseEntity postUser(@Valid @RequestBody UserDto.Post userPostDto){
         User user = userMapper.userPostDtoToUser(userPostDto);
-        User createUser = userService.createUser(user);
+        User createUser = userService.createUser(userPostDto.getTagIds(), user);
         return new ResponseEntity<>(userMapper.userToUserResponseDto(createUser), HttpStatus.CREATED);
     }
 
@@ -60,7 +66,21 @@ public class UserController {
         Resume createdResume = resumeService.createResume(resumeMapper.resumePostDtoToResume(resumeDto));
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
+    @PostMapping("/{user_id}/tag")
+    public ResponseEntity postResume(@PathVariable("user_id") @Positive long userId,
+                                     @RequestBody long tagId,
+                                     Authentication authentication){
+
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long checkUserId = ((Number) principal.get("id")).longValue();
+        if(userId != checkUserId){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+
+        userTagService.createUserTag(userId,tagId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PatchMapping("/profile/{user_id}")
@@ -79,10 +99,16 @@ public class UserController {
     }
 
     @PatchMapping("/{user_id}/resume/{resume_id}")
-    public ResponseEntity postResume(@PathVariable("user_id") @Positive long userId,
+    public ResponseEntity patchResume(@PathVariable("user_id") @Positive long userId,
                                      @PathVariable("resume_id") @Positive long resumeId,
                                      @Valid @RequestBody ResumeDto.Patch resumeDto,
                                      Authentication authentication){
+
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long checkUserId = ((Number) principal.get("id")).longValue();
+        if(userId != checkUserId){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
         User user = userService.findUser(userId);
         resumeDto.setUser(user);
         resumeDto.setResumeId(resumeId);
@@ -95,16 +121,16 @@ public class UserController {
     @GetMapping("/{user_id}")
     public ResponseEntity getUser(@PathVariable("user_id") @Positive long userId){
 
-        User findUser = userService.findUser(userId);
+        User findUser = userService.findOtherUser(userId);
 
         return new ResponseEntity<>(userMapper.userToUserResponseDto(findUser), HttpStatus.OK);
     }
 
     @GetMapping("/{user_id}/bookmark")
     public ResponseEntity getUserBookmark(@PathVariable("user_id") @Positive long userId){
-        List<Notice> bookmarks = userService.findBookmarks(userId);
+        List<Bookmark> bookmarks = bookmarkService.findBookmarks(userId);
 
-        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(bookmarks), HttpStatus.OK);
+        return new ResponseEntity<>(noticeMapper.bookmarksToNoticeResponseDtos(bookmarks), HttpStatus.OK);
     }
 
     @GetMapping("/{user_id}/rating")
@@ -145,6 +171,20 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         userService.deleteUser(userId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/{user_id}/tag/{tag_id}")
+    public ResponseEntity deleteUserTag(@PathVariable("user_id") @Positive long userId,
+                                     @PathVariable("tag_id") @Positive long tagId,
+                                     Authentication authentication) {
+
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long checkUserId = ((Number) principal.get("id")).longValue();
+        if (userId != checkUserId) {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        userTagService.deleteUserTag(userId,tagId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
