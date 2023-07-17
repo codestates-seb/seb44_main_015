@@ -107,7 +107,7 @@ public class NoticeController {
 
     @GetMapping("/{notice_id}")
     public ResponseEntity getNotice(@PathVariable("notice_id") @Positive long noticeId){
-        Notice getNotice = noticeService.findNotice(noticeId);
+        Notice getNotice = noticeService.findNoticeAddViewCount(noticeId);
 
 
         return new ResponseEntity(noticeMapper.noticeToNoticeResponseDetailDto(getNotice), HttpStatus.OK);

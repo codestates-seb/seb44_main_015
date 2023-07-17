@@ -121,7 +121,7 @@ public class UserController {
     @GetMapping("/{user_id}")
     public ResponseEntity getUser(@PathVariable("user_id") @Positive long userId){
 
-        User findUser = userService.findUser(userId);
+        User findUser = userService.findOtherUser(userId);
 
         return new ResponseEntity<>(userMapper.userToUserResponseDto(findUser), HttpStatus.OK);
     }

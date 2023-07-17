@@ -45,6 +45,12 @@ public class NoticeService {
         return findNotice;
     }
 
+    public Notice findNoticeAddViewCount(Long noticeId){
+        Notice findNotice = findVerifiedNotice(noticeId);
+        findNotice.addViewCount();
+        return findNotice;
+    }
+
     public List<Notice> findNoticesByCompanyId(Long companyId){
         List<Notice> notices = noticeRepository.findAllByCompanyCompanyId(companyId);
         return notices;

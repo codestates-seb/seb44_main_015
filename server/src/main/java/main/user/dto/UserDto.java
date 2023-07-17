@@ -95,8 +95,7 @@ public class UserDto {
         private String name;
 
         private List<Tag> tags;
-
-        private Card card;
+        
 
         private List<Notice> notices;
     }

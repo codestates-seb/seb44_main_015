@@ -84,6 +84,13 @@ public class UserService {
         return findUser;
     }
 
+    public User findOtherUser(long userId){
+
+        User findUser = findVerifiedUser(userId);
+        findUser.getCard().addViewCount();
+        return findUser;
+    }
+
     public User findUserByCard(long cardId){
 
         return userRepository.findByCardCardId(cardId).orElseThrow(() ->

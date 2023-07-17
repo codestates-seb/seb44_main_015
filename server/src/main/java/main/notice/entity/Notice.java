@@ -58,4 +58,8 @@ public class Notice {
     @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
     private List<Bookmark> bookmarks = new ArrayList<>();
 
+    public void addViewCount(){
+        this.setViewCount(this.getViewCount()+1);
+    }
+
 }

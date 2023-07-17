@@ -29,4 +29,7 @@ public class Card {
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
     private List<CardCheck> cardChecks;
 
+    public void addViewCount(){
+        this.setViewCount(this.getViewCount()+1);
+    }
 }
