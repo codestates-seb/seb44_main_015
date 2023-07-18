@@ -1,6 +1,9 @@
 package main.card.controller;
 
 import lombok.RequiredArgsConstructor;
+import main.card.entity.Card;
+import main.card.mapper.CardMapper;
+import main.card.service.CardService;
 import main.notice.entity.Notice;
 import main.notice.service.NoticeService;
 import main.rating.dto.RatingDto;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,6 +32,8 @@ public class CardController {
     private final RatingService ratingService;
     private final NoticeService noticeService;
     private final RatingMapper ratingMapper;
+    private final CardService cardService;
+    private final CardMapper cardMapper;
 
     @PostMapping("{card_id}/rating")
     public ResponseEntity postRating(@Valid @RequestBody RatingDto.Post ratingPostDto,
@@ -46,5 +52,12 @@ public class CardController {
         ratingService.createRating(ratingMapper.ratingPostDtoToRating(ratingPostDto));
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/weekly")
+    public ResponseEntity getMostViewedCards(@RequestParam(required = false, defaultValue = "4") int limit,
+                                             @RequestParam(required = false, defaultValue = "0") int page){
+        List<Card> cards = cardService.findMostViewedCards(page, limit);
+        return new ResponseEntity(cardMapper.cardsToCardResponsesDto(cards),HttpStatus.OK);
     }
 }

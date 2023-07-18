@@ -1,6 +1,8 @@
 package main.user.service;
 
 import lombok.RequiredArgsConstructor;
+import main.card.entity.Card;
+import main.card.service.CardService;
 import main.company.entity.Company;
 import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
@@ -25,6 +27,7 @@ public class UserService {
     private final CustomAuthorityUtils authorityUtils;
     private final NoticeRepository noticeRepository;
     private final UserTagService userTagService;
+    private final CardService cardService;
 
     public User createUser(List<Long> tagIds,User user){
 
@@ -42,6 +45,8 @@ public class UserService {
         for(Long tagId : tagIds){
             savedUser.getUserTags().add(userTagService.createUserTag(userId, tagId));
         }
+        Card card = cardService.createCard(savedUser);
+        savedUser.setCard(card);
         return savedUser;
     }
 

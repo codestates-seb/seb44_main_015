@@ -24,7 +24,7 @@ public class CompanyService {
     private final CustomAuthorityUtils authorityUtils;
 
 
-    public Company createCompany(Company company){
+    public Company createCompany(List<Long> tagIds, Company company){
 
         verifyExistEmail(company.getEmail());
 

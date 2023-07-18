@@ -23,6 +23,7 @@ public class NoticeTagService {
     private final TagService tagService;
 
     public NoticeTag createNoticeTag(Long noticeId, Long tagId){
+        verifyExistNoticeTag(noticeId, tagId);
         Notice notice = noticeRepository.findByNoticeId(noticeId).orElseThrow();
         Tag tag = tagService.findTag(tagId);
         NoticeTag noticeTag = new NoticeTag();

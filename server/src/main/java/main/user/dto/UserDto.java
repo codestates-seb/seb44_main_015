@@ -33,8 +33,6 @@ public class UserDto {
 
         private List<Long> tagIds;
 
-        private List<Resume> resumes;
-
     }
 
     @Getter
@@ -43,7 +41,7 @@ public class UserDto {
     public static class Patch{
 
         private long userId;
-        @NotBlank
+
         private String password;
 
         @NotBlank
@@ -94,10 +92,11 @@ public class UserDto {
         @NotBlank
         private String name;
 
-        private List<Tag> tags;
-        
+        private long cardId;
 
-        private List<Notice> notices;
+        private List<String> tagNames;
+
+        private List<String> resumeContents;
     }
 
 }

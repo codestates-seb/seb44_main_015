@@ -114,7 +114,6 @@ public class NoticeController {
     }
     @GetMapping("/{notice_id}/card")
     public ResponseEntity getCards(@PathVariable("notice_id") @Positive long noticeId,
-                                   @RequestParam String sort,
                                   Authentication authentication){
         return new ResponseEntity<>(cardCheckMapper.cardChecksToCardCheckResponseDtos(cardCheckService.findCardChecks(noticeId)), HttpStatus.OK);
     }

@@ -15,6 +15,8 @@ public interface TagMapper {
     @Mapping(source = "tag.tagId", target = "tagId")
     TagDto.Response companyTagToTagResponse(CompanyTag companyTag);
 
+    Tag tagPostDtoToTag(TagDto.Post post);
+
     TagDto.Response tagToTagResponse(Tag tag);
 
     List<TagDto.Response> companyTagsToTagResponses(List<CompanyTag> companyTags);
