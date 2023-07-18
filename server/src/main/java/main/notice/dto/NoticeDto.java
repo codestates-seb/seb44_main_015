@@ -82,6 +82,8 @@ public class NoticeDto {
         @NotBlank
         private String companyName;
 
+        private List<String> tagNames;
+
 
     }
 

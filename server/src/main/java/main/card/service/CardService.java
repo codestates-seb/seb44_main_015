@@ -6,8 +6,11 @@ import main.card.repository.CardRepository;
 import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
 import main.user.entity.User;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +28,13 @@ public class CardService {
     public Card findCard(Long cardId){
         return findVerifiedCard(cardId);
     }
+
+    public List<Card> findMostViewedCards(int page, int limit){
+        Pageable limitPageable = PageRequest.of(page, limit);
+        List<Card> cards = cardRepository.findAllByOrderByViewCountDesc(limitPageable);
+        return cards;
+    }
+
 
 
     public Card findVerifiedCard(long cardId) {

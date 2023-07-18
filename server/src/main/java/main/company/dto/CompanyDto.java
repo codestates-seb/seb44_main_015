@@ -68,4 +68,30 @@ public class CompanyDto {
 
     }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Response{
+
+        private Long companyId;
+
+        @Email
+        @NotBlank
+        private String email;
+
+        @NotBlank
+        private String phone;
+
+        private String password;
+
+        private String address;
+
+        private String intro;
+
+        private String person;
+
+        private List<String> tagNames;
+
+    }
+
 }

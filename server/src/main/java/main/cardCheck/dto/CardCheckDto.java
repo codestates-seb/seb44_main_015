@@ -58,7 +58,7 @@ public class CardCheckDto {
         private String userPhone;
 
         @NotBlank
-        private List<Tag> userTags;
+        private List<String> tagNames;
 
     }
 

@@ -49,9 +49,10 @@ public class CompanyController {
 
 
     @GetMapping("/{company_id}")
-    public ResponseEntity<Company> getCompanyById(@PathVariable("company_id") Long companyId) {
-        Optional<Company> companyOptional = companyService.getCompanyById(companyId);
-        return companyOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity getCompanyById(@PathVariable("company_id") Long companyId) {
+        Company company = companyService.findCompany(companyId);
+        return new ResponseEntity<>(companyMapper.companyToCompanyResponseDto(company), HttpStatus.OK);
+
     }
 
     @PatchMapping("/profile/{company_id}")

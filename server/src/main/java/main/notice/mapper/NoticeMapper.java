@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface NoticeMapper {
@@ -31,12 +32,26 @@ public interface NoticeMapper {
     @Mapping(source = "notice.createdAt", target = "createdAt")
     @Mapping(source = "notice.deadline", target = "deadline")
     @Mapping(source = "notice.company.name", target = "companyName")
+    @Mapping(target = "tagNames", expression = "java(getTagNames(bookmark))")
     NoticeDto.Response bookmarkToNoticeResponseDto(Bookmark bookmark);
 
     @Mapping(source = "company.name", target = "companyName")
+    @Mapping(target = "tagNames", expression = "java(getTagNames(notice))")
     NoticeDto.Response noticeToNoticeResponseDto(Notice notice);
 
     List<NoticeDto.Response> noticesToNoticeResponseDtos(List<Notice> notices);
 
     List<NoticeDto.Response> bookmarksToNoticeResponseDtos(List<Bookmark> bookmarks);
+
+    default List<String> getTagNames(Notice notice){
+        return notice.getNoticeTags().stream()
+                .map(noticeTag -> noticeTag.getTag().getName())
+                .collect(Collectors.toList());
+    }
+
+    default List<String> getTagNames(Bookmark bookmark){
+        return bookmark.getNotice().getNoticeTags().stream()
+                .map(noticeTag -> noticeTag.getTag().getName())
+                .collect(Collectors.toList());
+    }
 }

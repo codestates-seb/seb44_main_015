@@ -94,9 +94,11 @@ public class UserDto {
         @NotBlank
         private String name;
 
-        private List<Long> tagIds;
+        private long cardId;
 
-        private List<Resume> resumes;
+        private List<String> tagNames;
+
+        private List<String> resumeContents;
     }
 
 }
