@@ -15,6 +15,7 @@ import main.resume.dto.ResumeDto;
 import main.resume.entity.Resume;
 import main.resume.mapper.ResumeMapper;
 import main.resume.service.ResumeService;
+import main.tag.dto.TagDto;
 import main.tag.entity.Tag;
 import main.user.dto.UserDto;
 import main.user.entity.User;
@@ -75,7 +76,7 @@ public class UserController {
 
     @PostMapping("/{user_id}/tag")
     public ResponseEntity postResume(@PathVariable("user_id") @Positive long userId,
-                                     @RequestBody long tagId,
+                                     @RequestBody TagDto.PostId tagIdDto,
                                      Authentication authentication){
 
         Map<String, Object> principal = (Map) authentication.getPrincipal();
@@ -83,8 +84,7 @@ public class UserController {
         if(userId != checkUserId){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
-
-        userTagService.createUserTag(userId,tagId);
+        userTagService.createUserTag(userId, tagIdDto.getTagId());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -128,7 +128,7 @@ public class UserController {
 
         User findUser = userService.findOtherUser(userId);
 
-        return new ResponseEntity<>(userMapper.userToUserResponseDto(findUser), HttpStatus.OK);
+        return new ResponseEntity<>(userMapper.userToUserProfileResponse(findUser), HttpStatus.OK);
     }
 
     @GetMapping("/{user_id}/bookmark")
@@ -170,7 +170,7 @@ public class UserController {
     public ResponseEntity deleteUser(@PathVariable("user_id") long userId,
                                      Authentication authentication){
         Map<String,Object> principal = (Map) authentication.getPrincipal();
-        long authuserId = ((Number) principal.get("user_id")).longValue();
+        Long authuserId = ((Number) principal.get("id")).longValue();
 
         if(authuserId != userId){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);

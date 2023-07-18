@@ -5,6 +5,7 @@ import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
 import main.tag.entity.Tag;
 import main.tag.repository.TagRepository;
+import main.user.entity.User;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,11 @@ import java.util.Optional;
 public class TagService {
     private final TagRepository tagRepository;
 
+    public Tag createTag(Tag tag){
+        verifyExistTag(tag.getName());
+        return tagRepository.save(tag);
+    }
+
     public Tag findTag(Long tagId){
         return findVerifyTag(tagId);
     }
@@ -28,6 +34,13 @@ public class TagService {
     private Tag findVerifyTag(Long tagId){
         Optional<Tag> optionalTag = tagRepository.findByTagId(tagId);
 
-        return optionalTag.orElseThrow(()->(new BusinessLogicException(ExceptionCode.USER_EXISTS)));
+        return optionalTag.orElseThrow(()->(new BusinessLogicException(ExceptionCode.TAG_EXISTS)));
+    }
+
+
+    private void verifyExistTag(String name) {
+        Optional<Tag> tag = tagRepository.findByName(name);
+        if(tag.isPresent())
+            throw new BusinessLogicException(ExceptionCode.TAG_EXISTS);
     }
 }

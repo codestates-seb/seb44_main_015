@@ -23,6 +23,7 @@ public class UserTagService {
     private final TagService tagService;
 
     public UserTag createUserTag(Long userId, Long tagId){
+        verifyExistUserTag(userId, tagId);
         User user = userRepository.findByUserId(userId).orElseThrow();
         Tag tag = tagService.findTag(tagId);
         UserTag userTag = new UserTag();

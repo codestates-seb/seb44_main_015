@@ -33,8 +33,6 @@ public class UserDto {
 
         private List<Long> tagIds;
 
-        private List<Resume> resumes;
-
     }
 
     @Getter

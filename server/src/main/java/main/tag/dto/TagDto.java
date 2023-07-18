@@ -10,6 +10,24 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class TagDto {
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Post{
+        @NotBlank
+        private String name;
+
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class PostId{
+        @NotBlank
+        private Long tagId;
+
+    }
     @Getter
     @Setter
     @NoArgsConstructor
