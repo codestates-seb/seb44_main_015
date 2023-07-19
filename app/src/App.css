@@ -8,11 +8,6 @@
   font-family: Noto Sans CJK KR;
 }
 
-main {
-  width: 1060px;
-  margin: 0 auto;
-}
-
 html,
 body,
 div,
@@ -142,6 +137,6 @@ table {
 }
 
 main {
-  width:1060px;
-  margin:0 auto;
+  width: 1060px;
+  margin: 0 auto;
 }

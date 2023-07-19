@@ -1,4 +1,4 @@
-import { Colors } from '../../../Assets/ColorTheme';
+import { Colors } from '../../../Assets/Theme';
 import { styled } from 'styled-components';
 import Logo from '../../../Assets/Icons/Logo.png';
 import GithubLogo from '../../../Assets/Icons/GithubLogo.png';
@@ -32,15 +32,17 @@ const Footer = () => {
 export default Footer;
 
 const FooterContainerStyled = styled.footer`
-  position: fixed;
+  position: relative;
   bottom: 0;
   display: flex;
   width: 100%;
   height: 223px;
-  padding: 49.15px 190px 49.15px 190px;
+  min-width: 1440px;
+  padding: 49.15px 190px;
   border-top: 1px solid ${Colors.Gray2};
   box-sizing: border-box;
-  overflow-x: auto; // 스크롤 추가
+  z-index: 1;
+  background-color: ${Colors.Bgwhite};
 `;
 
 const InformationContainerStyled = styled.div`
@@ -60,7 +62,6 @@ const EmailStyled = styled.p`
   margin: 8px 0 0 0;
   text-align: left;
   font-size: 12px;
-  font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -72,6 +73,7 @@ const TeamIntroductionStyled = styled(EmailStyled)`
 
 const TermsContainerStyled = styled.ul`
   display: flex;
+  flex: 6;
   min-width: 600px;
   align-items: flex-start;
 `;
@@ -80,10 +82,13 @@ const TermsStyled = styled.li`
   margin: 0 20px;
   color: ${Colors.Gray4};
   font-size: 12px;
-  font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  &:hover {
+    font-weight: 700;
+    cursor: pointer;
+  }
 `;
 
 const GithubLinkStyled = styled.a`
@@ -98,11 +103,11 @@ const GithubLinkStyled = styled.a`
   background: ${Colors.secondPurple};
   color: #000;
   font-size: 12px;
-  font-family: Noto Sans CJK KR;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 `;
+
 const GithubLogoStyled = styled.img`
   width: 16px;
   height: 16px;

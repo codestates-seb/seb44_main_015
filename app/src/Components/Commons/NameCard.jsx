@@ -2,20 +2,27 @@ import styled from 'styled-components';
 import { Colors } from '../../Assets/Theme';
 import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
+import SelectedButton from '../Button/SelectedButton';
 
-const NameCard = ({ name, phone, email, stack }) => {
+const NameCard = ({ userInfo, className }) => {
+  const { name, phone, email, stack } = userInfo;
+
   return (
     <>
       <NameCardStyled>
-        <UpperWrapperStyled>
-          <NameWrapperStyled name={name}>{name}</NameWrapperStyled>
-          <InnerWrapperStyled>
-            <PhoneWrapperStyled $phone={phone}>{phone}</PhoneWrapperStyled>
-            <EmailWrapperStyled $email={email}>{email}</EmailWrapperStyled>
-          </InnerWrapperStyled>
-        </UpperWrapperStyled>
-        <TagWrapperStyled>
-          {stack && stack.map((tag) => <Tag key={tag} content={tag} />)}
+        <FormerWrapperStyled>
+          <UpperWrapperStyled>
+            <NameWrapperStyled name={name}>{name}</NameWrapperStyled>
+            <InnerWrapperStyled>
+              <PhoneWrapperStyled $phone={phone}>{phone}</PhoneWrapperStyled>
+              <EmailWrapperStyled $email={email}>{email}</EmailWrapperStyled>
+            </InnerWrapperStyled>
+          </UpperWrapperStyled>
+          <SelectedButton className={className} />
+        </FormerWrapperStyled>
+
+        <TagWrapperStyled margin={'0 40px 0px 24px'}>
+          {stack && stack.map((tag) => <Tag key={tag} children={tag} />)}
         </TagWrapperStyled>
       </NameCardStyled>
     </>
@@ -25,10 +32,8 @@ const NameCard = ({ name, phone, email, stack }) => {
 export default NameCard;
 
 export const NameCardStyled = styled.div`
-  position: absolute;
   width: 360px;
   height: 210px;
-  //margin: 144px 890px 964px 190px;
   border: 1px solid ${Colors.Gray2};
   border-radius: 16px;
   color: ${Colors.mainPurple};
@@ -43,11 +48,10 @@ export const UpperWrapperStyled = styled.div`
   align-items: flex-start;
   gap: 8px;
   flex-shrink: 0;
-
-  margin: 24px 178px 65px 24px;
+  margin: 24px 106px 65px 24px;
 `;
 
-export const NameWrapperStyled = styled.span`
+export const NameWrapperStyled = styled.p`
   color: ${Colors.mainPurple};
   font-style: normal;
   font-size: 16px;
@@ -65,7 +69,7 @@ export const InnerWrapperStyled = styled.div`
   height: 38px;
   margin-top: 8px;
 `;
-export const PhoneWrapperStyled = styled.span`
+export const PhoneWrapperStyled = styled.p`
   color: ${Colors.Gray4};
   font-size: 13px;
   font-style: normal;
@@ -73,10 +77,13 @@ export const PhoneWrapperStyled = styled.span`
   line-height: normal;
 `;
 
-export const EmailWrapperStyled = styled.div`
+export const EmailWrapperStyled = styled.p`
   color: ${Colors.Gray4};
   font-size: 13px;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
+`;
+const FormerWrapperStyled = styled.div`
+  display: flex;
 `;

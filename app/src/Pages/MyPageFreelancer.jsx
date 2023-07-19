@@ -1,41 +1,107 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { Messages } from '../Assets/Theme';
-
+import { BodyBackgroundStyled } from './LogIn';
+import { EmploymentCardContainerStyled } from './MainPage/NewEmployment';
 import NameCard from '../Components/Commons/NameCard';
 import Resume from '../Components/Commons/Resume';
 import OutlineButton from '../Components/Button/OutlineButton';
 import FakeUserInfo from '../Api/FakeUserInfo.json';
 import AppliedBox from '../Components/Commons/MyPage/AppliedBox';
 import AppliedBoard from '../Components/Commons/MyPage/AppliedBoard';
+import MiddleHeader from '../Components/Commons/MiddleHeader';
+import EmploymentCard from '../Components/Commons/EmploymentCard';
+import FakeEmploymentInfo from '../Api/FakeEmploymentInfo.json';
 
 const MyPageFreelancer = () => {
   const [userInfo, setUserInfo] = useState({});
-
+  const employmentData = FakeEmploymentInfo.slice(0, 5);
   useEffect(() => {
     setUserInfo(FakeUserInfo[0]);
   }, []);
 
-  const { name, email, phone, stack, resume } = userInfo;
+  const { resume } = userInfo;
 
   return (
-    <MainContainerStyled>
-      <LeftSectionStyled>
-        <NameCard name={name} email={email} phone={phone} stack={stack} />
-        <Resume resume={resume} />
-        <ButtonWrapperStyled>
-          <OutlineButton width={'360px'} content={Messages.cardEditBtn} />
-        </ButtonWrapperStyled>
-      </LeftSectionStyled>
-      <RightSectionStyled>
-        <AppliedBoard />
-        <AppliedBox />
-        <AppliedBox
-          title={Messages.bookmarkedTitle}
-          message={Messages.bookmarkedMessage}
-        />
-      </RightSectionStyled>
-    </MainContainerStyled> //main태그 변경예정
+    <BodyBackgroundStyled>
+      <MainContainerStyled>
+        <TotalWrapperStyled>
+          <TitleWrapperStyled>
+            <MiddleHeader midtitle={Messages.myPage} />
+          </TitleWrapperStyled>
+          <LeftSectionStyled>
+            <NameCard
+              key={userInfo.id}
+              userInfo={userInfo}
+              className={'hide'}
+            />
+            <Resume resume={resume} />
+            <ButtonWrapperStyled>
+              <OutlineButton width={'360px'} content={Messages.cardEditBtn} />
+            </ButtonWrapperStyled>
+          </LeftSectionStyled>
+          <RightSectionStyled>
+            <AppliedBoard
+              title={Messages.appliedBoardTitle}
+              info1={Messages.cardInTitle}
+              info2={Messages.selectedTitle}
+              info3={Messages.bookmarkedTitle}
+              info1Number={employmentData.length}
+              info2Number={employmentData.length}
+              info3Number={employmentData.length}
+            />
+            <AppliedBox
+              title={Messages.cardInTitle}
+              number={employmentData.length}
+              content={
+                employmentData.length ? (
+                  <ScrollStyled>
+                    <EmploymentCardContainerStyled>
+                      {employmentData.map((employmentInfo) => (
+                        <EmploymentCard
+                          key={employmentInfo.id}
+                          employmentInfo={employmentInfo}
+                        />
+                      ))}
+                    </EmploymentCardContainerStyled>
+                  </ScrollStyled>
+                ) : (
+                  <ZeroCard
+                    message={Messages.cardInMessage}
+                    smallmessage={Messages.careeringMessage}
+                    content={Messages.showCareerBtn}
+                  />
+                )
+              }
+            />
+            <AppliedBox
+              title={Messages.bookmarkedTitle}
+              number={employmentData.length}
+              content={
+                employmentData.length ? (
+                  <ScrollStyled>
+                    <EmploymentCardContainerStyled>
+                      {employmentData.map((employmentInfo) => (
+                        <EmploymentCard
+                          key={employmentInfo.id}
+                          employmentInfo={employmentInfo}
+                        />
+                      ))}
+                    </EmploymentCardContainerStyled>
+                  </ScrollStyled>
+                ) : (
+                  <ZeroCard
+                    message={Messages.bookmarkedMessage}
+                    smallmessage={Messages.careeringMessage}
+                    content={Messages.showCareerBtn}
+                  />
+                )
+              }
+            />
+          </RightSectionStyled>
+        </TotalWrapperStyled>
+      </MainContainerStyled>
+    </BodyBackgroundStyled>
   );
 };
 
@@ -51,29 +117,41 @@ export const MainContainerStyled = styled.main`
 
 export const LeftSectionStyled = styled.section`
   display: flex;
-  flex-flow: row wrap;
-  align-content: space-between;
+  flex-direction: column;
   width: 360px;
-  //height: ${(props) => props.height || '450px'};
-  //flex-direction: column;
-  margin-top: 94px; //헤더와 간격
-  //margin-left: 0;
+  height: auto;
+  margin-top: 24px;
 `;
 
 export const ButtonWrapperStyled = styled.div`
-  position: absolute;
-  margin-top: ${(props) => props.marginTop || '390px'};
-  //margin: 580px 890px 716px 190px; //537px 890px 716px 190px;freelancer페이지마진
+  position: relative;
+  margin-top: 16px;
 `;
 
 export const RightSectionStyled = styled.section`
   display: flex;
-  flex-flow: row wrap;
-  align-content: space-between;
+  flex-direction: column;
   width: 676px;
-  height: ${(props) => props.height || '1054px'};
-  //margin: 144px 190px 120px 574px;
-  margin-left: 384px;
-  margin-bottom: 120px; //하단과 간격
-  margin-top: 94px;
+  margin-left: 24px;
+  margin-bottom: 120px;
+  margin-top: 24px;
+`;
+
+export const TitleWrapperStyled = styled.div`
+  display: flex;
+  width: 1060px;
+`;
+
+export const TotalWrapperStyled = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: 40px auto 132px;
+  width: 1060px;
+  height: 100%;
+`;
+
+export const ScrollStyled = styled.div`
+  overflow: scroll;
+  margin: 0 24px;
 `;

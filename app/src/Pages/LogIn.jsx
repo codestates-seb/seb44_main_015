@@ -6,7 +6,6 @@ import LogoTag from '../Components/Commons/SignUp/LogoTag';
 
 import styled from 'styled-components';
 
-
 function LogIn(){
 
     return(
@@ -47,34 +46,34 @@ function LogIn(){
 export default LogIn;
 
 const TextAreaWrapperStyled = styled.ul`
-    margin-bottom: 56px;
-    & > li:first-child{
-        margin-bottom: 10px;
-    }
-`
+  margin-bottom: 56px;
+  & > li:first-child {
+    margin-bottom: 10px;
+  }
+`;
 const SignUpWrapperStyled = styled.div`
-    display:flex;
-    margin-top:32px;
-    align-items:center;
-`
+  display: flex;
+  margin-top: 32px;
+  align-items: center;
+`;
 
 const SignUpNoticeStyled = styled.p`
-    color: ${Colors.Gray4};
-    line-height:24px;
-    &:after{
-        content: "";
-        display: inline-block;
-        width: 1px;
-        height: 24px;
-        margin: 0 16px 0;
-        background-color: ${Colors.Gray2};
-        vertical-align:middle;
-    }
-`
+  color: ${Colors.Gray4};
+  line-height: 24px;
+  &:after {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 24px;
+    margin: 0 16px 0;
+    background-color: ${Colors.Gray2};
+    vertical-align: middle;
+  }
+`;
 
 const SignUpStyled = styled.a`
-    font-size: 16px;
-    font-weight: 700;
-    color: ${Colors.mainPurple};
-    cursor:pointer;
-`
+  font-size: 16px;
+  font-weight: 700;
+  color: ${Colors.mainPurple};
+  cursor: pointer;
+`;
