@@ -98,6 +98,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
     private String delegateAccessToken(Company company){
         Map<String, Object> claims = new HashMap<>();
+
         claims.put("email", company.getEmail());
         claims.put("roles", company.getRoles());
         claims.put("id", company.getCompanyId());
@@ -113,20 +114,26 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     private String delegateRefreshToken(User user){
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userType", "user");
+        claims.put("email", user.getEmail());
         String subject = user.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
-        String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
+        String refreshToken = jwtTokenizer.generateRefreshToken(claims, subject, expiration, base64EncodedSecretKey);
 
         return refreshToken;
     }
     private String delegateRefreshToken(Company company){
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userType", "company");
+        claims.put("email", company.getEmail());
         String subject = company.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
-        String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
+        String refreshToken = jwtTokenizer.generateRefreshToken(claims, subject, expiration, base64EncodedSecretKey);
 
         return refreshToken;
     }

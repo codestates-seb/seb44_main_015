@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.card.entity.Card;
+import main.cardCheck.entity.CardCheck;
 import main.notice.entity.Notice;
 import main.tag.entity.Tag;
 
@@ -32,8 +33,7 @@ public class CardCheckDto {
 
         private Long cardCheckId;
 
-        @NotBlank
-        private int checked;
+        private CardCheck.CardCheckStatus checked;
 
     }
 
@@ -46,7 +46,7 @@ public class CardCheckDto {
         private Long cardCheckId;
 
         @NotBlank
-        private int checked;
+        private CardCheck.CardCheckStatus checked;
 
         @NotBlank
         private String userName;

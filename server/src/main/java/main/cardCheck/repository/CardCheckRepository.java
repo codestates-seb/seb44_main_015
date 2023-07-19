@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface CardCheckRepository extends JpaRepository<CardCheck, Long> {
     List<CardCheck> findByNoticeNoticeIdOrderByCreatedAtAsc(Long noticeId);
-    List<CardCheck> findByCheckedAndCardUserUserId(int checked, Long userId);
+    List<CardCheck> findByCheckedAndCardUserUserId(CardCheck.CardCheckStatus checked, Long userId);
+    List<CardCheck> findAllByCardUserUserId(Long userId);
     boolean existsByCardAndNotice(Card card, Notice notice);
 }

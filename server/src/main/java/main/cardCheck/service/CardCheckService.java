@@ -19,12 +19,11 @@ public class CardCheckService {
 
     public CardCheck createCardCheck(CardCheck cardCheck){
         verifyExistCardCheck(cardCheck.getCard(), cardCheck.getNotice());
-        cardCheck.setChecked(0);
         return cardCheckRepository.save(cardCheck);
     }
 
     public List<CardCheck> findCardChecksUser(long userId){
-        return cardCheckRepository.findByCheckedAndCardUserUserId(0, userId);
+        return cardCheckRepository.findAllByCardUserUserId(userId);
     }
 
     public List<CardCheck> findCardChecks(long noticeId){
