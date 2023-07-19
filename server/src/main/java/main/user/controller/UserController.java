@@ -148,10 +148,10 @@ public class UserController {
 
     @GetMapping("/{user_id}/notice")
     public ResponseEntity getUserNotice(@PathVariable("user_id") @Positive long userId){
-
-        List<CardCheck> cardChecks = cardCheckService.findCardChecksUser(userId);
+        Long cardId = userService.findUser(userId).getCard().getCardId();
+        List<CardCheck> cardChecks = cardCheckService.findCardChecksUser(cardId);
         List<Notice> notices = cardChecks.stream()
-                .map(CardCheck::getNotice)
+                .map(cardCheck -> cardCheck.getNotice())
                 .collect(Collectors.toList());
 
 

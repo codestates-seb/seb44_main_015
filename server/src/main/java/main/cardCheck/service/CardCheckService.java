@@ -15,18 +15,23 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CardCheckService {
-    CardCheckRepository cardCheckRepository;
+    private final CardCheckRepository cardCheckRepository;
 
     public CardCheck createCardCheck(CardCheck cardCheck){
         verifyExistCardCheck(cardCheck.getCard(), cardCheck.getNotice());
         return cardCheckRepository.save(cardCheck);
     }
 
-    public List<CardCheck> findCardChecksUser(long userId){
-        return cardCheckRepository.findAllByCardUserUserId(userId);
+    public List<CardCheck> findCardChecksUser(Long cardId){
+        List<CardCheck> cardChecks = cardCheckRepository.findAllByCardCardId(cardId);
+        if(cardChecks == null){
+            throw new BusinessLogicException(ExceptionCode.NOTICE_NOT_FOUND);
+        }
+
+        return cardChecks;
     }
 
-    public List<CardCheck> findCardChecks(long noticeId){
+    public List<CardCheck> findCardChecks(Long noticeId){
         return cardCheckRepository.findByNoticeNoticeIdOrderByCreatedAtAsc(noticeId);
     }
 
