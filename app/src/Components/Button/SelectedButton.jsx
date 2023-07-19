@@ -3,23 +3,12 @@ import { useState } from 'react';
 import selectedImg from '../../Assets/Icons/selected.png';
 import unselectedImg from '../../Assets/Icons/unselected.png';
 
-const SelectedButton = ({ className }) => {
-  const [changeImg, setChangeImg] = useState(unselectedImg);
-  //const [showSelectedBtn, setShowSelectedBtn] = useState(false);
-  const ImageHandler = () => {
-    if (changeImg === unselectedImg) {
-      setChangeImg(selectedImg);
-    } else {
-      setChangeImg(unselectedImg);
-    }
-  };
-
+const SelectedButton = ({ selected, ...props }) => {
   return (
     <ButtonStyled
       alt="selectedButton"
-      src={changeImg}
-      onClick={ImageHandler}
-      className={className}
+      src={selected ? selectedImg : unselectedImg}
+      {...props}
     ></ButtonStyled>
   );
 };

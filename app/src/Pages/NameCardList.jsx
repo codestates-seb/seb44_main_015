@@ -1,22 +1,28 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { Messages } from '../Assets/Theme';
-import { BodyBackgroundStyled } from './LogIn';
+import { BackgroundContainerStyled } from '../Pages/MyPageFreelancer';
 import { MainContainerStyled } from '../Pages/MyPageFreelancer';
 import MiddleHeader from '../Components/Commons/MiddleHeader';
 import MainButton from '../Components/Button/MainButton';
 import NameCard from '../Components/Commons/NameCard';
-import FakeUserInfo from '../Api/FakeUserInfo.json';
+import Header from '../Components/Commons/Layouts/Header';
+import axios from '../Api/Axios';
 
-const NameCardList = () => {
+const NameCardList = ({ selectedHanlder }) => {
   const [userListInfo, setUserListInfo] = useState([]);
 
   useEffect(() => {
-    setUserListInfo(FakeUserInfo);
+    async function fetchData() {
+      const response = await axios.get('card/weekly');
+      setUserListInfo(response.data);
+    }
+    fetchData();
   }, []);
 
   return (
-    <BodyBackgroundStyled>
+    <BackgroundContainerStyled>
+      <Header />
       <MainContainerStyled>
         <TotalWrapperStyled>
           <UpperWrapperStyled>
@@ -36,7 +42,7 @@ const NameCardList = () => {
           </CardListWrapperStyled>
         </TotalWrapperStyled>
       </MainContainerStyled>
-    </BodyBackgroundStyled>
+    </BackgroundContainerStyled>
   );
 };
 
