@@ -10,6 +10,7 @@ import main.tag.entity.Tag;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class NoticeDto {
 
         private List<Long> tagIds;
 
-        @NotBlank
+        @NotNull
         private LocalDateTime deadline;
 
 
@@ -73,10 +74,10 @@ public class NoticeDto {
         @NotBlank
         private int viewCount;
 
-        @NotBlank
+        @NotNull
         private LocalDateTime createdAt;
 
-        @NotBlank
+        @NotNull
         private LocalDateTime deadline;
 
         @NotBlank
@@ -103,10 +104,10 @@ public class NoticeDto {
         @NotBlank
         private int viewCount;
 
-        @NotBlank
+        @NotNull
         private LocalDateTime createdAt;
 
-        @NotBlank
+        @NotNull
         private LocalDateTime deadline;
 
         @NotBlank

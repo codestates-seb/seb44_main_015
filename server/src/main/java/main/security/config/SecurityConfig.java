@@ -54,8 +54,30 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST,"/logout").hasAnyRole("COMPANY","USER")
-                        .antMatchers(HttpMethod.POST,"/notice/{notice_id}/card/{card_id}").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/user/{user_id}").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE,"/company/{company_id}").hasRole("COMPANY")
+
+                        .antMatchers(HttpMethod.POST,"/tag").hasAnyRole("USER","COMPANY")
+
+                        .antMatchers(HttpMethod.POST,"/notice/{notice_id}/card/{card_id}").hasRole("USER")
                         .antMatchers(HttpMethod.POST,"/notice/{notice_id}/bookmark").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.PATCH, "/user/profile/{user_id}").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "user/{user_id}/tag").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "user/{user_id}/tag/{tag_id}").hasRole("USER")
+                        .antMatchers(HttpMethod.POST,"user/{user_id}/resume").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH,"user/{user_id}/resume/{resume_id}").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE,"user/{user_id}/resume/{resume_id}").hasRole("USER")
+                        .antMatchers(HttpMethod.GET,"user/{user_id}/notice").hasRole("USER")
+
+                        .antMatchers(HttpMethod.PATCH,"/company/profile/{company_id}").hasRole("COMPANY")
+                        .antMatchers(HttpMethod.POST,"/company/{company_id}/tag").hasRole("COMPANY")
+                        .antMatchers(HttpMethod.DELETE,"/company/{company_id}/tag/{tag_id}").hasRole("COMPANY")
+                        .antMatchers(HttpMethod.POST,"/notice").hasRole("COMPANY")
+                        .antMatchers(HttpMethod.PATCH,"/notice/{notice_id}").hasRole("COMPANY")
+                        .antMatchers(HttpMethod.DELETE,"/notice/{notice_id}").hasRole("COMPANY")
+                        .antMatchers(HttpMethod.GET,"/notice/{notice_id}/card").hasRole("COMPANY")
+                        .antMatchers(HttpMethod.PATCH,"/notice/{notice_id}/card/{check_id}").hasRole("COMPANY")
+                        .antMatchers(HttpMethod.POST,"/card/{card_id}/rating").hasRole("COMPANY")
                         .anyRequest().permitAll()
                 );
 /*                .oauth2Login(oauth2 -> oauth2
