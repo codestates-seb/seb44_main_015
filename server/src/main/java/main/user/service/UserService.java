@@ -8,6 +8,7 @@ import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
 import main.notice.entity.Notice;
 import main.notice.repository.NoticeRepository;
+import main.resume.service.ResumeService;
 import main.security.utils.CustomAuthorityUtils;
 import main.tag.entity.Tag;
 import main.user.entity.User;
@@ -28,8 +29,9 @@ public class UserService {
     private final NoticeRepository noticeRepository;
     private final UserTagService userTagService;
     private final CardService cardService;
+    private final ResumeService resumeService;
 
-    public User createUser(List<Long> tagIds,User user){
+    public User createUser(List<Long> tagIds, List<String> resumes, User user){
 
         verifyExistEmail(user.getEmail());
 
@@ -44,6 +46,9 @@ public class UserService {
         Long userId = savedUser.getUserId();
         for(Long tagId : tagIds){
             savedUser.getUserTags().add(userTagService.createUserTag(userId, tagId));
+        }
+        for(String resume : resumes){
+            savedUser.getResumes().add(resumeService.createResumeByString(resume, savedUser));
         }
         Card card = cardService.createCard(savedUser);
         savedUser.setCard(card);

@@ -1,10 +1,13 @@
 package main.company.service;
 
 import lombok.RequiredArgsConstructor;
+import main.card.entity.Card;
 import main.company.dto.CompanyDto;
 import main.company.entity.Company;
 import main.company.repository.CompanyRepository;
 import main.company.entity.Company;
+import main.companyTag.entity.CompanyTag;
+import main.companyTag.service.CompanyTagService;
 import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
 import main.security.utils.CustomAuthorityUtils;
@@ -22,6 +25,7 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+    private final CompanyTagService companyTagService;
 
 
     public Company createCompany(List<Long> tagIds, Company company){
@@ -35,6 +39,12 @@ public class CompanyService {
         company.setRoles(roles);
 
         Company savedCompany = companyRepository.save(company);
+
+        Long companyId = savedCompany.getCompanyId();
+        for(Long tagId : tagIds){
+            savedCompany.getCompanyTags().add(companyTagService.createCompanyTag(companyId, tagId));
+        }
+
 
         return savedCompany;
     }

@@ -1,6 +1,7 @@
 package main.companyTag.service;
 
 import lombok.RequiredArgsConstructor;
+import main.company.repository.CompanyRepository;
 import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
 import main.company.entity.Company;
@@ -19,11 +20,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CompanyTagService {
     private final CompanyTagRepository companyTagRepository;
-    private final CompanyService companyService;
+    private final CompanyRepository companyRepository;
     private final TagService tagService;
 
     public CompanyTag createCompanyTag(Long companyId, Long tagId){
-        Company company = companyService.findCompany(companyId);
+        verifyExistCompanyTag(companyId, tagId);
+        Company company = companyRepository.findById(companyId).orElseThrow();
         Tag tag = tagService.findTag(tagId);
         CompanyTag companyTag = new CompanyTag();
         companyTag.setTag(tag);
