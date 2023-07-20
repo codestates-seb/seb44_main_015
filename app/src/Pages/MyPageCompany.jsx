@@ -51,7 +51,7 @@ const MyPageCompany = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const { person, email, phone, tagNames, intro } = companyInfo;
+  const { email, phone, tagNames, intro, name } = companyInfo;
   const closedCareer = careerData.filter(
     (career) => duedate(career.deadline) === '지난 채용',
   );
@@ -66,7 +66,7 @@ const MyPageCompany = () => {
             </TitleWrapperStyled>
 
             <LeftSectionStyled>
-              <CompanyCard name={person} phone={phone} email={email} />
+              <CompanyCard name={name} phone={phone} email={email} />
               <CompanyDetail stack={tagNames} detail={intro} />
               <ButtonWrapperStyled>
                 <OutlineButton
