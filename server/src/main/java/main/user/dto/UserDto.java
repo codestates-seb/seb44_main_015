@@ -33,7 +33,7 @@ public class UserDto {
 
         private List<Long> tagIds;
 
-        private List<String> resume;
+        private List<String> resumeContent;
 
     }
 
