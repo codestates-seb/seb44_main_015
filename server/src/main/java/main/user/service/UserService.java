@@ -44,11 +44,15 @@ public class UserService {
         User savedUser = userRepository.save(user);
 
         Long userId = savedUser.getUserId();
-        for(Long tagId : tagIds){
-            savedUser.getUserTags().add(userTagService.createUserTag(userId, tagId));
+        if(tagIds != null) {
+            for (Long tagId : tagIds) {
+                savedUser.getUserTags().add(userTagService.createUserTag(userId, tagId));
+            }
         }
-        for(String resume : resumes){
-            savedUser.getResumes().add(resumeService.createResumeByString(resume, savedUser));
+        if(resumes != null) {
+            for (String resume : resumes) {
+                savedUser.getResumes().add(resumeService.createResumeByString(resume, savedUser));
+            }
         }
         Card card = cardService.createCard(savedUser);
         savedUser.setCard(card);
@@ -94,6 +98,11 @@ public class UserService {
         return findUser;
     }
 
+    public User findUserByEmail(String email){
+        User user = findVerifiedUserByEmail(email);
+        return user;
+    }
+
     public User findOtherUser(long userId){
 
         User findUser = findVerifiedUser(userId);
@@ -134,6 +143,27 @@ public class UserService {
         User findUser =
                 optionalUser.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+
+        return findUser;
+    }
+    public User findVerifiedUserByEmail(String email) {
+        Optional<User> optionalUser =
+                userRepository.findByEmail(email);
+
+        User findUser =
+                optionalUser.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+
+        return findUser;
+    }
+
+    public User findVerifiedUserByRefreshToken(String refreshToken) {
+        Optional<User> optionalUser =
+                userRepository.findByRefreshToken(refreshToken);
+
+        User findUser =
+                optionalUser.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.REFRESH_TOKEN_NOT_FOUND));
 
         return findUser;
     }

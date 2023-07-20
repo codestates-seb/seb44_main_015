@@ -35,8 +35,10 @@ public class NoticeService {
         notice.setCompany(companyService.findCompany(companyId));
         Notice createNotice = noticeRepository.save(notice);
         Long noticeId = createNotice.getNoticeId();
-        for(Long tagId : tagIds){
-            createNotice.getNoticeTags().add(noticeTagService.createNoticeTag(noticeId, tagId));
+        if(tagIds != null) {
+            for (Long tagId : tagIds) {
+                createNotice.getNoticeTags().add(noticeTagService.createNoticeTag(noticeId, tagId));
+            }
         }
         return noticeRepository.save(createNotice);
     }

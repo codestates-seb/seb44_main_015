@@ -41,16 +41,21 @@ public class CompanyService {
         Company savedCompany = companyRepository.save(company);
 
         Long companyId = savedCompany.getCompanyId();
-        for(Long tagId : tagIds){
-            savedCompany.getCompanyTags().add(companyTagService.createCompanyTag(companyId, tagId));
+        if(tagIds != null) {
+            for (Long tagId : tagIds) {
+                savedCompany.getCompanyTags().add(companyTagService.createCompanyTag(companyId, tagId));
+            }
         }
-
 
         return savedCompany;
     }
 
     public Company findCompany(Long companyId){
         return findVerifiedCompany(companyId);
+    }
+
+    public Company findCompanyByEmail(String email){
+        return findVerifiedCompanyByEmail(email);
     }
 
     public Optional<Company> getCompanyById(Long companyId) {
@@ -70,15 +75,29 @@ public class CompanyService {
     }
 
     private Company findVerifiedCompany(Long companyId){
-        Optional<Company> optionalCompany = companyRepository.findById(companyId);
+        Optional<Company> optionalCompany = companyRepository.findByCompanyId(companyId);
 
         return optionalCompany.orElseThrow(()-> new BusinessLogicException(ExceptionCode.COMPANY_NOT_FOUND));
 
 
 
     }
-    private void verifyExistEmail(String email){
 
+    private Company findVerifiedCompanyByEmail(String email){
+        Optional<Company> optionalCompany = companyRepository.findByEmail(email);
+
+        return optionalCompany.orElseThrow(()-> new BusinessLogicException(ExceptionCode.COMPANY_NOT_FOUND));
+    }
+    public Company findVerifiedCompanyByRefreshToken(String refreshToken){
+        Optional<Company> optionalCompany = companyRepository.findByRefreshToken(refreshToken);
+
+        return optionalCompany.orElseThrow(()-> new BusinessLogicException(ExceptionCode.REFRESH_TOKEN_NOT_FOUND));
+    }
+    private void verifyExistEmail(String email){
+        Optional<Company> optionalCompany = companyRepository.findByEmail(email);
+        if(optionalCompany.isPresent()){
+            throw new BusinessLogicException(ExceptionCode.COMPANY_EXISTS);
+        }
     }
 
 }

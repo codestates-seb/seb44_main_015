@@ -1,6 +1,7 @@
 package main.security.config;
 
 import lombok.RequiredArgsConstructor;
+import main.company.repository.CompanyRepository;
 import main.security.jwt.JwtTokenizer;
 import main.security.jwt.filter.JwtAuthenticationFilter;
 import main.security.jwt.filter.JwtVerificationFilter;
@@ -9,6 +10,7 @@ import main.security.jwt.handler.UserAuthenticationEntryPoint;
 import main.security.jwt.handler.UserAuthenticationFailureHandler;
 import main.security.jwt.handler.UserAuthenticationSuccessHandler;
 import main.security.utils.CustomAuthorityUtils;
+import main.user.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -32,6 +34,8 @@ public class SecurityConfig {
 
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils customAuthorityUtils;
+    private final UserRepository userRepository;
+    private final CompanyRepository companyRepository;
 
 
 
@@ -103,7 +107,7 @@ public class SecurityConfig {
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, userRepository, companyRepository);
             jwtAuthenticationFilter.setFilterProcessesUrl("/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());

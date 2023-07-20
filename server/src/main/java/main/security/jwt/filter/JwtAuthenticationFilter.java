@@ -6,11 +6,15 @@ import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import main.company.entity.Company;
+import main.company.repository.CompanyRepository;
+import main.company.service.CompanyService;
 import main.security.jwt.JwtTokenizer;
 import main.security.jwt.dto.LoginDto;
 import main.security.jwt.dto.TokenResponseDto;
 import main.security.jwt.service.CustomUserDetailsService;
 import main.user.entity.User;
+import main.user.repository.UserRepository;
+import main.user.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,6 +35,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //    private static final String CONTENT_TYPE = "application/json";
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
+    private final UserRepository userRepository;
+    private final CompanyRepository companyRepository;
 
 
     @SneakyThrows
@@ -59,7 +65,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             response.setHeader("Refresh", refreshToken);
             Gson gson = new Gson();
             response.getWriter().println(gson.toJson(new TokenResponseDto(userId, expiration, accessToken, refreshToken)));
-            user.setRefreshToken(refreshToken);
+            User savedUser = userRepository.findByUserId(userId).orElseThrow();
+            savedUser.setRefreshToken(refreshToken);
+            userRepository.save(savedUser);
 
             this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
         }
@@ -74,7 +82,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             response.setHeader("Refresh", refreshToken);
             Gson gson = new Gson();
             response.getWriter().println(gson.toJson(new TokenResponseDto(companyId, expiration, accessToken, refreshToken)));
-            company.setRefreshToken(refreshToken);
+            Company savedCompany = companyRepository.findByCompanyId(companyId).orElseThrow();
+            savedCompany.setRefreshToken(refreshToken);
+            companyRepository.save(savedCompany);
 
             this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
 
@@ -86,6 +96,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         claims.put("email", user.getEmail());
         claims.put("roles", user.getRoles());
         claims.put("id", user.getUserId());
+        claims.put("userType", "user");
 
         String subject = user.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
@@ -102,6 +113,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         claims.put("email", company.getEmail());
         claims.put("roles", company.getRoles());
         claims.put("id", company.getCompanyId());
+        claims.put("userType", "company");
 
         String subject = company.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
