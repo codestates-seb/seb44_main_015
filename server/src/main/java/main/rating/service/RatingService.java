@@ -16,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RatingService {
     private final RatingRepository ratingRepository;
+    private final UserRepository userRepository;
 
     public Rating createRating(Rating rating){
 
@@ -23,6 +24,7 @@ public class RatingService {
         Rating createRating = ratingRepository.save(rating);
         User user = createRating.getUser();
         user.setAvgRating();
+        userRepository.save(user);
         return createRating;
     }
 

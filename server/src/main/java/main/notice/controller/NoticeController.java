@@ -98,6 +98,14 @@ public class NoticeController {
         return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity searchNotices(@RequestParam(required = true) String name,
+                                        @RequestParam(required = false, defaultValue = "10") int limit,
+                                        @RequestParam(required = false, defaultValue = "0") int page){
+        List<Notice> notices = noticeService.searchNotices(name, page, limit);
+        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
+    }
+
     @GetMapping("/new")
     public ResponseEntity getNewNotices(@RequestParam(required = false, defaultValue = "10") int limit,
                                         @RequestParam(required = false, defaultValue = "00") int page){

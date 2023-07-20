@@ -17,6 +17,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,12 +54,18 @@ public class NoticeService {
     public Notice findNoticeAddViewCount(Long noticeId){
         Notice findNotice = findVerifiedNotice(noticeId);
         findNotice.addViewCount();
-        return findNotice;
+        return noticeRepository.save(findNotice);
     }
 
     public List<Notice> findNoticesByCompanyId(Long companyId){
         List<Notice> notices = noticeRepository.findAllByCompanyCompanyId(companyId);
         return notices;
+    }
+
+    public List<Notice> searchNotices(String name, int page, int limit){
+        Pageable limitPageable = PageRequest.of(page, limit);
+        LocalDateTime now = LocalDateTime.now();
+        return noticeRepository.findAllByDeadlineAfterAndTitleContainingOrDeadlineAfterAndContentContaining(now, name, now, name, limitPageable);
     }
 
     public List<Notice> findNoticesPage(String tagName, int page, int limit){

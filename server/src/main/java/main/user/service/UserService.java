@@ -98,7 +98,7 @@ public class UserService {
 
         User findUser = findVerifiedUser(userId);
         findUser.getCard().addViewCount();
-        return findUser;
+        return userRepository.save(findUser);
     }
 
     public User findUserByCard(long cardId){
