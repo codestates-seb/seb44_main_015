@@ -1,14 +1,20 @@
 import './App.css';
-import Main from './Pages/Main';
+import MainPage from './Pages/Main';
 import EmploymentDetail from './Pages/EmploymentDetail';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import EmploymentList from './Pages/EmploymentList';
+import Login from './Pages/Login';
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<EmploymentDetail />}></Route>
+        <Route path="/" element={<MainPage />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        {/* <Route path="/signup" element={<Signup />}></Route> */}
+        <Route path="/employmentlist" element={<EmploymentList />}></Route>
+        <Route path="/employmentdetail" element={<EmploymentDetail />}></Route>
       </Routes>
     </BrowserRouter>
   );

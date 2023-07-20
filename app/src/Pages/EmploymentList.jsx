@@ -3,6 +3,7 @@ import Footer from '../Components/Commons/Layouts/Footer';
 import TagList from '../Components/Commons/EmploymentPage/TagList';
 import EmploymentCardList from '../Components/Commons/EmploymentPage/EmploymentCardList';
 import { styled } from 'styled-components';
+import { Colors } from '../Assets/Theme';
 
 const EmploymentList = () => {
   return (
@@ -27,5 +28,6 @@ const EmploymentListContainerStyled = styled.div`
   min-width: 1440px;
   height: auto;
   box-sizing: border-box;
+  background-color: ${Colors.Bgwhite};
   /* overflow-x: auto; */
 `;

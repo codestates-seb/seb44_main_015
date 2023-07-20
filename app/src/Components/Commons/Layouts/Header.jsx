@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Colors } from '../../../Assets/Theme';
 import { styled } from 'styled-components';
 import Logo from '../../../Assets/Icons/Logo.png';
@@ -5,19 +6,33 @@ import Search from '../../../Assets/Icons/Search.png';
 import Profile from '../../../Assets/Icons/Profile.png';
 
 const Header = () => {
+  const navigate = useNavigate();
+  const handleLogoClick = () => {
+    navigate('/');
+  };
+  const handleEmploymentClick = () => {
+    navigate('/employmentlist');
+  };
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+  const handleSignupClick = () => {
+    navigate('/signup');
+  };
+
   return (
     <HeaderContainerStyled>
       <h1>
-        <LogoStyled src={Logo} alt="프리해요" />
+        <LogoStyled onClick={handleLogoClick} src={Logo} alt="프리해요" />
       </h1>
       <NavContainerStyled>
-        <NavStyled>채용</NavStyled>
+        <NavStyled onClick={handleEmploymentClick}>채용</NavStyled>
         <NavStyled>개발진</NavStyled>
       </NavContainerStyled>
       <SearchStyled src={Search} alt="검색" />
       <AuthContainerStyled>
-        <LoginStyled>로그인</LoginStyled>
-        <SignupStyled>회원가입</SignupStyled>
+        <LoginStyled onClick={handleLoginClick}>로그인</LoginStyled>
+        <SignupStyled onClick={handleSignupClick}>회원가입</SignupStyled>
         {/* <ProfileStyled src={Profile} alt="프로필" /> */}
       </AuthContainerStyled>
     </HeaderContainerStyled>
@@ -43,7 +58,9 @@ const HeaderContainerStyled = styled.header`
 const LogoStyled = styled.img`
   width: 93px;
   height: 20px;
-  margin: 14px 0 14px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const NavContainerStyled = styled.ul`

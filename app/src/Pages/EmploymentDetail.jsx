@@ -4,6 +4,7 @@ import CompanyDetail from '../Components/Commons/EmploymentDetailPage/CompanyDet
 import ApplyToCompany from '../Components/Commons/EmploymentDetailPage/ApplyToCompany';
 import FakeEmploymentInfo from '../Api/FakeEmploymentInfo.json';
 import { styled } from 'styled-components';
+import { Colors } from '../Assets/Theme';
 
 const EmploymentDetail = () => {
   const employmentData = FakeEmploymentInfo.slice(0, 1);
@@ -32,8 +33,10 @@ const EmploymentDetailContainerStyled = styled.div`
   display: flex;
   min-width: 1440px;
   height: auto;
+  min-height: 720px;
   box-sizing: border-box;
   /* overflow-x: auto; */
   flex-direction: row;
   justify-content: space-between;
+  background-color: ${Colors.Bgwhite};
 `;

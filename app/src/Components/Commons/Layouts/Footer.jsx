@@ -34,6 +34,7 @@ export default Footer;
 const FooterContainerStyled = styled.footer`
   position: relative;
   bottom: 0;
+
   display: flex;
   width: 100%;
   height: 223px;
