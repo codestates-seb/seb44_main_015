@@ -29,6 +29,7 @@ const TagList = () => {
 };
 
 export default TagList;
+
 const UpperContainerStyled = styled.div`
   display: flex;
   height: 212px;

@@ -51,7 +51,7 @@ const LeftContainerStyled = styled.section`
   display: flex;
   margin-top: 90px;
   margin-left: 190px;
-  margin-right: 190px;
+  margin-right: 64px;
   flex-direction: column;
   flex-wrap: nowrap;
 `;
@@ -123,7 +123,7 @@ const MiddleContainerStyled = styled.section`
 `;
 
 const TextStyled = styled.p`
-  color: #000;
+  color: ${Colors.Gray4};
   font-size: 16px;
   font-weight: 400;
   line-height: 23px;

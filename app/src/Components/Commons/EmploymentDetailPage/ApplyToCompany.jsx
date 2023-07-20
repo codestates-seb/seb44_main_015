@@ -1,41 +1,29 @@
-import EmploymentCard from '../EmploymentCard';
-import FakeEmploymentInfo from '../../../Api/FakeEmploymentInfo.json';
+import NameCard from '../NameCard';
+import FakeUserInfo from '../../../Api/FakeUserInfo.json';
 import { styled } from 'styled-components';
 
-const EmploymentCardList = () => {
-  const employmentData = FakeEmploymentInfo;
+const ApplyToCompany = () => {
+  const userData = FakeUserInfo.slice(0, 1);
 
   return (
     <>
-      <LowerContainerStyled>
-        <EmploymentCardContainerStyled>
-          {employmentData.map((employmentInfo) => (
-            <EmploymentCard
-              key={employmentInfo.id}
-              employmentInfo={employmentInfo}
-            />
-          ))}
-        </EmploymentCardContainerStyled>
-      </LowerContainerStyled>
+      <RightContainerStyled>
+        {userData.map((userInfo) => (
+          <NameCard key={userInfo.id} userInfo={userInfo} className="hide" />
+        ))}
+      </RightContainerStyled>
     </>
   );
 };
 
-export default EmploymentCardList;
+export default ApplyToCompany;
 
-const LowerContainerStyled = styled.section`
+const RightContainerStyled = styled.section`
   display: flex;
   flex-wrap: wrap;
   height: 100%;
-  padding: 40px 190px 40px 190px;
+  padding: 90px 190px 40px 0;
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
-`;
-
-const EmploymentCardContainerStyled = styled.ul`
-  display: flex;
-  flex-wrap: wrap; // 너비를 벗어나면 밑으로 내려가게 함
-  flex-direction: row;
-  gap: 22px;
 `;
