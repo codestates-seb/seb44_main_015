@@ -35,10 +35,10 @@ const MyPageCompany = () => {
     axios
       .all([
         axios.get(
-          'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/1',
+          'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/2',
         ),
         axios.get(
-          'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/1/notice',
+          'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/2/notice',
         ),
       ])
       .then(
@@ -52,6 +52,9 @@ const MyPageCompany = () => {
   }, []);
 
   const { email, phone, tagNames, intro, name } = companyInfo;
+  const openCareer = careerData.filter(
+    (career) => duedate(career.deadline) !== '지난 채용',
+  );
   const closedCareer = careerData.filter(
     (career) => duedate(career.deadline) === '지난 채용',
   );
@@ -82,19 +85,19 @@ const MyPageCompany = () => {
                 info1={Messages.openTitle}
                 info2={Messages.closedTitle}
                 info3={Messages.selectedTitle}
-                info1Number={careerData.length}
+                info1Number={openCareer.length}
                 info2Number={closedCareer.length}
                 info3Number={employmentData.length}
               />
               <AppliedBox
                 height={'343px'}
                 title={Messages.openTitle}
-                number={careerData.length}
+                number={openCareer.length}
                 content={
-                  careerData.length ? (
+                  openCareer.length ? (
                     <ScrollStyled>
                       <EmploymentCardContainerStyled>
-                        {careerData.map((employmentInfo) => (
+                        {openCareer.map((employmentInfo) => (
                           <CareerCard
                             key={employmentInfo.id}
                             employmentInfo={employmentInfo}

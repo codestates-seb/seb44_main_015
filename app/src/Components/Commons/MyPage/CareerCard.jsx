@@ -11,10 +11,13 @@ import NoLineTag from '../NoLineTag';
 import DisabledButton from '../../Button/DisabledButton';
 import { Link } from 'react-router-dom';
 import { duedate } from '../../../Utils/Dayjs';
+import { useNavigate } from 'react-router-dom';
 
 const CareerCard = ({ employmentInfo }) => {
-  const { deadline, title, companyName, region, tagNames } = employmentInfo;
-
+  const { deadline, title, companyName, region, tagNames, noticeId } =
+    employmentInfo;
+  //console.log(employmentInfo);
+  const navigate = useNavigate();
   return (
     <>
       <EmploymentCardStyled>
@@ -47,9 +50,11 @@ const CareerCard = ({ employmentInfo }) => {
             <DisabledButton content={Messages.showCardIn} width={'200px'} />
           </Link>
         ) : (
-          <Link to="/namecardlist">
-            <MainButton content={Messages.showCardIn} width={'200px'} />
-          </Link>
+          <MainButton
+            onClick={() => navigate(`/${noticeId}`)}
+            content={Messages.showCardIn}
+            width={'200px'}
+          />
         )}
       </EmploymentCardStyled>
     </>

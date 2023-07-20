@@ -5,17 +5,24 @@ import Tag from './Tag';
 import SelectedButton from '../Button/SelectedButton';
 
 const NameCard = ({ userInfo, ...props }) => {
-  const { name, phone, email, tagNames } = userInfo;
+  const { name, phone, email, tagNames, userName, userEmail, userPhone } =
+    userInfo;
 
   return (
     <>
       <NameCardStyled>
         <FormerWrapperStyled>
           <UpperWrapperStyled>
-            <NameWrapperStyled name={name}>{name}</NameWrapperStyled>
+            <NameWrapperStyled name={name ? name : userName}>
+              {name ? name : userName}
+            </NameWrapperStyled>
             <InnerWrapperStyled>
-              <PhoneWrapperStyled $phone={phone}>{phone}</PhoneWrapperStyled>
-              <EmailWrapperStyled $email={email}>{email}</EmailWrapperStyled>
+              <PhoneWrapperStyled $phone={phone ? phone : userPhone}>
+                {phone ? phone : userPhone}
+              </PhoneWrapperStyled>
+              <EmailWrapperStyled $email={email ? email : userEmail}>
+                {email ? email : userEmail}
+              </EmailWrapperStyled>
             </InnerWrapperStyled>
           </UpperWrapperStyled>
           <SelectedButton {...props} />
