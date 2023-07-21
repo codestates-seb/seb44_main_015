@@ -30,7 +30,7 @@ export const TagWrapperStyled = styled.div`
   height: ${(props) => props.height || '27px'}; //97px -> 채용카드안
   align-items: flex-start;
   gap: 4px;
-  margin: ${(props) => props.$margin || '65px 40px 0px 24px'};
+  margin: ${(props) => props.margin || '65px 40px 0px 24px'};
 `;
 
 export const NoLineTagStyled = styled.div`
@@ -46,6 +46,5 @@ export const NoLineTagStyled = styled.div`
   line-height: normal;
   border: 1px solid transparent;
   border-radius: 16px;
-  background-color: ${(props) => props.$backgroundColor || `${Colors.Gray1}`};
-
+  background-color: ${(props) => props.backgroundColor || `${Colors.Gray1}`};
 `;
