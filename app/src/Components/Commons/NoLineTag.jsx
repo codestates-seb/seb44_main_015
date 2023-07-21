@@ -46,5 +46,5 @@ export const NoLineTagStyled = styled.div`
   line-height: normal;
   border: 1px solid transparent;
   border-radius: 16px;
-  background-color: ${(props) => props.backgroundColor || `${Colors.Gray1}`};
+  background-color: ${(props) => props.$backgroundColor || `${Colors.Gray1}`};
 `;

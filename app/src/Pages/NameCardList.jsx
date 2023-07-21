@@ -52,7 +52,7 @@ const NameCardList = ({}) => {
                 {userListInfo &&
                   userListInfo.map((onecard) => (
                     <NameCard
-                      key={onecard.id}
+                      key={onecard.cardCheckId}
                       userInfo={onecard}
                       className={null}
                       clicked={clicked}
