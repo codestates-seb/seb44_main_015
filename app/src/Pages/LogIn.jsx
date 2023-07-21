@@ -1,49 +1,119 @@
-import {Colors} from '../Assets/Theme';
+import { Colors } from '../Assets/Theme';
 import TextArea from '../Components/Commons/TextArea';
 import MainButton from '../Components/Button/MainButton';
-import { BodyBackgroundStyled, MainStyled, HomeLinkWrapperStyled, HomeLinkStyled, LogInWrapperStyled } from '../Components/Commons/SignUp/Form';
+import {
+  BodyBackgroundStyled,
+  MainStyled,
+  HomeLinkWrapperStyled,
+  HomeLinkStyled,
+  LogInWrapperStyled,
+} from '../Components/Commons/SignUp/Form';
 import LogoTag from '../Components/Commons/SignUp/LogoTag';
 
 import styled from 'styled-components';
 
-function LogIn(){
-
-    return(
-        <BodyBackgroundStyled>
-            <MainStyled>
-                <HomeLinkWrapperStyled>
-                    <HomeLinkStyled>홈으로</HomeLinkStyled>
-                </HomeLinkWrapperStyled>
-                <LogInWrapperStyled>
-                    <LogoTag/>
-                    <TextAreaWrapperStyled>
-                        <li>
-                            <TextArea
-                            title={"이메일"}
-                            placeholder={"이메일을 입력해주세요"}
-                            errorMessage={"일치하는 회원 정보가 없습니다"}
-                            className={"hide"}
-                            />
-                        </li>
-                        <li>
-                            <TextArea 
-                            title={"비밀번호"}
-                            placeholder={"비밀번호를 입력해주세요"}
-                            />
-                        </li>
-                    </TextAreaWrapperStyled>
-                    <MainButton width={"100%"} content={"로그인"}/>
-                    <SignUpWrapperStyled>
-                        <SignUpNoticeStyled>아직 회원이 아니신가요?</SignUpNoticeStyled>
-                        <SignUpStyled>회원가입</SignUpStyled>
-                    </SignUpWrapperStyled>
-                </LogInWrapperStyled>
-            </MainStyled>
-        </BodyBackgroundStyled>
-    )
+function LogIn() {
+  return (
+    <BodyBackgroundStyled>
+      <MainStyled>
+        <HomeLinkWrapperStyled>
+          <HomeLinkStyled>홈으로</HomeLinkStyled>
+        </HomeLinkWrapperStyled>
+        <LogInWrapperStyled>
+          <LogoTag />
+          <TextAreaWrapperStyled>
+            <li>
+              <TextArea
+                title={'이메일'}
+                placeholder={'이메일을 입력해주세요'}
+                errorMessage={'일치하는 회원 정보가 없습니다'}
+                className={'hide'}
+              />
+            </li>
+            <li>
+              <TextArea
+                title={'비밀번호'}
+                placeholder={'비밀번호를 입력해주세요'}
+              />
+            </li>
+          </TextAreaWrapperStyled>
+          <MainButton width={'100%'} content={'로그인'} />
+          <SignUpWrapperStyled>
+            <SignUpNoticeStyled>아직 회원이 아니신가요?</SignUpNoticeStyled>
+            <SignUpStyled>회원가입</SignUpStyled>
+          </SignUpWrapperStyled>
+        </LogInWrapperStyled>
+      </MainStyled>
+    </BodyBackgroundStyled>
+  );
 }
 
 export default LogIn;
+
+export const BodyBackgroundStyled = styled.div`
+  background-color: ${Colors.Gray1};
+  height: 100%;
+`;
+
+const MainStyled = styled.main`
+  padding: 0 0 24px;
+  text-align: right;
+`;
+
+const HomeLinkWrapperStyled = styled.div`
+  padding: 8px 0 8px;
+`;
+
+const HomeLinkStyled = styled.a`
+  text-align: right;
+  line-height: 36px;
+  font-size: 14px;
+  color: ${Colors.Gray3};
+  font-weight: 400;
+  cursor: pointer;
+`;
+
+const LogInWrapperStyled = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px auto 132px;
+  padding: 80px 60px 80px;
+  width: 520px;
+  height: 100%;
+  text-align: left;
+  background-color: ${Colors.Bgwhite};
+  border: 1px solid ${Colors.Gray2};
+  border-radius: 16px;
+  box-sizing: border-box;
+`;
+
+const LogoWrapperStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const LogoStyled = styled.img`
+  width: 108px;
+  height: 22px;
+`;
+
+const NoticeStyled = styled.p`
+  margin: 16px 0 0;
+  font-size: 16px;
+  font-weight: 400;
+  color: ${Colors.Gray3};
+  text-align: center;
+  line-height: 24px;
+`;
+
+const TagWrapperStyled = styled.ul`
+  display: flex;
+  width: 100%;
+  margin: 24px 0 40px;
+  gap: 16px;
+`;
 
 const TextAreaWrapperStyled = styled.ul`
   margin-bottom: 56px;

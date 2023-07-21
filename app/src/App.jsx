@@ -1,5 +1,8 @@
 import './App.css';
-import MainPage from './Pages/MainPage/MainPage';
+import MainPage from './Pages/Main';
+import EmploymentDetail from './Pages/EmploymentDetail';
+import EmploymentList from './Pages/EmploymentList';
+import Login from './Pages/Login';
 import MyPageFreelancer from './Pages/MyPageFreelancer';
 import MyPageCompany from './Pages/MyPageCompany';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -16,6 +19,7 @@ function App() {
         <Route
           path="/employmentdetail/:noticeId"
           element={<EmploymentDetail />}
+        ></Route>
         <Route path="/mypagefreelancer" element={<MyPageFreelancer />}></Route>
         <Route path="/namecardlist" element={<NameCardList />}></Route>
         <Route path="/mypagecompany" element={<MyPageCompany />}></Route>
@@ -25,3 +29,4 @@ function App() {
 }
 
 export default App;
+//ok

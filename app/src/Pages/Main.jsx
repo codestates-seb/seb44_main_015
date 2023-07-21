@@ -1,10 +1,11 @@
-import Header from '../../Components/Commons/Layouts/Header';
-import Footer from '../../Components/Commons/Layouts/Footer';
-import Banner from './Banner';
-import SecoondBanner from './SecondBanner';
-import NewEmployment from './NewEmployment';
-import CardOfTheWeek from './CardOfTheWeek';
+import Header from '../Components/Commons/Layouts/Header';
+import Footer from '../Components/Commons/Layouts/Footer';
+import Banner from '../Components/Commons/MainPage//Banner';
+import SecoondBanner from '../Components/Commons/MainPage/SecondBanner';
+import NewEmployment from '../Components/Commons/MainPage/NewEmployment';
+import CardOfTheWeek from '../Components/Commons/MainPage/CardOfTheWeek';
 import { styled } from 'styled-components';
+import { Colors } from '../Assets/Theme';
 
 const MainPage = () => {
   return (
@@ -32,4 +33,5 @@ const MainPageContainerStyled = styled.div`
   height: auto;
   box-sizing: border-box;
   overflow-x: auto;
+  background-color: ${Colors.Bgwhite};
 `;

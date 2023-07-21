@@ -1,6 +1,6 @@
-import { Colors } from '../../Assets/Theme';
+import { Colors } from '../../../Assets/Theme';
 import { styled } from 'styled-components';
-import BannerImg from '../../Assets/Icons/BannerImg.png';
+import BannerImg from '../../../Assets/Icons/BannerImg.png';
 
 const Banner = () => {
   return (

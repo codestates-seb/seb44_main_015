@@ -1,36 +1,47 @@
 import NoLineTag from './NoLineTag';
-import { Colors, Messages } from '../../Assets/Theme';
+import { useNavigate } from 'react-router-dom';
+import { Colors } from '../../Assets/Theme';
 import { styled } from 'styled-components';
 
+const calculateDday = (deadline) => {
+  const targetDate = new Date(deadline);
+  const currentDate = new Date();
+  const timeDiff = targetDate - currentDate;
+  const daysDiff = timeDiff / (1000 * 60 * 60 * 24);
+  return daysDiff;
+};
+
 const EmploymentCard = ({ employmentInfo }) => {
-  const { duedate, title, name, region, stack } = employmentInfo;
+  const { noticeId, deadline, title, companyName, tagNames } = employmentInfo;
+  const dDay = calculateDday(deadline);
+  const tagColor = dDay >= 0 ? Colors.mainPurple : Colors.Gray4;
+  const tagBackground = dDay >= 0 ? Colors.thirdPurple : Colors.Gray1;
+  const navigate = useNavigate();
+  const handleCardClick = () => {
+    navigate(`/employmentdetail/${noticeId}`);
+  };
 
   return (
     <>
-      <EmploymentCardStyled>
+      <EmploymentCardStyled onClick={handleCardClick}>
         <UpperWrapperStyled>
-          {duedate === `${Messages.closedTitle}` ? (
-            <NoLineTag
-              name={Messages.closedTitle}
-              fontSize="12px"
-              fontWeight="400"
-            />
-          ) : (
-            <NoLineTag
-              name={duedate}
-              color={Colors.mainPurple}
-              backgroundColor={Colors.thirdPurple}
-              fontSize="12px"
-              fontWeight="400"
-            ></NoLineTag>
-          )}
+          <NoLineTag
+            name={dDay >= 0 ? `D-${Math.ceil(dDay)}` : '지난 채용'}
+            color={tagColor}
+            backgroundColor={tagBackground}
+            fontSize="12px"
+            fontWeight="400"
+          ></NoLineTag>
+
           <TitleStyled title={title}>{title}</TitleStyled>
-          <CompanyNameStyled name={name}>{name}</CompanyNameStyled>
-          <RegionStyled $region={region}>{region}</RegionStyled>
+          <CompanyNameStyled companyName={companyName}>
+            {companyName}
+          </CompanyNameStyled>
+          {/* <RegionStyled $region={region}>{region}</RegionStyled> */}
         </UpperWrapperStyled>
         <TagContainerStyled>
-          {stack &&
-            stack.map((tag, index) => (
+          {tagNames &&
+            tagNames.map((tag, index) => (
               <NoLineTag
                 key={index}
                 name={tag}
@@ -48,8 +59,7 @@ const EmploymentCard = ({ employmentInfo }) => {
 
 export default EmploymentCard;
 
-export const EmploymentCardStyled = styled.li`
-  /* position: absolute; */
+const EmploymentCardStyled = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -60,6 +70,12 @@ export const EmploymentCardStyled = styled.li`
   border: 1px solid ${Colors.Gray2};
   box-sizing: border-box;
   background-color: ${Colors.Bgwhite};
+
+  &:hover {
+    border: 2px solid ${Colors.secondPurple};
+    background-color: ${Colors.Gray1};
+    cursor: pointer;
+  }
 `;
 
 export const UpperWrapperStyled = styled.div`

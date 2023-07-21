@@ -4,25 +4,42 @@ import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
 import SelectedButton from '../Button/SelectedButton';
 
-const NameCard = ({ userInfo, className }) => {
-  const { name, phone, email, stack } = userInfo;
+const NameCard = ({ userInfo, ...props }) => {
+  const {
+    name,
+    phone,
+    email,
+    tagNames,
+    userName,
+    userEmail,
+    userPhone,
+    cardCheckId,
+    checked,
+  } = userInfo;
+
+  console.log(userInfo);
 
   return (
     <>
       <NameCardStyled>
         <FormerWrapperStyled>
           <UpperWrapperStyled>
-            <NameWrapperStyled name={name}>{name}</NameWrapperStyled>
+            <NameWrapperStyled name={name ? name : userName}>
+              {name ? name : userName}
+            </NameWrapperStyled>
             <InnerWrapperStyled>
-              <PhoneWrapperStyled $phone={phone}>{phone}</PhoneWrapperStyled>
-              <EmailWrapperStyled $email={email}>{email}</EmailWrapperStyled>
+              <PhoneWrapperStyled $phone={phone ? phone : userPhone}>
+                {phone ? phone : userPhone}
+              </PhoneWrapperStyled>
+              <EmailWrapperStyled $email={email ? email : userEmail}>
+                {email ? email : userEmail}
+              </EmailWrapperStyled>
             </InnerWrapperStyled>
           </UpperWrapperStyled>
-          <SelectedButton className={className} />
+          <SelectedButton id={cardCheckId} checked={checked} {...props} />
         </FormerWrapperStyled>
-
-        <TagWrapperStyled margin={'0 40px 0px 24px'}>
-          {stack && stack.map((tag) => <Tag key={tag} children={tag} />)}
+        <TagWrapperStyled $margin={'0 40px 0px 24px'}>
+          {tagNames && tagNames.map((tag) => <Tag key={tag} children={tag} />)}
         </TagWrapperStyled>
       </NameCardStyled>
     </>
@@ -38,6 +55,12 @@ export const NameCardStyled = styled.div`
   border-radius: 16px;
   color: ${Colors.mainPurple};
   background-color: ${Colors.Bgwhite};
+  box-sizing: border-box;
+  &:hover {
+    border: 2px solid ${Colors.secondPurple};
+    background-color: ${Colors.Gray1};
+    cursor: pointer;
+  }
 `;
 
 export const UpperWrapperStyled = styled.div`
@@ -48,7 +71,7 @@ export const UpperWrapperStyled = styled.div`
   align-items: flex-start;
   gap: 8px;
   flex-shrink: 0;
-  margin: 24px 106px 65px 24px;
+  margin: 24px 106px 0px 24px;
 `;
 
 export const NameWrapperStyled = styled.p`
