@@ -1,4 +1,5 @@
 import NoLineTag from './NoLineTag';
+import { Link } from 'react-router-dom';
 import { Colors } from '../../Assets/Theme';
 import { styled } from 'styled-components';
 
@@ -11,43 +12,45 @@ const calculateDday = (deadline) => {
 };
 
 const EmploymentCard = ({ employmentInfo }) => {
-  const { deadline, title, companyName, tagNames } = employmentInfo;
+  const { id, deadline, title, companyName, tagNames } = employmentInfo;
   const dDay = calculateDday(deadline);
   const tagColor = dDay >= 0 ? Colors.mainPurple : Colors.Gray4;
   const tagBackground = dDay >= 0 ? Colors.thirdPurple : Colors.Gray1;
 
   return (
     <>
-      <EmploymentCardStyled>
-        <UpperWrapperStyled>
-          <NoLineTag
-            name={dDay >= 0 ? `D-${Math.ceil(dDay)}` : '지난 채용'}
-            color={tagColor}
-            backgroundColor={tagBackground}
-            fontSize="12px"
-            fontWeight="400"
-          ></NoLineTag>
+      <Link to={'/employmnetdetail/${id}'}>
+        <EmploymentCardStyled>
+          <UpperWrapperStyled>
+            <NoLineTag
+              name={dDay >= 0 ? `D-${Math.ceil(dDay)}` : '지난 채용'}
+              color={tagColor}
+              backgroundColor={tagBackground}
+              fontSize="12px"
+              fontWeight="400"
+            ></NoLineTag>
 
-          <TitleStyled title={title}>{title}</TitleStyled>
-          <CompanyNameStyled companyName={companyName}>
-            {companyName}
-          </CompanyNameStyled>
-          {/* <RegionStyled $region={region}>{region}</RegionStyled> */}
-        </UpperWrapperStyled>
-        <TagContainerStyled>
-          {tagNames &&
-            tagNames.map((tag, index) => (
-              <NoLineTag
-                key={index}
-                name={tag}
-                color={Colors.Gray4}
-                backgroundColor={Colors.Gray1}
-                fontSize="12px"
-                fontWeight="300"
-              />
-            ))}
-        </TagContainerStyled>
-      </EmploymentCardStyled>
+            <TitleStyled title={title}>{title}</TitleStyled>
+            <CompanyNameStyled companyName={companyName}>
+              {companyName}
+            </CompanyNameStyled>
+            {/* <RegionStyled $region={region}>{region}</RegionStyled> */}
+          </UpperWrapperStyled>
+          <TagContainerStyled>
+            {tagNames &&
+              tagNames.map((tag, index) => (
+                <NoLineTag
+                  key={index}
+                  name={tag}
+                  color={Colors.Gray4}
+                  backgroundColor={Colors.Gray1}
+                  fontSize="12px"
+                  fontWeight="300"
+                />
+              ))}
+          </TagContainerStyled>
+        </EmploymentCardStyled>
+      </Link>
     </>
   );
 };
