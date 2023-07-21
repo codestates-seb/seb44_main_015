@@ -10,6 +10,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        {/* <Route path="/signup" element={<Signup />}></Route> */}
+        <Route path="/employmentlist" element={<EmploymentList />}></Route>
+        <Route
+          path="/employmentdetail/:noticeId"
+          element={<EmploymentDetail />}
         <Route path="/mypagefreelancer" element={<MyPageFreelancer />}></Route>
         <Route path="/namecardlist" element={<NameCardList />}></Route>
         <Route path="/mypagecompany" element={<MyPageCompany />}></Route>
