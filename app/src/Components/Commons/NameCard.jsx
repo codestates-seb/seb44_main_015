@@ -4,25 +4,43 @@ import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
 import SelectedButton from '../Button/SelectedButton';
 
-const NameCard = ({ userInfo, className }) => {
-  const { name, phone, email, stack } = userInfo;
+const NameCard = ({ userInfo, ...props }) => {
+  const {
+    name,
+    phone,
+    email,
+    tagNames,
+    userName,
+    userEmail,
+    userPhone,
+    cardCheckId,
+    checked,
+  } = userInfo;
+
+  console.log(userInfo);
 
   return (
     <>
       <NameCardStyled>
         <FormerWrapperStyled>
           <UpperWrapperStyled>
-            <NameWrapperStyled name={name}>{name}</NameWrapperStyled>
+            <NameWrapperStyled name={name ? name : userName}>
+              {name ? name : userName}
+            </NameWrapperStyled>
             <InnerWrapperStyled>
-              <PhoneWrapperStyled $phone={phone}>{phone}</PhoneWrapperStyled>
-              <EmailWrapperStyled $email={email}>{email}</EmailWrapperStyled>
+              <PhoneWrapperStyled $phone={phone ? phone : userPhone}>
+                {phone ? phone : userPhone}
+              </PhoneWrapperStyled>
+              <EmailWrapperStyled $email={email ? email : userEmail}>
+                {email ? email : userEmail}
+              </EmailWrapperStyled>
             </InnerWrapperStyled>
           </UpperWrapperStyled>
-          <SelectedButton className={className} />
+          <SelectedButton id={cardCheckId} checked={checked} {...props} />
         </FormerWrapperStyled>
 
         <TagWrapperStyled $margin={'0 40px 0px 24px'}>
-          {stack && stack.map((tag) => <Tag key={tag} children={tag} />)}
+          {tagNames && tagNames.map((tag) => <Tag key={tag} children={tag} />)}
         </TagWrapperStyled>
       </NameCardStyled>
     </>

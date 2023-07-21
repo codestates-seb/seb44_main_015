@@ -1,19 +1,47 @@
 import NameCard from '../../Commons/NameCard';
-import FakeUserInfo from '../../../Api/FakeUserInfo.json';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { Colors } from '../../../Assets/Theme';
 import { styled } from 'styled-components';
 
 const CardOfTheWeek = () => {
-  const userData = FakeUserInfo.slice(0, 4);
-  // Nmae카드를 어떻게 쓸건지에 대해.
+  const [data, setData] = useState([]);
+  // const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const url =
+      'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/card/weekly';
+
+    const params = {
+      sort: 'view',
+      limit: 4,
+    };
+
+    axios
+      .get(url, { params })
+      .then((response) => {
+        setData(response.data);
+        // setLoading(false);
+      })
+      .catch((error) => {
+        console.error('API 요청 실패:', error);
+        // setLoading(false);
+      });
+  }, []);
+
   return (
     <>
       <CardOfTheWeekStyled>
         <TitleStyled>🏆 금주의 명함</TitleStyled>
         <CardContainerStyled>
-          {userData.map((userInfo) => (
-            <NameCard key={userInfo.id} userInfo={userInfo} className="hide" />
-          ))}
+          {data &&
+            data.map((userInfo) => (
+              <NameCard
+                key={userInfo.id}
+                userInfo={userInfo}
+                className="hide"
+              />
+            ))}
         </CardContainerStyled>
       </CardOfTheWeekStyled>
     </>

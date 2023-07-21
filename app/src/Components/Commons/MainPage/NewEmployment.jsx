@@ -1,22 +1,46 @@
 import EmploymentCard from '../../../Components/Commons/EmploymentCard';
-import FakeEmploymentInfo from '../../../Api/FakeEmploymentInfo.json';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { Colors } from '../../../Assets/Theme';
 import { styled } from 'styled-components';
 
 const NewEmployment = () => {
-  const employmentData = FakeEmploymentInfo.slice(0, 4);
+  const [data, setData] = useState([]);
+  // const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const url =
+      'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/notice/new';
+
+    //swiper 구현하면 4개 이상 불러오도록 할 예정
+    const params = {
+      limit: 4,
+    };
+
+    axios
+      .get(url, { params })
+      .then((response) => {
+        setData(response.data);
+        // setLoading(false);
+      })
+      .catch((error) => {
+        console.error('API 요청 실패:', error);
+        // setLoading(false);
+      });
+  }, []);
 
   return (
     <>
       <NewEmploymentContainerStyled>
         <TitleStyled>⚡ 신규 채용</TitleStyled>
         <EmploymentCardContainerStyled>
-          {employmentData.map((employmentInfo) => (
-            <EmploymentCard
-              key={employmentInfo.id}
-              employmentInfo={employmentInfo}
-            />
-          ))}
+          {data &&
+            data.map((employmentInfo) => (
+              <EmploymentCard
+                key={employmentInfo.id}
+                employmentInfo={employmentInfo}
+              />
+            ))}
         </EmploymentCardContainerStyled>
       </NewEmploymentContainerStyled>
     </>
