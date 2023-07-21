@@ -78,7 +78,7 @@ public class CompanyController {
         }
     }
 
-    @PostMapping("/{company_id/tag")
+    @PostMapping("/{company_id}/tag")
     public ResponseEntity createCompanyTag(@PathVariable("company_id") Long companyId,
                                            @RequestBody TagDto.PostId tagIdDto,
                                            Authentication authentication){
