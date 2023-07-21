@@ -74,7 +74,6 @@ const EmploymentCardStyled = styled.li`
 
   &:hover {
     border: 2px solid ${Colors.secondPurple};
-    background-color: ${Colors.Gray1};
     cursor: pointer;
   }
 `;

@@ -72,7 +72,7 @@ export const UpperWrapperStyled = styled.div`
   align-items: flex-start;
   gap: 8px;
   flex-shrink: 0;
-  margin: 24px 106px 0px 24px;
+  margin: 24px 106px 66px 24px;
 `;
 
 export const NameWrapperStyled = styled.p`
