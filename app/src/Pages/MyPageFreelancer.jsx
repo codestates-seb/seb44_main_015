@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { Messages } from '../Assets/Theme';
-
+import { BodyBackgroundStyled } from './LogIn';
+import { EmploymentCardContainerStyled } from './MainPage/NewEmployment';
 import NameCard from '../Components/Commons/NameCard';
 import Resume from '../Components/Commons/Resume';
 import OutlineButton from '../Components/Button/OutlineButton';
@@ -9,16 +10,17 @@ import FakeUserInfo from '../Api/FakeUserInfo.json';
 import AppliedBox from '../Components/Commons/MyPage/AppliedBox';
 import AppliedBoard from '../Components/Commons/MyPage/AppliedBoard';
 import MiddleHeader from '../Components/Commons/MiddleHeader';
-import { BodyBackgroundStyled } from './LogIn';
+import EmploymentCard from '../Components/Commons/EmploymentCard';
+import FakeEmploymentInfo from '../Api/FakeEmploymentInfo.json';
 
 const MyPageFreelancer = () => {
   const [userInfo, setUserInfo] = useState({});
-
+  const employmentData = FakeEmploymentInfo.slice(0, 5);
   useEffect(() => {
     setUserInfo(FakeUserInfo[0]);
   }, []);
 
-  const { name, email, phone, stack, resume } = userInfo;
+  const { resume } = userInfo;
 
   return (
     <BodyBackgroundStyled>
@@ -29,10 +31,8 @@ const MyPageFreelancer = () => {
           </TitleWrapperStyled>
           <LeftSectionStyled>
             <NameCard
-              name={name}
-              email={email}
-              phone={phone}
-              stack={stack}
+              key={userInfo.id}
+              userInfo={userInfo}
               className={'hide'}
             />
             <Resume resume={resume} />
@@ -41,12 +41,62 @@ const MyPageFreelancer = () => {
             </ButtonWrapperStyled>
           </LeftSectionStyled>
           <RightSectionStyled>
-            <AppliedBoard />
-            <AppliedBox content={Messages.showCareerBtn} />
+            <AppliedBoard
+              title={Messages.appliedBoardTitle}
+              info1={Messages.cardInTitle}
+              info2={Messages.selectedTitle}
+              info3={Messages.bookmarkedTitle}
+              info1Number={employmentData.length}
+              info2Number={employmentData.length}
+              info3Number={employmentData.length}
+            />
+            <AppliedBox
+              title={Messages.cardInTitle}
+              number={employmentData.length}
+              content={
+                employmentData.length ? (
+                  <ScrollStyled>
+                    <EmploymentCardContainerStyled>
+                      {employmentData.map((employmentInfo) => (
+                        <EmploymentCard
+                          key={employmentInfo.id}
+                          employmentInfo={employmentInfo}
+                        />
+                      ))}
+                    </EmploymentCardContainerStyled>
+                  </ScrollStyled>
+                ) : (
+                  <ZeroCard
+                    message={Messages.cardInMessage}
+                    smallmessage={Messages.careeringMessage}
+                    content={Messages.showCareerBtn}
+                  />
+                )
+              }
+            />
             <AppliedBox
               title={Messages.bookmarkedTitle}
-              message={Messages.bookmarkedMessage}
-              content={Messages.showCareerBtn}
+              number={employmentData.length}
+              content={
+                employmentData.length ? (
+                  <ScrollStyled>
+                    <EmploymentCardContainerStyled>
+                      {employmentData.map((employmentInfo) => (
+                        <EmploymentCard
+                          key={employmentInfo.id}
+                          employmentInfo={employmentInfo}
+                        />
+                      ))}
+                    </EmploymentCardContainerStyled>
+                  </ScrollStyled>
+                ) : (
+                  <ZeroCard
+                    message={Messages.bookmarkedMessage}
+                    smallmessage={Messages.careeringMessage}
+                    content={Messages.showCareerBtn}
+                  />
+                )
+              }
             />
           </RightSectionStyled>
         </TotalWrapperStyled>
@@ -99,4 +149,9 @@ export const TotalWrapperStyled = styled.div`
   margin: 40px auto 132px;
   width: 1060px;
   height: 100%;
+`;
+
+export const ScrollStyled = styled.div`
+  overflow: scroll;
+  margin: 0 24px;
 `;

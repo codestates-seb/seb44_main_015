@@ -76,7 +76,7 @@ const OptionBoxStyled = styled.ul`
     position: absolute;
     top:64px;
     left:0;
-    width: ${(props) => props.width || '146px'};
+    width: ${(props) => props.width || '100%'};
     padding: 8px 16px 8px;
     background: ${Colors.Bgwhite};
     box-sizing: border-box;

@@ -78,13 +78,13 @@ const EmploymentCardStyled = styled.li`
   }
 `;
 
-const UpperWrapperStyled = styled.div`
+export const UpperWrapperStyled = styled.div`
   display: flex;
   align-items: flex-start;
   flex-direction: column;
 `;
 
-const TitleStyled = styled.h3`
+export const TitleStyled = styled.h3`
   width: 195px;
   height: 30px;
   margin-top: 13px;
@@ -100,7 +100,7 @@ const TitleStyled = styled.h3`
   line-height: normal;
 `;
 
-const CompanyNameStyled = styled.p`
+export const CompanyNameStyled = styled.p`
   color: ${Colors.Gray4};
   font-family: Noto Sans CJK KR;
   font-size: 16px;
@@ -109,7 +109,7 @@ const CompanyNameStyled = styled.p`
   line-height: normal;
 `;
 
-const RegionStyled = styled.address`
+export const RegionStyled = styled.address`
   margin-top: 3px;
   color: ${Colors.Gray3};
   font-family: Noto Sans CJK KR;

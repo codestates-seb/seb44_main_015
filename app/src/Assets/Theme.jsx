@@ -44,4 +44,5 @@ export const Messages = {
   introduce: '개발진 소개',
   careerEnroll: '채용 올리기',
   selectNameCard: '명함 채택하기',
+  showCardIn: '받은 명함 보기',
 };

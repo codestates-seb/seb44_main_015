@@ -1,21 +1,18 @@
 import { Colors } from '../Assets/Theme';
-import Tag from '../Components/Commons/Tag';
 import TextArea from '../Components/Commons/TextArea';
 import MainButton from '../Components/Button/MainButton';
-
-import { useState, useEffect } from 'react';
+import {
+  BodyBackgroundStyled,
+  MainStyled,
+  HomeLinkWrapperStyled,
+  HomeLinkStyled,
+  LogInWrapperStyled,
+} from '../Components/Commons/SignUp/Form';
+import LogoTag from '../Components/Commons/SignUp/LogoTag';
 
 import styled from 'styled-components';
 
-import Logo from '../Assets/Icons/Logo.png';
-
 function LogIn() {
-  const [focusTag, setFocusTag] = useState('freelancer');
-
-  const handleFocusTag = (tag) => () => {
-    setFocusTag(tag);
-  };
-
   return (
     <BodyBackgroundStyled>
       <MainStyled>
@@ -23,32 +20,7 @@ function LogIn() {
           <HomeLinkStyled>홈으로</HomeLinkStyled>
         </HomeLinkWrapperStyled>
         <LogInWrapperStyled>
-          <LogoWrapperStyled>
-            <h2>
-              <LogoStyled src={Logo} alt="프리해요"></LogoStyled>
-            </h2>
-            <NoticeStyled>
-              프리랜서/회사 유형을 선택 후<br></br>로그인 해 주세요
-            </NoticeStyled>
-          </LogoWrapperStyled>
-          <TagWrapperStyled>
-            <Tag
-              children={'🧑‍💻 프리랜서'}
-              className={
-                focusTag === 'freelancer'
-                  ? 'mediumSelected'
-                  : 'mediumUnSelected'
-              }
-              onClick={handleFocusTag('freelancer')}
-            />
-            <Tag
-              children={'🏢 회사 · 의뢰인'}
-              className={
-                focusTag === 'company' ? 'mediumSelected' : 'mediumUnSelected'
-              }
-              onClick={handleFocusTag('company')}
-            />
-          </TagWrapperStyled>
+          <LogoTag />
           <TextAreaWrapperStyled>
             <li>
               <TextArea

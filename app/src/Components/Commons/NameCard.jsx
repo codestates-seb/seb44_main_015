@@ -38,7 +38,6 @@ const NameCard = ({ userInfo, ...props }) => {
           </UpperWrapperStyled>
           <SelectedButton id={cardCheckId} checked={checked} {...props} />
         </FormerWrapperStyled>
-
         <TagWrapperStyled $margin={'0 40px 0px 24px'}>
           {tagNames && tagNames.map((tag) => <Tag key={tag} children={tag} />)}
         </TagWrapperStyled>
