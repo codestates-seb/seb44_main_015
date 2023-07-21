@@ -112,3 +112,5 @@ export const EmailWrapperStyled = styled.p`
 const FormerWrapperStyled = styled.div`
   display: flex;
 `;
+
+//이걸로
