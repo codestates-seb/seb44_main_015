@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com/users',
-  //연습용fakeAPI입니다. 후에 param추가예정
+  baseURL: 'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/',
 });
 
 export default instance;
