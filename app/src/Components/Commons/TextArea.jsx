@@ -11,6 +11,7 @@ function TextArea({
   onBlur,
   className,
   errorMessage,
+  height
 }) {
   return (
     <>
@@ -22,6 +23,7 @@ function TextArea({
         onChange={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
+        height={height}
       >
         {value}
       </TextareaStyled>
