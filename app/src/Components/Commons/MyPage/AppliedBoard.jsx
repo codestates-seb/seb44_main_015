@@ -45,7 +45,7 @@ export const BigCardStyled = styled.div`
 export const NameWrapperStyled = styled.h3`
   display: flex;
   margin: 24px 518px 24px 24px;
-  color: ${(props) => props.$backgroundColor || `${Colors.Gray4}`};
+  color: ${(props) => props.backgroundColor || `${Colors.Gray4}`};
   font-size: 18px;
   font-style: normal;
   font-weight: 700;

@@ -1,16 +1,15 @@
 import NoLineTag from './NoLineTag';
 import { Colors, Messages } from '../../Assets/Theme';
 import { styled } from 'styled-components';
-import { duedate } from '../../Utils/Dayjs';
 
 const EmploymentCard = ({ employmentInfo }) => {
-  const { deadline, title, companyName, region, tagNames } = employmentInfo;
+  const { duedate, title, name, region, stack } = employmentInfo;
 
   return (
     <>
       <EmploymentCardStyled>
         <UpperWrapperStyled>
-          {duedate(deadline) === `${Messages.closedTitle}` ? (
+          {duedate === `${Messages.closedTitle}` ? (
             <NoLineTag
               name={Messages.closedTitle}
               fontSize="12px"
@@ -18,29 +17,25 @@ const EmploymentCard = ({ employmentInfo }) => {
             />
           ) : (
             <NoLineTag
-              name={duedate(deadline)}
+              name={duedate}
               color={Colors.mainPurple}
-              $backgroundColor={Colors.thirdPurple}
+              backgroundColor={Colors.thirdPurple}
               fontSize="12px"
               fontWeight="400"
             ></NoLineTag>
           )}
           <TitleStyled title={title}>{title}</TitleStyled>
-          <CompanyNameStyled name={companyName}>
-            {companyName}
-          </CompanyNameStyled>
-          <RegionStyled $region={region}>
-            {region ? region : '서울'}
-          </RegionStyled>
+          <CompanyNameStyled name={name}>{name}</CompanyNameStyled>
+          <RegionStyled $region={region}>{region}</RegionStyled>
         </UpperWrapperStyled>
         <TagContainerStyled>
-          {tagNames &&
-            tagNames.map((tag, index) => (
+          {stack &&
+            stack.map((tag, index) => (
               <NoLineTag
                 key={index}
                 name={tag}
                 color={Colors.Gray4}
-                $backgroundColor={Colors.Gray1}
+                backgroundColor={Colors.Gray1}
                 fontSize="12px"
                 fontWeight="300"
               />

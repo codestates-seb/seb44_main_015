@@ -3,25 +3,28 @@ import { Colors } from '../../Assets/Theme';
 
 const Resume = ({ resume }) => {
   return (
-    <CardStyled>
-      <CardWrapperStyled>
-        <CardTitleStyled>이력</CardTitleStyled>
-        <ResumeDetailWrapperStyled>
-          {resume &&
-            resume.map((oneresume) => (
-              <ResumeDetailStyled key={oneresume}>
-                {oneresume}
-              </ResumeDetailStyled>
-            ))}
-        </ResumeDetailWrapperStyled>
-      </CardWrapperStyled>
-    </CardStyled>
+    <div>
+      <CardStyled>
+        <CardWrapperStyled>
+          <CardTitleStyled>이력</CardTitleStyled>
+          <ResumeDetailWrapperStyled>
+            {resume &&
+              resume.map((oneresume) => (
+                <ResumeDetailStyled key={oneresume}>
+                  {oneresume}
+                </ResumeDetailStyled>
+              ))}
+          </ResumeDetailWrapperStyled>
+        </CardWrapperStyled>
+      </CardStyled>
+    </div>
   );
 };
 
 export default Resume;
 
 export const CardStyled = styled.div`
+  position: relative;
   width: 360px;
   height: auto;
   margin-top: 16px;

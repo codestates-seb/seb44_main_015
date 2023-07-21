@@ -6,8 +6,8 @@ import {
   EmailWrapperStyled,
 } from './NameCard';
 import { CardWrapperStyled, CardTitleStyled } from './Resume';
+
 import { Colors } from '../../Assets/Theme';
-import { exceptBar } from '../../Utils/exceptBar';
 
 const CompanyCard = ({ name, phone, email }) => {
   return (
@@ -19,9 +19,7 @@ const CompanyCard = ({ name, phone, email }) => {
         <UpperWrapperStyled>
           <NameWrapperStyled name={name}>{name}</NameWrapperStyled>
           <InnerWrapperStyled>
-            <PhoneWrapperStyled $phone={exceptBar(phone)}>
-              {exceptBar(phone)}
-            </PhoneWrapperStyled>
+            <PhoneWrapperStyled $phone={phone}>{phone}</PhoneWrapperStyled>
             <EmailWrapperStyled $email={email}>{email}</EmailWrapperStyled>
           </InnerWrapperStyled>
         </UpperWrapperStyled>
@@ -38,12 +36,6 @@ export const CompanyCardStyled = styled.div`
   border: 1px solid ${Colors.Gray2};
   border-radius: 16px;
   background-color: ${Colors.Bgwhite};
-  box-sizing: border-box;
-  &:hover {
-    border: 2px solid ${Colors.secondPurple};
-    background-color: ${Colors.Gray1};
-    cursor: pointer;
-  }
 `;
 
 export const UpperWrapperStyled = styled.div`

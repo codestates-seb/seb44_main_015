@@ -27,6 +27,7 @@ const ZeroCard = ({ height, message, smallmessage, content }) => {
 export default ZeroCard;
 
 export const ZeroCardStyled = styled.div`
+  position: absolute;
   width: 628px;
   height: ${(props) => props.height || '320px'};
   flex-shrink: 0;
@@ -55,5 +56,6 @@ export const InfoStyled = styled.span`
   line-height: normal;
 `;
 export const ButtonWrapperStyled = styled.div`
+  position: absolute;
   margin: 24px 158px 24px 134px;
 `;

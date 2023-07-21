@@ -20,7 +20,7 @@ export const TagWrapperStyled = styled.ul`
   height: 27px;
   align-items: flex-start;
   gap: 4px;
-  margin: ${(props) => props.$margin || '65px 40px 0px 24px'};
+  margin: ${(props) => props.margin || '65px 40px 0px 24px'};
 `;
 
 export const TagStyled = styled.li`
@@ -36,7 +36,7 @@ export const TagStyled = styled.li`
   font-weight: 300;
   border: 1px solid ${Colors.Gray3};
   border-radius: 16px;
-  background-color: ${(props) => props.$backgroundColor || `${Colors.Bgwhite}`};
+  background-color: ${(props) => props.backgroundColor || `${Colors.Bgwhite}`};
 
   &.mediumSelected {
     padding: 16px 0 16px;

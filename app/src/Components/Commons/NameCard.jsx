@@ -3,45 +3,26 @@ import { Colors } from '../../Assets/Theme';
 import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
 import SelectedButton from '../Button/SelectedButton';
-import { exceptBar } from '../../Utils/exceptBar';
 
-const NameCard = ({ userInfo, ...props }) => {
-  const {
-    name,
-    phone,
-    email,
-    tagNames,
-    userName,
-    userEmail,
-    userPhone,
-    cardCheckId,
-    checked,
-  } = userInfo;
+const NameCard = ({ userInfo, className }) => {
+  const { name, phone, email, stack } = userInfo;
 
   return (
     <>
       <NameCardStyled>
         <FormerWrapperStyled>
           <UpperWrapperStyled>
-            <NameWrapperStyled name={name ? name : userName}>
-              {name ? name : userName}
-            </NameWrapperStyled>
+            <NameWrapperStyled name={name}>{name}</NameWrapperStyled>
             <InnerWrapperStyled>
-              <PhoneWrapperStyled
-                $phone={phone ? exceptBar(phone) : exceptBar(userPhone)}
-              >
-                {phone ? exceptBar(phone) : exceptBar(userPhone)}
-              </PhoneWrapperStyled>
-              <EmailWrapperStyled $email={email ? email : userEmail}>
-                {email ? email : userEmail}
-              </EmailWrapperStyled>
+              <PhoneWrapperStyled $phone={phone}>{phone}</PhoneWrapperStyled>
+              <EmailWrapperStyled $email={email}>{email}</EmailWrapperStyled>
             </InnerWrapperStyled>
           </UpperWrapperStyled>
-          <SelectedButton id={cardCheckId} checked={checked} {...props} />
+          <SelectedButton className={className} />
         </FormerWrapperStyled>
 
-        <TagWrapperStyled $margin={'0 40px 0px 24px'}>
-          {tagNames && tagNames.map((tag) => <Tag key={tag} children={tag} />)}
+        <TagWrapperStyled margin={'0 40px 0px 24px'}>
+          {stack && stack.map((tag) => <Tag key={tag} children={tag} />)}
         </TagWrapperStyled>
       </NameCardStyled>
     </>
@@ -57,12 +38,6 @@ export const NameCardStyled = styled.div`
   border-radius: 16px;
   color: ${Colors.mainPurple};
   background-color: ${Colors.Bgwhite};
-  box-sizing: border-box;
-  &:hover {
-    border: 2px solid ${Colors.secondPurple};
-    background-color: ${Colors.Gray1};
-    cursor: pointer;
-  }
 `;
 
 export const UpperWrapperStyled = styled.div`
