@@ -129,12 +129,12 @@ public class NoticeController {
         if(companyId != noticeService.findNotice(noticeId).getCompany().getCompanyId()){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
-        if(checked != ""){
-            List<CardCheck> cardChecks = cardCheckService.findCheckedCardChecks(checked, noticeId);
-            return new ResponseEntity(cardCheckMapper.cardChecksToCardCheckResponseDtos(cardChecks), HttpStatus.OK);
+        if(checked.equals("")){
+            List<CardCheck> cardChecks = cardCheckService.findCardChecks(noticeId);
+            return new ResponseEntity<>(cardCheckMapper.cardChecksToCardCheckResponseDtos(cardCheckService.findCardChecks(noticeId)), HttpStatus.OK);
         }
-        List<CardCheck> cardChecks = cardCheckService.findCardChecks(noticeId);
-        return new ResponseEntity<>(cardCheckMapper.cardChecksToCardCheckResponseDtos(cardCheckService.findCardChecks(noticeId)), HttpStatus.OK);
+        List<CardCheck> cardChecks = cardCheckService.findCheckedCardChecks(checked, noticeId);
+        return new ResponseEntity(cardCheckMapper.cardChecksToCardCheckResponseDtos(cardChecks), HttpStatus.OK);
     }
 
     @PatchMapping("/{notice_id}/card/{check_id}")

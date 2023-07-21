@@ -36,6 +36,11 @@ public interface NoticeMapper {
     NoticeDto.Response bookmarkToNoticeResponseDto(Bookmark bookmark);
 
     @Mapping(source = "company.name", target = "companyName")
+    @Mapping(source = "company.intro", target = "companyIntro")
+    @Mapping(source = "company.phone", target = "companyPhone")
+    @Mapping(source = "company.email", target = "companyEmail")
+    @Mapping(source = "company.person", target = "companyPerson")
+    @Mapping(source = "company.address", target = "companyAddress")
     @Mapping(target = "tagNames", expression = "java(getTagNames(notice))")
     NoticeDto.Response noticeToNoticeResponseDto(Notice notice);
 

@@ -15,5 +15,6 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
 
     Optional<Notice> findByNoticeId(Long noticeId);
     List<Notice> findAllByCompanyCompanyId(Long companyId);
+    List<Notice> findAllByOrderByCreatedAtDesc(Pageable pageable);
     List<Notice> findAllByDeadlineAfterAndTitleContainingOrDeadlineAfterAndContentContaining(LocalDateTime deadline1, String title, LocalDateTime deadline2, String content, Pageable pageable);
 }
