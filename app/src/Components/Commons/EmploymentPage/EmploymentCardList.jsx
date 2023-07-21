@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 
-const EmploymentCardList = () => {
+const EmploymentCardList = ({ selectedTag }) => {
   const [data, setData] = useState([]);
   // const [loading, setLoading] = useState(true);
 
@@ -22,17 +22,23 @@ const EmploymentCardList = () => {
         // setLoading(false);
       });
   }, []);
+
+  const filteredData = selectedTag
+    ? data.filter((employmentInfo) =>
+        employmentInfo.tagNames.includes(selectedTag),
+      )
+    : data;
+
   return (
     <>
       <LowerContainerStyled>
         <EmploymentCardContainerStyled>
-          {data &&
-            data.map((employmentInfo) => (
-              <EmploymentCard
-                key={employmentInfo.id}
-                employmentInfo={employmentInfo}
-              />
-            ))}
+          {filteredData.map((employmentInfo) => (
+            <EmploymentCard
+              key={employmentInfo.id}
+              employmentInfo={employmentInfo}
+            />
+          ))}
         </EmploymentCardContainerStyled>
       </LowerContainerStyled>
     </>
@@ -53,7 +59,7 @@ const LowerContainerStyled = styled.section`
 
 const EmploymentCardContainerStyled = styled.ul`
   display: flex;
-  flex-wrap: wrap; // 너비를 벗어나면 밑으로 내려가게 함
+  flex-wrap: wrap;
   flex-direction: row;
   gap: 22px;
 `;

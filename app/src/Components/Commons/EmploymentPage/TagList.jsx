@@ -1,8 +1,8 @@
+import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { Colors } from '../../../Assets/Theme';
 
-const TagList = () => {
-  // 태그들을 배열로 관리
+const TagList = ({ onSelectTag }) => {
   const tagList = [
     '연봉 상위 1%',
     '연봉 상위 5%',
@@ -10,14 +10,28 @@ const TagList = () => {
     '백엔드',
     '프론트엔드',
     '브랜딩',
+    '데이터',
   ];
+
+  const [selectedTag, setSelectedTag] = useState(null);
+
+  const handleTagClick = (tag) => {
+    setSelectedTag(tag);
+    onSelectTag(tag);
+  };
 
   return (
     <>
       <UpperContainerStyled>
         <TagContainerStyled>
           {tagList.map((tag, index) => (
-            <TagStyled key={index}>{tag}</TagStyled>
+            <TagStyled
+              key={index}
+              selected={tag === selectedTag}
+              onClick={() => handleTagClick(tag)}
+            >
+              {tag}
+            </TagStyled>
           ))}
         </TagContainerStyled>
       </UpperContainerStyled>
@@ -44,24 +58,28 @@ const TagContainerStyled = styled.div`
   justify-content: flex-start;
   gap: 8px;
 `;
+
 const TagStyled = styled.div`
   display: flex;
   padding: 8px 12px;
   gap: 8px;
   white-space: nowrap;
-  background-color: ${Colors.Gray1};
-  border: 1px solid transparent;
+  background-color: ${(props) =>
+    props.selected ? Colors.Bgwhite : Colors.Gray1};
+  border: 1px solid
+    ${(props) => (props.selected ? Colors.mainPurple : 'transparent')};
   border-radius: 16px;
-  color: ${Colors.Gray4};
+  border-radius: 16px;
+  color: ${(props) => (props.selected ? Colors.mainPurple : Colors.Gray4)};
   font-size: 14px;
   line-height: 20px;
-  font-weight: 300px;
+  font-weight: ${(props) => (props.selected ? '400' : '300')};
 
   &:hover {
     background-color: ${Colors.Bgwhite};
     border-color: ${Colors.mainPurple};
     color: ${Colors.mainPurple};
-    font-weight: 400px;
+    font-weight: 400;
     cursor: pointer;
   }
 `;
