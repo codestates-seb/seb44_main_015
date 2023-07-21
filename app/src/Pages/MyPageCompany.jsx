@@ -24,8 +24,10 @@ import Header from '../Components/Commons/Layouts/Header';
 import { useHorizontalScroll } from '../Utils/useSideScroll';
 import axios from 'axios';
 import { duedate } from '../Utils/Dayjs';
+import { useParams } from 'react-router-dom';
 
 const MyPageCompany = () => {
+  let { userId } = useParams();
   const scrollRef = useHorizontalScroll();
   const [companyInfo, setCompanyInfo] = useState({});
   const employmentData = FakeEmploymentInfo.slice(0, 7);
@@ -35,23 +37,23 @@ const MyPageCompany = () => {
     axios
       .all([
         axios.get(
-          'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/2',
+          `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/${userId}`,
         ),
         axios.get(
-          'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/2/notice',
+          `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/${userId}/notice`,
         ),
       ])
       .then(
         axios.spread((res1, res2) => {
           setCompanyInfo(res1.data);
           setCareerData(res2.data);
-          //console.log(res2.data);
         }),
       )
       .catch((err) => console.log(err));
   }, []);
 
   const { email, phone, tagNames, intro, name } = companyInfo;
+
   const openCareer = careerData.filter(
     (career) => duedate(career.deadline) !== '지난 채용',
   );
@@ -87,7 +89,7 @@ const MyPageCompany = () => {
                 info3={Messages.selectedTitle}
                 info1Number={openCareer.length}
                 info2Number={closedCareer.length}
-                info3Number={employmentData.length}
+                info3Number={0}
               />
               <AppliedBox
                 height={'343px'}

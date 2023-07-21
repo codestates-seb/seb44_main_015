@@ -9,12 +9,14 @@ import AppliedBox from '../Components/Commons/MyPage/AppliedBox';
 import AppliedBoard from '../Components/Commons/MyPage/AppliedBoard';
 import MiddleHeader from '../Components/Commons/MiddleHeader';
 import EmploymentCard from '../Components/Commons/EmploymentCard';
+import ZeroCard from '../Components/Commons/MyPage/ZeroCard';
 import Header from '../Components/Commons/Layouts/Header';
 import { useHorizontalScroll } from '../Utils/useSideScroll';
 import axios from 'axios';
-import ZeroCard from '../Components/Commons/MyPage/ZeroCard';
+import { useParams } from 'react-router-dom';
 
 const MyPageFreelancer = () => {
+  let { userId } = useParams();
   const scrollRef = useHorizontalScroll();
   const [userInfo, setUserInfo] = useState({});
   const [careerData, setCareerData] = useState([]);
@@ -24,13 +26,13 @@ const MyPageFreelancer = () => {
     axios
       .all([
         axios.get(
-          'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/user/3',
+          `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/user/${userId}`,
         ),
         axios.get(
-          'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/user/3/bookmark',
+          `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/user/${userId}/bookmark`,
         ),
         axios.get(
-          'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/user/3/notice',
+          `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/user/${userId}/notice`,
         ),
       ])
       .then(
@@ -136,6 +138,8 @@ export default MyPageFreelancer;
 export const BackgroundContainerStyled = styled.div`
   background-color: ${Colors.Gray1};
   padding-top: 40px;
+  background-size: cover;
+  height: 160vh;
 `;
 
 export const MainContainerStyled = styled.main`

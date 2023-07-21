@@ -3,7 +3,9 @@ import { Colors, Messages } from '../../../Assets/Theme';
 
 const PlusCareerButton = () => {
   return (
-    <PlusCareerButtonStyled>{Messages.plusCareerBtn}</PlusCareerButtonStyled>
+    <PlusCareerButtonStyled onClick={() => alert('서비스 준비중입니다!')}>
+      {Messages.plusCareerBtn}
+    </PlusCareerButtonStyled>
   );
 };
 

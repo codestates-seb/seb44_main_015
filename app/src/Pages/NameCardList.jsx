@@ -10,10 +10,10 @@ import Header from '../Components/Commons/Layouts/Header';
 import axios from '../Api/Axios';
 import { useParams } from 'react-router-dom';
 
-const NameCardList = ({ selectedHanlder }) => {
-  const [userListInfo, setUserListInfo] = useState([]);
+const NameCardList = ({}) => {
   let { noticeId } = useParams();
-
+  const [userListInfo, setUserListInfo] = useState([]);
+  const [clicked, setClicked] = useState(false);
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(`notice/${noticeId}/card`, {
@@ -26,16 +26,26 @@ const NameCardList = ({ selectedHanlder }) => {
     fetchData();
   }, [noticeId]);
 
+  const cardSendHandler = () => {
+    setClicked((prev) => !prev);
+  };
+
   return (
     <>
       <Header />
-      {userListInfo ? (
+      {userListInfo.length !== 0 ? (
         <BackgroundContainerStyled>
           <MainContainerStyled>
             <TotalWrapperStyled>
               <UpperWrapperStyled>
                 <MiddleHeader midtitle={Messages.cardInList}></MiddleHeader>
-                <MainButton content={Messages.selectNameCard} width={'164px'} />
+                <MainButton
+                  onClick={cardSendHandler}
+                  content={Messages.selectNameCard}
+                  width={'164px'}
+                  id={noticeId}
+                  clicked={clicked}
+                />
               </UpperWrapperStyled>
 
               <CardListWrapperStyled>
@@ -45,6 +55,7 @@ const NameCardList = ({ selectedHanlder }) => {
                       key={onecard.id}
                       userInfo={onecard}
                       className={null}
+                      clicked={clicked}
                     ></NameCard>
                   ))}
               </CardListWrapperStyled>
@@ -52,7 +63,17 @@ const NameCardList = ({ selectedHanlder }) => {
           </MainContainerStyled>
         </BackgroundContainerStyled>
       ) : (
-        <div>지원자가 없어요</div>
+        <BackgroundContainerStyled>
+          <MainContainerStyled>
+            <TotalWrapperStyled>
+              <UpperWrapperStyled>
+                <MiddleHeader
+                  midtitle={'아직 지원자가 없어요🤓'}
+                ></MiddleHeader>
+              </UpperWrapperStyled>
+            </TotalWrapperStyled>
+          </MainContainerStyled>
+        </BackgroundContainerStyled>
       )}
     </>
   );
@@ -82,5 +103,4 @@ export const TotalWrapperStyled = styled.div`
   align-items: center;
   margin: 40px auto 132px;
   width: 754px;
-  height: 100%;
 `;

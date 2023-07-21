@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import { Colors } from '../../Assets/Theme';
 
-function DisabledButton({ content, width, backgroundColor }) {
+function DisabledButton({ content, width, backgroundColor, onClick }) {
   return (
-    <ButtonStyled width={width} backgroundColor={backgroundColor}>
+    <ButtonStyled
+      onClick={onClick}
+      width={width}
+      $backgroundColor={backgroundColor}
+    >
       {content ? `${content}` : '버튼'}
     </ButtonStyled>
   );

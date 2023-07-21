@@ -3,10 +3,20 @@ import { Colors } from '../../Assets/Theme';
 import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
 import SelectedButton from '../Button/SelectedButton';
+import { exceptBar } from '../../Utils/exceptBar';
 
 const NameCard = ({ userInfo, ...props }) => {
-  const { name, phone, email, tagNames, userName, userEmail, userPhone } =
-    userInfo;
+  const {
+    name,
+    phone,
+    email,
+    tagNames,
+    userName,
+    userEmail,
+    userPhone,
+    cardCheckId,
+    checked,
+  } = userInfo;
 
   return (
     <>
@@ -17,15 +27,17 @@ const NameCard = ({ userInfo, ...props }) => {
               {name ? name : userName}
             </NameWrapperStyled>
             <InnerWrapperStyled>
-              <PhoneWrapperStyled $phone={phone ? phone : userPhone}>
-                {phone ? phone : userPhone}
+              <PhoneWrapperStyled
+                $phone={phone ? exceptBar(phone) : exceptBar(userPhone)}
+              >
+                {phone ? exceptBar(phone) : exceptBar(userPhone)}
               </PhoneWrapperStyled>
               <EmailWrapperStyled $email={email ? email : userEmail}>
                 {email ? email : userEmail}
               </EmailWrapperStyled>
             </InnerWrapperStyled>
           </UpperWrapperStyled>
-          <SelectedButton {...props} />
+          <SelectedButton id={cardCheckId} checked={checked} {...props} />
         </FormerWrapperStyled>
 
         <TagWrapperStyled $margin={'0 40px 0px 24px'}>
@@ -45,6 +57,12 @@ export const NameCardStyled = styled.div`
   border-radius: 16px;
   color: ${Colors.mainPurple};
   background-color: ${Colors.Bgwhite};
+  box-sizing: border-box;
+  &:hover {
+    border: 2px solid ${Colors.secondPurple};
+    background-color: ${Colors.Gray1};
+    cursor: pointer;
+  }
 `;
 
 export const UpperWrapperStyled = styled.div`

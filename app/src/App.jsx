@@ -6,17 +6,15 @@ import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 import NameCardList from './Pages/NameCardList';
 import Header from './Components/Commons/Layouts/Header';
 import Footer from './Components/Commons/Layouts/Footer';
-import NamecardFake from './Pages/NamecardFake';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />}></Route>
-        <Route path="mypagefreelancer" element={<MyPageFreelancer />}></Route>
-        <Route path=":noticeId" element={<NameCardList />}></Route>
-        <Route path="mypagecompany" element={<MyPageCompany />}></Route>
-        <Route path="fake" element={<NamecardFake />}></Route>
+        <Route path="mypageuser/:userId" element={<MyPageFreelancer />}></Route>
+        <Route path="notice/card/:noticeId" element={<NameCardList />}></Route>
+        <Route path="mypagecompany/:userId" element={<MyPageCompany />}></Route>
       </Routes>
     </BrowserRouter>
   );
