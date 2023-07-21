@@ -32,6 +32,10 @@ public class TagService {
         Pageable limitPageable = PageRequest.of(0, limit);
         return tagRepository.findAll(limitPageable).getContent();
     }
+
+    public List<Tag> findTagsByCategory(String category){
+        return tagRepository.findByCategory(Tag.TagCategories.valueOf(category.toUpperCase()));
+    }
     private Tag findVerifyTag(Long tagId){
         Optional<Tag> optionalTag = tagRepository.findByTagId(tagId);
 

@@ -81,6 +81,14 @@ public class UserService {
                 .ifPresent(avgRating -> findUser.setAvgRating(avgRating));
         Optional.ofNullable(user.getRefreshToken())
                 .ifPresent(refreshToken -> findUser.setRefreshToken(refreshToken));
+        Optional.ofNullable(user.getEmail())
+                .ifPresent(variable -> findUser.setEmail(variable));
+        Optional.ofNullable(user.getPhone())
+                .ifPresent(variable -> findUser.setPhone(variable));
+        Optional.ofNullable(user.getName())
+                .ifPresent(variable -> findUser.setName(variable));
+        Optional.ofNullable(user.getRoles())
+                .ifPresent(variable -> findUser.setRoles(variable));
 
         User updatedUser = userRepository.save(findUser);
         return updatedUser;

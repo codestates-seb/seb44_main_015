@@ -70,6 +70,20 @@ public class CompanyService {
                 .ifPresent(password -> findCompany.setPassword(passwordEncoder.encode(password)));
         Optional.ofNullable(company.getRefreshToken())
                 .ifPresent(refreshToken -> findCompany.setRefreshToken(refreshToken));
+        Optional.ofNullable(company.getName())
+                .ifPresent(variable -> findCompany.setName(variable));
+        Optional.ofNullable(company.getRoles())
+                .ifPresent(variable -> findCompany.setRoles(variable));
+        Optional.ofNullable(company.getEmail())
+                .ifPresent(variable -> findCompany.setEmail(variable));
+        Optional.ofNullable(company.getAddress())
+                .ifPresent(variable -> findCompany.setAddress(variable));
+        Optional.ofNullable(company.getIntro())
+                .ifPresent(variable -> findCompany.setIntro(variable));
+        Optional.ofNullable(company.getPerson())
+                .ifPresent(variable -> findCompany.setPerson(variable));
+        Optional.ofNullable(company.getPhone())
+                .ifPresent(variable -> findCompany.setPhone(variable));
 
         return companyRepository.save(findCompany);
 

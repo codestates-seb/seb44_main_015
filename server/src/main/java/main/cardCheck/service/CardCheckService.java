@@ -32,6 +32,10 @@ public class CardCheckService {
         return cardChecks;
     }
 
+    public CardCheck findCardCheck(Long cardCheckId){
+        return cardCheckRepository.findByCardCheckId(cardCheckId).orElseThrow();
+    }
+
     public List<CardCheck> findCheckedCardChecks(String checked, Long noticeId){
         List<CardCheck> cardChecks = cardCheckRepository.findAllByCheckedAndNoticeNoticeId(CardCheck.CardCheckStatus.valueOf(checked.toUpperCase()), noticeId);
 
@@ -43,7 +47,9 @@ public class CardCheckService {
     }
 
     public CardCheck updateCardCheck(CardCheck cardCheck){
-        return cardCheckRepository.save(cardCheck);
+        CardCheck findcardCheck = findCardCheck(cardCheck.getCardCheckId());
+        findcardCheck.setChecked(cardCheck.getChecked());
+        return cardCheckRepository.save(findcardCheck);
     }
 
     private void verifyExistCardCheck(Card card, Notice notice){

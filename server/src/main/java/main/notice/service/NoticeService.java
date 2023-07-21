@@ -45,7 +45,9 @@ public class NoticeService {
     }
 
     public Notice updateNotice(Notice notice){
-        findVerifiedNotice(notice.getNoticeId());
+        Notice findNotice = findVerifiedNotice(notice.getNoticeId());
+        notice.setViewCount(findNotice.getViewCount());
+        notice.setCompany(findNotice.getCompany());
         return noticeRepository.save(notice);
     }
 
