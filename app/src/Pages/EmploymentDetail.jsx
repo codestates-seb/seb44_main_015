@@ -1,25 +1,26 @@
 import Header from '../Components/Commons/Layouts/Header';
 import Footer from '../Components/Commons/Layouts/Footer';
 import CompanyDetail from '../Components/Commons/EmploymentDetailPage/CompanyDetail';
-import ApplyToCompany from '../Components/Commons/EmploymentDetailPage/ApplyToCompany';
-import FakeEmploymentInfo from '../Api/FakeEmploymentInfo.json';
+// import ApplyToCompany from '../Components/Commons/EmploymentDetailPage/ApplyToCompany';
 import { styled } from 'styled-components';
 import { Colors } from '../Assets/Theme';
 
-const EmploymentDetail = () => {
-  const employmentData = FakeEmploymentInfo.slice(0, 1);
-
+const EmploymentDetail = ({ employmentInfo }) => {
   return (
     <>
       <Header />
       <EmploymentDetailContainerStyled>
-        {employmentData.map((employmentInfo) => (
-          <CompanyDetail
-            key={employmentInfo.id}
-            employmentInfo={employmentInfo}
-          />
-        ))}
-        <ApplyToCompany></ApplyToCompany>
+        {Array.isArray(employmentInfo) && employmentInfo.length > 0 ? (
+          employmentInfo.map((employmentData) => (
+            <CompanyDetail
+              key={employmentData.noticeId}
+              employmentInfo={employmentData}
+            />
+          ))
+        ) : (
+          <p>No employment data available.</p>
+        )}
+        {/* <ApplyToCompany></ApplyToCompany> */}
       </EmploymentDetailContainerStyled>
 
       <Footer />

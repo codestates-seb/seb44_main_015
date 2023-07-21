@@ -35,7 +35,7 @@ const EmploymentCardList = ({ selectedTag }) => {
         <EmploymentCardContainerStyled>
           {filteredData.map((employmentInfo) => (
             <EmploymentCard
-              key={employmentInfo.id}
+              key={employmentInfo.noticeId}
               employmentInfo={employmentInfo}
             />
           ))}
@@ -62,4 +62,5 @@ const EmploymentCardContainerStyled = styled.ul`
   flex-wrap: wrap;
   flex-direction: row;
   gap: 22px;
+  min-height: 42vh;
 `;

@@ -7,10 +7,9 @@ import { styled } from 'styled-components';
 import { Colors } from '../Assets/Theme';
 
 const EmploymentList = () => {
-  const [selectedTag, setSelectedTag] = useState(null); // 선택한 태그를 상태로 관리
+  const [selectedTag, setSelectedTag] = useState(null);
 
   const handleTagSelect = (tag) => {
-    // 선택한 태그를 상태로 업데이트
     setSelectedTag(tag);
   };
 
@@ -37,5 +36,4 @@ const EmploymentListContainerStyled = styled.div`
   height: auto;
   box-sizing: border-box;
   background-color: ${Colors.Bgwhite};
-  /* overflow-x: auto; */
 `;

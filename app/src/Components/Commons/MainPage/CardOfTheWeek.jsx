@@ -73,7 +73,7 @@ const CardContainerStyled = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 746px;
+  width: 748px;
   gap: 22px;
   margin-bottom: 90px;
 `;

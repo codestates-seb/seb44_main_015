@@ -56,6 +56,12 @@ export const NameCardStyled = styled.div`
   border-radius: 16px;
   color: ${Colors.mainPurple};
   background-color: ${Colors.Bgwhite};
+  box-sizing: border-box;
+  &:hover {
+    border: 2px solid ${Colors.secondPurple};
+    background-color: ${Colors.Gray1};
+    cursor: pointer;
+  }
 `;
 
 export const UpperWrapperStyled = styled.div`

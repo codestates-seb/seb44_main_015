@@ -1,10 +1,27 @@
-import FakeEmploymentInfo from '../../../Api/FakeEmploymentInfo.json';
 import Notice from '../../../Assets/Icons/Notice.png';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { Colors } from '../../../Assets/Theme';
 
 const CompanyDetail = ({ employmentInfo }) => {
-  const { title, name, region, stack, text, duedate } = employmentInfo;
+  const { title, companyName, content, deadline, tagNames } = employmentInfo;
+
+  useEffect(() => {
+    const url =
+      'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/notice/1';
+
+    axios
+      .get(url)
+      .then((response) => {
+        setData(response.data);
+        // setLoading(false);
+      })
+      .catch((error) => {
+        console.error('API 요청 실패:', error);
+        // setLoading(false);
+      });
+  }, []);
 
   return (
     <>
@@ -12,23 +29,25 @@ const CompanyDetail = ({ employmentInfo }) => {
         <UpperContainerStyled>
           <TitleWrapperStyled title={title}>{title}</TitleWrapperStyled>
           <DetailWrapperStyled>
-            <CompanyNameStyled name={name}>{name}</CompanyNameStyled>
-            <RegionStyled $region={region}>{region}</RegionStyled>
+            <CompanyNameStyled companyName={companyName}>
+              {companyName}
+            </CompanyNameStyled>
+            {/* <RegionStyled region={region}>{region}</RegionStyled> */}
           </DetailWrapperStyled>
           <TagContainerStyled>
-            {stack &&
-              stack.map((tag, index) => (
+            {tagNames &&
+              tagNames.map((tag, index) => (
                 <TagStyled key={index}>{tag}</TagStyled>
               ))}
           </TagContainerStyled>
         </UpperContainerStyled>
         <MiddleContainerStyled>
-          <TextStyled text={text}>{text}</TextStyled>
+          <TextStyled content={content}>{content}</TextStyled>
         </MiddleContainerStyled>
         <LowerContainerStyled>
           <DueDateContainerStyled>
             <DueDateTextStyled>마감일</DueDateTextStyled>
-            <DueDateStyled duedate={duedate}>{duedate}</DueDateStyled>
+            <DueDateStyled deadline={deadline}>{deadline}</DueDateStyled>
           </DueDateContainerStyled>
           <NoticeContainerStyled>
             <NoticeMarkStyled src={Notice} alt="주의" />
