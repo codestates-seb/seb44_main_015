@@ -2,26 +2,23 @@ import { styled } from 'styled-components';
 import { Colors } from '../../../Assets/Theme';
 
 const TagList = () => {
+  // 태그들을 배열로 관리
+  const tagList = [
+    '연봉 상위 1%',
+    '연봉 상위 5%',
+    '연봉 상위 10%',
+    '백엔드',
+    '프론트엔드',
+    '브랜딩',
+  ];
+
   return (
     <>
       <UpperContainerStyled>
         <TagContainerStyled>
-          <TagStyled>연봉 상위 1%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
-          <TagStyled>연봉 상위 5%</TagStyled>
+          {tagList.map((tag, index) => (
+            <TagStyled key={index}>{tag}</TagStyled>
+          ))}
         </TagContainerStyled>
       </UpperContainerStyled>
     </>

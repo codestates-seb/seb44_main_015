@@ -1,20 +1,38 @@
 import EmploymentCard from '../EmploymentCard';
-import FakeEmploymentInfo from '../../../Api/FakeEmploymentInfo.json';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 
 const EmploymentCardList = () => {
-  const employmentData = FakeEmploymentInfo;
+  const [data, setData] = useState([]);
+  // const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const url =
+      'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/notice';
+
+    axios
+      .get(url)
+      .then((response) => {
+        setData(response.data);
+        // setLoading(false);
+      })
+      .catch((error) => {
+        console.error('API 요청 실패:', error);
+        // setLoading(false);
+      });
+  }, []);
   return (
     <>
       <LowerContainerStyled>
         <EmploymentCardContainerStyled>
-          {employmentData.map((employmentInfo) => (
-            <EmploymentCard
-              key={employmentInfo.id}
-              employmentInfo={employmentInfo}
-            />
-          ))}
+          {data &&
+            data.map((employmentInfo) => (
+              <EmploymentCard
+                key={employmentInfo.id}
+                employmentInfo={employmentInfo}
+              />
+            ))}
         </EmploymentCardContainerStyled>
       </LowerContainerStyled>
     </>
