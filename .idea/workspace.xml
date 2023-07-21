@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c76fbe39-b54e-41d8-a428-fd619d0fa884" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/seb44_main_015.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/main/tag/entity/Tag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/main015.main.iml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main/company/entity/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/company/entity/Company.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main/notice/entity/Notice.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/notice/entity/Notice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/main/user/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/main/user/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main.yml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +52,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2S9aNTmX2papup1YOqc4j5ZdPy0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -71,7 +65,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/psaon/OneDrive/바탕 화면/그만자고15나/Code/seb44_main_015",
+    "last_opened_file_path": "C:/Users/psaon/OneDrive/바탕 화면/그만자고15나/배포자도오하/seb44_main_015",
     "project.structure.last.edited": "프로젝트",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0"
@@ -79,6 +73,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\psaon\OneDrive\바탕 화면\그만자고15나\배포자도오하\seb44_main_015\.github\workflows" />
+      <recent name="C:\Users\psaon\OneDrive\바탕 화면\그만자고15나\배포자도오하\seb44_main_015\.github" />
       <recent name="C:\Users\psaon\OneDrive\바탕 화면\그만자고15나\Code\seb44_main_015\server\src\main\java" />
     </key>
   </component>
