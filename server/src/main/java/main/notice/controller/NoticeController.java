@@ -122,7 +122,18 @@ public class NoticeController {
     }
     @GetMapping("/{notice_id}/card")
     public ResponseEntity getCards(@PathVariable("notice_id") @Positive long noticeId,
+                                  @RequestParam(required = false, defaultValue = "") String checked,
                                   Authentication authentication){
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long companyId = ((Number) principal.get("id")).longValue();
+        if(companyId != noticeService.findNotice(noticeId).getCompany().getCompanyId()){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        if(checked != ""){
+            List<CardCheck> cardChecks = cardCheckService.findCheckedCardChecks(checked, noticeId);
+            return new ResponseEntity(cardCheckMapper.cardChecksToCardCheckResponseDtos(cardChecks), HttpStatus.OK);
+        }
+        List<CardCheck> cardChecks = cardCheckService.findCardChecks(noticeId);
         return new ResponseEntity<>(cardCheckMapper.cardChecksToCardCheckResponseDtos(cardCheckService.findCardChecks(noticeId)), HttpStatus.OK);
     }
 

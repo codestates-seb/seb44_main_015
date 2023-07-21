@@ -12,9 +12,10 @@ import main.user.service.UserService;
 import main.userTag.entity.UserTag;
 import main.userTag.repository.UserTagRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class UserTagService {

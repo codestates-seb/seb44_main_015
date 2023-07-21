@@ -12,9 +12,10 @@ import main.noticeTag.entity.NoticeTag;
 import main.noticeTag.repository.NoticeTagRepository;
 import main.userTag.entity.UserTag;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class NoticeTagService {

@@ -12,6 +12,7 @@ import main.notice.dto.NoticeDto;
 import main.notice.entity.Notice;
 import main.notice.mapper.NoticeMapper;
 import main.notice.service.NoticeService;
+import main.tag.dto.TagDto;
 import main.tag.entity.Tag;
 
 import main.tag.mapper.TagMapper;
@@ -75,6 +76,20 @@ public class CompanyController {
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update profile"); //프로필 수정 실패
         }
+    }
+
+    @PostMapping("/{company_id/tag")
+    public ResponseEntity createCompanyTag(@PathVariable("company_id") Long companyId,
+                                           @RequestBody TagDto.PostId tagIdDto,
+                                           Authentication authentication){
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long authCompanyId = ((Number) principal.get("id")).longValue();
+        if(companyId != authCompanyId){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        companyTagService.createCompanyTag(companyId,tagIdDto.getTagId());
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/{company_id}/tag")

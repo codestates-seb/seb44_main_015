@@ -9,9 +9,10 @@ import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
 import main.notice.entity.Notice;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class CardCheckService {
@@ -27,6 +28,12 @@ public class CardCheckService {
         if(cardChecks == null){
             throw new BusinessLogicException(ExceptionCode.NOTICE_NOT_FOUND);
         }
+
+        return cardChecks;
+    }
+
+    public List<CardCheck> findCheckedCardChecks(String checked, Long noticeId){
+        List<CardCheck> cardChecks = cardCheckRepository.findAllByCheckedAndNoticeNoticeId(CardCheck.CardCheckStatus.valueOf(checked.toUpperCase()), noticeId);
 
         return cardChecks;
     }

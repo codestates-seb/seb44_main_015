@@ -16,10 +16,11 @@ import main.user.repository.UserRepository;
 import main.userTag.service.UserTagService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class UserService {

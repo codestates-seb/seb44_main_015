@@ -12,5 +12,6 @@ public interface CardCheckRepository extends JpaRepository<CardCheck, Long> {
     List<CardCheck> findByCheckedAndCardUserUserId(CardCheck.CardCheckStatus checked, Long userId);
     List<CardCheck> findAllByCardUserUserId(Long userId);
     List<CardCheck> findAllByCardCardId(Long cardId);
+    List<CardCheck> findAllByCheckedAndNoticeNoticeId(CardCheck.CardCheckStatus checked, Long noticeId);
     boolean existsByCardAndNotice(Card card, Notice notice);
 }
