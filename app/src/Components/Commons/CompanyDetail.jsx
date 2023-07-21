@@ -13,7 +13,7 @@ const CompanyDetail = ({ detail, stack }) => {
             <CardTitleStyled>회사 소개</CardTitleStyled>
             <CompanyDetailWrapperStyled>{detail}</CompanyDetailWrapperStyled>
           </UpperWrapperStyled>
-          <TagWrapperStyled margin={'24px 24px 24px 0'}>
+          <TagWrapperStyled $margin={'24px 24px 24px 0'}>
             {stack && stack.map((tag) => <Tag key={tag} children={tag} />)}
           </TagWrapperStyled>
         </CardWrapperStyled>

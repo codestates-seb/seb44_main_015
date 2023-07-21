@@ -4,6 +4,7 @@ import App from './App.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <App />,
   </React.StrictMode>,
 );
+/** 업로드 테스트용입니다. **/

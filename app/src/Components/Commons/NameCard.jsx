@@ -3,6 +3,7 @@ import { Colors } from '../../Assets/Theme';
 import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
 import SelectedButton from '../Button/SelectedButton';
+import { exceptBar } from '../../Utils/exceptBar';
 
 const NameCard = ({ userInfo, ...props }) => {
   const {

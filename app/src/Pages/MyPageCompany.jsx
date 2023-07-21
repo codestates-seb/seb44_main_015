@@ -8,8 +8,8 @@ import {
   TitleWrapperStyled,
   TotalWrapperStyled,
   ScrollStyled,
+  BackgroundContainerStyled,
 } from './MyPageFreelancer';
-import { BodyBackgroundStyled } from './LogIn';
 import { EmploymentCardContainerStyled } from './MainPage/NewEmployment';
 import CompanyCard from '../Components/Commons/CompanyCard';
 import OutlineButton from '../Components/Button/OutlineButton';
@@ -20,101 +20,133 @@ import ZeroCard from '../Components/Commons/MyPage/ZeroCard';
 import CompanyDetail from '../Components/Commons/CompanyDetail';
 import AppliedBoard from '../Components/Commons/MyPage/AppliedBoard';
 import FakeEmploymentInfo from '../Api/FakeEmploymentInfo.json';
-import FakeUserInfo from '../Api/FakeUserInfo.json';
+import Header from '../Components/Commons/Layouts/Header';
+import { useHorizontalScroll } from '../Utils/useSideScroll';
+import axios from 'axios';
+import { duedate } from '../Utils/Dayjs';
+import { useParams } from 'react-router-dom';
 
 const MyPageCompany = () => {
+  let { userId } = useParams();
+  const scrollRef = useHorizontalScroll();
   const [companyInfo, setCompanyInfo] = useState({});
   const employmentData = FakeEmploymentInfo.slice(0, 7);
+  const [careerData, setCareerData] = useState([]);
 
   useEffect(() => {
-    setCompanyInfo(FakeUserInfo[0].company);
+    axios
+      .all([
+        axios.get(
+          `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/${userId}`,
+        ),
+        axios.get(
+          `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/${userId}/notice`,
+        ),
+      ])
+      .then(
+        axios.spread((res1, res2) => {
+          setCompanyInfo(res1.data);
+          setCareerData(res2.data);
+        }),
+      )
+      .catch((err) => console.log(err));
   }, []);
 
-  const { name, email, phone, stack, detail } = companyInfo;
+  const { email, phone, tagNames, intro, name } = companyInfo;
+
+  const openCareer = careerData.filter(
+    (career) => duedate(career.deadline) !== '지난 채용',
+  );
+  const closedCareer = careerData.filter(
+    (career) => duedate(career.deadline) === '지난 채용',
+  );
   return (
-    <BodyBackgroundStyled>
-      <MainContainerStyled>
-        <TotalWrapperStyled>
-          <TitleWrapperStyled>
-            <MiddleHeader midtitle={Messages.myPage} />
-          </TitleWrapperStyled>
+    <>
+      <Header />
+      <BackgroundContainerStyled>
+        <MainContainerStyled>
+          <TotalWrapperStyled>
+            <TitleWrapperStyled>
+              <MiddleHeader midtitle={Messages.myPage} />
+            </TitleWrapperStyled>
 
-          <LeftSectionStyled>
-            <CompanyCard name={name} phone={phone} email={email} />
-            <CompanyDetail stack={stack} detail={detail} />
-            <ButtonWrapperStyled>
-              <OutlineButton
-                width={'360px'}
-                content={Messages.companyCardEditBtn}
+            <LeftSectionStyled>
+              <CompanyCard name={name} phone={phone} email={email} />
+              <CompanyDetail stack={tagNames} detail={intro} />
+              <ButtonWrapperStyled>
+                <OutlineButton
+                  width={'360px'}
+                  content={Messages.companyCardEditBtn}
+                />
+              </ButtonWrapperStyled>
+            </LeftSectionStyled>
+
+            <RightSectionStyled height={'902px'}>
+              <AppliedBoard
+                title={Messages.appliedBoardTitle}
+                info1={Messages.openTitle}
+                info2={Messages.closedTitle}
+                info3={Messages.selectedTitle}
+                info1Number={openCareer.length}
+                info2Number={closedCareer.length}
+                info3Number={0}
               />
-            </ButtonWrapperStyled>
-          </LeftSectionStyled>
-
-          <RightSectionStyled height={'902px'}>
-            <AppliedBoard
-              title={Messages.appliedBoardTitle}
-              info1={Messages.openTitle}
-              info2={Messages.closedTitle}
-              info3={Messages.selectedTitle}
-              info1Number={employmentData.length}
-              info2Number={employmentData.length}
-              info3Number={employmentData.length}
-            />
-            <AppliedBox
-              height={'343px'}
-              title={Messages.openTitle}
-              number={employmentData.length}
-              content={
-                employmentData.length ? (
-                  <ScrollStyled>
-                    <EmploymentCardContainerStyled>
-                      {employmentData.map((employmentInfo) => (
-                        <CareerCard
-                          key={employmentInfo.id}
-                          employmentInfo={employmentInfo}
-                        />
-                      ))}
-                    </EmploymentCardContainerStyled>
-                  </ScrollStyled>
-                ) : (
-                  <ZeroCard
-                    height={'244px'}
-                    message={Messages.noOpenCareerTitle}
-                    smallmessage={Messages.careerUpMessage}
-                    content={Messages.plusCareerBtn}
-                  />
-                )
-              }
-            />
-            <AppliedBox
-              height={'343px'}
-              title={Messages.closedTitle}
-              number={employmentData.length} //지난채용으로 변경예정
-              content={
-                employmentData.length ? (
-                  <ScrollStyled>
-                    <EmploymentCardContainerStyled>
-                      {employmentData.map((employmentInfo) => (
-                        <CareerCard
-                          key={employmentInfo.id}
-                          employmentInfo={employmentInfo}
-                        />
-                      ))}
-                    </EmploymentCardContainerStyled>
-                  </ScrollStyled>
-                ) : (
-                  <ZeroCard
-                    height={'244px'}
-                    message={Messages.noCareerMessage}
-                    smallmessage={' '}
-                  />
-                )
-              }
-            />
-          </RightSectionStyled>
-        </TotalWrapperStyled>
-      </MainContainerStyled>
-    </BodyBackgroundStyled>
+              <AppliedBox
+                height={'343px'}
+                title={Messages.openTitle}
+                number={openCareer.length}
+                content={
+                  openCareer.length ? (
+                    <ScrollStyled>
+                      <EmploymentCardContainerStyled>
+                        {openCareer.map((employmentInfo) => (
+                          <CareerCard
+                            key={employmentInfo.id}
+                            employmentInfo={employmentInfo}
+                          />
+                        ))}
+                      </EmploymentCardContainerStyled>
+                    </ScrollStyled>
+                  ) : (
+                    <ZeroCard
+                      height={'244px'}
+                      message={Messages.noOpenCareerTitle}
+                      smallmessage={Messages.careerUpMessage}
+                      content={Messages.plusCareerBtn}
+                    />
+                  )
+                }
+              />
+              <AppliedBox
+                height={'343px'}
+                title={Messages.closedTitle}
+                number={closedCareer.length}
+                content={
+                  closedCareer.length ? (
+                    <ScrollStyled>
+                      <EmploymentCardContainerStyled>
+                        {closedCareer.map((employmentInfo) => (
+                          <CareerCard
+                            key={employmentInfo.id}
+                            employmentInfo={employmentInfo}
+                          />
+                        ))}
+                      </EmploymentCardContainerStyled>
+                    </ScrollStyled>
+                  ) : (
+                    <ZeroCard
+                      height={'244px'}
+                      message={Messages.noCareerMessage}
+                      smallmessage={' '}
+                    />
+                  )
+                }
+              />
+            </RightSectionStyled>
+          </TotalWrapperStyled>
+        </MainContainerStyled>
+      </BackgroundContainerStyled>
+    </>
   );
 };
 

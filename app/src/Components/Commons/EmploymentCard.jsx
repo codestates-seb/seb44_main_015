@@ -2,6 +2,7 @@ import NoLineTag from './NoLineTag';
 import { useNavigate } from 'react-router-dom';
 import { Colors } from '../../Assets/Theme';
 import { styled } from 'styled-components';
+import { duedate } from '../../Utils/Dayjs';
 
 const calculateDday = (deadline) => {
   const targetDate = new Date(deadline);
@@ -46,7 +47,7 @@ const EmploymentCard = ({ employmentInfo }) => {
                 key={index}
                 name={tag}
                 color={Colors.Gray4}
-                backgroundColor={Colors.Gray1}
+                $backgroundColor={Colors.Gray1}
                 fontSize="12px"
                 fontWeight="300"
               />

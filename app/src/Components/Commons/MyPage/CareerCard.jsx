@@ -9,16 +9,17 @@ import {
 import MainButton from '../../Button/MainButton';
 import NoLineTag from '../NoLineTag';
 import DisabledButton from '../../Button/DisabledButton';
-import { Link } from 'react-router-dom';
+import { duedate } from '../../../Utils/Dayjs';
+import { useNavigate } from 'react-router-dom';
 
 const CareerCard = ({ employmentInfo }) => {
-  const { duedate, title, name, region } = employmentInfo;
-
+  const { deadline, title, companyName, region, noticeId } = employmentInfo;
+  const navigate = useNavigate();
   return (
     <>
       <EmploymentCardStyled>
         <UpperWrapperStyled>
-          {duedate === `${Messages.closedTitle}` ? (
+          {duedate(deadline) === `${Messages.closedTitle}` ? (
             <NoLineTag
               name={Messages.closedTitle}
               fontSize="12px"
@@ -26,25 +27,33 @@ const CareerCard = ({ employmentInfo }) => {
             />
           ) : (
             <NoLineTag
-              name={duedate}
+              name={duedate(deadline)}
               color={Colors.mainPurple}
-              backgroundColor={Colors.thirdPurple}
+              $backgroundColor={Colors.thirdPurple}
               fontSize="12px"
               fontWeight="400"
             ></NoLineTag>
           )}
           <TitleStyled title={title}>{title}</TitleStyled>
-          <CompanyNameStyled name={name}>{name}</CompanyNameStyled>
-          <RegionStyled $region={region}>{region}</RegionStyled>
+          <CompanyNameStyled name={companyName}>
+            {companyName}
+          </CompanyNameStyled>
+          <RegionStyled $region={region}>
+            {region ? region : '서울'}
+          </RegionStyled>
         </UpperWrapperStyled>
-        {duedate === `${Messages.closedTitle}` ? (
-          <Link to="/namecardlist">
-            <DisabledButton content={Messages.showCardIn} width={'200px'} />
-          </Link>
+        {duedate(deadline) === `${Messages.closedTitle}` ? (
+          <DisabledButton
+            onClick={() => navigate(`/notice/card/${noticeId}`)}
+            content={Messages.showCardIn}
+            width={'200px'}
+          />
         ) : (
-          <Link to="/namecardlist">
-            <MainButton content={Messages.showCardIn} width={'200px'} />
-          </Link>
+          <MainButton
+            onClick={() => navigate(`/notice/card/${noticeId}`)}
+            content={Messages.showCardIn}
+            width={'200px'}
+          />
         )}
       </EmploymentCardStyled>
     </>

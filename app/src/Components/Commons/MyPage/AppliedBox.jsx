@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-//import { useState, useEffect } from 'react';
 import { Colors, Messages } from '../../../Assets/Theme';
-//import axios from '../../../Api/Axios';
+
 import PlusCareerButton from './PlusCareerButton';
 
 const AppliedBox = ({ title, number, height, content }) => {
@@ -32,7 +31,7 @@ export const BigCardStyled = styled.div`
 const NameWrapperStyled = styled.h3`
   display: flex;
   margin: 24px 518px 24px 24px;
-  color: ${(props) => props.backgroundColor || `${Colors.Gray4}`};
+  color: ${(props) => props.$backgroundColor || `${Colors.Gray4}`};
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
@@ -47,19 +46,3 @@ const NumberWrapperStyled = styled.span`
   font-weight: 700;
   line-height: normal;
 `;
-
-export const ScrollStyled = styled.div`
-  overflow: scroll;
-  margin: 0 24px;
-`;
-
-// const [info, setInfo] = useState({});
-
-// useEffect(() => {
-//   async function fetchData() {
-//     const response = await axios.get('/1');
-//     //console.log(response.data);
-//     setInfo(response.data);
-//   }
-//   fetchData();
-// }, []);
