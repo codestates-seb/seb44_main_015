@@ -20,6 +20,7 @@ public interface CardMapper {
     @Mapping(source = "user.userId", target = "userId")
     CardDto.Response cardToCardResponseDto(Card card);
 
+
     List<CardDto.Response> cardsToCardResponsesDto(List<Card> cards);
 
     default List<String> getTagNames(Card card){
