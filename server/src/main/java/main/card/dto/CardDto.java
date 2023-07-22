@@ -17,6 +17,9 @@ public class CardDto {
         private Long cardId;
 
         @NotBlank
+        private Long userId;
+
+        @NotBlank
         private String name;
 
         @NotBlank

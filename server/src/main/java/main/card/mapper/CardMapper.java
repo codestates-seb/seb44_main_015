@@ -17,6 +17,7 @@ public interface CardMapper {
     @Mapping(source = "user.name", target = "name")
     @Mapping(source = "user.phone", target = "phone")
     @Mapping(source = "user.email", target = "email")
+    @Mapping(source = "user.userId", target = "userId")
     CardDto.Response cardToCardResponseDto(Card card);
 
     List<CardDto.Response> cardsToCardResponsesDto(List<Card> cards);
