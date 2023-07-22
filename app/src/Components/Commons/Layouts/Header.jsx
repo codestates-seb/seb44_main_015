@@ -19,6 +19,9 @@ const Header = () => {
   const handleSignupClick = () => {
     navigate('/signup');
   };
+  const handleMakerClick = () => {
+    navigate('/maker');
+  };
 
   return (
     <HeaderContainerStyled>
@@ -27,7 +30,7 @@ const Header = () => {
       </h1>
       <NavContainerStyled>
         <NavStyled onClick={handleEmploymentClick}>채용</NavStyled>
-        <NavStyled>개발진</NavStyled>
+        <NavStyled onClick={handleMakerClick}>개발진</NavStyled>
       </NavContainerStyled>
       <SearchStyled src={Search} alt="검색" />
       <AuthContainerStyled>

@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { Messages } from '../Assets/Theme';
-import { BackgroundContainerStyled } from '../Pages/MyPageFreelancer';
-import { MainContainerStyled } from '../Pages/MyPageFreelancer';
+import {
+  BackgroundContainerStyled,
+  MainContainerStyled,
+} from '../Pages/MyPageFreelancer';
 import MiddleHeader from '../Components/Commons/MiddleHeader';
 import MainButton from '../Components/Button/MainButton';
 import NameCard from '../Components/Commons/NameCard';

@@ -4,8 +4,10 @@ import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
 import SelectedButton from '../Button/SelectedButton';
 import { exceptBar } from '../../Utils/exceptBar';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const NameCard = ({ userInfo, ...props }) => {
+  const navigate = useNavigate();
   const {
     name,
     phone,
@@ -16,11 +18,20 @@ const NameCard = ({ userInfo, ...props }) => {
     userPhone,
     cardCheckId,
     checked,
+    cardId,
   } = userInfo;
+
+  const showCardHandler = () => {
+    if (cardId !== undefined) {
+      navigate(`/user/${cardId}`);
+    } else {
+      alert('열람이 불가한 명함입니다!');
+    }
+  };
 
   return (
     <>
-      <NameCardStyled>
+      <NameCardStyled onClick={showCardHandler}>
         <FormerWrapperStyled>
           <UpperWrapperStyled>
             <NameWrapperStyled name={name ? name : userName}>
@@ -112,5 +123,3 @@ export const EmailWrapperStyled = styled.p`
 const FormerWrapperStyled = styled.div`
   display: flex;
 `;
-
-//이걸로

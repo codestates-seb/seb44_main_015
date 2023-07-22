@@ -136,7 +136,7 @@ const MyPageFreelancer = () => {
 export default MyPageFreelancer;
 
 export const BackgroundContainerStyled = styled.div`
-  background-color: ${Colors.Gray1};
+  background-color: ${(props) => props.$backgroundColor || `${Colors.Gray1}`};
   padding-top: 40px;
   background-size: cover;
   height: 260vh;
@@ -187,6 +187,5 @@ export const TotalWrapperStyled = styled.div`
 
 export const ScrollStyled = styled.div`
   margin: 0 24px;
-  //white-space: nowrap;
   overflow-x: scroll;
 `;
