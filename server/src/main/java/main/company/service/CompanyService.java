@@ -41,10 +41,9 @@ public class CompanyService {
 
         Company savedCompany = companyRepository.save(company);
 
-        Long companyId = savedCompany.getCompanyId();
         if(tagIds != null) {
             for (Long tagId : tagIds) {
-                savedCompany.getCompanyTags().add(companyTagService.createCompanyTag(companyId, tagId));
+                savedCompany.getCompanyTags().add(companyTagService.signupCreateCompanyTag(savedCompany, tagId));
             }
         }
 

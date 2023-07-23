@@ -32,7 +32,14 @@ public class UserTagService {
         userTag.setUser(user);
 
         return userTagRepository.save(userTag);
+    }
 
+    public UserTag signupCreateUserTag(User user, Long tagId){
+        Tag tag = tagService.findTag(tagId);
+        UserTag userTag = new UserTag();
+        userTag.setUser(user);
+        userTag.setTag(tag);
+        return userTagRepository.save(userTag);
     }
 
     public void deleteUserTag(Long userId, Long tagId){

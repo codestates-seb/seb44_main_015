@@ -44,10 +44,9 @@ public class UserService {
 
         User savedUser = userRepository.save(user);
 
-        Long userId = savedUser.getUserId();
         if(tagIds != null) {
             for (Long tagId : tagIds) {
-                savedUser.getUserTags().add(userTagService.createUserTag(userId, tagId));
+                savedUser.getUserTags().add(userTagService.signupCreateUserTag(user, tagId));
             }
         }
         if(resumes != null) {
