@@ -1,13 +1,22 @@
 import { Colors } from '../../../Assets/Theme';
 import { styled } from 'styled-components';
 import SecondBannerImg from '../../../Assets/Icons/SecondBannerImg.png';
+import { useNavigate } from 'react-router-dom';
 
 const SecondBanner = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <SecondBannerStyled>
         <TitleStyled>프리해요, 누가 만들었을까요?</TitleStyled>
-        <TextStyled>개발진 보러가기</TextStyled>
+        <TextStyled
+          onClick={() => {
+            navigate('/maker');
+          }}
+        >
+          개발진 보러가기
+        </TextStyled>
       </SecondBannerStyled>
     </>
   );

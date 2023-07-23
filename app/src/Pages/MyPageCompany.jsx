@@ -60,6 +60,7 @@ const MyPageCompany = () => {
   const closedCareer = careerData.filter(
     (career) => duedate(career.deadline) === '지난 채용',
   );
+
   return (
     <>
       <Header />
@@ -101,7 +102,7 @@ const MyPageCompany = () => {
                       <EmploymentCardContainerStyled>
                         {openCareer.map((employmentInfo) => (
                           <CareerCard
-                            key={employmentInfo.id}
+                            key={employmentInfo.noticeId}
                             employmentInfo={employmentInfo}
                           />
                         ))}
@@ -127,7 +128,7 @@ const MyPageCompany = () => {
                       <EmploymentCardContainerStyled>
                         {closedCareer.map((employmentInfo) => (
                           <CareerCard
-                            key={employmentInfo.id}
+                            key={employmentInfo.noticeId}
                             employmentInfo={employmentInfo}
                           />
                         ))}

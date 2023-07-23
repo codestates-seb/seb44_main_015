@@ -4,8 +4,10 @@ import { TagWrapperStyled } from './Tag';
 import Tag from './Tag';
 import SelectedButton from '../Button/SelectedButton';
 import { exceptBar } from '../../Utils/exceptBar';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const NameCard = ({ userInfo, ...props }) => {
+  const navigate = useNavigate();
   const {
     name,
     phone,
@@ -16,21 +18,30 @@ const NameCard = ({ userInfo, ...props }) => {
     userPhone,
     cardCheckId,
     checked,
+    cardId,
   } = userInfo;
 
-  console.log(userInfo);
+  const showCardHandler = () => {
+    if (cardId !== undefined) {
+      navigate(`/user/${cardId}`);
+    } else {
+      alert('열람이 불가한 명함입니다!');
+    }
+  };
 
   return (
     <>
-      <NameCardStyled>
+      <NameCardStyled onClick={showCardHandler}>
         <FormerWrapperStyled>
           <UpperWrapperStyled>
             <NameWrapperStyled name={name ? name : userName}>
               {name ? name : userName}
             </NameWrapperStyled>
             <InnerWrapperStyled>
-              <PhoneWrapperStyled $phone={phone ? phone : userPhone}>
-                {phone ? phone : userPhone}
+              <PhoneWrapperStyled
+                $phone={phone ? exceptBar(phone) : exceptBar(userPhone)}
+              >
+                {phone ? exceptBar(phone) : exceptBar(userPhone)}
               </PhoneWrapperStyled>
               <EmailWrapperStyled $email={email ? email : userEmail}>
                 {email ? email : userEmail}
@@ -39,8 +50,9 @@ const NameCard = ({ userInfo, ...props }) => {
           </UpperWrapperStyled>
           <SelectedButton id={cardCheckId} checked={checked} {...props} />
         </FormerWrapperStyled>
-        <TagWrapperStyled $margin={'0 40px 0px 24px'}>
-          {tagNames && tagNames.map((tag) => <Tag key={tag} children={tag} />)}
+        <TagWrapperStyled $margin={'0px 40px 0px 24px'}>
+          {tagNames &&
+            tagNames.map((tag, idx) => <Tag key={idx} children={tag} />)}
         </TagWrapperStyled>
       </NameCardStyled>
     </>
@@ -72,7 +84,7 @@ export const UpperWrapperStyled = styled.div`
   align-items: flex-start;
   gap: 8px;
   flex-shrink: 0;
-  margin: 24px 106px 66px 24px;
+  margin: 24px 106px 60px 24px;
 `;
 
 export const NameWrapperStyled = styled.p`
@@ -111,5 +123,3 @@ export const EmailWrapperStyled = styled.p`
 const FormerWrapperStyled = styled.div`
   display: flex;
 `;
-
-//이걸로

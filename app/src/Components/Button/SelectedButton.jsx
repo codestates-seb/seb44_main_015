@@ -35,7 +35,7 @@ const SelectedButton = ({ clicked, checked, id, ...props }) => {
         );
         alert('채택 완료!');
         selectCardNumber.current = selectCardNumber.current + 1;
-        navigate('/mypagecompany');
+        navigate(`/mypagecompany/${userId}`);
       }
       fetchData();
     }
@@ -67,5 +67,3 @@ export const ButtonStyled = styled.img`
     display: none;
   }
 `;
-
-///???

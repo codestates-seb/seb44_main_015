@@ -8,10 +8,8 @@ const Resume = ({ resume }) => {
         <CardTitleStyled>이력</CardTitleStyled>
         <ResumeDetailWrapperStyled>
           {resume &&
-            resume.map((oneresume) => (
-              <ResumeDetailStyled key={oneresume}>
-                {oneresume}
-              </ResumeDetailStyled>
+            resume.map((oneresume, idx) => (
+              <ResumeDetailStyled key={idx}>{oneresume}</ResumeDetailStyled>
             ))}
         </ResumeDetailWrapperStyled>
       </CardWrapperStyled>
