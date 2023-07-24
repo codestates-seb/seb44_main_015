@@ -45,6 +45,8 @@ public class CardCheckDto {
         @NotBlank
         private Long cardCheckId;
 
+        private Long userId;
+
         @NotBlank
         private CardCheck.CardCheckStatus checked;
 

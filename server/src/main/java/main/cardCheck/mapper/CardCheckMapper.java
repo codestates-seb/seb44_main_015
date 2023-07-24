@@ -22,6 +22,7 @@ public interface CardCheckMapper {
     @Mapping(source = "cardCheck.card.user.phone", target = "userPhone")
     @Mapping(source = "cardCheck.card.user.email", target = "userEmail")
     @Mapping(source = "cardCheck.card.user.name", target = "userName")
+    @Mapping(source = "cardCheck.card.user.userId", target = "userId")
     @Mapping(target = "tagNames", expression = "java(getTagNames(cardCheck))")
     CardCheckDto.Response cardCheckToCardCheckResponseDto(CardCheck cardCheck);
 
