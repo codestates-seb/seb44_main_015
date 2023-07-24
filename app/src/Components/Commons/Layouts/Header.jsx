@@ -24,6 +24,10 @@ const Header = () => {
     navigate('/maker');
   };
 
+  const handleSearchClick = () => {
+    navigate('/search');
+  };
+
   return (
     <HeaderContainerStyled>
       <h1>
@@ -33,7 +37,7 @@ const Header = () => {
         <NavStyled onClick={handleEmploymentClick}>채용</NavStyled>
         <NavStyled onClick={handleMakerClick}>개발진</NavStyled>
       </NavContainerStyled>
-      <SearchStyled src={Search} alt="검색" />
+      <SearchStyled onClick={handleSearchClick} src={Search} alt="검색" />
       <AuthContainerStyled>
         <LoginStyled onClick={handleLoginClick}>로그인</LoginStyled>
         <SignupStyled onClick={handleSignupClick}>회원가입</SignupStyled>
