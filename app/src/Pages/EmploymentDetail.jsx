@@ -6,19 +6,16 @@ import { styled } from 'styled-components';
 import { Colors } from '../Assets/Theme';
 
 const EmploymentDetail = ({ employmentInfo }) => {
+  console.log(employmentInfo, 'K');
   return (
     <>
       <Header />
       <EmploymentDetailContainerStyled>
-        {Array.isArray(employmentInfo) && employmentInfo.length > 0 ? (
-          employmentInfo.map((employmentData) => (
-            <CompanyDetail
-              key={employmentData.noticeId}
-              employmentInfo={employmentData}
-            />
-          ))
-        ) : (
-          <p>No employment data available.</p>
+        <CompanyDetail
+          key={employmentData.noticeId}
+          employmentInfo={employmentData}
+        />
+        )) ) : (<p>No employment data available.</p>
         )}
         {/* <ApplyToCompany></ApplyToCompany> */}
       </EmploymentDetailContainerStyled>

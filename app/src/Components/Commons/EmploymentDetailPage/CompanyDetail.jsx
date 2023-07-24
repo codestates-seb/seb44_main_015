@@ -8,8 +8,9 @@ const CompanyDetail = ({ employmentInfo }) => {
   const { title, companyName, content, deadline, tagNames } = employmentInfo;
 
   useEffect(() => {
+    console.log('hahah');
     const url =
-      'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/notice/1';
+      'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/notice';
 
     axios
       .get(url)

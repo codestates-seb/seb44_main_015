@@ -18,6 +18,7 @@ const EmploymentCard = ({ employmentInfo }) => {
   const tagColor = dDay >= 0 ? Colors.mainPurple : Colors.Gray4;
   const tagBackground = dDay >= 0 ? Colors.thirdPurple : Colors.Gray1;
   const navigate = useNavigate();
+
   const handleCardClick = () => {
     navigate(`/employmentdetail/${noticeId}`);
   };

@@ -7,6 +7,7 @@ import Profile from '../../../Assets/Icons/Profile.png';
 
 const Header = () => {
   const navigate = useNavigate();
+
   const handleLogoClick = () => {
     navigate('/');
   };
@@ -100,7 +101,7 @@ const AuthContainerStyled = styled.div`
 `;
 
 const LoginStyled = styled.p`
-  width: 37px;
+  width: 40px;
   margin-left: 32px;
   color: ${Colors.Gray4};
   font-size: 14px;
@@ -115,7 +116,7 @@ const LoginStyled = styled.p`
 `;
 
 const SignupStyled = styled(LoginStyled)`
-  width: 50px;
+  width: 56px;
   margin-left: 9px;
   padding-left: 9px;
   border-left: 1px solid ${Colors.Gray3};
