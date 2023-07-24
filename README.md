@@ -43,7 +43,18 @@
 
 ### 메인페이지
 
-<img src="img/회원가입.gif" width="800" height="450">
+![last](https://github.com/codestates-seb/seb44_main_015/assets/71484147/eec244ba-2b4e-4296-8f04-fa658fb1b701)
+
+### 로그인, 회원가입페이지
+
+![로그인](https://github.com/codestates-seb/seb44_main_015/assets/71484147/6d2d8df2-6960-4e82-a885-70f045d00041)
+
+### 마이페이지
+
+![마이페이지](https://github.com/codestates-seb/seb44_main_015/assets/71484147/df454e32-220d-4800-ad51-d75f813f0e23)
+
+![마이페이지유저](https://github.com/codestates-seb/seb44_main_015/assets/71484147/44de836a-56cb-4e83-877b-84e3bcdfe5eb)
+
 
 ## 📃Docs
 
@@ -51,9 +62,12 @@
 
 **Develop Page**: [Notion URL](https://github.com/orgs/codestates-seb/projects/829)
 
+**API Docs**: [Google URL](https://docs.google.com/spreadsheets/d/1s4Vv-cbnLC9B6BUI22jDLFTYqbKM6f3AyChH3MBhdYk/edit#gid=1232129996)
+
 ### Figma
 
 **Figma Page**: [Figma URL](https://www.figma.com/file/QL482rduMaRCyo0zNmARVh/%ED%94%84%EB%A6%AC%ED%95%B4%EC%9A%94?node-id=133%3A5528&mode=dev)
 
 ### ERD Diagram
 
+![스크린샷 2023-07-25 오전 12 02 47](https://github.com/codestates-seb/seb44_main_015/assets/71484147/e3101c57-97f7-442a-8cd7-d933b2f61b0e)
