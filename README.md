@@ -1,9 +1,10 @@
 # ![image](https://github.com/codestates-seb/seb44_main_015/assets/71484147/ca3acd37-3b93-424d-ba8b-838e966371a3)
 
+ > 프리랜서가 늘어나고 있는 요즘 ! 무거운 이력서가 아닌 가벼운 명함 넣기로 프리랜서로 거듭나보자 !
 
 - **Team name**: 15팀 그만자고얼른15나
 
-- **Project**: 프리해요
+- **Project**: 프리랜서의 취업 알선 및 기업의 구인 서비스를 제공하는 '프리해요'입니다.
 
 - **Development Duration**: `2023.06.28~2023.07.24`
 
