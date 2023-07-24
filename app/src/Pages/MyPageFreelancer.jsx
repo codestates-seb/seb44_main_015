@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { Messages, Colors } from '../Assets/Theme';
-import { EmploymentCardContainerStyled } from './MainPage/NewEmployment';
+import { EmploymentCardContainerStyled } from '../Components/Commons/MainPage/NewEmployment';
 import NameCard from '../Components/Commons/NameCard';
 import Resume from '../Components/Commons/Resume';
 import OutlineButton from '../Components/Button/OutlineButton';

@@ -10,7 +10,7 @@ import {
   ScrollStyled,
   BackgroundContainerStyled,
 } from './MyPageFreelancer';
-import { EmploymentCardContainerStyled } from './MainPage/NewEmployment';
+import { EmploymentCardContainerStyled } from '../Components/Commons/MainPage/NewEmployment';
 import CompanyCard from '../Components/Commons/CompanyCard';
 import OutlineButton from '../Components/Button/OutlineButton';
 import AppliedBox from '../Components/Commons/MyPage/AppliedBox';

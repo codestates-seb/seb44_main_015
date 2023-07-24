@@ -1,13 +1,12 @@
 import NameCard from '../NameCard';
 import FakeUserInfo from '../../../Api/FakeUserInfo.json';
-import FakeEmploymentInfo from '../../../Api/FakeEmploymentInfo.json';
 import MainButton from '../../Button/MainButton';
 import OutlineButton from '../../Button/OutlineButton';
 import { styled } from 'styled-components';
 
-const ApplyToCompany = () => {
+const ApplyToCompany = ({ data }) => {
   const userData = FakeUserInfo.slice(0, 1);
-  const employmentData = FakeEmploymentInfo.slice(0, 1);
+  //로그인 상태에 따라 바뀔예정
 
   return (
     <>
@@ -21,11 +20,23 @@ const ApplyToCompany = () => {
           <MainButton width={'360px'} content={'명함 넣기'} />
           <OutlineButton width={'360px'} content={'북마크 하기'} />
         </BottonContainerStyled>
-        <TextConatinerStyled>
-          <CompanyNameStyled>{employmentData[0].name}</CompanyNameStyled>
-          <TextStyled>{employmentData[0].number}</TextStyled>
-          <TextStyled>{employmentData[0].email}</TextStyled>
-        </TextConatinerStyled>
+        {data && (
+          <TextConatinerStyled>
+            <CompanyNameStyled companyName={data.companyName}>
+              {data.companyName}
+            </CompanyNameStyled>
+            {data.companyPhone && (
+              <TextStyled companyPhone={data.companyPhone}>
+                {data.companyPhone}
+              </TextStyled>
+            )}
+            {data.companyEmail && (
+              <TextStyled companyEmail={data.companyEmail}>
+                {data.companyEmail}
+              </TextStyled>
+            )}
+          </TextConatinerStyled>
+        )}
       </RightContainerStyled>
     </>
   );

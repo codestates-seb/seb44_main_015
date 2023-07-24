@@ -7,6 +7,7 @@ import Profile from '../../../Assets/Icons/Profile.png';
 
 const Header = () => {
   const navigate = useNavigate();
+
   const handleLogoClick = () => {
     navigate('/');
   };
@@ -23,6 +24,10 @@ const Header = () => {
     navigate('/maker');
   };
 
+  const handleSearchClick = () => {
+    navigate('/search');
+  };
+
   return (
     <HeaderContainerStyled>
       <h1>
@@ -32,7 +37,7 @@ const Header = () => {
         <NavStyled onClick={handleEmploymentClick}>채용</NavStyled>
         <NavStyled onClick={handleMakerClick}>개발진</NavStyled>
       </NavContainerStyled>
-      <SearchStyled src={Search} alt="검색" />
+      <SearchStyled onClick={handleSearchClick} src={Search} alt="검색" />
       <AuthContainerStyled>
         <LoginStyled onClick={handleLoginClick}>로그인</LoginStyled>
         <SignupStyled onClick={handleSignupClick}>회원가입</SignupStyled>
@@ -103,7 +108,7 @@ const AuthContainerStyled = styled.div`
 `;
 
 const LoginStyled = styled.p`
-  width: 37px;
+  width: 40px;
   margin-left: 32px;
   color: ${Colors.Gray4};
   font-size: 14px;
@@ -118,7 +123,7 @@ const LoginStyled = styled.p`
 `;
 
 const SignupStyled = styled(LoginStyled)`
-  width: 50px;
+  width: 56px;
   margin-left: 9px;
   padding-left: 9px;
   border-left: 1px solid ${Colors.Gray3};

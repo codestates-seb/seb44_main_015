@@ -39,7 +39,7 @@ const CardOfTheWeek = () => {
           {data &&
             data.map((userInfo) => (
               <NameCard
-                key={userInfo.id}
+                key={userInfo.cardId}
                 userInfo={userInfo}
                 className="hide"
               />

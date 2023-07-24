@@ -10,6 +10,8 @@ import NameCardList from './Pages/NameCardList';
 import Profile from './Pages/Profile';
 import Maker from './Pages/Maker';
 import Signup from './Pages/SignUp';
+import Search from './Pages/Search';
+
 
 function App() {
   return (
@@ -28,10 +30,10 @@ function App() {
         <Route path="mypagecompany/:userId" element={<MyPageCompany />}></Route>
         <Route path="user/:userId" element={<Profile />}></Route>
         <Route path="maker" element={<Maker />}></Route>
+        <Route path="/search" element={<Search />}></Route>
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-//ok

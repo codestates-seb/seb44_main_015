@@ -1,54 +1,157 @@
 import { Colors } from '../Assets/Theme';
-import TextArea from '../Components/Commons/TextArea';
-import MainButton from '../Components/Button/MainButton';
-import {
-  BodyBackgroundStyled,
-  MainStyled,
-  HomeLinkWrapperStyled,
-  HomeLinkStyled,
-  LogInWrapperStyled,
-} from '../Components/Commons/SignUp/Form';
-import LogoTag from '../Components/Commons/SignUp/LogoTag';
-
 import styled from 'styled-components';
+import MainButton from '../Components/Button/MainButton';
+import Logo from '../Assets/Icons/Logo.png';
 
-function LogIn() {
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
+  const [selectedTag, setSelectedTag] = useState(null);
+
+  const handleTagSelect = (tag) => {
+    setSelectedTag(tag);
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    // 오류 메시지 초기화
+    setErrors([]);
+
+    if (!email) {
+      setErrors((prevErrors) => [...prevErrors, 'Email_empty']);
+    } else if (!email.includes('@')) {
+      setErrors((prevErrors) => [...prevErrors, 'Email_invalid']);
+    }
+
+    if (!password) {
+      setErrors((prevErrors) => [...prevErrors, 'Password_empty']);
+    } else {
+      try {
+        // 유효성 검사를 통과한 경우에만 로그인 시도
+        const postData =
+          selectedTag === 'freelancer'
+            ? {
+                userType: 'user',
+                email: email,
+                password: password,
+              }
+            : {
+                userType: 'company',
+                username: email,
+                password: password,
+              };
+
+        const response = await axios.post(
+          'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/login',
+          postData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+        console.log(response);
+        if (response.data.accessToken) {
+          localStorage.setItem('accessToken', response.data.accessToken);
+          localStorage.setItem('id', response.data.id);
+
+          navigate('/');
+        } else if (!response.data.accessToken) {
+          // 로그인 실패 했을 경우
+          setErrors((prevErrors) => [...prevErrors, 'LoginFail']);
+          throw new Error(
+            '로그인에 실패했습니다. 이메일과 비밀번호를 확인해 주세요.',
+          );
+        }
+      } catch (error) {
+        console.error('로그인 요청 중 오류가 발생했습니다.', error);
+      }
+    }
+  };
+
   return (
-    <BodyBackgroundStyled>
-      <MainStyled>
-        <HomeLinkWrapperStyled>
-          <HomeLinkStyled>홈으로</HomeLinkStyled>
-        </HomeLinkWrapperStyled>
-        <LogInWrapperStyled>
-          <LogoTag />
-          <TextAreaWrapperStyled>
-            <li>
-              <TextArea
-                title={'이메일'}
-                placeholder={'이메일을 입력해주세요'}
-                errorMessage={'일치하는 회원 정보가 없습니다'}
-                className={'hide'}
-              />
-            </li>
-            <li>
-              <TextArea
-                title={'비밀번호'}
-                placeholder={'비밀번호를 입력해주세요'}
-              />
-            </li>
-          </TextAreaWrapperStyled>
-          <MainButton width={'100%'} content={'로그인'} />
-          <SignUpWrapperStyled>
-            <SignUpNoticeStyled>아직 회원이 아니신가요?</SignUpNoticeStyled>
-            <SignUpStyled>회원가입</SignUpStyled>
-          </SignUpWrapperStyled>
-        </LogInWrapperStyled>
-      </MainStyled>
-    </BodyBackgroundStyled>
+    <>
+      <PageContainerStyled>
+        <LoginContainerStyled>
+          <LogoWrapperStyled>
+            <h2>
+              <LogoStyled src={Logo} alt="프리해요"></LogoStyled>
+            </h2>
+            <NoticeStyled>
+              프리랜서/회사 유형을 선택 후<br></br>로그인 해 주세요
+            </NoticeStyled>
+            <TagContainerStyled>
+              <TagStyled
+                onClick={() => handleTagSelect('freelancer')}
+                className={selectedTag === 'freelancer' ? 'selected' : ''}
+              >
+                🧑‍💻 프리랜서
+              </TagStyled>
+              <TagStyled
+                onClick={() => handleTagSelect('company')}
+                className={selectedTag === 'company' ? 'selected' : ''}
+              >
+                🏢 회사 · 의뢰인
+              </TagStyled>
+            </TagContainerStyled>
+          </LogoWrapperStyled>
+          <FormContainerStyled>
+            <LabelStyled>이메일</LabelStyled>
+            <InputStyled
+              type="text"
+              value={email}
+              placeholder="이메일을 입력해 주세요"
+              onChange={(e) => setEmail(e.target.value)}
+              error={
+                errors.includes('Email_empty') ||
+                errors.includes('Email_invalid')
+              }
+            />
+            {errors.includes('Email_empty') && (
+              <ErrorMessage>이메일 주소를 입력해 주세요.</ErrorMessage>
+            )}
+            {errors.includes('Email_invalid') && (
+              <ErrorMessage>유효하지 않은 이메일 주소입니다.</ErrorMessage>
+            )}
+            <LabelStyled>비밀번호</LabelStyled>
+            <InputStyled
+              type="password"
+              value={password}
+              placeholder="비밀번호를 입력해 주세요"
+              onChange={(e) => setPassword(e.target.value)}
+              error={errors.includes('Password_empty')}
+            />
+            {errors.includes('Password_empty') && (
+              <ErrorMessage>비밀번호를 입력해 주세요.</ErrorMessage>
+            )}
+          </FormContainerStyled>
+          {errors.includes('LoginFail') && (
+            <ErrorMessage>로그인에 실패했습니다.</ErrorMessage>
+          )}
+          <MainButton
+            width={'400px'}
+            content={'로그인'}
+            type={'submit'}
+            onClick={handleLogin}
+          />
+          <SignupContainerStyled>
+            <NotMemberStyled>아직 회원이 아니신가요?</NotMemberStyled>
+            <SignupStyled>회원가입</SignupStyled>
+          </SignupContainerStyled>
+        </LoginContainerStyled>
+      </PageContainerStyled>
+    </>
   );
-}
+};
 
-export default LogIn;
+export default Login;
 
 const LogoWrapperStyled = styled.div`
   display: flex;
@@ -68,44 +171,121 @@ const NoticeStyled = styled.p`
   color: ${Colors.Gray3};
   text-align: center;
   line-height: 24px;
+  margin-top: 24px;
+  margin-bottom: 26px;
 `;
 
-const TagWrapperStyled = styled.ul`
+const PageContainerStyled = styled.div`
   display: flex;
-  width: 100%;
-  margin: 24px 0 40px;
-  gap: 16px;
-`;
-
-const TextAreaWrapperStyled = styled.ul`
-  margin-bottom: 56px;
-  & > li:first-child {
-    margin-bottom: 10px;
-  }
-`;
-const SignUpWrapperStyled = styled.div`
-  display: flex;
-  margin-top: 32px;
   align-items: center;
+  justify-content: center;
+  background-color: ${Colors.Gray1};
+  height: 100vh;
+  box-sizing: border-box;
 `;
 
-const SignUpNoticeStyled = styled.p`
-  color: ${Colors.Gray4};
-  line-height: 24px;
-  &:after {
-    content: '';
-    display: inline-block;
-    width: 1px;
-    height: 24px;
-    margin: 0 16px 0;
-    background-color: ${Colors.Gray2};
-    vertical-align: middle;
-  }
+const LoginContainerStyled = styled.div`
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+  width: 520px;
+  height: 751px;
+  padding: 80px 60px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  border: 1px solid var(--gray-2, #bebebe);
+  background: #fff;
 `;
 
-const SignUpStyled = styled.a`
+const FormContainerStyled = styled.form`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 56px;
+`;
+const LabelStyled = styled.div`
+  margin-top: 20px;
+  margin-bottom: 9px;
+  color: var(--gray-4, #333);
   font-size: 16px;
   font-weight: 700;
-  color: ${Colors.mainPurple};
-  cursor: pointer;
+  line-height: 23px;
+`;
+
+const InputStyled = styled.input`
+  width: 400px;
+  height: 56px;
+  font-size: 18px;
+  border-radius: 16px;
+  box-sizing: border-box;
+  padding: 0px 10px;
+  border: 1px solid var(--gray-2, #bebebe);
+`;
+
+const SignupContainerStyled = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 32px;
+`;
+const NotMemberStyled = styled.div`
+  border-right: 1px solid var(--gray-2, #bebebe);
+  width: 175px;
+  color: var(--gray-4, #333);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23px;
+`;
+const SignupStyled = styled.div`
+  color: var(--main, #7000ff);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 23px;
+  margin-left: 16px;
+`;
+
+const ErrorMessage = styled.p`
+  font-size: 60px;
+  color: red;
+  font-size: 0.75rem;
+  margin: 0.25rem 0 0 0;
+`;
+
+const TagContainerStyled = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const TagStyled = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 23px;
+  width: 160px;
+
+  padding: 16px;
+  border: 1px solid ${Colors.Gray2};
+  border-radius: 16px;
+  background-color: ${Colors.Bgwhite};
+
+  color: ${Colors.Gray3};
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23px;
+
+  &:hover {
+    color: var(--main, #7000ff);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: ${Colors.thirdPurple};
+    border: 1px solid ${Colors.mainPurple};
+  }
+
+  &.selected {
+    color: var(--main, #7000ff);
+    font-size: 16px;
+    font-weight: 700;
+    background-color: ${Colors.thirdPurple};
+    border: 1px solid ${Colors.mainPurple};
+  }
 `;

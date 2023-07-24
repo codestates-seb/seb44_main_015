@@ -13,13 +13,33 @@ const calculateDday = (deadline) => {
 };
 
 const EmploymentCard = ({ employmentInfo }) => {
-  const { noticeId, deadline, title, companyName, tagNames } = employmentInfo;
+  const {
+    noticeId,
+    state,
+    deadline,
+    title,
+    content,
+    companyIntro,
+    companyPhone,
+    companyEmail,
+    companyPerson,
+    companyAddress,
+    companyName,
+    tagNames,
+  } = employmentInfo;
+
   const dDay = calculateDday(deadline);
   const tagColor = dDay >= 0 ? Colors.mainPurple : Colors.Gray4;
   const tagBackground = dDay >= 0 ? Colors.thirdPurple : Colors.Gray1;
   const navigate = useNavigate();
+
+  const cityFromAddress = (address) => {
+    const city = address.split(' ')[0]; // 공백(' ')을 기준으로 주소를 나누고 첫 번째 요소를 가져옴
+    return city;
+  };
+
   const handleCardClick = () => {
-    navigate(`/employmentdetail/${noticeId}`);
+    navigate(`/employmentdetail/${noticeId}`, { state: { noticeId } });
   };
 
   return (
@@ -35,10 +55,12 @@ const EmploymentCard = ({ employmentInfo }) => {
           ></NoLineTag>
 
           <TitleStyled title={title}>{title}</TitleStyled>
-          <CompanyNameStyled $companyName={companyName}>
+          <CompanyNameStyled companyName={companyName}>
             {companyName}
           </CompanyNameStyled>
-          {/* <RegionStyled $region={region}>{region}</RegionStyled> */}
+          <RegionStyled region={companyAddress}>
+            {cityFromAddress(companyAddress)}
+          </RegionStyled>
         </UpperWrapperStyled>
         <TagContainerStyled>
           {tagNames &&
