@@ -19,8 +19,8 @@ import CareerCard from '../Components/Commons/MyPage/CareerCard';
 import ZeroCard from '../Components/Commons/MyPage/ZeroCard';
 import CompanyDetail from '../Components/Commons/CompanyDetail';
 import AppliedBoard from '../Components/Commons/MyPage/AppliedBoard';
-import FakeEmploymentInfo from '../Api/FakeEmploymentInfo.json';
 import Header from '../Components/Commons/Layouts/Header';
+import Footer from '../Components/Commons/Layouts/Footer';
 import { useHorizontalScroll } from '../Utils/useSideScroll';
 import axios from 'axios';
 import { duedate } from '../Utils/Dayjs';
@@ -30,7 +30,6 @@ const MyPageCompany = () => {
   let { userId } = useParams();
   const scrollRef = useHorizontalScroll();
   const [companyInfo, setCompanyInfo] = useState({});
-  const employmentData = FakeEmploymentInfo.slice(0, 7);
   const [careerData, setCareerData] = useState([]);
 
   useEffect(() => {
@@ -78,6 +77,9 @@ const MyPageCompany = () => {
                 <OutlineButton
                   width={'360px'}
                   content={Messages.companyCardEditBtn}
+                  onClick={() => {
+                    alert('서비스 구현중입니다!');
+                  }}
                 />
               </ButtonWrapperStyled>
             </LeftSectionStyled>
@@ -147,6 +149,7 @@ const MyPageCompany = () => {
           </TotalWrapperStyled>
         </MainContainerStyled>
       </BackgroundContainerStyled>
+      <Footer />
     </>
   );
 };

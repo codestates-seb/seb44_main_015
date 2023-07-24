@@ -19,11 +19,12 @@ const NameCard = ({ userInfo, ...props }) => {
     cardCheckId,
     checked,
     cardId,
+    userId,
   } = userInfo;
 
   const showCardHandler = () => {
-    if (cardId !== undefined) {
-      navigate(`/user/${cardId}`);
+    if (cardId || userId !== undefined) {
+      navigate(`/user/${cardId ? cardId : userId}`);
     } else {
       alert('열람이 불가한 명함입니다!');
     }
@@ -31,10 +32,13 @@ const NameCard = ({ userInfo, ...props }) => {
 
   return (
     <>
-      <NameCardStyled onClick={showCardHandler}>
+      <NameCardStyled>
         <FormerWrapperStyled>
           <UpperWrapperStyled>
-            <NameWrapperStyled name={name ? name : userName}>
+            <NameWrapperStyled
+              onClick={showCardHandler}
+              name={name ? name : userName}
+            >
               {name ? name : userName}
             </NameWrapperStyled>
             <InnerWrapperStyled>
@@ -72,7 +76,6 @@ export const NameCardStyled = styled.div`
   &:hover {
     border: 2px solid ${Colors.secondPurple};
     background-color: ${Colors.Gray1};
-    cursor: pointer;
   }
 `;
 
@@ -94,6 +97,7 @@ export const NameWrapperStyled = styled.p`
   font-weight: 500;
   line-height: normal;
   line-height: normal;
+  cursor: pointer;
 `;
 
 export const InnerWrapperStyled = styled.div`
