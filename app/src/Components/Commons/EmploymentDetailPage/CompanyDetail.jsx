@@ -55,7 +55,7 @@ const CompanyDetail = ({ data }) => {
                 <NoticeStyled>
                   해당 채용에 허위 사실이 있을 경우, 프리해요팀에 알려주세요!
                 </NoticeStyled>
-                <MailStyled>{data ? data.companyEmail : ''}</MailStyled>
+                <MailStyled>freehaeyo@gmail.com</MailStyled>
               </NoticeTextContainerStyled>
             </NoticeContainerStyled>
           </LowerContainerStyled>
