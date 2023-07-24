@@ -30,13 +30,13 @@ const EmploymentCard = ({ employmentInfo }) => {
           <NoLineTag
             name={dDay >= 0 ? `D-${Math.ceil(dDay)}` : '지난 채용'}
             color={tagColor}
-            backgroundColor={tagBackground}
+            $backgroundColor={tagBackground}
             fontSize="12px"
             fontWeight="400"
           ></NoLineTag>
 
           <TitleStyled title={title}>{title}</TitleStyled>
-          <CompanyNameStyled companyName={companyName}>
+          <CompanyNameStyled $companyName={companyName}>
             {companyName}
           </CompanyNameStyled>
           {/* <RegionStyled $region={region}>{region}</RegionStyled> */}

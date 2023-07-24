@@ -5,8 +5,10 @@ import EmploymentList from './Pages/EmploymentList';
 import MyPageFreelancer from './Pages/MyPageFreelancer';
 import MyPageCompany from './Pages/MyPageCompany';
 import Login from './Pages/LogIn';
-import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NameCardList from './Pages/NameCardList';
+import Profile from './Pages/Profile';
+import Maker from './Pages/Maker';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="mypageuser/:userId" element={<MyPageFreelancer />}></Route>
         <Route path="notice/card/:noticeId" element={<NameCardList />}></Route>
         <Route path="mypagecompany/:userId" element={<MyPageCompany />}></Route>
+        <Route path="user/:userId" element={<Profile />}></Route>
+        <Route path="maker" element={<Maker />}></Route>
       </Routes>
     </BrowserRouter>
   );
