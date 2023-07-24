@@ -113,6 +113,13 @@ public class NoticeController {
         return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
     }
 
+    @GetMapping("/scroll")
+    public ResponseEntity getScrollNotice(@RequestParam(required = false, defaultValue = "10") int limit,
+                                        @RequestParam(required = false, defaultValue = "00") int scroll){
+        List<Notice> notices = noticeService.findNoticesScroll(scroll,limit);
+        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
+    }
+
     @GetMapping("/{notice_id}")
     public ResponseEntity getNotice(@PathVariable("notice_id") @Positive long noticeId){
         Notice getNotice = noticeService.findNoticeAddViewCount(noticeId);

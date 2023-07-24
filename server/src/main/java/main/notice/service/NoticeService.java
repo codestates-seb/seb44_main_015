@@ -87,6 +87,11 @@ public class NoticeService {
         return noticeRepository.findAllByOrderByCreatedAtDesc(limitPageable);
     }
 
+    public List<Notice> findNoticesScroll(int scroll, int limit){
+        Pageable limitPageable = PageRequest.of(scroll, limit);
+        return noticeRepository.findAllByOrderByCreatedAtDesc(limitPageable);
+    }
+
     public List<Notice> findNotices(){
         return noticeRepository.findAll();
     }
