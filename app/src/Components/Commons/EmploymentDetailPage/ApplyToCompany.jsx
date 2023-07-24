@@ -1,12 +1,12 @@
 import NameCard from '../NameCard';
 import FakeUserInfo from '../../../Api/FakeUserInfo.json';
-import FakeEmploymentInfo from '../../../Api/FakeEmploymentInfo.json';
 import MainButton from '../../Button/MainButton';
 import OutlineButton from '../../Button/OutlineButton';
 import { styled } from 'styled-components';
 
 const ApplyToCompany = ({ data }) => {
   const userData = FakeUserInfo.slice(0, 1);
+  //로그인 상태에 따라 바뀔예정
 
   return (
     <>
