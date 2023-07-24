@@ -9,6 +9,7 @@ import {
   BackgroundContainerStyled,
   MainContainerStyled,
 } from './MyPageFreelancer';
+import Footer from '../Components/Commons/Layouts/Footer';
 
 const Profile = () => {
   let { userId } = useParams();
@@ -22,7 +23,6 @@ const Profile = () => {
     fetchData();
   }, [userId]);
 
-  const { resume } = userInfo;
   return (
     <>
       <Header />
@@ -38,6 +38,7 @@ const Profile = () => {
           </CenterSectionStyled>
         </MainContainerStyled>
       </BackgroundContainerStyled>
+      <Footer />
     </>
   );
 };

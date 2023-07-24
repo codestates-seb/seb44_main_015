@@ -1,0 +1,32 @@
+[
+  {
+    "email": "https://github.com/heoh06",
+    "name": "오하은",
+    "phone": "010-1234-1231",
+    "tagNames": ["프론트엔드", "디자인 능력자"]
+  },
+  {
+    "email": "https://github.com/erirumble",
+    "name": "고창균",
+    "phone": "010-1234-1232",
+    "tagNames": ["프론트엔드", "위기대처 능력자"]
+  },
+  {
+    "email": "https://github.com/ujujungbuck",
+    "name": "한가람",
+    "phone": "010-1234-1233",
+    "tagNames": ["프론트엔드", "소통 능력자"]
+  },
+  {
+    "email": "https://github.com/SnowPhila",
+    "name": "박상원",
+    "phone": "010-1234-1234",
+    "tagNames": ["백엔드", "최고의 리더", "발표/배포 능력자"]
+  },
+  {
+    "email": "https://github.com/nkower",
+    "name": "남상욱",
+    "phone": "010-1234-1235",
+    "tagNames": ["백엔드", "데이터베이스 능력자"]
+  }
+]

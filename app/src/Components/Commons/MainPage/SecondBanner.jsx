@@ -49,4 +49,5 @@ const TextStyled = styled(TitleStyled)`
   font-size: 16px;
   font-weight: 500;
   margin-top: 0px;
+  cursor: pointer;
 `;

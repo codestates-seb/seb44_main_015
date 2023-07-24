@@ -29,6 +29,8 @@ const CardOfTheWeek = () => {
       });
   }, []);
 
+  console.log(data);
+
   return (
     <>
       <CardOfTheWeekStyled>

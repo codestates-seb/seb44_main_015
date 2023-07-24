@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import selectedImg from '../../Assets/Icons/selected.png';
 import unselectedImg from '../../Assets/Icons/unselected.png';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -9,7 +9,6 @@ const SelectedButton = ({ clicked, checked, id, ...props }) => {
   const navigate = useNavigate();
   const [selected, setSelected] = useState(false);
   const [savedUserId, setSavedUserId] = useState(null);
-  const selectCardNumber = useRef(0);
   let { noticeId } = useParams();
 
   const selectHandler = (e) => {
@@ -29,13 +28,16 @@ const SelectedButton = ({ clicked, checked, id, ...props }) => {
           },
           {
             headers: {
-              Authorization: `BearereyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJDT01QQU5ZIl0sImlkIjoyLCJlbWFpbCI6ImdhcmFtQGdtYWlsLmNvbSIsInN1YiI6ImdhcmFtQGdtYWlsLmNvbSIsImlhdCI6MTY4OTgyMzk4MywiZXhwIjoxNjkwMDAzOTgzfQ.P5lpeQ_CdP706T0JE5PrWHeY_1ICvhlCIDxASCZ0wk8`,
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
           },
         );
         alert('채택 완료!');
-        selectCardNumber.current = selectCardNumber.current + 1;
-        navigate(`/mypagecompany/${userId}`);
+        if (localStorage.getItem('id')) {
+          navigate(`/mypagecompany/${localStorage.getItem('id')}`);
+        } else {
+          navigate(`/`);
+        }
       }
       fetchData();
     }
