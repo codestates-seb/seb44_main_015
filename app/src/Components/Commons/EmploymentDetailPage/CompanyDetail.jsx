@@ -1,65 +1,68 @@
 import Notice from '../../../Assets/Icons/Notice.png';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { Colors } from '../../../Assets/Theme';
 
-const CompanyDetail = ({ employmentInfo }) => {
-  const { title, companyName, content, deadline, tagNames } = employmentInfo;
+const formatDeadline = (deadline) => {
+  const date = new Date(deadline);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더하고 문자열로 변환 후 2자리로 맞춤
+  const day = String(date.getDate()).padStart(2, '0'); // 일도 2자리로 맞춤
+  return `${year}-${month}-${day}`;
+};
 
-  useEffect(() => {
-    const url =
-      'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/notice/1';
+const cityFromAddress = (address) => {
+  const city = address.split(' ')[0]; // 공백(' ')을 기준으로 주소를 나누고 첫 번째 요소를 가져옴
+  return city;
+};
 
-    axios
-      .get(url)
-      .then((response) => {
-        setData(response.data);
-        // setLoading(false);
-      })
-      .catch((error) => {
-        console.error('API 요청 실패:', error);
-        // setLoading(false);
-      });
-  }, []);
-
+const CompanyDetail = ({ data }) => {
   return (
     <>
-      <LeftContainerStyled>
-        <UpperContainerStyled>
-          <TitleWrapperStyled title={title}>{title}</TitleWrapperStyled>
-          <DetailWrapperStyled>
-            <CompanyNameStyled companyName={companyName}>
-              {companyName}
-            </CompanyNameStyled>
-            {/* <RegionStyled region={region}>{region}</RegionStyled> */}
-          </DetailWrapperStyled>
-          <TagContainerStyled>
-            {tagNames &&
-              tagNames.map((tag, index) => (
-                <TagStyled key={index}>{tag}</TagStyled>
-              ))}
-          </TagContainerStyled>
-        </UpperContainerStyled>
-        <MiddleContainerStyled>
-          <TextStyled content={content}>{content}</TextStyled>
-        </MiddleContainerStyled>
-        <LowerContainerStyled>
-          <DueDateContainerStyled>
-            <DueDateTextStyled>마감일</DueDateTextStyled>
-            <DueDateStyled deadline={deadline}>{deadline}</DueDateStyled>
-          </DueDateContainerStyled>
-          <NoticeContainerStyled>
-            <NoticeMarkStyled src={Notice} alt="주의" />
-            <NoticeTextContainerStyled>
-              <NoticeStyled>
-                해당 채용에 허위 사실이 있을 경우, 프리해요팀에 알려주세요!
-              </NoticeStyled>
-              <MailStyled>freeheayo.gamil.com</MailStyled>
-            </NoticeTextContainerStyled>
-          </NoticeContainerStyled>
-        </LowerContainerStyled>
-      </LeftContainerStyled>
+      {data ? (
+        <LeftContainerStyled>
+          <UpperContainerStyled>
+            <TitleWrapperStyled title={data.title}>
+              {data.title}
+            </TitleWrapperStyled>
+            <DetailWrapperStyled>
+              <CompanyNameStyled companyName={data.companyName}>
+                {data.companyName}
+              </CompanyNameStyled>
+              <RegionStyled region={data.companyAddress}>
+                {cityFromAddress(data.companyAddress)}
+              </RegionStyled>
+            </DetailWrapperStyled>
+            <TagContainerStyled>
+              {data.tagNames &&
+                data.tagNames.map((tag, index) => (
+                  <TagStyled key={index}>{tag}</TagStyled>
+                ))}
+            </TagContainerStyled>
+          </UpperContainerStyled>
+          <MiddleContainerStyled>
+            <TextStyled content={data.content}>{data.content}</TextStyled>
+          </MiddleContainerStyled>
+          <LowerContainerStyled>
+            <DueDateContainerStyled>
+              <DueDateTextStyled>마감일</DueDateTextStyled>
+              <DueDateStyled deadline={data.deadline}>
+                {formatDeadline(data.deadline)}
+              </DueDateStyled>
+            </DueDateContainerStyled>
+            <NoticeContainerStyled>
+              <NoticeMarkStyled src={Notice} alt="주의" />
+              <NoticeTextContainerStyled>
+                <NoticeStyled>
+                  해당 채용에 허위 사실이 있을 경우, 프리해요팀에 알려주세요!
+                </NoticeStyled>
+                <MailStyled>{data ? data.companyEmail : ''}</MailStyled>
+              </NoticeTextContainerStyled>
+            </NoticeContainerStyled>
+          </LowerContainerStyled>
+        </LeftContainerStyled>
+      ) : (
+        <p>Loading...</p>
+      )}
     </>
   );
 };

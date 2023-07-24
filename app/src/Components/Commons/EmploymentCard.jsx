@@ -13,13 +13,27 @@ const calculateDday = (deadline) => {
 };
 
 const EmploymentCard = ({ employmentInfo }) => {
-  const { noticeId, deadline, title, companyName, tagNames } = employmentInfo;
+  const {
+    noticeId,
+    state,
+    deadline,
+    title,
+    content,
+    companyIntro,
+    companyPhone,
+    companyEmail,
+    companyPerson,
+    companyAddress,
+    companyName,
+    tagNames,
+  } = employmentInfo;
   const dDay = calculateDday(deadline);
   const tagColor = dDay >= 0 ? Colors.mainPurple : Colors.Gray4;
   const tagBackground = dDay >= 0 ? Colors.thirdPurple : Colors.Gray1;
   const navigate = useNavigate();
+
   const handleCardClick = () => {
-    navigate(`/employmentdetail/${noticeId}`);
+    navigate(`/employmentdetail/${noticeId}`, { state: { noticeId } });
   };
 
   return (
