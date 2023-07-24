@@ -144,6 +144,7 @@ public class NoticeDto {
 
 
         private String companyAddress;
+        private List<String> tagNames;
 
 
     }

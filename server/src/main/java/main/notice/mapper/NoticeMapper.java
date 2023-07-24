@@ -23,6 +23,7 @@ public interface NoticeMapper {
     @Mapping(source = "company.email", target = "companyEmail")
     @Mapping(source = "company.person", target = "companyPerson")
     @Mapping(source = "company.address", target = "companyAddress")
+    @Mapping(target = "tagNames", expression = "java(getTagNames(notice))")
     NoticeDto.ResponseDetail noticeToNoticeResponseDetailDto(Notice notice);
 
     @Mapping(source = "notice.noticeId", target = "noticeId")
