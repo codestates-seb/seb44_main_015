@@ -1,4 +1,5 @@
-# 프리해요
+# ![image](https://github.com/codestates-seb/seb44_main_015/assets/71484147/ca3acd37-3b93-424d-ba8b-838e966371a3)
+
 
 - **Team name**: 15팀 그만자고얼른15나
 
@@ -38,13 +39,13 @@
 
 <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white"> <img src="https://img.shields.io/badge/Zoom-2D8CFF?style=for-the-badge&logo=zoom&logoColor=white">
 
-## Project
+## 🪄Project
 
 ### 메인페이지
 
 <img src="img/회원가입.gif" width="800" height="450">
 
-## Docs
+## 📃Docs
 
 **Team Page**: [Notion URL](https://www.notion.so/codestates/15-9064dda061fa49f7ab12a0e29b0dff96)
 
