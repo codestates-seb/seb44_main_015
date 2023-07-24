@@ -17,6 +17,8 @@ public class TagDto {
     public static class Post{
         @NotBlank
         private String name;
+        @NotBlank
+        private Tag.TagCategories category;
 
     }
 
@@ -34,6 +36,7 @@ public class TagDto {
     public static class Response{
 
         private Long tagId;
+        private Tag.TagCategories category;
         @NotBlank
         private String name;
 

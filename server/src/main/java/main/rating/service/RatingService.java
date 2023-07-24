@@ -8,14 +8,16 @@ import main.rating.repository.RatingRepository;
 import main.user.entity.User;
 import main.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class RatingService {
     private final RatingRepository ratingRepository;
+    private final UserRepository userRepository;
 
     public Rating createRating(Rating rating){
 
@@ -23,6 +25,7 @@ public class RatingService {
         Rating createRating = ratingRepository.save(rating);
         User user = createRating.getUser();
         user.setAvgRating();
+        userRepository.save(user);
         return createRating;
     }
 

@@ -8,6 +8,7 @@ import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
 import main.notice.entity.Notice;
 import main.notice.repository.NoticeRepository;
+import main.resume.service.ResumeService;
 import main.security.utils.CustomAuthorityUtils;
 import main.tag.entity.Tag;
 import main.user.entity.User;
@@ -15,10 +16,11 @@ import main.user.repository.UserRepository;
 import main.userTag.service.UserTagService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -28,8 +30,9 @@ public class UserService {
     private final NoticeRepository noticeRepository;
     private final UserTagService userTagService;
     private final CardService cardService;
+    private final ResumeService resumeService;
 
-    public User createUser(List<Long> tagIds,User user){
+    public User createUser(List<Long> tagIds, List<String> resumes, User user){
 
         verifyExistEmail(user.getEmail());
 
@@ -41,9 +44,15 @@ public class UserService {
 
         User savedUser = userRepository.save(user);
 
-        Long userId = savedUser.getUserId();
-        for(Long tagId : tagIds){
-            savedUser.getUserTags().add(userTagService.createUserTag(userId, tagId));
+        if(tagIds != null) {
+            for (Long tagId : tagIds) {
+                savedUser.getUserTags().add(userTagService.signupCreateUserTag(user, tagId));
+            }
+        }
+        if(resumes != null) {
+            for (String resume : resumes) {
+                savedUser.getResumes().add(resumeService.createResumeByString(resume, savedUser));
+            }
         }
         Card card = cardService.createCard(savedUser);
         savedUser.setCard(card);
@@ -59,7 +68,11 @@ public class UserService {
         userRepository.save(user);
     }
 */
-
+    public void logoutUser(long userId){
+        User user = findUser(userId);
+        user.setRefreshToken(null);
+        userRepository.save(user);
+    }
 
     public User updateUser(User user){
 
@@ -71,6 +84,14 @@ public class UserService {
                 .ifPresent(avgRating -> findUser.setAvgRating(avgRating));
         Optional.ofNullable(user.getRefreshToken())
                 .ifPresent(refreshToken -> findUser.setRefreshToken(refreshToken));
+        Optional.ofNullable(user.getEmail())
+                .ifPresent(variable -> findUser.setEmail(variable));
+        Optional.ofNullable(user.getPhone())
+                .ifPresent(variable -> findUser.setPhone(variable));
+        Optional.ofNullable(user.getName())
+                .ifPresent(variable -> findUser.setName(variable));
+        Optional.ofNullable(user.getRoles())
+                .ifPresent(variable -> findUser.setRoles(variable));
 
         User updatedUser = userRepository.save(findUser);
         return updatedUser;
@@ -89,11 +110,16 @@ public class UserService {
         return findUser;
     }
 
+    public User findUserByEmail(String email){
+        User user = findVerifiedUserByEmail(email);
+        return user;
+    }
+
     public User findOtherUser(long userId){
 
         User findUser = findVerifiedUser(userId);
         findUser.getCard().addViewCount();
-        return findUser;
+        return userRepository.save(findUser);
     }
 
     public User findUserByCard(long cardId){
@@ -129,6 +155,27 @@ public class UserService {
         User findUser =
                 optionalUser.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+
+        return findUser;
+    }
+    public User findVerifiedUserByEmail(String email) {
+        Optional<User> optionalUser =
+                userRepository.findByEmail(email);
+
+        User findUser =
+                optionalUser.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+
+        return findUser;
+    }
+
+    public User findVerifiedUserByRefreshToken(String refreshToken) {
+        Optional<User> optionalUser =
+                userRepository.findByRefreshToken(refreshToken);
+
+        User findUser =
+                optionalUser.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.REFRESH_TOKEN_NOT_FOUND));
 
         return findUser;
     }

@@ -9,30 +9,47 @@ import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
 import main.notice.entity.Notice;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class CardCheckService {
-    CardCheckRepository cardCheckRepository;
+    private final CardCheckRepository cardCheckRepository;
 
     public CardCheck createCardCheck(CardCheck cardCheck){
         verifyExistCardCheck(cardCheck.getCard(), cardCheck.getNotice());
-        cardCheck.setChecked(0);
         return cardCheckRepository.save(cardCheck);
     }
 
-    public List<CardCheck> findCardChecksUser(long userId){
-        return cardCheckRepository.findByCheckedAndCardUserUserId(0, userId);
+    public List<CardCheck> findCardChecksUser(Long cardId){
+        List<CardCheck> cardChecks = cardCheckRepository.findAllByCardCardId(cardId);
+        if(cardChecks == null){
+            throw new BusinessLogicException(ExceptionCode.NOTICE_NOT_FOUND);
+        }
+
+        return cardChecks;
     }
 
-    public List<CardCheck> findCardChecks(long noticeId){
+    public CardCheck findCardCheck(Long cardCheckId){
+        return cardCheckRepository.findByCardCheckId(cardCheckId).orElseThrow();
+    }
+
+    public List<CardCheck> findCheckedCardChecks(String checked, Long noticeId){
+        List<CardCheck> cardChecks = cardCheckRepository.findAllByCheckedAndNoticeNoticeId(CardCheck.CardCheckStatus.valueOf(checked.toUpperCase()), noticeId);
+
+        return cardChecks;
+    }
+
+    public List<CardCheck> findCardChecks(Long noticeId){
         return cardCheckRepository.findByNoticeNoticeIdOrderByCreatedAtAsc(noticeId);
     }
 
     public CardCheck updateCardCheck(CardCheck cardCheck){
-        return cardCheckRepository.save(cardCheck);
+        CardCheck findcardCheck = findCardCheck(cardCheck.getCardCheckId());
+        findcardCheck.setChecked(cardCheck.getChecked());
+        return cardCheckRepository.save(findcardCheck);
     }
 
     private void verifyExistCardCheck(Card card, Notice notice){

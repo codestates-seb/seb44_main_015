@@ -22,7 +22,7 @@ public class CardCheck {
     private Long cardCheckId;
 
     @Column
-    private int checked;
+    private CardCheckStatus checked = CardCheckStatus.APPLY;
 
     @CreatedDate
     @Column(updatable = false, nullable = false)
@@ -35,4 +35,18 @@ public class CardCheck {
     @ManyToOne
     @JoinColumn(name = "NOTICE_ID")
     private Notice notice;
+
+    public enum CardCheckStatus{
+
+        APPLY("신청중"),
+        ACCEPTED("합격"),
+        REJECTED("불합격");
+
+        @Getter
+        private String status;
+
+        CardCheckStatus(String status) {
+            this.status = status;
+        }
+    }
 }

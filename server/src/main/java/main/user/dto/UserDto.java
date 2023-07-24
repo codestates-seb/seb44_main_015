@@ -10,6 +10,7 @@ import main.tag.entity.Tag;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 public class UserDto {
@@ -26,12 +27,15 @@ public class UserDto {
         private String password;
 
         @NotBlank
+        @Pattern(regexp = "^010-\\d{3,4}-\\d{4}$")
         private String phone;
 
         @NotBlank
         private String name;
 
         private List<Long> tagIds;
+
+        private List<String> resumeContent;
 
     }
 
@@ -45,6 +49,7 @@ public class UserDto {
         private String password;
 
         @NotBlank
+        @Pattern(regexp = "^010-\\d{3,4}-\\d{4}$")
         private String phone;
 
         @NotBlank

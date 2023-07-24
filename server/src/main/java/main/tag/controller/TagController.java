@@ -38,6 +38,12 @@ public class TagController {
         return new ResponseEntity(tagMapper.tagsToTagResponses(tags), HttpStatus.OK);
     }
 
+    @GetMapping("/category")
+    public ResponseEntity getTagsByCategory(@RequestParam String category){
+        List<Tag> tags = tagService.findTagsByCategory(category);
+        return new ResponseEntity(tagMapper.tagsToTagResponses(tags), HttpStatus.OK);
+    }
+
     @GetMapping("/search")
     public ResponseEntity getTagsSearch(@RequestParam(required = false, defaultValue = "10") int limit,
                                         @RequestParam(required = false, defaultValue = "0") int page,

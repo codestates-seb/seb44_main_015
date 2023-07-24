@@ -9,10 +9,11 @@ import main.user.entity.User;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class TagService {
@@ -30,6 +31,10 @@ public class TagService {
     public List<Tag> findTags(int limit){
         Pageable limitPageable = PageRequest.of(0, limit);
         return tagRepository.findAll(limitPageable).getContent();
+    }
+
+    public List<Tag> findTagsByCategory(String category){
+        return tagRepository.findByCategory(Tag.TagCategories.valueOf(category.toUpperCase()));
     }
     private Tag findVerifyTag(Long tagId){
         Optional<Tag> optionalTag = tagRepository.findByTagId(tagId);

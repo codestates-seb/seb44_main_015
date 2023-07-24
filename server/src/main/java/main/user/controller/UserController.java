@@ -54,7 +54,7 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity postUser(@Valid @RequestBody UserDto.Post userPostDto){
         User user = userMapper.userPostDtoToUser(userPostDto);
-        User createUser = userService.createUser(userPostDto.getTagIds(), user);
+        User createUser = userService.createUser(userPostDto.getTagIds(), userPostDto.getResumeContent(), user);
         return new ResponseEntity<>(userMapper.userToUserResponseDto(createUser), HttpStatus.CREATED);
     }
 
@@ -119,7 +119,7 @@ public class UserController {
         resumeDto.setResumeId(resumeId);
         Resume createdResume = resumeService.updateResume(resumeMapper.resumePatchDtoToResume(resumeDto));
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
 
@@ -148,10 +148,10 @@ public class UserController {
 
     @GetMapping("/{user_id}/notice")
     public ResponseEntity getUserNotice(@PathVariable("user_id") @Positive long userId){
-
-        List<CardCheck> cardChecks = cardCheckService.findCardChecksUser(userId);
+        Long cardId = userService.findUser(userId).getCard().getCardId();
+        List<CardCheck> cardChecks = cardCheckService.findCardChecksUser(cardId);
         List<Notice> notices = cardChecks.stream()
-                .map(CardCheck::getNotice)
+                .map(cardCheck -> cardCheck.getNotice())
                 .collect(Collectors.toList());
 
 

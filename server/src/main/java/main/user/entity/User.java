@@ -67,9 +67,16 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Rating> ratings = new ArrayList<>();
 
+    public void setResume(Resume resume){
+        resumes.add(resume);
+        if(resume.getUser() != this){
+            resume.setUser(this);
+        }
+    }
+
     public void setAvgRating(){
         double i = 0;
-        for(Rating rating :this.getRatings()){
+        for(Rating rating : this.getRatings()){
             i += rating.getScore();
         }
         this.setAvgRating(i/this.getRatings().size());

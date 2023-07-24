@@ -98,10 +98,25 @@ public class NoticeController {
         return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity searchNotices(@RequestParam(required = true) String name,
+                                        @RequestParam(required = false, defaultValue = "10") int limit,
+                                        @RequestParam(required = false, defaultValue = "0") int page){
+        List<Notice> notices = noticeService.searchNotices(name, page, limit);
+        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
+    }
+
     @GetMapping("/new")
     public ResponseEntity getNewNotices(@RequestParam(required = false, defaultValue = "10") int limit,
                                         @RequestParam(required = false, defaultValue = "00") int page){
         List<Notice> notices = noticeService.findNoticesPage(page,limit);
+        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
+    }
+
+    @GetMapping("/scroll")
+    public ResponseEntity getScrollNotice(@RequestParam(required = false, defaultValue = "10") int limit,
+                                        @RequestParam(required = false, defaultValue = "00") int scroll){
+        List<Notice> notices = noticeService.findNoticesScroll(scroll,limit);
         return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
     }
 
@@ -114,8 +129,21 @@ public class NoticeController {
     }
     @GetMapping("/{notice_id}/card")
     public ResponseEntity getCards(@PathVariable("notice_id") @Positive long noticeId,
+                                  @RequestParam(required = false, defaultValue = "") String checked,
                                   Authentication authentication){
-        return new ResponseEntity<>(cardCheckMapper.cardChecksToCardCheckResponseDtos(cardCheckService.findCardChecks(noticeId)), HttpStatus.OK);
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        Long companyId = ((Number) principal.get("id")).longValue();
+        if(companyId != noticeService.findNotice(noticeId).getCompany().getCompanyId()){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        if(checked.equals("")){
+            List<CardCheck> cardChecks = cardCheckService.findCardChecks(noticeId);
+            return new ResponseEntity<>(cardCheckMapper.cardChecksToCardCheckResponseDtos(cardCheckService.findCardChecks(noticeId)), HttpStatus.OK);
+        }
+        else {
+            List<CardCheck> cardChecks = cardCheckService.findCheckedCardChecks(checked, noticeId);
+            return new ResponseEntity(cardCheckMapper.cardChecksToCardCheckResponseDtos(cardChecks), HttpStatus.OK);
+        }
     }
 
     @PatchMapping("/{notice_id}/card/{check_id}")

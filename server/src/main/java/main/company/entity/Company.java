@@ -42,7 +42,7 @@ public class Company {
     @Column
     private String address;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String intro;
 
     @Column

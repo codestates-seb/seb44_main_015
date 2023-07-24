@@ -12,9 +12,10 @@ import main.user.service.UserService;
 import main.userTag.entity.UserTag;
 import main.userTag.repository.UserTagRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class UserTagService {
@@ -31,7 +32,14 @@ public class UserTagService {
         userTag.setUser(user);
 
         return userTagRepository.save(userTag);
+    }
 
+    public UserTag signupCreateUserTag(User user, Long tagId){
+        Tag tag = tagService.findTag(tagId);
+        UserTag userTag = new UserTag();
+        userTag.setUser(user);
+        userTag.setTag(tag);
+        return userTagRepository.save(userTag);
     }
 
     public void deleteUserTag(Long userId, Long tagId){

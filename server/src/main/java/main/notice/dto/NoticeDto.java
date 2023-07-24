@@ -83,6 +83,22 @@ public class NoticeDto {
         @NotBlank
         private String companyName;
 
+        @NotBlank
+        private String companyIntro;
+
+        @NotBlank
+        private String companyPhone;
+
+        @NotBlank
+        @Email
+        private String companyEmail;
+
+        @NotBlank
+        private String companyPerson;
+
+        @NotBlank
+        private String companyAddress;
+
         private List<String> tagNames;
 
 
@@ -113,7 +129,7 @@ public class NoticeDto {
         @NotBlank
         private String companyName;
 
-        @NotBlank
+
         private String companyIntro;
 
         @NotBlank
@@ -123,11 +139,12 @@ public class NoticeDto {
         @Email
         private String companyEmail;
 
-        @NotBlank
+
         private String companyPerson;
 
-        @NotBlank
+
         private String companyAddress;
+        private List<String> tagNames;
 
 
     }

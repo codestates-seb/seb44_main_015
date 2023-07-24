@@ -16,11 +16,14 @@ import org.aspectj.weaver.ast.Not;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class NoticeService {
@@ -33,14 +36,18 @@ public class NoticeService {
         notice.setCompany(companyService.findCompany(companyId));
         Notice createNotice = noticeRepository.save(notice);
         Long noticeId = createNotice.getNoticeId();
-        for(Long tagId : tagIds){
-            createNotice.getNoticeTags().add(noticeTagService.createNoticeTag(noticeId, tagId));
+        if(tagIds != null) {
+            for (Long tagId : tagIds) {
+                createNotice.getNoticeTags().add(noticeTagService.createNoticeTag(noticeId, tagId));
+            }
         }
         return noticeRepository.save(createNotice);
     }
 
     public Notice updateNotice(Notice notice){
-        findVerifiedNotice(notice.getNoticeId());
+        Notice findNotice = findVerifiedNotice(notice.getNoticeId());
+        notice.setViewCount(findNotice.getViewCount());
+        notice.setCompany(findNotice.getCompany());
         return noticeRepository.save(notice);
     }
 
@@ -52,12 +59,18 @@ public class NoticeService {
     public Notice findNoticeAddViewCount(Long noticeId){
         Notice findNotice = findVerifiedNotice(noticeId);
         findNotice.addViewCount();
-        return findNotice;
+        return noticeRepository.save(findNotice);
     }
 
     public List<Notice> findNoticesByCompanyId(Long companyId){
         List<Notice> notices = noticeRepository.findAllByCompanyCompanyId(companyId);
         return notices;
+    }
+
+    public List<Notice> searchNotices(String name, int page, int limit){
+        Pageable limitPageable = PageRequest.of(page, limit);
+        LocalDateTime now = LocalDateTime.now();
+        return noticeRepository.findAllByDeadlineAfterAndTitleContainingOrDeadlineAfterAndContentContaining(now, name, now, name, limitPageable);
     }
 
     public List<Notice> findNoticesPage(String tagName, int page, int limit){
@@ -71,7 +84,12 @@ public class NoticeService {
 
     public List<Notice> findNoticesPage(int page, int limit){
         Pageable limitPageable = PageRequest.of(page, limit);
-        return noticeRepository.findAll(limitPageable).getContent();
+        return noticeRepository.findAllByOrderByCreatedAtDesc(limitPageable);
+    }
+
+    public List<Notice> findNoticesScroll(int scroll, int limit){
+        Pageable limitPageable = PageRequest.of(scroll, limit);
+        return noticeRepository.findAllByOrderByCreatedAtDesc(limitPageable);
     }
 
     public List<Notice> findNotices(){
