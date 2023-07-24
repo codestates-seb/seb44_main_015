@@ -1,9 +1,19 @@
 import Notice from '../../../Assets/Icons/Notice.png';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { Colors } from '../../../Assets/Theme';
-import { useLocation } from 'react-router-dom';
+
+const formatDeadline = (deadline) => {
+  const date = new Date(deadline);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더하고 문자열로 변환 후 2자리로 맞춤
+  const day = String(date.getDate()).padStart(2, '0'); // 일도 2자리로 맞춤
+  return `${year}-${month}-${day}`;
+};
+
+const cityFromAddress = (address) => {
+  const city = address.split(' ')[0]; // 공백(' ')을 기준으로 주소를 나누고 첫 번째 요소를 가져옴
+  return city;
+};
 
 const CompanyDetail = ({ data }) => {
   return (
@@ -18,6 +28,9 @@ const CompanyDetail = ({ data }) => {
               <CompanyNameStyled companyName={data.companyName}>
                 {data.companyName}
               </CompanyNameStyled>
+              <RegionStyled region={data.companyAddress}>
+                {cityFromAddress(data.companyAddress)}
+              </RegionStyled>
             </DetailWrapperStyled>
             <TagContainerStyled>
               {data.tagNames &&
@@ -33,7 +46,7 @@ const CompanyDetail = ({ data }) => {
             <DueDateContainerStyled>
               <DueDateTextStyled>마감일</DueDateTextStyled>
               <DueDateStyled deadline={data.deadline}>
-                {data.deadline}
+                {formatDeadline(data.deadline)}
               </DueDateStyled>
             </DueDateContainerStyled>
             <NoticeContainerStyled>
