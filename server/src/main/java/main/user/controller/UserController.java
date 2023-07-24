@@ -119,7 +119,7 @@ public class UserController {
         resumeDto.setResumeId(resumeId);
         Resume createdResume = resumeService.updateResume(resumeMapper.resumePatchDtoToResume(resumeDto));
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
 

@@ -27,6 +27,15 @@ public class SecurityController {
 
     @PostMapping("/logout")
     public ResponseEntity logout(Authentication authentication){
+        Map<String, Object> principal = (Map) authentication.getPrincipal();
+        String userType = ((String) principal.get("userType"));
+        Long id = ((Number) principal.get("id")).longValue();
+        if(userType.equals("user")){
+            userService.logoutUser(id);
+        }
+        else{
+            companyService.logoutCompany(id);
+        }
         return new ResponseEntity(HttpStatus.OK);
     }
 

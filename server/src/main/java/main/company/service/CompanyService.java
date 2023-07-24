@@ -50,6 +50,12 @@ public class CompanyService {
         return savedCompany;
     }
 
+    public void logoutCompany(Long companyId){
+        Company company = findCompany(companyId);
+        company.setRefreshToken(null);
+        companyRepository.save(company);
+    }
+
     public Company findCompany(Long companyId){
         return findVerifiedCompany(companyId);
     }

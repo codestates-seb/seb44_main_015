@@ -68,7 +68,11 @@ public class UserService {
         userRepository.save(user);
     }
 */
-
+    public void logoutUser(long userId){
+        User user = findUser(userId);
+        user.setRefreshToken(null);
+        userRepository.save(user);
+    }
 
     public User updateUser(User user){
 
