@@ -46,6 +46,8 @@ const MyPageFreelancer = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  console.log(userInfo);
+
   return (
     <>
       <Header />
@@ -80,7 +82,7 @@ const MyPageFreelancer = () => {
                 info3={Messages.bookmarkedTitle}
                 info1Number={employmentData.length}
                 info2Number={employmentData.length}
-                info3Number={careerData.length}
+                info3Number={localStorage.getItem('selectcount')}
               />
               <AppliedBox
                 title={Messages.cardInTitle}

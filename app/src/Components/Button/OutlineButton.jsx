@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Colors } from '../../Assets/Theme';
 
-function OutlineButton({ content, width, onClick }) {
+function OutlineButton({ content, width, onClick, id }) {
   return (
-    <ButtonStyled onClick={onClick} width={width}>
+    <ButtonStyled id={id} onClick={onClick} width={width}>
       {content ? `${content}` : '버튼'}
     </ButtonStyled>
   );

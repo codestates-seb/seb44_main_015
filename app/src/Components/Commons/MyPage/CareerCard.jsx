@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 const CareerCard = ({ employmentInfo }) => {
   const { deadline, title, companyName, region, noticeId } = employmentInfo;
   const navigate = useNavigate();
+
   return (
     <>
       <EmploymentCardStyled>

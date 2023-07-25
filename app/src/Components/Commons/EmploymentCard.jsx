@@ -34,8 +34,10 @@ const EmploymentCard = ({ employmentInfo }) => {
   const navigate = useNavigate();
 
   const cityFromAddress = (address) => {
-    const city = address.split(' ')[0]; // 공백(' ')을 기준으로 주소를 나누고 첫 번째 요소를 가져옴
-    return city;
+    if (address) {
+      const city = address.split(' ')[0]; // 공백(' ')을 기준으로 주소를 나누고 첫 번째 요소를 가져옴
+      return city;
+    }
   };
 
   const handleCardClick = () => {
