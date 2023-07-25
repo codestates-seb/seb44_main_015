@@ -5,6 +5,7 @@ import axios from "axios";
 import { Colors } from "../Assets/Theme";
 import styled from "styled-components";
 import FreelancerSignup from "../Components/Commons/SignUp/FreelancerSignup";
+import CompanySignup from "../Components/Commons/SignUp/CompanySignup";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Signup = () => {
   return (
     <>
       <PageContainerStyled>
-        <SignupContainerStyled>
+        <SignupContainerStyled selectedUserType={selectedUserType}>
           <LogoWrapperStyled>
             <h2>
               <LogoStyled
@@ -48,7 +49,8 @@ const Signup = () => {
               </UserTypeStyled>
             </UserTypeContainerStyled>
           </LogoWrapperStyled>
-          <FreelancerSignup />
+          {selectedUserType === "freelancer" && <FreelancerSignup />}
+          {selectedUserType === "company" && <CompanySignup />}
         </SignupContainerStyled>
       </PageContainerStyled>
     </>
@@ -71,7 +73,7 @@ const SignupContainerStyled = styled.div`
   align-items: center;
   flex-direction: column;
   width: 520px;
-  height: 751px;
+  ${(props) => (props.selectedUserType ? "height: 750px;" : "height: 350px;")}
   padding: 80px 60px;
   box-sizing: border-box;
   border-radius: 16px;
