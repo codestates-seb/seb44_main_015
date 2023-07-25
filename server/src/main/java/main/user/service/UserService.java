@@ -32,7 +32,7 @@ public class UserService {
     private final CardService cardService;
     private final ResumeService resumeService;
 
-    public User createUser(List<Long> tagIds, List<String> resumes, User user){
+    public User createUser(List<String> tagNames, List<String> resumes, User user){
 
         verifyExistEmail(user.getEmail());
 
@@ -44,9 +44,9 @@ public class UserService {
 
         User savedUser = userRepository.save(user);
 
-        if(tagIds != null) {
-            for (Long tagId : tagIds) {
-                savedUser.getUserTags().add(userTagService.signupCreateUserTag(user, tagId));
+        if(tagNames != null) {
+            for (String tagName : tagNames) {
+                savedUser.getUserTags().add(userTagService.signupCreateUserTag(user, tagName));
             }
         }
         if(resumes != null) {

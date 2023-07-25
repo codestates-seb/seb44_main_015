@@ -19,6 +19,7 @@ public interface UserMapper {
     @Mapping(target = "tagNames", expression = "java(getTagNames(user))")
     @Mapping(target = "resumeContents", expression = "java(getResumeContents(user))")
     @Mapping(source = "card.cardId", target = "cardId")
+    @Mapping(source = "card.viewCount", target = "viewCount")
     UserDto.ProfileResponse userToUserProfileResponse(User user);
 
     default List<String> getTagNames(User user){

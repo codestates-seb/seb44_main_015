@@ -32,13 +32,13 @@ public class NoticeService {
     private final NoticeTagService noticeTagService;
     private final NoticeTagRepository noticeTagRepository;
 
-    public Notice createNotice(Long companyId, List<Long> tagIds, Notice notice){
+    public Notice createNotice(Long companyId, List<String> tagNames, Notice notice){
         notice.setCompany(companyService.findCompany(companyId));
         Notice createNotice = noticeRepository.save(notice);
         Long noticeId = createNotice.getNoticeId();
-        if(tagIds != null) {
-            for (Long tagId : tagIds) {
-                createNotice.getNoticeTags().add(noticeTagService.createNoticeTag(noticeId, tagId));
+        if(tagNames != null) {
+            for (String tagName : tagNames) {
+                createNotice.getNoticeTags().add(noticeTagService.createNoticeTag(noticeId, tagName));
             }
         }
         return noticeRepository.save(createNotice);

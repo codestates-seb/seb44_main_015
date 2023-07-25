@@ -11,5 +11,6 @@ import java.util.Optional;
 
 public interface NoticeTagRepository extends JpaRepository<NoticeTag, Long> {
     Optional<NoticeTag> findByNoticeNoticeIdAndTagTagId(Long noticeId, Long tagId);
+    Optional<NoticeTag> findByNoticeNoticeIdAndTagName(Long noticeId, String name);
     List<NoticeTag> findAllByTagNameOrderByNoticeCreatedAtDesc(String name, Pageable pageable);
 }

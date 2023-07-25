@@ -42,6 +42,14 @@ public class UserTagService {
         return userTagRepository.save(userTag);
     }
 
+    public UserTag signupCreateUserTag(User user, String name){
+        Tag tag = tagService.findTagByName(name);
+        UserTag userTag = new UserTag();
+        userTag.setUser(user);
+        userTag.setTag(tag);
+        return userTagRepository.save(userTag);
+    }
+
     public void deleteUserTag(Long userId, Long tagId){
         UserTag userTag = userTagRepository.findByUserUserIdAndTagTagId(userId, tagId).orElseThrow();
         userTagRepository.delete(userTag);

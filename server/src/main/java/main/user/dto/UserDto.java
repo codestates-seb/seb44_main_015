@@ -33,7 +33,7 @@ public class UserDto {
         @NotBlank
         private String name;
 
-        private List<Long> tagIds;
+        private List<String> tagNames;
 
         private List<String> resumeContent;
 
@@ -98,6 +98,8 @@ public class UserDto {
         private String name;
 
         private long cardId;
+
+        private int viewCount;
 
         private List<String> tagNames;
 

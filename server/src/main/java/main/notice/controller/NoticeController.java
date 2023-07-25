@@ -45,9 +45,9 @@ public class NoticeController {
                                      Authentication authentication){
         Map<String, Object> principal = (Map) authentication.getPrincipal();
         Long companyId = ((Number) principal.get("id")).longValue();
-        List<Long> tagIds = noticePostDto.getTagIds();
+        List<String> tagNames = noticePostDto.getTagNames();
         Notice notice = noticeMapper.noticePostDtoToNotice(noticePostDto);
-        noticeService.createNotice(companyId, tagIds, notice);
+        noticeService.createNotice(companyId, tagNames, notice);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
