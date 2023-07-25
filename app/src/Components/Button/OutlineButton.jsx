@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import { Colors } from '../../Assets/Theme';
 
-function OutlineButton({ content, width }) {
+function OutlineButton({ content, width, ...props }) {
   return (
-    <ButtonStyled width={width}>{content ? `${content}` : '버튼'}</ButtonStyled>
+    <ButtonStyled width={width} {...props}>
+      {content ? `${content}` : '버튼'}
+    </ButtonStyled>
   );
 }
 
@@ -19,6 +21,6 @@ const ButtonStyled = styled.button`
   border: 1px solid ${Colors.mainPurple};
   cursor: pointer;
   transition: 0.3s;
-  line-height:24px;
-  font-size:16px;
+  line-height: 24px;
+  font-size: 16px;
 `;

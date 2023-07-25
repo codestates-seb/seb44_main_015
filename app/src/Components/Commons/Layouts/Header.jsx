@@ -133,7 +133,7 @@ const AuthContainerStyled = styled.div`
 `;
 
 const LoginStyled = styled.p`
-  width: 40px;
+  width: 45px;
   margin-left: 32px;
   color: ${Colors.Gray4};
   font-size: 14px;
@@ -150,7 +150,7 @@ const LoginStyled = styled.p`
 const SignupStyled = styled(LoginStyled)`
   width: 56px;
   margin-left: 9px;
-  padding-left: 9px;
+  padding-left: 18px;
   border-left: 1px solid ${Colors.Gray3};
 `;
 
