@@ -11,26 +11,29 @@ import styled from "styled-components";
 
 const CompanySignup = () => {
   const tagList = [
-    "신입",
-    "1~3년차",
-    "4~7년차",
-    "7~10년차",
-    "10년차+",
-    "빠른손",
-    "성실함",
-    "꼼꼼함",
-    "체계적",
-    "참신함",
-    "정시출근",
-    "소통왕",
-    "열정왕",
-    "책임감",
-    "외향적",
+    "연봉 상위 1%",
+    "연봉 상위 10%",
+    "업력 5년 이상",
+    "재택근무",
+    "로고-브랜딩",
+    "인쇄-홍보물",
+    "패키지-서버",
+    "웹-모바일 디자인",
+    "백엔드",
+    "프론트엔드",
+    "데이터",
+    "풀스택",
+    "DevOps",
+    "인프라",
+    "퍼블리셔",
+    "ML/DL",
   ];
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [person, setPerson] = useState("");
+  const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
   const [addedResumes, setAddedResumes] = useState([]);
@@ -241,11 +244,27 @@ const CompanySignup = () => {
           <ErrorMessage>이름은 두 글자 이상이어야 합니다.</ErrorMessage>
         )}
 
-        <LabelStyled>휴대폰번호</LabelStyled>
+        <LabelStyled>대표자명</LabelStyled>
+        <InputStyled
+          type="text"
+          value={person}
+          placeholder="대표자명을 입력해 주세요"
+          onChange={(e) => setPerson(e.target.value)}
+        />
+
+        <LabelStyled>주소</LabelStyled>
+        <InputStyled
+          type="text"
+          value={address}
+          placeholder="주소를 정확히 입력해 주세요"
+          onChange={(e) => setAddress(e.target.value)}
+        />
+
+        <LabelStyled>연락처</LabelStyled>
         <InputStyled
           type="text"
           value={phone}
-          placeholder="휴대폰 번호를 입력해 주세요"
+          placeholder="연락 가능한 휴대폰 번호를 입력해 주세요"
           onChange={handlePhoneChange}
         />
         {errors.includes("Phone_empty") && (
@@ -255,7 +274,7 @@ const CompanySignup = () => {
           <ErrorMessage>휴대폰 번호 11자리를 모두 입력해 주세요.</ErrorMessage>
         )}
 
-        <LabelStyled>마이키워드</LabelStyled>
+        <LabelStyled>회사 키워드</LabelStyled>
         <TagContainerStyled>
           {tagList.map((tag, index) => (
             <TagStyled

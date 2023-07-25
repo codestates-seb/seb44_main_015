@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import { Colors } from '../../Assets/Theme';
+import styled from "styled-components";
+import { Colors } from "../../Assets/Theme";
 
 function OutlineButton({ content, width, onClick, id }) {
   return (
     <ButtonStyled id={id} onClick={onClick} width={width}>
-      {content ? `${content}` : '버튼'}
+      {content ? `${content}` : "버튼"}
     </ButtonStyled>
   );
 }
@@ -12,7 +12,7 @@ function OutlineButton({ content, width, onClick, id }) {
 export default OutlineButton;
 
 const ButtonStyled = styled.button`
-  width: ${(props) => props.width || '100px'};
+  width: ${(props) => props.width || "100px"};
   padding: 16px 0px;
   text-align: center;
   background-color: ${Colors.Bgwhite};
@@ -23,4 +23,12 @@ const ButtonStyled = styled.button`
   transition: 0.3s;
   line-height: 24px;
   font-size: 16px;
+
+  &:hover {
+    background-color: ${Colors.thirdPurple};
+    color: ${Colors.Bgwhite};
+    border: 1px solid transparent;
+    font-weight: 700;
+    cursor: pointer;
+  }
 `;
