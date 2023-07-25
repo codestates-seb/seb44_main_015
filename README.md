@@ -8,7 +8,7 @@
 
 - **Development Duration**: `2023.06.28~2023.07.24`
 
-- **Deploy URI**: [프리해요](https://www.free15.kro.kr/)
+- **Deploy URI**: [프리해요](http://www.free15.kro.kr/)
 
 ## 👪Team
 
