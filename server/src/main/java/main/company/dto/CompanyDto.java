@@ -27,7 +27,7 @@ public class CompanyDto {
         private String email;
 
         @NotBlank
-        @Pattern(regexp = "^d{2,3}-\\d{3,4}-\\d{4}$")
+        @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$")
         private String phone;
 
         @NotBlank
@@ -57,7 +57,7 @@ public class CompanyDto {
         private String email;
 
         @NotBlank
-        @Pattern(regexp = "^d{2,3}-\\d{3,4}-\\d{4}$")
+        @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$")
         private String phone;
 
 
