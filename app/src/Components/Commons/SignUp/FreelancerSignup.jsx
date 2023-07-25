@@ -286,7 +286,7 @@ const FreelancerSignup = () => {
               <RemoveButtonStyled
                 src={Delete}
                 alt={"삭제버튼"}
-                onClick={handleRemoveResume}
+                onClick={() => handleRemoveResume(index)}
               />
             </ResumeWrapperStyled>
           </div>

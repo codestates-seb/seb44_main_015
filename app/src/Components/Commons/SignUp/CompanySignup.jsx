@@ -224,11 +224,11 @@ const CompanySignup = () => {
           </ErrorMessage>
         )}
 
-        <LabelStyled>메롱</LabelStyled>
+        <LabelStyled>회사·의뢰인 이름</LabelStyled>
         <InputStyled
           type="text"
           value={name}
-          placeholder="이름을 입력해 주세요"
+          placeholder="회사·의뢰인 이름을 입력해 주세요"
           onChange={(e) => setName(e.target.value)}
         />
         {errors.includes("Name_empty") && (
@@ -286,7 +286,7 @@ const CompanySignup = () => {
               <RemoveButtonStyled
                 src={Delete}
                 alt={"삭제버튼"}
-                onClick={handleRemoveResume}
+                onClick={() => handleRemoveResume(index)}
               />
             </ResumeWrapperStyled>
           </div>
