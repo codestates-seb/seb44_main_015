@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Colors } from '../../../Assets/Theme';
 import { styled } from 'styled-components';
 import Logo from '../../../Assets/Icons/Logo.png';
@@ -7,6 +8,14 @@ import Profile from '../../../Assets/Icons/Profile.png';
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // 컴포넌트가 마운트되었을 때 로그인 상태를 확인
+    const accessToken = localStorage.getItem('accessToken');
+    setIsLoggedIn(!!accessToken); // 로그인 상태를 갱신
+  }, []);
 
   const handleLogoClick = () => {
     navigate('/');
@@ -28,6 +37,14 @@ const Header = () => {
     navigate('/search');
   };
 
+  const handleLogoutClick = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('id');
+
+    navigate('/');
+  };
+
   return (
     <HeaderContainerStyled>
       <h1>
@@ -39,9 +56,19 @@ const Header = () => {
       </NavContainerStyled>
       <SearchStyled onClick={handleSearchClick} src={Search} alt="검색" />
       <AuthContainerStyled>
-        <LoginStyled onClick={handleLoginClick}>로그인</LoginStyled>
-        <SignupStyled onClick={handleSignupClick}>회원가입</SignupStyled>
-        {/* <ProfileStyled src={Profile} alt="프로필" /> */}
+        {isLoggedIn ? (
+          // 로그인 상태일 때 프로필 보여주기
+          <>
+            <ProfileStyled src={Profile} alt="프로필" />
+            <LogoutStyled onClick={handleLogoutClick}>로그아웃</LogoutStyled>
+          </>
+        ) : (
+          // 로그인 상태가 아니면 로그인과 회원가입 버튼 보여주기
+          <>
+            <LoginStyled onClick={handleLoginClick}>로그인</LoginStyled>
+            <SignupStyled onClick={handleSignupClick}>회원가입</SignupStyled>
+          </>
+        )}
       </AuthContainerStyled>
     </HeaderContainerStyled>
   );
@@ -135,51 +162,10 @@ const ProfileStyled = styled.img`
   margin-left: 24px;
 `;
 
-// 로그인 상태에 따른 헤더 변화
-
-// const Header = () => {
-//   const { isLoggedIn } = useSelector((state) => state.login) || false;
-//   const dispatch = useDispatch();
-
-//   // 로그아웃 시 토큰 삭제
-//   const handleLogout = () => {
-//     dispatch(logout());
-//     localStorage.removeItem('accessToken');
-//     localStorage.removeItem('refreshToken');
-//   };
-
-//   useEffect(() => {
-//     // 새로고침 시 로컬스토리지에서 토큰확인하고 상태변경
-//     const storedAccessToken = localStorage.getItem('accessToken');
-//     if (storedAccessToken) {
-//       dispatch(setLoginStatus({ isLoggedIn: true }));
-//     } else {
-//       dispatch(setLoginStatus({ isLoggedIn: false }));
-//     }
-//   }, []);
-//   return (
-//     <HeaderContainerStyled>
-//       <LogoStyled src={Logo} alt="로고" />
-
-//       <NavContainerStyled>
-//         <NavStyled>채용</NavStyled>
-//         <NavStyled>개발진</NavStyled>
-//       </NavContainerStyled>
-
-//       <SearchStyled src={Search} alt="검색" />
-//       <AuthContainer>
-
-// {!isLoggedIn ? (
-//   <LoginStyled>로그인</LoginStyled>
-//   <SignupStyled>회원가입</SignupStyled>
-// ) : (
-//   <NavContainer>
-//     <ProfileStyled src={Profile} alt={프로필} />
-//   </NavContainer>
-// )}
-//       </AuthContainer>
-//     </HeaderContainerStyled>
-//   );
-// };
-
-// export default Header;
+const LogoutStyled = styled(LoginStyled)`
+  width: 80px;
+  margin-top: 4px;
+  padding-left: 12px;
+  margin-left: 12px;
+  border-left: 1px solid ${Colors.Gray3};
+`;
