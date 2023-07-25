@@ -44,6 +44,8 @@ const TagList = ({ onSelectTag }) => {
     // '감수',
   ];
 
+  //번역쪽은 태그 제외했습니다.
+
   const [selectedTag, setSelectedTag] = useState(null);
 
   const handleTagClick = (tag) => {
