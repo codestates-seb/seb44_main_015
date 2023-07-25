@@ -132,7 +132,7 @@ const SignupContainerStyled = styled.div`
 
   overflow-y: auto;
   overflow-x: hidden;
-  //스크롤바 디자인 입니다.
+
   &::-webkit-scrollbar {
     width: 12px;
   }
