@@ -11,6 +11,7 @@ import Profile from './Pages/Profile';
 import Maker from './Pages/Maker';
 import Signup from './Pages/SignUp';
 import Search from './Pages/Search';
+import Signup from './Pages/Signup';
 
 
 function App() {
