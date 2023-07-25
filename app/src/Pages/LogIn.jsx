@@ -61,6 +61,7 @@ const Login = () => {
         if (response.data.accessToken) {
           localStorage.setItem('accessToken', response.data.accessToken);
           localStorage.setItem('id', response.data.id);
+          localStorage.setItem('userType', postData.userType);
 
           navigate('/');
         } else if (!response.data.accessToken) {
