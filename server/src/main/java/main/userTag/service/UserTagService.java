@@ -34,6 +34,17 @@ public class UserTagService {
         return userTagRepository.save(userTag);
     }
 
+    public UserTag createUserTag(Long userId, String tagName){
+        verifyExistUserTag(userId, tagName);
+        User user = userRepository.findByUserId(userId).orElseThrow();
+        Tag tag = tagService.findTagByName(tagName);
+        UserTag userTag = new UserTag();
+        userTag.setTag(tag);
+        userTag.setUser(user);
+
+        return userTagRepository.save(userTag);
+    }
+
     public UserTag signupCreateUserTag(User user, Long tagId){
         Tag tag = tagService.findTag(tagId);
         UserTag userTag = new UserTag();
@@ -57,6 +68,14 @@ public class UserTagService {
 
     private void verifyExistUserTag(Long userId, Long tagId){
         Optional<UserTag> optionalUserTag = userTagRepository.findByUserUserIdAndTagTagId(userId,tagId);
+
+        if(optionalUserTag.isPresent()){
+            throw new BusinessLogicException(ExceptionCode.TAG_EXISTS);
+        }
+    }
+
+    private void verifyExistUserTag(Long userId, String tagName){
+        Optional<UserTag> optionalUserTag = userTagRepository.findByUserUserIdAndTagName(userId,tagName);
 
         if(optionalUserTag.isPresent()){
             throw new BusinessLogicException(ExceptionCode.TAG_EXISTS);

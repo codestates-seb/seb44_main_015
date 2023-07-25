@@ -40,7 +40,7 @@ public class TagController {
 
     @GetMapping("/category")
     public ResponseEntity getTagsByCategory(@RequestParam String category){
-        List<Tag> tags = tagService.findTagsByCategory(category);
+        List<Tag> tags = tagService.findTagsByCategory(category.toUpperCase());
         return new ResponseEntity(tagMapper.tagsToTagResponses(tags), HttpStatus.OK);
     }
 
