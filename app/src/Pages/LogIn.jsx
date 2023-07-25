@@ -21,20 +21,26 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // 오류 메시지 초기화
     setErrors([]);
 
+    let isValid = true;
+    // 이메일 유효성 검사
     if (!email) {
       setErrors((prevErrors) => [...prevErrors, 'Email_empty']);
+      isValid = false;
     } else if (!email.includes('@')) {
       setErrors((prevErrors) => [...prevErrors, 'Email_invalid']);
+      isValid = false;
     }
 
+    // 비밀번호 유효성 검사
     if (!password) {
       setErrors((prevErrors) => [...prevErrors, 'Password_empty']);
-    } else {
+      isValid = false;
+    }
+
+    if (isValid) {
       try {
-        // 유효성 검사를 통과한 경우에만 로그인 시도
         const postData =
           selectedTag === 'freelancer'
             ? {
@@ -57,14 +63,12 @@ const Login = () => {
             },
           },
         );
-        console.log(response);
+
         if (response.data.accessToken) {
           localStorage.setItem('accessToken', response.data.accessToken);
           localStorage.setItem('id', response.data.id);
-
           navigate('/');
-        } else if (!response.data.accessToken) {
-          // 로그인 실패 했을 경우
+        } else {
           setErrors((prevErrors) => [...prevErrors, 'LoginFail']);
           throw new Error(
             '로그인에 실패했습니다. 이메일과 비밀번호를 확인해 주세요.',
@@ -72,6 +76,7 @@ const Login = () => {
         }
       } catch (error) {
         console.error('로그인 요청 중 오류가 발생했습니다.', error);
+        setErrors((prevErrors) => [...prevErrors, 'LoginFail']);
       }
     }
   };
@@ -133,7 +138,9 @@ const Login = () => {
             )}
           </FormContainerStyled>
           {errors.includes('LoginFail') && (
-            <ErrorMessage>로그인에 실패했습니다.</ErrorMessage>
+            <LoginFailStyled>
+              로그인에 실패하였습니다. 이메일주소와 비밀번호를 확인해 주세요!
+            </LoginFailStyled>
           )}
           <MainButton
             width={'400px'}
@@ -244,9 +251,8 @@ const SignupStyled = styled.div`
 `;
 
 const ErrorMessage = styled.p`
-  font-size: 60px;
+  font-size: 12px;
   color: red;
-  font-size: 0.75rem;
   margin: 0.25rem 0 0 0;
 `;
 
@@ -288,4 +294,8 @@ const TagStyled = styled.li`
     background-color: ${Colors.thirdPurple};
     border: 1px solid ${Colors.mainPurple};
   }
+`;
+
+const LoginFailStyled = styled(ErrorMessage)`
+  margin-bottom: 20px;
 `;
