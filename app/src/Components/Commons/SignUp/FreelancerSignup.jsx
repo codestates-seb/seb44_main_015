@@ -171,7 +171,7 @@ const FreelancerSignup = () => {
 
         // 서버로 POST 요청 보내기
         const response = await axios.post(
-          "http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/signup",
+          "http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/user/signup",
           dataToSend
         );
 
@@ -308,7 +308,11 @@ const FreelancerSignup = () => {
           개인 정보 기입에 동의하시면 동의 버튼을 눌러주세요.
         </WarningStyled>
       </ApprovementWrapperStyled>
-
+      {errors.includes("SignupFail") && (
+        <SignupFailStyled>
+          회원가입에 실패하였습니다. 입력 정보를 다시 확인해 주세요!
+        </SignupFailStyled>
+      )}
       <MainButton
         width={"400px"}
         content={"회원가입"}
@@ -348,6 +352,11 @@ const InputStyled = styled.input`
   box-sizing: border-box;
   padding: 0px 10px;
   border: 1px solid var(--gray-2, #bebebe);
+
+  &::placeholder {
+    font-size: 15px;
+    color: ${Colors.Gray2};
+  }
 `;
 
 const TagContainerStyled = styled.div`
@@ -470,4 +479,7 @@ const ErrorMessage = styled.p`
   font-size: 12px;
   color: red;
   margin: 0.25rem 0 0 0;
+`;
+const SignupFailStyled = styled(ErrorMessage)`
+  margin-bottom: 20px;
 `;
