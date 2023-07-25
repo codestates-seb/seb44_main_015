@@ -64,7 +64,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             response.setHeader("Authorization", "Bearer" + accessToken);
             response.setHeader("Refresh", refreshToken);
             Gson gson = new Gson();
-            response.getWriter().println(gson.toJson(new TokenResponseDto(userId, expiration, accessToken, refreshToken)));
+            response.getWriter().println(gson.toJson(new TokenResponseDto(userId,"user", expiration, accessToken, refreshToken)));
             User savedUser = userRepository.findByUserId(userId).orElseThrow();
             savedUser.setRefreshToken(refreshToken);
             userRepository.save(savedUser);
@@ -81,7 +81,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             response.setHeader("Authorization", "Bearer" + accessToken);
             response.setHeader("Refresh", refreshToken);
             Gson gson = new Gson();
-            response.getWriter().println(gson.toJson(new TokenResponseDto(companyId, expiration, accessToken, refreshToken)));
+            response.getWriter().println(gson.toJson(new TokenResponseDto(companyId,"company", expiration, accessToken, refreshToken)));
             Company savedCompany = companyRepository.findByCompanyId(companyId).orElseThrow();
             savedCompany.setRefreshToken(refreshToken);
             companyRepository.save(savedCompany);
