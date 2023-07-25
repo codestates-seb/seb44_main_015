@@ -10,6 +10,7 @@ import NameCardList from './Pages/NameCardList';
 import Profile from './Pages/Profile';
 import Maker from './Pages/Maker';
 import Search from './Pages/Search';
+import Signup from './Pages/Signup';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        {/* <Route path="/signup" element={<Signup />}></Route> */}
+        <Route path="/signup" element={<Signup />}></Route>
         <Route path="/employmentlist" element={<EmploymentList />}></Route>
         <Route
           path="/employmentdetail/:noticeId"

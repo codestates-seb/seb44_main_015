@@ -1,21 +1,20 @@
-import { Colors } from '../Assets/Theme';
-import styled from 'styled-components';
 import MainButton from '../Components/Button/MainButton';
 import Logo from '../Assets/Icons/Logo.png';
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Colors } from '../Assets/Theme';
+import styled from 'styled-components';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
-  const [selectedTag, setSelectedTag] = useState(null);
+  const [selectedUserType, setSelectedUserType] = useState(null);
 
-  const handleTagSelect = (tag) => {
-    setSelectedTag(tag);
+  const handleUserTypeSelect = (tag) => {
+    setSelectedUserType(tag);
   };
 
   const handleLogin = async (e) => {
@@ -42,7 +41,7 @@ const Login = () => {
     if (isValid) {
       try {
         const postData =
-          selectedTag === 'freelancer'
+          selectedUserType === 'freelancer'
             ? {
                 userType: 'user',
                 email: email,
@@ -92,20 +91,20 @@ const Login = () => {
             <NoticeStyled>
               프리랜서/회사 유형을 선택 후<br></br>로그인 해 주세요
             </NoticeStyled>
-            <TagContainerStyled>
-              <TagStyled
-                onClick={() => handleTagSelect('freelancer')}
-                className={selectedTag === 'freelancer' ? 'selected' : ''}
+            <UserTypeContainerStyled>
+              <UserTypeStyled
+                onClick={() => handleUserTypeSelect('freelancer')}
+                className={selectedUserType === 'freelancer' ? 'selected' : ''}
               >
                 🧑‍💻 프리랜서
-              </TagStyled>
-              <TagStyled
-                onClick={() => handleTagSelect('company')}
-                className={selectedTag === 'company' ? 'selected' : ''}
+              </UserTypeStyled>
+              <UserTypeStyled
+                onClick={() => handleUserTypeSelect('company')}
+                className={selectedUserType === 'company' ? 'selected' : ''}
               >
                 🏢 회사 · 의뢰인
-              </TagStyled>
-            </TagContainerStyled>
+              </UserTypeStyled>
+            </UserTypeContainerStyled>
           </LogoWrapperStyled>
           <FormContainerStyled>
             <LabelStyled>이메일</LabelStyled>
@@ -160,6 +159,29 @@ const Login = () => {
 
 export default Login;
 
+const PageContainerStyled = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${Colors.Gray1};
+  height: 100vh;
+  box-sizing: border-box;
+`;
+
+const LoginContainerStyled = styled.div`
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+  width: 520px;
+  height: 751px;
+  padding: 80px 60px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  border: 1px solid var(--gray-2, #bebebe);
+  background: #fff;
+`;
+
 const LogoWrapperStyled = styled.div`
   display: flex;
   flex-direction: column;
@@ -182,27 +204,44 @@ const NoticeStyled = styled.p`
   margin-bottom: 26px;
 `;
 
-const PageContainerStyled = styled.div`
+const UserTypeContainerStyled = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${Colors.Gray1};
-  height: 100vh;
-  box-sizing: border-box;
+  gap: 10px;
 `;
 
-const LoginContainerStyled = styled.div`
+const UserTypeStyled = styled.li`
   display: flex;
+  justify-content: center;
   align-items: center;
+  height: 23px;
+  width: 160px;
 
-  flex-direction: column;
-  width: 520px;
-  height: 751px;
-  padding: 80px 60px;
-  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid ${Colors.Gray2};
   border-radius: 16px;
-  border: 1px solid var(--gray-2, #bebebe);
-  background: #fff;
+  background-color: ${Colors.Bgwhite};
+
+  color: ${Colors.Gray3};
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23px;
+
+  &:hover {
+    color: var(--main, #7000ff);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: ${Colors.thirdPurple};
+    border: 1px solid ${Colors.mainPurple};
+  }
+
+  &.selected {
+    color: var(--main, #7000ff);
+    font-size: 16px;
+    font-weight: 700;
+    background-color: ${Colors.thirdPurple};
+    border: 1px solid ${Colors.mainPurple};
+  }
 `;
 
 const FormContainerStyled = styled.form`
@@ -254,46 +293,6 @@ const ErrorMessage = styled.p`
   font-size: 12px;
   color: red;
   margin: 0.25rem 0 0 0;
-`;
-
-const TagContainerStyled = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const TagStyled = styled.li`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 23px;
-  width: 160px;
-
-  padding: 16px;
-  border: 1px solid ${Colors.Gray2};
-  border-radius: 16px;
-  background-color: ${Colors.Bgwhite};
-
-  color: ${Colors.Gray3};
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 23px;
-
-  &:hover {
-    color: var(--main, #7000ff);
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    background-color: ${Colors.thirdPurple};
-    border: 1px solid ${Colors.mainPurple};
-  }
-
-  &.selected {
-    color: var(--main, #7000ff);
-    font-size: 16px;
-    font-weight: 700;
-    background-color: ${Colors.thirdPurple};
-    border: 1px solid ${Colors.mainPurple};
-  }
 `;
 
 const LoginFailStyled = styled(ErrorMessage)`
