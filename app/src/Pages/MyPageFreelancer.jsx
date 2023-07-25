@@ -11,6 +11,7 @@ import MiddleHeader from '../Components/Commons/MiddleHeader';
 import EmploymentCard from '../Components/Commons/EmploymentCard';
 import ZeroCard from '../Components/Commons/MyPage/ZeroCard';
 import Header from '../Components/Commons/Layouts/Header';
+import Footer from '../Components/Commons/Layouts/Footer';
 import { useHorizontalScroll } from '../Utils/useSideScroll';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -45,7 +46,7 @@ const MyPageFreelancer = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const { resume } = userInfo;
+  console.log(userInfo);
 
   return (
     <>
@@ -64,7 +65,13 @@ const MyPageFreelancer = () => {
               />
               <Resume resume={userInfo.resumeContents} />
               <ButtonWrapperStyled>
-                <OutlineButton width={'360px'} content={Messages.cardEditBtn} />
+                <OutlineButton
+                  onClick={() => {
+                    alert('서비스 구현중입니다!');
+                  }}
+                  width={'360px'}
+                  content={Messages.cardEditBtn}
+                />
               </ButtonWrapperStyled>
             </LeftSectionStyled>
             <RightSectionStyled>
@@ -75,7 +82,7 @@ const MyPageFreelancer = () => {
                 info3={Messages.bookmarkedTitle}
                 info1Number={employmentData.length}
                 info2Number={employmentData.length}
-                info3Number={careerData.length}
+                info3Number={localStorage.getItem('selectcount')}
               />
               <AppliedBox
                 title={Messages.cardInTitle}
@@ -129,6 +136,7 @@ const MyPageFreelancer = () => {
           </TotalWrapperStyled>
         </MainContainerStyled>
       </BackgroundContainerStyled>
+      <Footer />
     </>
   );
 };
@@ -139,7 +147,7 @@ export const BackgroundContainerStyled = styled.div`
   background-color: ${(props) => props.$backgroundColor || `${Colors.Gray1}`};
   padding-top: 40px;
   background-size: cover;
-  height: 260vh;
+  height: 150vh;
 `;
 
 export const MainContainerStyled = styled.main`

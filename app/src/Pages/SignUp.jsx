@@ -1,3 +1,4 @@
+
 import MainButton from '../Components/Button/MainButton';
 import OutlineButton from '../Components/Button/OutlineButton';
 import Logo from '../Assets/Icons/Logo.png';
@@ -48,6 +49,7 @@ const Signup = () => {
 
   const handleUserTypeSelect = (tag) => {
     setSelectedUserType(tag);
+
   };
 
   const handleAddResume = async (e) => {

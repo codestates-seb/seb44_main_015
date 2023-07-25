@@ -34,8 +34,10 @@ const EmploymentCard = ({ employmentInfo }) => {
   const navigate = useNavigate();
 
   const cityFromAddress = (address) => {
-    const city = address.split(' ')[0]; // 공백(' ')을 기준으로 주소를 나누고 첫 번째 요소를 가져옴
-    return city;
+    if (address) {
+      const city = address.split(' ')[0]; // 공백(' ')을 기준으로 주소를 나누고 첫 번째 요소를 가져옴
+      return city;
+    }
   };
 
   const handleCardClick = () => {
@@ -55,10 +57,10 @@ const EmploymentCard = ({ employmentInfo }) => {
           ></NoLineTag>
 
           <TitleStyled title={title}>{title}</TitleStyled>
-          <CompanyNameStyled companyName={companyName}>
+          <CompanyNameStyled $companyName={companyName}>
             {companyName}
           </CompanyNameStyled>
-          <RegionStyled region={companyAddress}>
+          <RegionStyled $region={companyAddress}>
             {cityFromAddress(companyAddress)}
           </RegionStyled>
         </UpperWrapperStyled>
@@ -120,6 +122,7 @@ export const TitleStyled = styled.h3`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  cursor: pointer;
 `;
 
 export const CompanyNameStyled = styled.p`

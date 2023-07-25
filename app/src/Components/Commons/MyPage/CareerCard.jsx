@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 const CareerCard = ({ employmentInfo }) => {
   const { deadline, title, companyName, region, noticeId } = employmentInfo;
   const navigate = useNavigate();
+
   return (
     <>
       <EmploymentCardStyled>
@@ -34,7 +35,14 @@ const CareerCard = ({ employmentInfo }) => {
               fontWeight="400"
             ></NoLineTag>
           )}
-          <TitleStyled title={title}>{title}</TitleStyled>
+          <TitleStyled
+            onClick={() => {
+              navigate(`/employmentdetail/${noticeId}`);
+            }}
+            title={title}
+          >
+            {title}
+          </TitleStyled>
           <CompanyNameStyled name={companyName}>
             {companyName}
           </CompanyNameStyled>

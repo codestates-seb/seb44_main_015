@@ -11,8 +11,10 @@ const formatDeadline = (deadline) => {
 };
 
 const cityFromAddress = (address) => {
-  const city = address.split(' ')[0]; // 공백(' ')을 기준으로 주소를 나누고 첫 번째 요소를 가져옴
-  return city;
+  if (address) {
+    const city = address.split(' ')[0]; // 공백(' ')을 기준으로 주소를 나누고 첫 번째 요소를 가져옴
+    return city;
+  }
 };
 
 const CompanyDetail = ({ data }) => {
@@ -25,10 +27,10 @@ const CompanyDetail = ({ data }) => {
               {data.title}
             </TitleWrapperStyled>
             <DetailWrapperStyled>
-              <CompanyNameStyled companyName={data.companyName}>
+              <CompanyNameStyled $companyName={data.companyName}>
                 {data.companyName}
               </CompanyNameStyled>
-              <RegionStyled region={data.companyAddress}>
+              <RegionStyled $region={data.companyAddress}>
                 {cityFromAddress(data.companyAddress)}
               </RegionStyled>
             </DetailWrapperStyled>
@@ -45,7 +47,7 @@ const CompanyDetail = ({ data }) => {
           <LowerContainerStyled>
             <DueDateContainerStyled>
               <DueDateTextStyled>마감일</DueDateTextStyled>
-              <DueDateStyled deadline={data.deadline}>
+              <DueDateStyled $deadline={data.deadline}>
                 {formatDeadline(data.deadline)}
               </DueDateStyled>
             </DueDateContainerStyled>

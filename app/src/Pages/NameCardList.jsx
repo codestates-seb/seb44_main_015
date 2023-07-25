@@ -9,6 +9,7 @@ import MiddleHeader from '../Components/Commons/MiddleHeader';
 import MainButton from '../Components/Button/MainButton';
 import NameCard from '../Components/Commons/NameCard';
 import Header from '../Components/Commons/Layouts/Header';
+import Footer from '../Components/Commons/Layouts/Footer';
 import axios from '../Api/Axios';
 import { useParams } from 'react-router-dom';
 
@@ -20,7 +21,7 @@ const NameCardList = ({}) => {
     async function fetchData() {
       const response = await axios.get(`notice/${noticeId}/card`, {
         headers: {
-          Authorization: `BearereyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJDT01QQU5ZIl0sImlkIjoyLCJlbWFpbCI6ImdhcmFtQGdtYWlsLmNvbSIsInN1YiI6ImdhcmFtQGdtYWlsLmNvbSIsImlhdCI6MTY4OTgyMzk4MywiZXhwIjoxNjkwMDAzOTgzfQ.P5lpeQ_CdP706T0JE5PrWHeY_1ICvhlCIDxASCZ0wk8`,
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
       });
       setUserListInfo(response.data);
@@ -77,6 +78,7 @@ const NameCardList = ({}) => {
           </MainContainerStyled>
         </BackgroundContainerStyled>
       )}
+      <Footer />
     </>
   );
 };

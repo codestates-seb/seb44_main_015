@@ -57,7 +57,7 @@ const Login = () => {
               }
             : {
                 userType: 'company',
-                username: email,
+                email: email,
                 password: password,
               };
 
@@ -74,6 +74,8 @@ const Login = () => {
         if (response.data.accessToken) {
           localStorage.setItem('accessToken', response.data.accessToken);
           localStorage.setItem('id', response.data.id);
+          localStorage.setItem('userType', response.data.userType);
+
           navigate('/');
         } else {
           setErrors((prevErrors) => [...prevErrors, 'LoginFail']);
