@@ -74,7 +74,7 @@ const Header = () => {
             <ProfileStyled
               src={Profile}
               alt="프로필"
-              isLoggedIn={isLoggedIn}
+              $isLoggedIn={isLoggedIn}
               onClick={handleMypageClick}
             />
             <LogoutStyled onClick={handleLogoutClick}>로그아웃</LogoutStyled>

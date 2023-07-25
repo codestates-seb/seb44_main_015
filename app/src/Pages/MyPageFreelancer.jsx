@@ -145,7 +145,7 @@ export const BackgroundContainerStyled = styled.div`
   background-color: ${(props) => props.$backgroundColor || `${Colors.Gray1}`};
   padding-top: 40px;
   background-size: cover;
-  height: 130vh;
+  height: 150vh;
 `;
 
 export const MainContainerStyled = styled.main`
