@@ -1,35 +1,35 @@
-
-import MainButton from '../Components/Button/MainButton';
-import OutlineButton from '../Components/Button/OutlineButton';
-import Logo from '../Assets/Icons/Logo.png';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { Colors } from '../Assets/Theme';
-import styled from 'styled-components';
+import MainButton from "../Components/Button/MainButton";
+import OutlineButton from "../Components/Button/OutlineButton";
+import Logo from "../Assets/Icons/Logo.png";
+import Delete from "../Assets/Icons/delete.png";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Colors } from "../Assets/Theme";
+import styled from "styled-components";
 
 const Signup = () => {
   const tagList = [
-    '신입',
-    '1~3년차',
-    '4~7년차',
-    '7~10년차',
-    '10년차+',
-    '빠른손',
-    '성실함',
-    '꼼꼼함',
-    '체계적',
-    '참신함',
-    '정시출근',
-    '소통왕',
-    '열정왕',
-    '책임감',
-    '외향적',
+    "신입",
+    "1~3년차",
+    "4~7년차",
+    "7~10년차",
+    "10년차+",
+    "빠른손",
+    "성실함",
+    "꼼꼼함",
+    "체계적",
+    "참신함",
+    "정시출근",
+    "소통왕",
+    "열정왕",
+    "책임감",
+    "외향적",
   ];
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
@@ -37,14 +37,14 @@ const Signup = () => {
   const [selectedTag, setSelectedTag] = useState(null);
 
   const [addedResumes, setAddedResumes] = useState([]);
-  const [resumeContent, setResumeContent] = useState('');
+  const [resumeContent, setResumeContent] = useState("");
 
   const handleLogo = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const handleLogin = () => {
-    navigate('/login');
+    navigate("/login");
   };
 
   const handleUserTypeSelect = (tag) => {
@@ -56,11 +56,11 @@ const Signup = () => {
 
     setErrors([]);
 
-    if (resumeContent.trim() !== '') {
+    if (resumeContent.trim() !== "") {
       setAddedResumes((prev) => [...prev, resumeContent]);
-      setResumeContent('');
+      setResumeContent("");
     } else {
-      setErrors((prevErrors) => [...prevErrors, 'Empty']);
+      setErrors((prevErrors) => [...prevErrors, "Empty"]);
     }
   };
 
@@ -94,14 +94,14 @@ const Signup = () => {
             </NoticeStyled>
             <UserTypeContainerStyled>
               <UserTypeStyled
-                onClick={() => handleUserTypeSelect('freelancer')}
-                className={selectedUserType === 'freelancer' ? 'selected' : ''}
+                onClick={() => handleUserTypeSelect("freelancer")}
+                className={selectedUserType === "freelancer" ? "selected" : ""}
               >
                 🧑‍💻 프리랜서
               </UserTypeStyled>
               <UserTypeStyled
-                onClick={() => handleUserTypeSelect('company')}
-                className={selectedUserType === 'company' ? 'selected' : ''}
+                onClick={() => handleUserTypeSelect("company")}
+                className={selectedUserType === "company" ? "selected" : ""}
               >
                 🏢 회사 · 의뢰인
               </UserTypeStyled>
@@ -153,7 +153,7 @@ const Signup = () => {
               placeholder="이력을 입력해 주세요"
               onChange={handleResumeChange}
             />
-            {errors.includes('Empty') && (
+            {errors.includes("Empty") && (
               <ErrorMessage>공백은 입력할 수 없습니다.</ErrorMessage>
             )}
           </FormContainerStyled>
@@ -162,20 +162,22 @@ const Signup = () => {
               <div key={index}>
                 <ResumeWrapperStyled>
                   <ResumeStyled>{resume}</ResumeStyled>
-                  <RemoveButtonStyled onClick={handleRemoveResume}>
-                    ✖
-                  </RemoveButtonStyled>
+                  <RemoveButtonStyled
+                    src={Delete}
+                    alt={"삭제버튼"}
+                    onClick={handleRemoveResume}
+                  />
                 </ResumeWrapperStyled>
               </div>
             ))}
             <OutlineButton
-              width={'400px'}
-              content={'+ 이력 추가하기'}
+              width={"400px"}
+              content={"+ 이력 추가하기"}
               onClick={handleAddResume}
             ></OutlineButton>
           </ResumeContainerStyled>
 
-          <MainButton width={'400px'} content={'회원가입'} />
+          <MainButton width={"400px"} content={"회원가입"} />
           <LoginContainerStyled>
             <MemberStyled>이미 회원이신가요?</MemberStyled>
             <LoginStyled onClick={handleLogin}>로그인</LoginStyled>
@@ -336,13 +338,13 @@ const TagStyled = styled.div`
   background-color: ${(props) =>
     props.selected ? Colors.Bgwhite : Colors.Gray1};
   border: 1px solid
-    ${(props) => (props.selected ? Colors.mainPurple : 'transparent')};
+    ${(props) => (props.selected ? Colors.mainPurple : "transparent")};
   border-radius: 16px;
   border-radius: 16px;
   color: ${(props) => (props.selected ? Colors.mainPurple : Colors.Gray4)};
   font-size: 14px;
   line-height: 20px;
-  font-weight: ${(props) => (props.selected ? '400' : '300')};
+  font-weight: ${(props) => (props.selected ? "400" : "300")};
 
   &:hover {
     background-color: ${Colors.Bgwhite};
@@ -390,7 +392,6 @@ const ResumeContainerStyled = styled.div`
 const ResumeWrapperStyled = styled.div`
   display: flex;
   width: 400px;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
 `;
@@ -407,16 +408,16 @@ const ResumeStyled = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; // 텍스트가 길어져도 한 줄에 나타나도록 설정
-
   padding: 4px 8px;
   border: 1px solid ${Colors.mainPurple};
   border-radius: 16px;
   background-color: ${Colors.Bgwhite};
 `;
 
-const RemoveButtonStyled = styled.div`
-  margin-top: 4px;
-  font-size: 25px;
+const RemoveButtonStyled = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
 `;
 
 const ErrorMessage = styled.p`
