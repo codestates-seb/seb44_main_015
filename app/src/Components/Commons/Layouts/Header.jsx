@@ -57,13 +57,11 @@ const Header = () => {
       <SearchStyled onClick={handleSearchClick} src={Search} alt="검색" />
       <AuthContainerStyled>
         {isLoggedIn ? (
-          // 로그인 상태일 때 프로필 보여주기
           <>
             <ProfileStyled src={Profile} alt="프로필" />
             <LogoutStyled onClick={handleLogoutClick}>로그아웃</LogoutStyled>
           </>
         ) : (
-          // 로그인 상태가 아니면 로그인과 회원가입 버튼 보여주기
           <>
             <LoginStyled onClick={handleLoginClick}>로그인</LoginStyled>
             <SignupStyled onClick={handleSignupClick}>회원가입</SignupStyled>
