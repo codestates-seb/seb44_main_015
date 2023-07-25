@@ -9,7 +9,7 @@ import axios from "axios";
 import { Colors } from "../../../Assets/Theme";
 import styled from "styled-components";
 
-const CompanySignup = (selectedUserType, ...props) => {
+const CompanySignup = () => {
   const tagList = [
     "신입",
     "1~3년차",

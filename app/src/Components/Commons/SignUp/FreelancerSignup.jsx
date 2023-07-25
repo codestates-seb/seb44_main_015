@@ -9,7 +9,7 @@ import axios from "axios";
 import { Colors } from "../../../Assets/Theme";
 import styled from "styled-components";
 
-const FreelancerSignup = (selectedUserType, ...props) => {
+const FreelancerSignup = () => {
   const tagList = [
     "신입",
     "1~3년차",
@@ -171,7 +171,7 @@ const FreelancerSignup = (selectedUserType, ...props) => {
 
         // 서버로 POST 요청 보내기
         const response = await axios.post(
-          "http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/user/signup",
+          "http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/signup",
           dataToSend
         );
 
