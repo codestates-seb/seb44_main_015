@@ -66,6 +66,8 @@ const Login = () => {
         if (response.data.accessToken) {
           localStorage.setItem('accessToken', response.data.accessToken);
           localStorage.setItem('id', response.data.id);
+          localStorage.setItem('userType', postData.userType);
+
           navigate('/');
         } else {
           setErrors((prevErrors) => [...prevErrors, 'LoginFail']);

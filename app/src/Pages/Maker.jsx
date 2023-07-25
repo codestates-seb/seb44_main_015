@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Colors } from '../Assets/Theme';
 import {
   BackgroundContainerStyled,
@@ -12,20 +11,11 @@ import {
 import MiddleHeader from '../Components/Commons/MiddleHeader';
 import NameCard from '../Components/Commons/NameCard';
 import Header from '../Components/Commons/Layouts/Header';
-import axios from '../Api/Axios';
+import Footer from '../Components/Commons/Layouts/Footer';
+import MakersList from '../Api/MakerInfo.json';
 
 const Maker = () => {
-  const [userListInfo, setUserListInfo] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await axios.get('user');
-      setUserListInfo(response.data);
-    }
-    fetchData();
-  }, []);
-
-  const Makers = userListInfo.filter((maker) => maker.email.includes('naver'));
+  const Makers = MakersList.slice();
 
   return (
     <>
@@ -42,7 +32,7 @@ const Maker = () => {
                 {Makers &&
                   Makers.map((onecard) => (
                     <NameCard
-                      key={onecard.cardCheckId}
+                      key={onecard.name}
                       userInfo={onecard}
                       className={'hide'}
                     ></NameCard>
@@ -54,6 +44,7 @@ const Maker = () => {
       ) : (
         <MiddleHeader midtitle={'로딩중입니다🤓'}></MiddleHeader>
       )}
+      <Footer />
     </>
   );
 };

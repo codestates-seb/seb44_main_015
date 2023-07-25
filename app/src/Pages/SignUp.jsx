@@ -1,3 +1,4 @@
+
 import MainButton from '../Components/Button/MainButton';
 import Logo from '../Assets/Icons/Logo.png';
 import { useState } from 'react';
@@ -18,6 +19,7 @@ const Signup = () => {
 
   const handleUserTypeSelect = (tag) => {
     setSelectedUserType(tag);
+
   };
 
   return (

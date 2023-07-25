@@ -120,6 +120,7 @@ export const TitleStyled = styled.h3`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  cursor: pointer;
 `;
 
 export const CompanyNameStyled = styled.p`

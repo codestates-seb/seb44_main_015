@@ -41,8 +41,21 @@ const Header = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('accessToken');
     localStorage.removeItem('id');
+    localStorage.removeItem('userType');
 
     navigate('/');
+  };
+
+  const handleMypageClick = () => {
+    if (isLoggedIn !== false) {
+      if (localStorage.getItem('userType') === 'user') {
+        navigate(`/mypageuser/${localStorage.getItem('id')}`);
+      } else {
+        navigate(`/mypagecompany/${localStorage.getItem('id')}`);
+      }
+    } else {
+      alert('회원가입해주세요!');
+    }
   };
 
   return (
@@ -58,7 +71,12 @@ const Header = () => {
       <AuthContainerStyled>
         {isLoggedIn ? (
           <>
-            <ProfileStyled src={Profile} alt="프로필" />
+            <ProfileStyled
+              src={Profile}
+              alt="프로필"
+              isLoggedIn={isLoggedIn}
+              onClick={handleMypageClick}
+            />
             <LogoutStyled onClick={handleLogoutClick}>로그아웃</LogoutStyled>
           </>
         ) : (
@@ -158,6 +176,7 @@ const ProfileStyled = styled.img`
   width: 24px;
   height: 24px;
   margin-left: 24px;
+  cursor: pointer;
 `;
 
 const LogoutStyled = styled(LoginStyled)`
