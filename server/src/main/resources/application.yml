@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://database-1.cgxb4bo4zmgn.ap-northeast-2.rds.amazonaws.com/Test?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: admin
+    password: q1w2e3r4
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+
+  decorator:
+    datasource:
+      p6spy:
+        enable-logging: true
+
+jwt:
+  key: jwt2341531514134121231341312431312413412123
+  access-token-expiration-minutes: 3000
+  refresh-token-expiration-minutes: 4200
