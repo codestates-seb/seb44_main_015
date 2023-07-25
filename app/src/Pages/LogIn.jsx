@@ -21,12 +21,9 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // 오류 메시지 초기화
     setErrors([]);
 
-    // 유효성 검사 통과 여부를 나타내는 변수
     let isValid = true;
-
     // 이메일 유효성 검사
     if (!email) {
       setErrors((prevErrors) => [...prevErrors, 'Email_empty']);
