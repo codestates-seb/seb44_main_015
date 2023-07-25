@@ -10,6 +10,7 @@ const SelectedButton = ({ clicked, checked, id, ...props }) => {
   const [selected, setSelected] = useState(false);
   const [savedUserId, setSavedUserId] = useState(null);
   let { noticeId } = useParams();
+  const [selectcount, setSelectcount] = useState(0);
 
   const selectHandler = (e) => {
     if (Number(e.target.id) === id && checked === 'APPLY') {
@@ -33,6 +34,8 @@ const SelectedButton = ({ clicked, checked, id, ...props }) => {
           },
         );
         alert('채택 완료!');
+        setSelectcount((prev) => prev + 1);
+        localStorage.setItem('selectcount', selectcount);
         if (localStorage.getItem('id')) {
           navigate(`/mypagecompany/${localStorage.getItem('id')}`);
         } else {

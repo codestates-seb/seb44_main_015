@@ -7,10 +7,46 @@ import axios from '../../../Api/Axios';
 
 const ApplyToCompany = ({ data, detail }) => {
   const [savedNoticeId, setSavedNoticeId] = useState(null);
+  const [savedNoticeIdforbook, setSavedNoticeIdforbook] = useState(null);
   const cardInHandler = (e) => {
     setSavedNoticeId(e.target.id);
   };
+  const bookmarkHandler = (e) => {
+    setSavedNoticeIdforbook(e.target.id);
+  };
   const userId = localStorage.getItem('id');
+  const userType = localStorage.getItem('userType');
+
+  useEffect(() => {
+    async function fetchData() {
+      if (setSavedNoticeIdforbook && userId) {
+        try {
+          const response = await axios.post(
+            `/notice/${savedNoticeIdforbook}/bookmark`,
+            {
+              noticeId: Number(`${savedNoticeIdforbook}`),
+              userId: userId,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            },
+          );
+          if (response.status === 201) {
+            alert('북마크 완료!');
+            return;
+          } else {
+            return;
+          }
+        } catch (error) {
+          console.log(error);
+          alert('이미 북마크한 채용입니다.');
+        }
+      }
+    }
+    fetchData();
+  }, [bookmarkHandler, setSavedNoticeIdforbook]);
 
   useEffect(() => {
     async function fetchData() {
@@ -40,23 +76,32 @@ const ApplyToCompany = ({ data, detail }) => {
       }
     }
     fetchData();
-  }, [cardInHandler]);
+  }, [cardInHandler, setSavedNoticeId]);
 
   return (
     <>
       <RightContainerStyled>
-        <NameCardWrapperStyled>
-          <NameCard key={data.userId} userInfo={data} className={'hide'} />
-        </NameCardWrapperStyled>
-        <BottonContainerStyled>
-          <MainButton
-            width={'360px'}
-            content={'명함 넣기'}
-            onClick={cardInHandler}
-            id={detail.noticeId}
-          />
-          <OutlineButton width={'360px'} content={'북마크 하기'} />
-        </BottonContainerStyled>
+        {userType === 'user' ? (
+          <>
+            <NameCardWrapperStyled>
+              <NameCard key={data.userId} userInfo={data} className={'hide'} />
+            </NameCardWrapperStyled>
+            <BottonContainerStyled>
+              <MainButton
+                width={'360px'}
+                content={'명함 넣기'}
+                onClick={cardInHandler}
+                id={detail.noticeId}
+              />
+              <OutlineButton
+                onClick={bookmarkHandler}
+                width={'360px'}
+                content={'북마크 하기'}
+                id={detail.noticeId}
+              />
+            </BottonContainerStyled>
+          </>
+        ) : null}
         {detail && (
           <TextConatinerStyled>
             <CompanyNameStyled $companyName={detail.companyName}>

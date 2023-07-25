@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { Colors, Messages } from '../../../Assets/Theme';
 import OutlineButton from '../../Button/OutlineButton';
+import { useNavigate } from 'react-router-dom';
 
 const ZeroCard = ({ height, message, smallmessage, content }) => {
+  const navigate = useNavigate();
   return (
     <ZeroCardStyled height={height}>
       <InfoWrapperStyled>
@@ -15,7 +17,13 @@ const ZeroCard = ({ height, message, smallmessage, content }) => {
       </InfoWrapperStyled>
       <ButtonWrapperStyled>
         {content ? (
-          <OutlineButton content={content} width={'360px'}>
+          <OutlineButton
+            onClick={() => {
+              navigate('/employmentlist');
+            }}
+            content={content}
+            width={'360px'}
+          >
             {Messages.showCareerBtn}
           </OutlineButton>
         ) : null}

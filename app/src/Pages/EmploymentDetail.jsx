@@ -7,8 +7,10 @@ import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Colors } from '../Assets/Theme';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const EmploymentDetail = () => {
+  let { noticeId } = useParams();
   const location = useLocation();
   const noticeIdFromState = location.state?.noticeId;
   const [userInfo, setUserInfo] = useState({});
@@ -19,7 +21,9 @@ const EmploymentDetail = () => {
     axios
       .all([
         axios.get(
-          `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/notice/${noticeIdFromState}`,
+          `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/notice/${
+            noticeIdFromState ? noticeIdFromState : noticeId
+          }`,
         ),
         axios.get(
           `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/user/${userId}`,
