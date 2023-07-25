@@ -29,13 +29,10 @@ const NameCardList = ({}) => {
     fetchData();
   }, [noticeId]);
 
-  console.log(userListInfo);
-
   const cardSendHandler = () => {
     setClicked((prev) => !prev);
   };
 
-  console.log(userListInfo);
   return (
     <>
       <Header />
