@@ -49,7 +49,6 @@ const Signup = () => {
 
   const handleUserTypeSelect = (tag) => {
     setSelectedUserType(tag);
-
   };
 
   const handleAddResume = async (e) => {
