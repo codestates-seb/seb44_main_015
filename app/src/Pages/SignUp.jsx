@@ -16,6 +16,14 @@ const Signup = () => {
 
   const [selectedUserType, setSelectedUserType] = useState(null);
 
+  const handleLogo = () => {
+    navigate('/');
+  };
+
+  const handleLogin = () => {
+    navigate('/login');
+  };
+
   const handleUserTypeSelect = (tag) => {
     setSelectedUserType(tag);
   };
@@ -26,7 +34,11 @@ const Signup = () => {
         <SignupContainerStyled>
           <LogoWrapperStyled>
             <h2>
-              <LogoStyled src={Logo} alt="프리해요"></LogoStyled>
+              <LogoStyled
+                src={Logo}
+                alt="프리해요"
+                onClick={handleLogo}
+              ></LogoStyled>
             </h2>
             <NoticeStyled>
               프리랜서/회사 유형을 선택 후<br></br>로그인 해 주세요
@@ -85,6 +97,10 @@ const Signup = () => {
             </KeywordContainerStyled>
           </FormContainerStyled>
           <MainButton width={'400px'} content={'회원가입'} type={'submit'} />
+          <LoginContainerStyled>
+            <MemberStyled>이미 회원이신가요?</MemberStyled>
+            <LoginStyled onClick={handleLogin}>로그인</LoginStyled>
+          </LoginContainerStyled>
         </SignupContainerStyled>
       </PageContainerStyled>
     </>
@@ -144,6 +160,10 @@ const LogoWrapperStyled = styled.div`
 const LogoStyled = styled.img`
   width: 108px;
   height: 22px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const NoticeStyled = styled.p`
@@ -168,12 +188,10 @@ const UserTypeStyled = styled.li`
   align-items: center;
   height: 23px;
   width: 160px;
-
   padding: 16px;
   border: 1px solid ${Colors.Gray2};
   border-radius: 16px;
   background-color: ${Colors.Bgwhite};
-
   color: ${Colors.Gray3};
   font-size: 16px;
   font-weight: 400;
@@ -202,6 +220,7 @@ const FormContainerStyled = styled.form`
   flex-direction: column;
   margin-bottom: 56px;
 `;
+
 const LabelStyled = styled.div`
   margin-top: 20px;
   margin-bottom: 9px;
@@ -246,6 +265,34 @@ const KeywordStyled = styled.div`
     border-color: ${Colors.mainPurple};
     color: ${Colors.mainPurple};
     font-weight: 400;
+    cursor: pointer;
+  }
+`;
+
+const LoginContainerStyled = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 32px;
+`;
+
+const MemberStyled = styled.div`
+  border-right: 1px solid var(--gray-2, #bebebe);
+  width: 140px;
+  color: var(--gray-4, #333);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23px;
+`;
+
+const LoginStyled = styled.div`
+  color: var(--main, #7000ff);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 23px;
+  margin-left: 16px;
+
+  &:hover {
+    font-weight: 700;
     cursor: pointer;
   }
 `;

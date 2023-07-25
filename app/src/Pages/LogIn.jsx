@@ -17,6 +17,14 @@ const Login = () => {
     setSelectedUserType(tag);
   };
 
+  const handleSignup = () => {
+    navigate('/signup');
+  };
+
+  const handleLogo = () => {
+    navigate('/');
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -86,7 +94,11 @@ const Login = () => {
         <LoginContainerStyled>
           <LogoWrapperStyled>
             <h2>
-              <LogoStyled src={Logo} alt="프리해요"></LogoStyled>
+              <LogoStyled
+                src={Logo}
+                alt="프리해요"
+                onClick={handleLogo}
+              ></LogoStyled>
             </h2>
             <NoticeStyled>
               프리랜서/회사 유형을 선택 후<br></br>로그인 해 주세요
@@ -149,7 +161,7 @@ const Login = () => {
           />
           <SignupContainerStyled>
             <NotMemberStyled>아직 회원이 아니신가요?</NotMemberStyled>
-            <SignupStyled>회원가입</SignupStyled>
+            <SignupStyled onClick={handleSignup}>회원가입</SignupStyled>
           </SignupContainerStyled>
         </LoginContainerStyled>
       </PageContainerStyled>
@@ -171,7 +183,6 @@ const PageContainerStyled = styled.div`
 const LoginContainerStyled = styled.div`
   display: flex;
   align-items: center;
-
   flex-direction: column;
   width: 520px;
   height: 751px;
@@ -191,6 +202,10 @@ const LogoWrapperStyled = styled.div`
 const LogoStyled = styled.img`
   width: 108px;
   height: 22px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const NoticeStyled = styled.p`
@@ -249,6 +264,7 @@ const FormContainerStyled = styled.form`
   flex-direction: column;
   margin-bottom: 56px;
 `;
+
 const LabelStyled = styled.div`
   margin-top: 20px;
   margin-bottom: 9px;
@@ -273,6 +289,7 @@ const SignupContainerStyled = styled.div`
   flex-direction: row;
   margin-top: 32px;
 `;
+
 const NotMemberStyled = styled.div`
   border-right: 1px solid var(--gray-2, #bebebe);
   width: 175px;
@@ -281,12 +298,18 @@ const NotMemberStyled = styled.div`
   font-weight: 400;
   line-height: 23px;
 `;
+
 const SignupStyled = styled.div`
   color: var(--main, #7000ff);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 23px;
   margin-left: 16px;
+
+  &:hover {
+    font-weight: 700;
+    cursor: pointer;
+  }
 `;
 
 const ErrorMessage = styled.p`
