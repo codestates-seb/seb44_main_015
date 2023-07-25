@@ -1,14 +1,12 @@
 import styled from 'styled-components';
+import { Colors } from '../Assets/Theme';
 import { useState, useEffect } from 'react';
 import NameCard from '../Components/Commons/NameCard';
 import Resume from '../Components/Commons/Resume';
 import Header from '../Components/Commons/Layouts/Header';
 import axios from '../Api/Axios';
 import { useParams } from 'react-router-dom';
-import {
-  BackgroundContainerStyled,
-  MainContainerStyled,
-} from './MyPageFreelancer';
+import { MainContainerStyled } from './MyPageFreelancer';
 import Footer from '../Components/Commons/Layouts/Footer';
 
 const Profile = () => {
@@ -26,7 +24,7 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <BackgroundContainerStyled>
+      <ProfileBackgroundStyled>
         <MainContainerStyled>
           <CenterSectionStyled>
             <NameCard
@@ -37,7 +35,7 @@ const Profile = () => {
             <Resume resume={userInfo.resumeContents} />
           </CenterSectionStyled>
         </MainContainerStyled>
-      </BackgroundContainerStyled>
+      </ProfileBackgroundStyled>
       <Footer />
     </>
   );
@@ -52,4 +50,11 @@ export const CenterSectionStyled = styled.section`
   width: 360px;
   height: auto;
   margin-top: 80px;
+`;
+
+export const ProfileBackgroundStyled = styled.div`
+  background-color: ${(props) => props.$backgroundColor || `${Colors.Gray1}`};
+  padding-top: 40px;
+  background-size: cover;
+  height: 80vh;
 `;

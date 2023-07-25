@@ -55,10 +55,10 @@ const EmploymentCard = ({ employmentInfo }) => {
           ></NoLineTag>
 
           <TitleStyled title={title}>{title}</TitleStyled>
-          <CompanyNameStyled companyName={companyName}>
+          <CompanyNameStyled $companyName={companyName}>
             {companyName}
           </CompanyNameStyled>
-          <RegionStyled region={companyAddress}>
+          <RegionStyled $region={companyAddress}>
             {cityFromAddress(companyAddress)}
           </RegionStyled>
         </UpperWrapperStyled>
