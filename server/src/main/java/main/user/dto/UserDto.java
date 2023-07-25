@@ -69,6 +69,8 @@ public class UserDto {
     public static class Response{
         private long userId;
 
+        private int viewCount;
+
         @Email
         @NotBlank
         private String email;

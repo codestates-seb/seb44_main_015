@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public interface UserMapper {
     User userPostDtoToUser(UserDto.Post userPostDto);
     User userPatchDtoToUser(UserDto.Patch userPatchDto);
+    @Mapping(source = "card.viewCount", target = "viewCount")
     UserDto.Response userToUserResponseDto(User user);
     List<UserDto.Response> usersToUserResponseDtos(List<User> users);
     @Mapping(target = "tagNames", expression = "java(getTagNames(user))")
