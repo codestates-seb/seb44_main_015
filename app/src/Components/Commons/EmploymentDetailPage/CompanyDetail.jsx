@@ -20,7 +20,7 @@ const cityFromAddress = (address) => {
 const CompanyDetail = ({ data }) => {
   return (
     <>
-      {data ? (
+      {Object.keys(data).length !== 0 ? (
         <LeftContainerStyled>
           <UpperContainerStyled>
             <TitleWrapperStyled title={data.title}>
@@ -63,7 +63,9 @@ const CompanyDetail = ({ data }) => {
           </LowerContainerStyled>
         </LeftContainerStyled>
       ) : (
-        <p>Loading...</p>
+        <LeftContainerStyled>
+          <NoticeStyled>로그인 해주세요.</NoticeStyled>
+        </LeftContainerStyled>
       )}
     </>
   );

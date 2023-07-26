@@ -46,8 +46,6 @@ const MyPageFreelancer = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(userInfo);
-
   return (
     <>
       <Header />
@@ -78,11 +76,11 @@ const MyPageFreelancer = () => {
               <AppliedBoard
                 title={Messages.appliedBoardTitle}
                 info1={Messages.cardInTitle}
-                info2={Messages.selectedTitle}
+                info2={'명함 조회수'}
                 info3={Messages.bookmarkedTitle}
                 info1Number={employmentData.length}
-                info2Number={employmentData.length}
-                info3Number={localStorage.getItem('selectcount')}
+                info2Number={userInfo.viewCount >= 99 ? 99 : userInfo.viewCount}
+                info3Number={careerData.length}
               />
               <AppliedBox
                 title={Messages.cardInTitle}
