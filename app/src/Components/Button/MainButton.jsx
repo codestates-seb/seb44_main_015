@@ -1,16 +1,16 @@
-import styled from 'styled-components';
-import { Colors } from '../../Assets/Theme';
+import styled from "styled-components";
+import { Colors } from "../../Assets/Theme";
 
 function MainButton({ content, ...props }) {
   return (
-    <ButtonStyled {...props}>{content ? `${content}` : '버튼'}</ButtonStyled>
+    <ButtonStyled {...props}>{content ? `${content}` : "버튼"}</ButtonStyled>
   );
 }
 
 export default MainButton;
 
 const ButtonStyled = styled.button`
-  width: ${(props) => props.width || '100px'};
+  width: ${(props) => props.width || "100px"};
   padding: 16px 0px;
   text-align: center;
   background-color: ${Colors.mainPurple};
@@ -22,10 +22,17 @@ const ButtonStyled = styled.button`
   transition: 0.3s;
   line-height: 24px;
   font-size: 16px;
+
   &:hover {
     background-color: ${Colors.secondPurple};
   }
+
   &:focus {
     background-color: #4e00b1;
+  }
+
+  &:disabled {
+    background-color: ${Colors.Gray2};
+    cursor: not-allowed;
   }
 `;

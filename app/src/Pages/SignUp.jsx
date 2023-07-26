@@ -2,6 +2,8 @@ import MainButton from "../Components/Button/MainButton";
 import OutlineButton from "../Components/Button/OutlineButton";
 import Logo from "../Assets/Icons/Logo.png";
 import Delete from "../Assets/Icons/delete.png";
+import Unchecked from "../Assets/Icons/checkbox_unchecked.png";
+import Checked from "../Assets/Icons/checkbox_checked.png";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -31,14 +33,37 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState([]);
-  const navigate = useNavigate();
-
   const [selectedUserType, setSelectedUserType] = useState(null);
-  const [selectedTag, setSelectedTag] = useState(null);
-
+  const [selectedTags, setSelectedTags] = useState([]);
   const [addedResumes, setAddedResumes] = useState([]);
   const [resumeContent, setResumeContent] = useState("");
+  const [checked, setChecked] = useState(false);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    // 정보를 받아오거나 초기화 등의 상황에서 phone 상태값을 적절한 형식으로 변환합니다.
+    // 예: 서버에서 정보를 받아와서 휴대폰 번호를 세팅할 때, 하이픈(-)을 추가하여 표시합니다.
+    const formattedPhoneNumber = formatPhoneNumber(phone);
+    setPhone(formattedPhoneNumber);
+  }, [phone]);
+
+  const handlePhoneChange = (e) => {
+    // 전화번호 입력 시 하이픈(-)을 제거하고 저장합니다.
+    const phoneNumber = e.target.value.replace(/-/g, "");
+    setPhone(phoneNumber);
+  };
+
+  const formatPhoneNumber = (number) => {
+    // 전화번호를 하이픈(-)으로 분리하여 표시합니다.
+    if (number.length === 11) {
+      return number.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+    }
+    return number;
+  };
+
+  const handleChecked = () => {
+    setChecked(!checked);
+  };
   const handleLogo = () => {
     navigate("/");
   };
@@ -49,6 +74,19 @@ const Signup = () => {
 
   const handleUserTypeSelect = (tag) => {
     setSelectedUserType(tag);
+  };
+
+  const handleTagSelect = (tag) => {
+    // 이미 선택한 태그인지 확인
+    if (selectedTags.includes(tag)) {
+      // 이미 선택한 태그이면 선택 해제
+      setSelectedTags((prevTags) =>
+        prevTags.filter((prevTag) => prevTag !== tag)
+      );
+    } else {
+      // 선택하지 않은 태그이면 선택 추가
+      setSelectedTags((prevTags) => [...prevTags, tag]);
+    }
   };
 
   const handleAddResume = async (e) => {
@@ -75,6 +113,48 @@ const Signup = () => {
   const handleResumeChange = (e) => {
     const content = e.target.value;
     setResumeContent(content);
+  };
+
+  const handleSignup = async () => {
+    setErrors([]); // 오류 초기화
+
+    // 유효성 검사
+    if (
+      email.trim() === "" ||
+      password.trim() === "" ||
+      name.trim() === "" ||
+      phone.trim() === "" ||
+      selectedUserType === null ||
+      selectedTags.length === 0
+    ) {
+      setErrors(["모든 필드를 입력해주세요"]); // 필수 정보 누락 오류 처리
+      return;
+    }
+
+    try {
+      // POST 요청으로 보낼 데이터 생성
+      const dataToSend = {
+        email: email,
+        password: password,
+        phone: formatPhoneNumber(phone),
+        name: name,
+        tagNames: selectedTags,
+        resumeContent: addedResumes,
+      };
+
+      // 서버로 POST 요청 보내기
+      const response = await axios.post(
+        "http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/user/signup",
+        dataToSend
+      );
+
+      // 응답 처리 (예: 회원가입 성공 시 다음 페이지로 이동)
+      console.log("회원가입 성공!", response);
+      // 여기에서 다음 페이지로 이동하거나, 다른 처리를 하시면 됩니다.
+    } catch (error) {
+      console.error("회원가입 실패!", error);
+      // 에러 처리
+    }
   };
 
   return (
@@ -137,13 +217,19 @@ const Signup = () => {
               type="text"
               value={phone}
               placeholder="휴대폰 번호를 입력해 주세요"
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={handlePhoneChange}
             />
 
             <LabelStyled>마이키워드</LabelStyled>
             <TagContainerStyled>
               {tagList.map((tag, index) => (
-                <TagStyled key={index}>{tag}</TagStyled>
+                <TagStyled
+                  key={index}
+                  selected={selectedTags.includes(tag)} // 선택 여부에 따라 스타일 적용
+                  onClick={() => handleTagSelect(tag)}
+                >
+                  {tag}
+                </TagStyled>
               ))}
             </TagContainerStyled>
             <LabelStyled>이력</LabelStyled>
@@ -176,8 +262,24 @@ const Signup = () => {
               onClick={handleAddResume}
             ></OutlineButton>
           </ResumeContainerStyled>
+          <ApprovementWrapperStyled>
+            <CheckboxStyled
+              src={checked ? Checked : Unchecked}
+              onClick={handleChecked}
+            ></CheckboxStyled>
+            <WarningStyled>
+              본 서비스는 학습용 프로젝트로 모든 개인 정보는 서비스 테스트 외에
+              타용도로 절대 사용되지 않습니다. 또한, 일정 기간 후 파기
+              예정입니다. 개인 정보 기입에 동의하시면 동의 버튼을 눌러주세요.
+            </WarningStyled>
+          </ApprovementWrapperStyled>
 
-          <MainButton width={"400px"} content={"회원가입"} />
+          <MainButton
+            width={"400px"}
+            content={"회원가입"}
+            disabled={!checked}
+            onClick={handleSignup}
+          />
           <LoginContainerStyled>
             <MemberStyled>이미 회원이신가요?</MemberStyled>
             <LoginStyled onClick={handleLogin}>로그인</LoginStyled>
@@ -420,10 +522,28 @@ const RemoveButtonStyled = styled.img`
   margin-left: 10px;
 `;
 
+const ApprovementWrapperStyled = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  margin-bottom: 23px;
+`;
+
+const CheckboxStyled = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+`;
+
+const WarningStyled = styled.p`
+  font-size: 13px;
+  font-weight: 400;
+  color: ${Colors.Gray3};
+  line-height: 19px;
+`;
+
 const ErrorMessage = styled.p`
   font-size: 12px;
   color: red;
   margin: 0.25rem 0 0 0;
 `;
-
-//깃허브 어렵네요
