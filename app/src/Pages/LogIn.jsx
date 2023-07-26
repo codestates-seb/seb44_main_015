@@ -46,6 +46,10 @@ const Login = () => {
       isValid = false;
     }
 
+    if (!selectedUserType) {
+      isValid = false;
+    }
+
     if (isValid) {
       try {
         const postData =
@@ -154,6 +158,7 @@ const Login = () => {
             width={"400px"}
             content={"로그인"}
             type={"submit"}
+            disabled={!selectedUserType}
             onClick={handleLogin}
           />
           <SignupContainerStyled>
@@ -323,5 +328,3 @@ const ErrorMessage = styled.p`
 const LoginFailStyled = styled(ErrorMessage)`
   margin-bottom: 20px;
 `;
-
-//로그인 구현 완료
