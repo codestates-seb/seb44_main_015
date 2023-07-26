@@ -10,9 +10,9 @@ import NameCardList from "./Pages/NameCardList";
 import Profile from "./Pages/Profile";
 import Maker from "./Pages/Maker";
 import Signup from "./Pages/SignUp";
-import Search from "./Pages/Search";
 import Surfing from "./Pages/Surfing";
 import TestModal from "./Pages/TestModal";
+import PostEmployment from "./Pages/PostEmployment";
 
 function App() {
   return (
@@ -32,8 +32,9 @@ function App() {
         <Route path="mypagecompany/:userId" element={<MyPageCompany />}></Route>
         <Route path="user/:userId" element={<Profile />}></Route>
         <Route path="maker" element={<Maker />}></Route>
-        <Route path="/search" element={<Search />}></Route>
         <Route path="/surfing" element={<Surfing />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/post/notice" element={<PostEmployment />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -1,14 +1,24 @@
-import { Colors } from '../../../Assets/Theme';
-import { styled } from 'styled-components';
-import Logo from '../../../Assets/Icons/Logo.png';
-import GithubLogo from '../../../Assets/Icons/GithubLogo.png';
+import { useNavigate } from "react-router-dom";
+import { Colors } from "../../../Assets/Theme";
+import { styled } from "styled-components";
+import Logo from "../../../Assets/Icons/Logo.png";
+import GithubLogo from "../../../Assets/Icons/GithubLogo.png";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate("/");
+  };
+  const handleMakerClick = () => {
+    navigate("/maker");
+  };
+
   return (
     <>
       <FooterContainerStyled>
         <InformationContainerStyled>
-          <LogoStyled src={Logo} alt="로고" />
+          <LogoStyled src={Logo} alt="로고" onClick={handleLogoClick} />
           <EmailStyled>freehaeyo@gmail.com</EmailStyled>
           <TeamIntroductionStyled>
             코드스테이츠 44기 과제 <br />
@@ -18,7 +28,7 @@ const Footer = () => {
         <TermsContainerStyled>
           <TermsStyled>이용 약관</TermsStyled>
           <TermsStyled>개인정보처리방침</TermsStyled>
-          <TermsStyled>개발진</TermsStyled>
+          <TermsStyled onClick={handleMakerClick}>개발진</TermsStyled>
         </TermsContainerStyled>
         <GithubLinkStyled>
           <GithubLogoStyled src={GithubLogo} alt="깃허브 로고" />
@@ -34,12 +44,10 @@ export default Footer;
 const FooterContainerStyled = styled.footer`
   position: relative;
   bottom: 0;
-
   display: flex;
   width: 100%;
-  height: 223px;
   min-width: 1440px;
-  padding: 49.15px 190px;
+  padding: 40px 190px 40px 190px;
   border-top: 1px solid ${Colors.Gray2};
   box-sizing: border-box;
   z-index: 1;
@@ -57,6 +65,9 @@ const LogoStyled = styled.img`
   width: 93px;
   height: 20px;
   margin-right: 18px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const EmailStyled = styled.p`
