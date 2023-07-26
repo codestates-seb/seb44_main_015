@@ -46,6 +46,10 @@ const Login = () => {
       isValid = false;
     }
 
+    if (!selectedUserType) {
+      isValid = false;
+    }
+
     if (isValid) {
       try {
         const postData =
@@ -127,10 +131,6 @@ const Login = () => {
               value={email}
               placeholder="이메일을 입력해 주세요"
               onChange={(e) => setEmail(e.target.value)}
-              error={
-                errors.includes("Email_empty") ||
-                errors.includes("Email_invalid")
-              }
             />
             {errors.includes("Email_empty") && (
               <ErrorMessage>이메일 주소를 입력해 주세요.</ErrorMessage>
@@ -144,7 +144,6 @@ const Login = () => {
               value={password}
               placeholder="비밀번호를 입력해 주세요"
               onChange={(e) => setPassword(e.target.value)}
-              error={errors.includes("Password_empty")}
             />
             {errors.includes("Password_empty") && (
               <ErrorMessage>비밀번호를 입력해 주세요.</ErrorMessage>
@@ -159,6 +158,7 @@ const Login = () => {
             width={"400px"}
             content={"로그인"}
             type={"submit"}
+            disabled={!selectedUserType}
             onClick={handleLogin}
           />
           <SignupContainerStyled>
