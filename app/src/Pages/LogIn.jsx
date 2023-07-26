@@ -127,10 +127,6 @@ const Login = () => {
               value={email}
               placeholder="이메일을 입력해 주세요"
               onChange={(e) => setEmail(e.target.value)}
-              error={
-                errors.includes("Email_empty") ||
-                errors.includes("Email_invalid")
-              }
             />
             {errors.includes("Email_empty") && (
               <ErrorMessage>이메일 주소를 입력해 주세요.</ErrorMessage>
@@ -144,7 +140,6 @@ const Login = () => {
               value={password}
               placeholder="비밀번호를 입력해 주세요"
               onChange={(e) => setPassword(e.target.value)}
-              error={errors.includes("Password_empty")}
             />
             {errors.includes("Password_empty") && (
               <ErrorMessage>비밀번호를 입력해 주세요.</ErrorMessage>
@@ -328,3 +323,5 @@ const ErrorMessage = styled.p`
 const LoginFailStyled = styled(ErrorMessage)`
   margin-bottom: 20px;
 `;
+
+//로그인 구현 완료

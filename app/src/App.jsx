@@ -1,21 +1,24 @@
-import './App.css';
-import MainPage from './Pages/Main';
-import EmploymentDetail from './Pages/EmploymentDetail';
-import EmploymentList from './Pages/EmploymentList';
-import MyPageFreelancer from './Pages/MyPageFreelancer';
-import MyPageCompany from './Pages/MyPageCompany';
-import Login from './Pages/LogIn';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import NameCardList from './Pages/NameCardList';
-import Profile from './Pages/Profile';
-import Maker from './Pages/Maker';
-import Signup from './Pages/SignUp';
-import Search from './Pages/Search';
+import "./App.css";
+import MainPage from "./Pages/Main";
+import EmploymentDetail from "./Pages/EmploymentDetail";
+import EmploymentList from "./Pages/EmploymentList";
+import MyPageFreelancer from "./Pages/MyPageFreelancer";
+import MyPageCompany from "./Pages/MyPageCompany";
+import Login from "./Pages/LogIn";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NameCardList from "./Pages/NameCardList";
+import Profile from "./Pages/Profile";
+import Maker from "./Pages/Maker";
+import Signup from "./Pages/SignUp";
+import Search from "./Pages/Search";
+
+import TestModal from "./Pages/TestModal";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* <Route path="/" element={<TestModal />}></Route> */}
         <Route path="/" element={<MainPage />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
