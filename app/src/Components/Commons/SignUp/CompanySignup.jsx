@@ -9,32 +9,34 @@ import axios from "axios";
 import { Colors } from "../../../Assets/Theme";
 import styled from "styled-components";
 
-const FreelancerSignup = () => {
+const CompanySignup = () => {
   const tagList = [
-    "신입",
-    "1~3년차",
-    "4~7년차",
-    "7~10년차",
-    "10년차+",
-    "빠른손",
-    "성실함",
-    "꼼꼼함",
-    "체계적",
-    "참신함",
-    "정시출근",
-    "소통왕",
-    "열정왕",
-    "책임감",
-    "외향적",
+    "연봉 상위 1%",
+    "연봉 상위 10%",
+    "업력 5년 이상",
+    "재택근무",
+    "로고-브랜딩",
+    "인쇄-홍보물",
+    "패키지-서버",
+    "웹-모바일 디자인",
+    "백엔드",
+    "프론트엔드",
+    "데이터",
+    "풀스택",
+    "DevOps",
+    "인프라",
+    "퍼블리셔",
+    "ML/DL",
   ];
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [person, setPerson] = useState("");
+  const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
+  const [intro, setIntro] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
-  const [addedResumes, setAddedResumes] = useState([]);
-  const [resumeContent, setResumeContent] = useState("");
   const [checked, setChecked] = useState(false);
 
   const [errors, setErrors] = useState([]);
@@ -83,32 +85,6 @@ const FreelancerSignup = () => {
     }
   };
 
-  const handleAddResume = async (e) => {
-    e.preventDefault();
-
-    setErrors([]);
-
-    if (resumeContent.trim() !== "") {
-      setAddedResumes((prev) => [...prev, resumeContent]);
-      setResumeContent("");
-    } else {
-      setErrors((prevErrors) => [...prevErrors, "Empty"]);
-    }
-  };
-
-  const handleRemoveResume = (index) => {
-    setAddedResumes((prevResumes) => {
-      const updatedResumes = [...prevResumes];
-      updatedResumes.splice(index, 1);
-      return updatedResumes;
-    });
-  };
-
-  const handleResumeChange = (e) => {
-    const content = e.target.value;
-    setResumeContent(content);
-  };
-
   const handleSignup = async (e) => {
     e.preventDefault();
     setErrors([]);
@@ -136,15 +112,9 @@ const FreelancerSignup = () => {
       isValid = false;
     }
 
-    //이름 유효성 검사
+    //기업이름 유효성 검사
     if (!name) {
       setErrors((prevErrors) => [...prevErrors, "Name_empty"]);
-      isValid = false;
-    } else if (!/^[a-zA-Z0-9가-힣]+$/.test(name)) {
-      setErrors((prevErrors) => [...prevErrors, "Name_specialChars"]);
-      isValid = false;
-    } else if (name.length < 2) {
-      setErrors((prevErrors) => [...prevErrors, "Name_short"]);
       isValid = false;
     }
 
@@ -157,6 +127,27 @@ const FreelancerSignup = () => {
       isValid = false;
     }
 
+    //대표자명 유효성 검사
+    if (!person) {
+      setErrors((prevErrors) => [...prevErrors, "Person_empty"]);
+      isValid = false;
+    }
+
+    //주소 유효성 검사
+    if (!address) {
+      setErrors((prevErrors) => [...prevErrors, "Address_empty"]);
+      isValid = false;
+    } else if (address.length < 5) {
+      setErrors((prevErrors) => [...prevErrors, "Address_short"]);
+      isValid = false;
+    }
+
+    //회사소개 유효성 검사
+    if (!intro) {
+      setErrors((prevErrors) => [...prevErrors, "Intro_empty"]);
+      isValid = false;
+    }
+
     if (isValid) {
       try {
         // POST 요청으로 보낼 데이터 생성
@@ -165,13 +156,15 @@ const FreelancerSignup = () => {
           password: password,
           phone: formatPhoneNumber(phone),
           name: name,
+          person: person,
+          intro: intro,
+          address: address,
           tagNames: selectedTags,
-          resumeContent: addedResumes,
         };
 
         // 서버로 POST 요청 보내기
         const response = await axios.post(
-          "http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/user/signup",
+          "http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/signup",
           dataToSend
         );
 
@@ -224,29 +217,48 @@ const FreelancerSignup = () => {
           </ErrorMessage>
         )}
 
-        <LabelStyled>이름</LabelStyled>
+        <LabelStyled>회사·의뢰인 이름</LabelStyled>
         <InputStyled
           type="text"
           value={name}
-          placeholder="이름을 입력해 주세요"
+          placeholder="회사·의뢰인 이름을 입력해 주세요"
           onChange={(e) => setName(e.target.value)}
         />
         {errors.includes("Name_empty") && (
-          <ErrorMessage>이름을 입력해 주세요.</ErrorMessage>
-        )}
-        {errors.includes("Name_specialChars") && (
-          <ErrorMessage>이름에 특수문자는 포함될 수 없습니다.</ErrorMessage>
-        )}
-        {errors.includes("Name_short") && (
-          <ErrorMessage>이름은 두 글자 이상이어야 합니다.</ErrorMessage>
+          <ErrorMessage>회사·의뢰인 이름을 입력해 주세요.</ErrorMessage>
         )}
 
-        <LabelStyled>휴대폰번호</LabelStyled>
+        <LabelStyled>대표자명</LabelStyled>
+        <InputStyled
+          type="text"
+          value={person}
+          placeholder="대표자명을 입력해 주세요"
+          onChange={(e) => setPerson(e.target.value)}
+        />
+        {errors.includes("Person_empty") && (
+          <ErrorMessage>대표자명을 입력해 주세요.</ErrorMessage>
+        )}
+
+        <LabelStyled>주소</LabelStyled>
+        <InputStyled
+          type="text"
+          value={address}
+          placeholder="주소를 정확히 입력해 주세요"
+          onChange={(e) => setAddress(e.target.value)}
+        />
+        {errors.includes("Address_empty") && (
+          <ErrorMessage>주소를 입력해 주세요.</ErrorMessage>
+        )}
+        {errors.includes("Address_short") && (
+          <ErrorMessage>조금 더 상세한 주소를 입력해 주세요.</ErrorMessage>
+        )}
+
+        <LabelStyled>연락처</LabelStyled>
         <InputStyled
           type="text"
           value={phone}
-          placeholder="휴대폰 번호를 입력해 주세요"
-          onChange={handlePhoneChange}
+          placeholder="연락 가능한 휴대폰 번호를 입력해 주세요"
+          onChange={(e) => setPhone(e.target.value)}
         />
         {errors.includes("Phone_empty") && (
           <ErrorMessage>휴대폰 번호를 입력해 주세요.</ErrorMessage>
@@ -255,7 +267,7 @@ const FreelancerSignup = () => {
           <ErrorMessage>휴대폰 번호 11자리를 모두 입력해 주세요.</ErrorMessage>
         )}
 
-        <LabelStyled>마이키워드</LabelStyled>
+        <LabelStyled>회사 키워드</LabelStyled>
         <TagContainerStyled>
           {tagList.map((tag, index) => (
             <TagStyled
@@ -267,36 +279,17 @@ const FreelancerSignup = () => {
             </TagStyled>
           ))}
         </TagContainerStyled>
-        <LabelStyled>이력</LabelStyled>
-        <InputStyled
-          type="text"
-          value={resumeContent}
-          placeholder="이력을 입력해 주세요"
-          onChange={handleResumeChange}
+        <LabelStyled>회사 소개</LabelStyled>
+        <IntroStyled
+          // type="text"
+          value={intro}
+          placeholder="회사 소개를 입력해 주세요"
+          onChange={(e) => setIntro(e.target.value)}
         />
-        {errors.includes("Empty") && (
-          <ErrorMessage>공백은 입력할 수 없습니다.</ErrorMessage>
+        {errors.includes("Intro_empty") && (
+          <ErrorMessage>회사 소개를 입력해 주세요.</ErrorMessage>
         )}
       </FormContainerStyled>
-      <ResumeContainerStyled>
-        {addedResumes.map((resume, index) => (
-          <div key={index}>
-            <ResumeWrapperStyled>
-              <ResumeStyled>{resume}</ResumeStyled>
-              <RemoveButtonStyled
-                src={Delete}
-                alt={"삭제버튼"}
-                onClick={() => handleRemoveResume(index)}
-              />
-            </ResumeWrapperStyled>
-          </div>
-        ))}
-        <OutlineButton
-          width={"400px"}
-          content={"+ 이력 추가하기"}
-          onClick={handleAddResume}
-        ></OutlineButton>
-      </ResumeContainerStyled>
       <ApprovementWrapperStyled>
         <CheckboxStyled
           src={checked ? Checked : Unchecked}
@@ -327,7 +320,7 @@ const FreelancerSignup = () => {
   );
 };
 
-export default FreelancerSignup;
+export default CompanySignup;
 
 const FormContainerStyled = styled.form`
   display: flex;
@@ -418,41 +411,35 @@ const LoginStyled = styled.div`
   }
 `;
 
-const ResumeContainerStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 14px;
-`;
-
-const ResumeWrapperStyled = styled.div`
-  display: flex;
+const IntroStyled = styled.textarea`
   width: 400px;
-  align-items: center;
-  margin-bottom: 8px;
-`;
-
-const ResumeStyled = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: ${Colors.mainPurple};
-  max-width: 350px;
+  height: 200px;
   font-size: 18px;
-  font-weight: 400;
-  line-height: 23px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap; // 텍스트가 길어져도 한 줄에 나타나도록 설정
-  padding: 4px 8px;
-  border: 1px solid ${Colors.mainPurple};
   border-radius: 16px;
-  background-color: ${Colors.Bgwhite};
-`;
+  box-sizing: border-box;
+  padding: 10px 10px;
+  border: 1px solid var(--gray-2, #bebebe);
 
-const RemoveButtonStyled = styled.img`
-  width: 24px;
-  height: 24px;
-  margin-left: 10px;
+  &::placeholder {
+    font-size: 14px;
+    color: ${Colors.Gray2};
+  }
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${Colors.thirdPurple};
+    border-radius: 16px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: ${Colors.secondPurple};
+  }
+
+  &::-webkit-scrollbar-thumb:active {
+    background-color: ${Colors.mainPurple};
+  }
 `;
 
 const ApprovementWrapperStyled = styled.div`
@@ -480,6 +467,7 @@ const ErrorMessage = styled.p`
   color: red;
   margin: 0.25rem 0 0 0;
 `;
+
 const SignupFailStyled = styled(ErrorMessage)`
   margin-bottom: 20px;
 `;
