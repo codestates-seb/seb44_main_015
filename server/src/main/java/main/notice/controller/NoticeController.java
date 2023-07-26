@@ -45,9 +45,9 @@ public class NoticeController {
                                      Authentication authentication){
         Map<String, Object> principal = (Map) authentication.getPrincipal();
         Long companyId = ((Number) principal.get("id")).longValue();
-        List<Long> tagIds = noticePostDto.getTagIds();
+        List<String> tagNames = noticePostDto.getTagNames();
         Notice notice = noticeMapper.noticePostDtoToNotice(noticePostDto);
-        noticeService.createNotice(companyId, tagIds, notice);
+        noticeService.createNotice(companyId, tagNames, notice);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -99,10 +99,10 @@ public class NoticeController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity searchNotices(@RequestParam(required = true) String name,
+    public ResponseEntity searchNotices(@RequestParam(required = true) String keyword,
                                         @RequestParam(required = false, defaultValue = "10") int limit,
                                         @RequestParam(required = false, defaultValue = "0") int page){
-        List<Notice> notices = noticeService.searchNotices(name, page, limit);
+        List<Notice> notices = noticeService.searchNotices(keyword, page, limit);
         return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
     }
 

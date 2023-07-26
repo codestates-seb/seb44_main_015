@@ -45,6 +45,16 @@ public class CompanyTagService {
         return companyTagRepository.save(companyTag);
 
     }
+
+    public CompanyTag signupCreateCompanyTag(Company company, String tagName){
+        Tag tag = tagService.findTagByName(tagName);
+        CompanyTag companyTag = new CompanyTag();
+        companyTag.setTag(tag);
+        companyTag.setCompany(company);
+
+        return companyTagRepository.save(companyTag);
+
+    }
     public void deleteCompanyTag(Long companyId, Long tagId){
         CompanyTag companyTag = companyTagRepository.findByCompanyCompanyIdAndTagTagId(companyId, tagId).orElseThrow();
         companyTagRepository.delete(companyTag);

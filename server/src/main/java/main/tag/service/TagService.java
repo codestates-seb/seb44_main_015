@@ -28,6 +28,10 @@ public class TagService {
         return findVerifyTag(tagId);
     }
 
+    public Tag findTagByName(String name){
+        return findVerifyTag(name);
+    }
+
     public List<Tag> findTags(int limit){
         Pageable limitPageable = PageRequest.of(0, limit);
         return tagRepository.findAll(limitPageable).getContent();
@@ -39,7 +43,7 @@ public class TagService {
     private Tag findVerifyTag(Long tagId){
         Optional<Tag> optionalTag = tagRepository.findByTagId(tagId);
 
-        return optionalTag.orElseThrow(()->(new BusinessLogicException(ExceptionCode.TAG_EXISTS)));
+        return optionalTag.orElseThrow(()->(new BusinessLogicException(ExceptionCode.TAG_NOT_FOUND)));
     }
 
 
@@ -47,5 +51,11 @@ public class TagService {
         Optional<Tag> tag = tagRepository.findByName(name);
         if(tag.isPresent())
             throw new BusinessLogicException(ExceptionCode.TAG_EXISTS);
+    }
+
+    private Tag findVerifyTag(String name){
+        Optional<Tag> optionalTag = tagRepository.findByName(name);
+
+        return optionalTag.orElseThrow(()->(new BusinessLogicException(ExceptionCode.TAG_NOT_FOUND)));
     }
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 import main.tag.entity.Tag;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class TagDto {
     public static class Post{
         @NotBlank
         private String name;
-        @NotBlank
+        @NotNull
         private Tag.TagCategories category;
 
     }

@@ -29,7 +29,7 @@ public class CompanyService {
     private final CompanyTagService companyTagService;
 
 
-    public Company createCompany(List<Long> tagIds, Company company){
+    public Company createCompany(List<String> tagNames, Company company){
 
         verifyExistEmail(company.getEmail());
 
@@ -41,9 +41,9 @@ public class CompanyService {
 
         Company savedCompany = companyRepository.save(company);
 
-        if(tagIds != null) {
-            for (Long tagId : tagIds) {
-                savedCompany.getCompanyTags().add(companyTagService.signupCreateCompanyTag(savedCompany, tagId));
+        if(tagNames != null) {
+            for (String tagName : tagNames) {
+                savedCompany.getCompanyTags().add(companyTagService.signupCreateCompanyTag(savedCompany, tagName));
             }
         }
 

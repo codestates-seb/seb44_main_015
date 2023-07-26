@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class TokenResponseDto {
     private Long id;
+    private String userType;
     private Integer accessTokenExpirationMinutes;
     private String accessToken;
     private String refreshToken;

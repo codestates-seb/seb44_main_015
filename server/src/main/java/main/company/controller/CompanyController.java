@@ -43,7 +43,7 @@ public class CompanyController {
 
     @PostMapping("/signup")
     public ResponseEntity signUpCompany(@Valid @RequestBody CompanyDto.Post companyPostDto){
-        companyService.createCompany(companyPostDto.getTagIds(), companyMapper.companyPostDtoToCompany(companyPostDto));
+        companyService.createCompany(companyPostDto.getTagNames(), companyMapper.companyPostDtoToCompany(companyPostDto));
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

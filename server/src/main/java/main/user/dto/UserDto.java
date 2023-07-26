@@ -27,13 +27,13 @@ public class UserDto {
         private String password;
 
         @NotBlank
-        @Pattern(regexp = "^010-\\d{3,4}-\\d{4}$")
+        @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$")
         private String phone;
 
         @NotBlank
         private String name;
 
-        private List<Long> tagIds;
+        private List<String> tagNames;
 
         private List<String> resumeContent;
 
@@ -49,7 +49,7 @@ public class UserDto {
         private String password;
 
         @NotBlank
-        @Pattern(regexp = "^010-\\d{3,4}-\\d{4}$")
+        @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$")
         private String phone;
 
         @NotBlank
@@ -68,6 +68,8 @@ public class UserDto {
     @NoArgsConstructor
     public static class Response{
         private long userId;
+
+        private int viewCount;
 
         @Email
         @NotBlank
@@ -98,6 +100,8 @@ public class UserDto {
         private String name;
 
         private long cardId;
+
+        private int viewCount;
 
         private List<String> tagNames;
 

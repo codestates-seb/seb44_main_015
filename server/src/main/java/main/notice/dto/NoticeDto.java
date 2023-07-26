@@ -30,7 +30,7 @@ public class NoticeDto {
         @NotBlank
         private String content;
 
-        private List<Long> tagIds;
+        private List<String> tagNames;
 
         @NotNull
         private LocalDateTime deadline;
