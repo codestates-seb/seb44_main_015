@@ -1,16 +1,17 @@
-import './App.css';
-import MainPage from './Pages/Main';
-import EmploymentDetail from './Pages/EmploymentDetail';
-import EmploymentList from './Pages/EmploymentList';
-import MyPageFreelancer from './Pages/MyPageFreelancer';
-import MyPageCompany from './Pages/MyPageCompany';
-import Login from './Pages/LogIn';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import NameCardList from './Pages/NameCardList';
-import Profile from './Pages/Profile';
-import Maker from './Pages/Maker';
-import Signup from './Pages/SignUp';
-import Search from './Pages/Search';
+import "./App.css";
+import MainPage from "./Pages/Main";
+import EmploymentDetail from "./Pages/EmploymentDetail";
+import EmploymentList from "./Pages/EmploymentList";
+import MyPageFreelancer from "./Pages/MyPageFreelancer";
+import MyPageCompany from "./Pages/MyPageCompany";
+import Login from "./Pages/LogIn";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NameCardList from "./Pages/NameCardList";
+import Profile from "./Pages/Profile";
+import Maker from "./Pages/Maker";
+import Signup from "./Pages/SignUp";
+import Search from "./Pages/Search";
+import Surfing from "./Pages/Surfing";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="user/:userId" element={<Profile />}></Route>
         <Route path="maker" element={<Maker />}></Route>
         <Route path="/search" element={<Search />}></Route>
+        <Route path="/surfing" element={<Surfing />}></Route>
       </Routes>
     </BrowserRouter>
   );
