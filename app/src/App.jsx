@@ -10,7 +10,6 @@ import NameCardList from "./Pages/NameCardList";
 import Profile from "./Pages/Profile";
 import Maker from "./Pages/Maker";
 import Signup from "./Pages/SignUp";
-import Search from "./Pages/Search";
 import Surfing from "./Pages/Surfing";
 import TestModal from "./Pages/TestModal";
 import PostEmployment from "./Pages/PostEmployment";
@@ -20,7 +19,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* <Route path="/" element={<TestModal />}></Route> */}
-        <Route path="/" element={<PostEmployment />}></Route>
+        <Route path="/" element={<MainPage />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/employmentlist" element={<EmploymentList />}></Route>
@@ -33,8 +32,9 @@ function App() {
         <Route path="mypagecompany/:userId" element={<MyPageCompany />}></Route>
         <Route path="user/:userId" element={<Profile />}></Route>
         <Route path="maker" element={<Maker />}></Route>
-        <Route path="/search" element={<Search />}></Route>
         <Route path="/surfing" element={<Surfing />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/post/notice" element={<PostEmployment />}></Route>
       </Routes>
     </BrowserRouter>
   );
