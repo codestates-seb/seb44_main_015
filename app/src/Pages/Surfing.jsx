@@ -4,7 +4,7 @@ import Footer from "../Components/Commons/Layouts/Footer";
 import { styled } from "styled-components";
 import { Colors } from "../Assets/Theme";
 import MainButton from "../Components/Button/MainButton";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "../Api/Axios";
 import {
   LowerContainerStyled,
@@ -21,8 +21,8 @@ const Surfing = () => {
   };
 
   const onSubmitSearch = (e) => {
-    if (e.key === "Enter") {
-      clicksurfHandler;
+    if (e.keyCode === 0) {
+      clicksurfHandler();
     }
   };
   const clicksurfHandler = () => {
@@ -37,8 +37,6 @@ const Surfing = () => {
     }
   };
 
-  console.log(careerData);
-
   return (
     <>
       <Header />
@@ -49,6 +47,7 @@ const Surfing = () => {
             onChange={surfHandler}
             $surfvalue={surfvalue}
             onKeyPress={onSubmitSearch}
+            placeholder="개발자, 번역가, 디자이너"
           />
           <MainButton content={"검색"} onClick={clicksurfHandler} />
         </UpperContainerStyled>
@@ -65,7 +64,7 @@ const Surfing = () => {
             </EmploymentCardContainerStyled>
           ) : (
             <EmploymentCardContainerStyled>
-              {"검색어를 입력하세요"}
+              {"관심 키워드를 검색해보세요!"}
             </EmploymentCardContainerStyled>
           )}
         </LowerContainerStyled>
@@ -83,20 +82,20 @@ const SurfContainerStyled = styled.main`
   justify-content: center;
   align-items: center;
   min-width: 1440px;
-  height: auto;
+  height: 100%;
   box-sizing: border-box;
   background-color: ${Colors.Bgwhite};
 `;
 const UpperContainerStyled = styled.section`
   display: flex;
   margin-top: 90px;
-  padding: 40px 190px 40px 190px;
+  padding: 40px 100px 40px 100px;
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
 `;
 
-const TextareaStyled = styled.textarea`
+const TextareaStyled = styled.input`
   width: ${(props) => props.width || "700px"};
   height: 60px;
   padding: 16px;
