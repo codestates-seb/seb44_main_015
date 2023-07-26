@@ -6,8 +6,8 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Colors } from '../Assets/Theme';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import axios from '../Api/Axios';
 
 const EmploymentDetail = () => {
   let { noticeId } = useParams();
@@ -18,26 +18,26 @@ const EmploymentDetail = () => {
   const userId = localStorage.getItem('id');
 
   useEffect(() => {
-    axios
-      .all([
-        axios.get(
-          `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/notice/${
-            noticeIdFromState ? noticeIdFromState : noticeId
-          }`,
-        ),
-        axios.get(
-          `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/user/${userId}`,
-        ),
-      ])
-      .then(
-        axios.spread((res1, res2) => {
-          setCareerData(res1.data);
-          setUserInfo(res2.data);
-        }),
-      )
-      .catch((err) => console.log(err));
+    async function fetchData() {
+      const response = await axios.get(
+        `notice/${noticeIdFromState ? noticeIdFromState : noticeId}`,
+      );
+      setCareerData(response.data);
+    }
+    fetchData();
   }, []);
 
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get(`user/${userId}`);
+      setUserInfo(response.data);
+    }
+    fetchData();
+  }, []);
+
+  const cardSendHandler = () => {
+    setClicked((prev) => !prev);
+  };
   return (
     <>
       <Header />

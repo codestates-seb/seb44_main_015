@@ -4,8 +4,10 @@ import OutlineButton from '../../Button/OutlineButton';
 import { styled } from 'styled-components';
 import { useState, useEffect } from 'react';
 import axios from '../../../Api/Axios';
+import { useNavigate } from 'react-router-dom';
 
 const ApplyToCompany = ({ data, detail }) => {
+  const navigate = useNavigate();
   const [savedNoticeId, setSavedNoticeId] = useState(null);
   const [savedNoticeIdforbook, setSavedNoticeIdforbook] = useState(null);
   const cardInHandler = (e) => {
@@ -33,7 +35,7 @@ const ApplyToCompany = ({ data, detail }) => {
               },
             },
           );
-          if (response.status === 201) {
+          if (response.status === 201 && savedNoticeIdforbook !== null) {
             alert('북마크 완료!');
             return;
           } else {
@@ -41,12 +43,11 @@ const ApplyToCompany = ({ data, detail }) => {
           }
         } catch (error) {
           console.log(error);
-          alert('이미 북마크한 채용입니다.');
         }
       }
     }
     fetchData();
-  }, [bookmarkHandler, setSavedNoticeIdforbook]);
+  }, [bookmarkHandler]);
 
   useEffect(() => {
     async function fetchData() {
@@ -63,7 +64,7 @@ const ApplyToCompany = ({ data, detail }) => {
               },
             },
           );
-          if (response.status === 201) {
+          if (response.status === 201 && savedNoticeId !== null) {
             alert('명함넣기 완료!');
             return;
           } else {
@@ -71,12 +72,11 @@ const ApplyToCompany = ({ data, detail }) => {
           }
         } catch (error) {
           console.log(error);
-          alert('이미 명함 넣은 채용입니다.');
         }
       }
     }
     fetchData();
-  }, [cardInHandler, setSavedNoticeId]);
+  }, [cardInHandler]);
 
   return (
     <>
@@ -101,24 +101,34 @@ const ApplyToCompany = ({ data, detail }) => {
               />
             </BottonContainerStyled>
           </>
-        ) : null}
-        {detail && (
-          <TextConatinerStyled>
-            <CompanyNameStyled $companyName={detail.companyName}>
-              {detail.companyName}
-            </CompanyNameStyled>
-            {detail.companyPhone && (
-              <TextStyled $companyPhone={detail.companyPhone}>
-                {detail.companyPhone}
-              </TextStyled>
-            )}
-            {detail.companyEmail && (
-              <TextStyled $companyEmail={detail.companyEmail}>
-                {detail.companyEmail}
-              </TextStyled>
-            )}
-          </TextConatinerStyled>
+        ) : (
+          <OutlineButton
+            onClick={() => {
+              navigate('/signup');
+            }}
+            width={'360px'}
+            content={'프리랜서로 회원가입을 하고 명함을 넣어보세요!'}
+          />
         )}
+        {Object.keys(detail).length !== 0 ? (
+          <>
+            <TextConatinerStyled>
+              <CompanyNameStyled $companyName={detail.companyName}>
+                {detail.companyName}
+              </CompanyNameStyled>
+              {detail.companyPhone && (
+                <TextStyled $companyPhone={detail.companyPhone}>
+                  {detail.companyPhone}
+                </TextStyled>
+              )}
+              {detail.companyEmail && (
+                <TextStyled $companyEmail={detail.companyEmail}>
+                  {detail.companyEmail}
+                </TextStyled>
+              )}
+            </TextConatinerStyled>
+          </>
+        ) : null}
       </RightContainerStyled>
     </>
   );
