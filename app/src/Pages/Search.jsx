@@ -1,10 +1,10 @@
-import Header from '../Components/Commons/Layouts/Header';
-import Footer from '../Components/Commons/Layouts/Footer';
-import TagList from '../Components/Commons/SearchPage/TagList';
-import EmploymentCardList from '../Components/Commons/SearchPage/EmploymentCardList';
-import { useState } from 'react';
-import { styled } from 'styled-components';
-import { Colors } from '../Assets/Theme';
+import Header from "../Components/Commons/Layouts/Header";
+import Footer from "../Components/Commons/Layouts/Footer";
+import TagList from "../Components/Commons/SearchPage/TagList";
+import EmploymentCardList from "../Components/Commons/SearchPage/EmploymentCardList";
+import { useState } from "react";
+import { styled } from "styled-components";
+import { Colors } from "../Assets/Theme";
 
 const EmploymentList = () => {
   const [selectedTag, setSelectedTag] = useState(null);
@@ -27,7 +27,7 @@ const EmploymentList = () => {
 
 export default EmploymentList;
 
-const EmploymentListContainerStyled = styled.div`
+export const EmploymentListContainerStyled = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
