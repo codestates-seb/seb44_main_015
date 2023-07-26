@@ -1,5 +1,6 @@
 import MainButton from "../../Button/MainButton";
 import OutlineButton from "../../Button/OutlineButton";
+import Modal from "../Modal";
 import Delete from "../../../Assets/Icons/delete.png";
 import Unchecked from "../../../Assets/Icons/checkbox_unchecked.png";
 import Checked from "../../../Assets/Icons/checkbox_checked.png";
@@ -38,6 +39,7 @@ const FreelancerSignup = () => {
   const [checked, setChecked] = useState(false);
 
   const [errors, setErrors] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -175,14 +177,23 @@ const FreelancerSignup = () => {
           dataToSend
         );
 
-        // 응답 처리 (예: 회원가입 성공 시 다음 페이지로 이동)
-        console.log("회원가입 성공!", response);
-        // 여기에서 다음 페이지로 이동하거나, 다른 처리를 하시면 됩니다.
+        if (response.status === 201) {
+          console.log("회원가입 성공!", response);
+          setModalOpen(true);
+        } else {
+          setErrors((prevErrors) => [...prevErrors, "SignupFail"]);
+          throw new Error(
+            "회원가입에 실패했습니다. 입력 정보를 확인해 주세요."
+          );
+        }
       } catch (error) {
-        console.error("회원가입 실패!", error);
+        console.error("회원가입 요청 중 오류가 발생했습니다.", error);
         setErrors((prevErrors) => [...prevErrors, "SignupFail"]);
       }
     }
+  };
+  const handleModalClose = () => {
+    setIsSuccessModalOpen(false);
   };
 
   return (
@@ -323,6 +334,15 @@ const FreelancerSignup = () => {
         <MemberStyled>이미 회원이신가요?</MemberStyled>
         <LoginStyled onClick={handleLogin}>로그인</LoginStyled>
       </LoginContainerStyled>
+      <Modal
+        isOpen={modalOpen}
+        onClose={handleModalClose}
+        title="회원가입 성공!"
+        text="프리해요와 함께 성장해 나가는 모습을 기대합니다!"
+        content="로그인 하러 가기"
+        subButtonText={"창 닫기"}
+        redirectPage={"/login"}
+      />
     </>
   );
 };

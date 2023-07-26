@@ -12,11 +12,13 @@ import Maker from "./Pages/Maker";
 import Signup from "./Pages/SignUp";
 import Search from "./Pages/Search";
 import Surfing from "./Pages/Surfing";
+import TestModal from "./Pages/TestModal";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* <Route path="/" element={<TestModal />}></Route> */}
         <Route path="/" element={<MainPage />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>

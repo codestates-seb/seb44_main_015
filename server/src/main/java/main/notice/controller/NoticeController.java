@@ -99,10 +99,10 @@ public class NoticeController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity searchNotices(@RequestParam(required = true) String name,
+    public ResponseEntity searchNotices(@RequestParam(required = true) String keyword,
                                         @RequestParam(required = false, defaultValue = "10") int limit,
                                         @RequestParam(required = false, defaultValue = "0") int page){
-        List<Notice> notices = noticeService.searchNotices(name, page, limit);
+        List<Notice> notices = noticeService.searchNotices(keyword, page, limit);
         return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
     }
 
