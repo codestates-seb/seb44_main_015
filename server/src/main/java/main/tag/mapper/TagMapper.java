@@ -2,6 +2,8 @@ package main.tag.mapper;
 
 import main.companyTag.entity.CompanyTag;
 import main.tag.dto.TagDto;
+import main.tag.dto.TagPostDto;
+import main.tag.dto.TagResponseDto;
 import main.tag.entity.Tag;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,12 +15,12 @@ import java.util.List;
 public interface TagMapper {
     @Mapping(source = "tag.name", target = "name")
     @Mapping(source = "tag.tagId", target = "tagId")
-    TagDto.Response companyTagToTagResponse(CompanyTag companyTag);
+    TagResponseDto companyTagToTagResponse(CompanyTag companyTag);
 
-    Tag tagPostDtoToTag(TagDto.Post post);
+    Tag tagPostDtoToTag(TagPostDto post);
 
-    TagDto.Response tagToTagResponse(Tag tag);
+    TagResponseDto tagToTagResponse(Tag tag);
 
-    List<TagDto.Response> companyTagsToTagResponses(List<CompanyTag> companyTags);
-    List<TagDto.Response> tagsToTagResponses(List<Tag> tags);
+    List<TagResponseDto> companyTagsToTagResponses(List<CompanyTag> companyTags);
+    List<TagResponseDto> tagsToTagResponses(List<Tag> tags);
 }

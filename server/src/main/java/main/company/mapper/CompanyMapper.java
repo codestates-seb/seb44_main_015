@@ -1,6 +1,9 @@
 package main.company.mapper;
 
 
+import main.company.dto.CompanyPatchDto;
+import main.company.dto.CompanyPostDto;
+import main.company.dto.CompanyResponseDto;
 import main.notice.entity.Notice;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,11 +19,11 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CompanyMapper {
 
-    Company companyPostDtoToCompany(CompanyDto.Post company);
-    Company companyPatchDtoToCompany(CompanyDto.Patch company);
+    Company companyPostDtoToCompany(CompanyPostDto company);
+    Company companyPatchDtoToCompany(CompanyPatchDto company);
 
     @Mapping(target = "tagNames", expression = "java(getTagNames(company))")
-    CompanyDto.Response companyToCompanyResponseDto(Company company);
+    CompanyResponseDto companyToCompanyResponseDto(Company company);
 
     default List<String> getTagNames(Company company){
         return company.getCompanyTags().stream()

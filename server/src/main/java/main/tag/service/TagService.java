@@ -3,7 +3,10 @@ package main.tag.service;
 import lombok.RequiredArgsConstructor;
 import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
+import main.tag.dto.TagPostDto;
+import main.tag.dto.TagResponseDto;
 import main.tag.entity.Tag;
+import main.tag.mapper.TagMapper;
 import main.tag.repository.TagRepository;
 import main.user.entity.User;
 import org.springframework.data.domain.PageRequest;
@@ -18,9 +21,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TagService {
     private final TagRepository tagRepository;
+    private final TagMapper tagMapper;
 
-    public Tag createTag(Tag tag){
-        verifyExistTag(tag.getName());
+    public Tag createTag(TagPostDto tagPostDto){
+        verifyExistTag(tagPostDto.getName());
+        Tag tag = tagMapper.tagPostDtoToTag(tagPostDto);
         return tagRepository.save(tag);
     }
 
@@ -32,13 +37,15 @@ public class TagService {
         return findVerifyTag(name);
     }
 
-    public List<Tag> findTags(int limit){
+    public List<TagResponseDto> findTags(int limit){
         Pageable limitPageable = PageRequest.of(0, limit);
-        return tagRepository.findAll(limitPageable).getContent();
+
+
+        return tagMapper.tagsToTagResponses(tagRepository.findAll(limitPageable).getContent());
     }
 
-    public List<Tag> findTagsByCategory(String category){
-        return tagRepository.findByCategory(Tag.TagCategories.valueOf(category.toUpperCase()));
+    public List<TagResponseDto> findTagsByCategory(String category){
+        return tagMapper.tagsToTagResponses(tagRepository.findByCategory(Tag.TagCategories.valueOf(category.toUpperCase())));
     }
     private Tag findVerifyTag(Long tagId){
         Optional<Tag> optionalTag = tagRepository.findByTagId(tagId);

@@ -5,10 +5,13 @@ import main.bookmark.service.BookmarkService;
 import main.card.entity.Card;
 import main.card.service.CardService;
 import main.cardCheck.dto.CardCheckDto;
+import main.cardCheck.dto.CardCheckPatchDto;
+import main.cardCheck.dto.CardCheckPostDto;
+import main.cardCheck.dto.CardCheckResponseDto;
 import main.cardCheck.entity.CardCheck;
 import main.cardCheck.mapper.CardCheckMapper;
 import main.cardCheck.service.CardCheckService;
-import main.notice.dto.NoticeDto;
+import main.notice.dto.*;
 import main.notice.entity.Notice;
 import main.notice.mapper.NoticeMapper;
 import main.notice.service.NoticeService;
@@ -34,21 +37,18 @@ import java.util.Map;
 public class NoticeController {
     private final CardCheckService cardCheckService;
     private final NoticeService noticeService;
-    private final NoticeMapper noticeMapper;
-    private final CardCheckMapper cardCheckMapper;
-    private final CardService cardService;
     private final UserService userService;
     private final BookmarkService bookmarkService;
 
     @PostMapping
-    public ResponseEntity postNotice(@Valid @RequestBody NoticeDto.Post noticePostDto,
+    public ResponseEntity postNotice(@Valid @RequestBody NoticePostDto noticePostDto,
                                      Authentication authentication){
         Map<String, Object> principal = (Map) authentication.getPrincipal();
         Long companyId = ((Number) principal.get("id")).longValue();
-        List<String> tagNames = noticePostDto.getTagNames();
-        Notice notice = noticeMapper.noticePostDtoToNotice(noticePostDto);
-        noticeService.createNotice(companyId, tagNames, notice);
+        noticePostDto.setCompanyId(companyId);
+        noticeService.createNotice(noticePostDto);
         return new ResponseEntity(HttpStatus.CREATED);
+        //r
     }
 
     @PostMapping("/{notice_id}/card")
@@ -60,13 +60,14 @@ public class NoticeController {
 
         Card findCard = user.getCard();
 
-        CardCheckDto.Post putCardDto = new CardCheckDto.Post();
+        CardCheckPostDto putCardDto = new CardCheckPostDto();
 
-        putCardDto.setCard(findCard);
-        putCardDto.setNotice(noticeService.findNotice(noticeId));
+        putCardDto.setCardId(findCard.getCardId());
+        putCardDto.setNoticeId(noticeId);
 
-        cardCheckService.createCardCheck(cardCheckMapper.cardCheckPostDtoToCardCheck(putCardDto));
+        cardCheckService.createCardCheck(putCardDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
+        //r
     }
 
     @PostMapping("/{notice_id}/bookmark")
@@ -77,55 +78,63 @@ public class NoticeController {
 
         bookmarkService.createBookmark(userId, noticeId);
         return new ResponseEntity<>(HttpStatus.CREATED);
+        //r
     }
 
     @PatchMapping("/{notice_id}")
     public ResponseEntity patchNotice(@PathVariable("notice_id") @Positive long noticeId,
-                                      @Valid @RequestBody NoticeDto.Patch noticePatchDto,
+                                      @Valid @RequestBody NoticePatchDto noticePatchDto,
                                        Authentication authentication){
         Map<String, Object> principal = (Map) authentication.getPrincipal();
         Long companyId = ((Number) principal.get("id")).longValue();
         if(companyId != noticeService.findNotice(noticeId).getCompany().getCompanyId()){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
-        noticeService.updateNotice(noticeMapper.noticePatchDtoToNotice(noticePatchDto));
+        noticePatchDto.setNoticeId(noticeId);
+        noticeService.updateNotice(noticePatchDto);
         return new ResponseEntity(HttpStatus.OK);
+        //r
     }
 
     @GetMapping
     public ResponseEntity getNotices(){
-        List<Notice> notices = noticeService.findNotices();
-        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
+        List<NoticeResponseDto> notices = noticeService.findNotices();
+        return new ResponseEntity<>(notices, HttpStatus.OK);
+        //r
     }
 
     @GetMapping("/search")
     public ResponseEntity searchNotices(@RequestParam(required = true) String keyword,
                                         @RequestParam(required = false, defaultValue = "10") int limit,
                                         @RequestParam(required = false, defaultValue = "0") int page){
-        List<Notice> notices = noticeService.searchNotices(keyword, page, limit);
-        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
+        List<NoticeResponseDto> notices = noticeService.searchNotices(keyword, page, limit);
+        return new ResponseEntity<>(notices, HttpStatus.OK);
+        //r
     }
 
     @GetMapping("/new")
     public ResponseEntity getNewNotices(@RequestParam(required = false, defaultValue = "10") int limit,
                                         @RequestParam(required = false, defaultValue = "00") int page){
-        List<Notice> notices = noticeService.findNoticesPage(page,limit);
-        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
+        List<NoticeResponseDto> notices = noticeService.findNoticesPage(page,limit);
+        return new ResponseEntity<>(notices, HttpStatus.OK);
+        //r
     }
 
     @GetMapping("/scroll")
     public ResponseEntity getScrollNotice(@RequestParam(required = false, defaultValue = "10") int limit,
                                         @RequestParam(required = false, defaultValue = "00") int scroll){
-        List<Notice> notices = noticeService.findNoticesScroll(scroll,limit);
-        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
+        List<NoticeResponseDto> notices = noticeService.findNoticesScroll(scroll,limit);
+        return new ResponseEntity<>(notices, HttpStatus.OK);
+        //r
     }
 
     @GetMapping("/{notice_id}")
     public ResponseEntity getNotice(@PathVariable("notice_id") @Positive long noticeId){
-        Notice getNotice = noticeService.findNoticeAddViewCount(noticeId);
+        NoticeResponseDetailDto notice = noticeService.findNoticeAddViewCount(noticeId);
 
 
-        return new ResponseEntity(noticeMapper.noticeToNoticeResponseDetailDto(getNotice), HttpStatus.OK);
+        return new ResponseEntity(notice, HttpStatus.OK);
+        //r
     }
     @GetMapping("/{notice_id}/card")
     public ResponseEntity getCards(@PathVariable("notice_id") @Positive long noticeId,
@@ -137,19 +146,20 @@ public class NoticeController {
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
         if(checked.equals("")){
-            List<CardCheck> cardChecks = cardCheckService.findCardChecks(noticeId);
-            return new ResponseEntity<>(cardCheckMapper.cardChecksToCardCheckResponseDtos(cardCheckService.findCardChecks(noticeId)), HttpStatus.OK);
+            List<CardCheckResponseDto> cardChecks = cardCheckService.findCardChecks(noticeId);
+            return new ResponseEntity<>(cardChecks, HttpStatus.OK);
         }
         else {
-            List<CardCheck> cardChecks = cardCheckService.findCheckedCardChecks(checked, noticeId);
-            return new ResponseEntity(cardCheckMapper.cardChecksToCardCheckResponseDtos(cardChecks), HttpStatus.OK);
+            List<CardCheckResponseDto> cardChecks = cardCheckService.findCheckedCardChecks(checked, noticeId);
+            return new ResponseEntity(cardChecks, HttpStatus.OK);
         }
+        //r
     }
 
     @PatchMapping("/{notice_id}/card/{check_id}")
     public ResponseEntity patchCardCheck(@PathVariable("notice_id") @Positive long noticeId,
                                          @PathVariable("check_id") @Positive long cardCheckId,
-                                         @Valid @RequestBody CardCheckDto.Patch cardCheckPatchDto,
+                                         @Valid @RequestBody CardCheckPatchDto cardCheckPatchDto,
                                          Authentication authentication){
         Map<String, Object> principal = (Map) authentication.getPrincipal();
         Long companyId = ((Number) principal.get("id")).longValue();
@@ -158,7 +168,7 @@ public class NoticeController {
         }
 
         cardCheckPatchDto.setCardCheckId(cardCheckId);
-        cardCheckService.updateCardCheck(cardCheckMapper.cardCheckPatchDtoToCardCheck(cardCheckPatchDto));
+        cardCheckService.updateCardCheck(cardCheckPatchDto);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

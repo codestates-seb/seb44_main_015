@@ -1,6 +1,9 @@
 package main.cardCheck.mapper;
 
 import main.cardCheck.dto.CardCheckDto;
+import main.cardCheck.dto.CardCheckPatchDto;
+import main.cardCheck.dto.CardCheckPostDto;
+import main.cardCheck.dto.CardCheckResponseDto;
 import main.cardCheck.entity.CardCheck;
 import main.company.entity.Company;
 import main.notice.dto.NoticeDto;
@@ -15,18 +18,18 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CardCheckMapper {
 
-    CardCheck cardCheckPostDtoToCardCheck(CardCheckDto.Post cardCheck);
+    CardCheck cardCheckPostDtoToCardCheck(CardCheckPostDto cardCheck);
 
-    CardCheck cardCheckPatchDtoToCardCheck(CardCheckDto.Patch cardCheck);
+    CardCheck cardCheckPatchDtoToCardCheck(CardCheckPatchDto cardCheck);
 
     @Mapping(source = "cardCheck.card.user.phone", target = "userPhone")
     @Mapping(source = "cardCheck.card.user.email", target = "userEmail")
     @Mapping(source = "cardCheck.card.user.name", target = "userName")
     @Mapping(source = "cardCheck.card.user.userId", target = "userId")
     @Mapping(target = "tagNames", expression = "java(getTagNames(cardCheck))")
-    CardCheckDto.Response cardCheckToCardCheckResponseDto(CardCheck cardCheck);
+    CardCheckResponseDto cardCheckToCardCheckResponseDto(CardCheck cardCheck);
 
-    List<CardCheckDto.Response> cardChecksToCardCheckResponseDtos(List<CardCheck> cardChecks);
+    List<CardCheckResponseDto> cardChecksToCardCheckResponseDtos(List<CardCheck> cardChecks);
 
     default List<String> getTagNames(CardCheck cardCheck){
         return cardCheck.getCard().getUser().getUserTags().stream()

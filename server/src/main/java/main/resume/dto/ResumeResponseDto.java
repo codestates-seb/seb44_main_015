@@ -3,14 +3,13 @@ package main.resume.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.user.entity.User;
 
 import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class ResumePatchDto {
+public class ResumeResponseDto {
     private Long resumeId;
     private Long userId;
     @NotBlank

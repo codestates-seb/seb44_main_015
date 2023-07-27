@@ -1,7 +1,7 @@
 package main.user.mapper;
 
 import main.notice.entity.Notice;
-import main.user.dto.UserDto;
+import main.user.dto.*;
 import main.user.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,16 +12,17 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
-    User userPostDtoToUser(UserDto.Post userPostDto);
-    User userPatchDtoToUser(UserDto.Patch userPatchDto);
+
+    User userPostDtoToUser(UserPostDto userPostDto);
+    User userPatchDtoToUser(UserPatchDto userPatchDto);
     @Mapping(source = "card.viewCount", target = "viewCount")
-    UserDto.Response userToUserResponseDto(User user);
-    List<UserDto.Response> usersToUserResponseDtos(List<User> users);
+    UserResponseDto userToUserResponseDto(User user);
+    List<UserResponseDto> usersToUserResponseDtos(List<User> users);
     @Mapping(target = "tagNames", expression = "java(getTagNames(user))")
     @Mapping(target = "resumeContents", expression = "java(getResumeContents(user))")
     @Mapping(source = "card.cardId", target = "cardId")
     @Mapping(source = "card.viewCount", target = "viewCount")
-    UserDto.ProfileResponse userToUserProfileResponse(User user);
+    UserProfileResponseDto userToUserProfileResponse(User user);
 
     default List<String> getTagNames(User user){
         return user.getUserTags().stream()

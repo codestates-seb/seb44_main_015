@@ -2,12 +2,19 @@ package main.cardCheck.service;
 
 import lombok.RequiredArgsConstructor;
 import main.card.entity.Card;
+import main.card.repository.CardRepository;
 import main.card.service.CardService;
+import main.cardCheck.dto.CardCheckPatchDto;
+import main.cardCheck.dto.CardCheckPostDto;
+import main.cardCheck.dto.CardCheckResponseDto;
 import main.cardCheck.entity.CardCheck;
+import main.cardCheck.mapper.CardCheckMapper;
 import main.cardCheck.repository.CardCheckRepository;
 import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
 import main.notice.entity.Notice;
+import main.notice.repository.NoticeRepository;
+import main.notice.service.NoticeService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +24,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CardCheckService {
     private final CardCheckRepository cardCheckRepository;
+    private final NoticeRepository noticeRepository;
+    private final CardRepository cardRepository;
+    private final CardCheckMapper cardCheckMapper;
 
-    public CardCheck createCardCheck(CardCheck cardCheck){
+    public CardCheck createCardCheck(CardCheckPostDto cardCheckPostDto){
+        CardCheck cardCheck = new CardCheck();
+        cardCheck.setCard(cardRepository.findByCardId(cardCheckPostDto.getCardId()).orElseThrow(
+                ()-> new BusinessLogicException(ExceptionCode.CARD_NOT_FOUND)));
+        cardCheck.setNotice(noticeRepository.findByNoticeId(cardCheckPostDto.getNoticeId()).orElseThrow(()->
+                new BusinessLogicException(ExceptionCode.NOTICE_NOT_FOUND)));
+
         verifyExistCardCheck(cardCheck.getCard(), cardCheck.getNotice());
         return cardCheckRepository.save(cardCheck);
     }
@@ -36,19 +52,21 @@ public class CardCheckService {
         return cardCheckRepository.findByCardCheckId(cardCheckId).orElseThrow();
     }
 
-    public List<CardCheck> findCheckedCardChecks(String checked, Long noticeId){
-        List<CardCheck> cardChecks = cardCheckRepository.findAllByCheckedAndNoticeNoticeId(CardCheck.CardCheckStatus.valueOf(checked.toUpperCase()), noticeId);
+    public List<CardCheckResponseDto> findCheckedCardChecks(String checked, Long noticeId){
+        List<CardCheckResponseDto> cardChecks = cardCheckMapper.cardChecksToCardCheckResponseDtos(
+                cardCheckRepository.findAllByCheckedAndNoticeNoticeId(CardCheck.CardCheckStatus.valueOf(checked.toUpperCase()), noticeId));
 
         return cardChecks;
     }
 
-    public List<CardCheck> findCardChecks(Long noticeId){
-        return cardCheckRepository.findByNoticeNoticeIdOrderByCreatedAtAsc(noticeId);
+    public List<CardCheckResponseDto> findCardChecks(Long noticeId){
+        return cardCheckMapper.cardChecksToCardCheckResponseDtos(cardCheckRepository.findByNoticeNoticeIdOrderByCreatedAtAsc(noticeId));
     }
 
-    public CardCheck updateCardCheck(CardCheck cardCheck){
-        CardCheck findcardCheck = findCardCheck(cardCheck.getCardCheckId());
-        findcardCheck.setChecked(cardCheck.getChecked());
+    public CardCheck updateCardCheck(CardCheckPatchDto cardCheckPatchDto){
+
+        CardCheck findcardCheck = findCardCheck(cardCheckPatchDto.getCardCheckId());
+        findcardCheck.setChecked(cardCheckPatchDto.getChecked());
         return cardCheckRepository.save(findcardCheck);
     }
 

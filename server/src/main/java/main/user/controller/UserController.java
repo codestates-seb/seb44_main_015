@@ -5,19 +5,27 @@ import main.bookmark.entity.Bookmark;
 import main.bookmark.service.BookmarkService;
 import main.cardCheck.entity.CardCheck;
 import main.cardCheck.service.CardCheckService;
+import main.notice.dto.NoticeResponseDto;
 import main.notice.entity.Notice;
 import main.notice.mapper.NoticeMapper;
+import main.notice.service.NoticeService;
+import main.rating.dto.RatingResponseDto;
 import main.rating.entity.Rating;
 import main.rating.mapper.RatingMapper;
 import main.rating.repository.RatingRepository;
 import main.rating.service.RatingService;
 import main.resume.dto.ResumeDto;
+import main.resume.dto.ResumePatchDto;
+import main.resume.dto.ResumePostDto;
+import main.resume.dto.ResumeResponseDto;
 import main.resume.entity.Resume;
 import main.resume.mapper.ResumeMapper;
 import main.resume.service.ResumeService;
 import main.tag.dto.TagDto;
+import main.tag.dto.TagPostIdDto;
+import main.tag.dto.TagPostNameDto;
 import main.tag.entity.Tag;
-import main.user.dto.UserDto;
+import main.user.dto.*;
 import main.user.entity.User;
 import main.user.mapper.UserMapper;
 import main.user.service.UserService;
@@ -41,42 +49,38 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
-    private final UserMapper userMapper;
-    private final RatingMapper ratingMapper;
     private final RatingService ratingService;
-    private final ResumeMapper resumeMapper;
     private final ResumeService resumeService;
-    private final NoticeMapper noticeMapper;
-    private final CardCheckService cardCheckService;
     private final UserTagService userTagService;
     private final BookmarkService bookmarkService;
+    private final NoticeService noticeService;
 
     @PostMapping("/signup")
-    public ResponseEntity postUser(@Valid @RequestBody UserDto.Post userPostDto){
-        User user = userMapper.userPostDtoToUser(userPostDto);
-        User createUser = userService.createUser(userPostDto.getTagNames(), userPostDto.getResumeContent(), user);
-        return new ResponseEntity<>(userMapper.userToUserResponseDto(createUser), HttpStatus.CREATED);
+    public ResponseEntity postUser(@Valid @RequestBody UserPostDto userPostDto){
+        UserResponseDto responseDto = userService.createUser(userPostDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+        //r
     }
 
     @PostMapping("/{user_id}/resume")
     public ResponseEntity postResume(@PathVariable("user_id") @Positive long userId,
-                                     @Valid @RequestBody ResumeDto.Post resumeDto,
+                                     @Valid @RequestBody ResumePostDto resumeDto,
                                      Authentication authentication){
         Map<String, Object> principal = (Map) authentication.getPrincipal();
         Long checkUserId = ((Number) principal.get("id")).longValue();
         if(userId != checkUserId){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
-        User user = userService.findUser(userId);
-        resumeDto.setUser(user);
-        Resume createdResume = resumeService.createResume(resumeMapper.resumePostDtoToResume(resumeDto));
+        resumeDto.setUserId(userId);
+        ResumeResponseDto responseDto = resumeService.createResume(resumeDto);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+        //r
     }
 
     @PostMapping("/{user_id}/tag")
     public ResponseEntity postResume(@PathVariable("user_id") @Positive long userId,
-                                     @RequestBody TagDto.PostId tagIdDto,
+                                     @RequestBody TagPostNameDto tagNameDto,
                                      Authentication authentication){
 
         Map<String, Object> principal = (Map) authentication.getPrincipal();
@@ -84,29 +88,31 @@ public class UserController {
         if(userId != checkUserId){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
-        userTagService.createUserTag(userId, tagIdDto.getTagId());
+        tagNameDto.setId(userId);
+        userTagService.createUserTag(tagNameDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
+        //r
     }
 
     @PatchMapping("/profile/{user_id}")
     public ResponseEntity patchUser(@PathVariable("user_id") @Positive long userId,
-                                    @Valid @RequestBody UserDto.Patch userPatchDto,
+                                    @Valid @RequestBody UserPatchDto userPatchDto,
                                     Authentication authentication){
         Map<String, Object> principal = (Map) authentication.getPrincipal();
         long checkUserId = ((Number) principal.get("userId")).longValue();
         if(userId != checkUserId) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
         userPatchDto.setUserId(userId);
-        User user = userMapper.userPatchDtoToUser(userPatchDto);
-        User updateUser = userService.updateUser(user);
+        UserResponseDto responseDto = userService.updateUser(userPatchDto);
 
-        return new ResponseEntity<>(userMapper.userToUserResponseDto(updateUser), HttpStatus.OK);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        //r
     }
 
     @PatchMapping("/{user_id}/resume/{resume_id}")
     public ResponseEntity patchResume(@PathVariable("user_id") @Positive long userId,
                                      @PathVariable("resume_id") @Positive long resumeId,
-                                     @Valid @RequestBody ResumeDto.Patch resumeDto,
+                                     @Valid @RequestBody ResumePatchDto resumeDto,
                                      Authentication authentication){
 
         Map<String, Object> principal = (Map) authentication.getPrincipal();
@@ -114,56 +120,55 @@ public class UserController {
         if(userId != checkUserId){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
-        User user = userService.findUser(userId);
-        resumeDto.setUser(user);
+        resumeDto.setUserId(userId);
         resumeDto.setResumeId(resumeId);
-        Resume createdResume = resumeService.updateResume(resumeMapper.resumePatchDtoToResume(resumeDto));
+        ResumeResponseDto responseDto = resumeService.updateResume(resumeDto);
 
         return new ResponseEntity<>(HttpStatus.OK);
-
+        //r
     }
 
     @GetMapping("/{user_id}")
     public ResponseEntity getUser(@PathVariable("user_id") @Positive long userId){
 
-        User findUser = userService.findOtherUser(userId);
+        UserProfileResponseDto responseDto = userService.findOtherUser(userId);
 
-        return new ResponseEntity<>(userMapper.userToUserProfileResponse(findUser), HttpStatus.OK);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        //r
     }
 
     @GetMapping("/{user_id}/bookmark")
     public ResponseEntity getUserBookmark(@PathVariable("user_id") @Positive long userId){
-        List<Bookmark> bookmarks = bookmarkService.findBookmarks(userId);
+        List<NoticeResponseDto> responseDtos = bookmarkService.findBookmarks(userId);
 
-        return new ResponseEntity<>(noticeMapper.bookmarksToNoticeResponseDtos(bookmarks), HttpStatus.OK);
+        return new ResponseEntity<>(responseDtos, HttpStatus.OK);
+        //r
     }
 
     @GetMapping("/{user_id}/rating")
     public ResponseEntity getUserRating(@PathVariable("user_id") @Positive long userId){
 
-        List<Rating> ratings = ratingService.findRatings(userId);
+        List<RatingResponseDto> ratings = ratingService.findRatings(userId);
 
-        return new ResponseEntity<>(ratingMapper.ratingsToRatingResponseDtos(ratings), HttpStatus.OK);
+        return new ResponseEntity<>(ratings, HttpStatus.OK);
+        //r
     }
 
     @GetMapping("/{user_id}/notice")
     public ResponseEntity getUserNotice(@PathVariable("user_id") @Positive long userId){
-        Long cardId = userService.findUser(userId).getCard().getCardId();
-        List<CardCheck> cardChecks = cardCheckService.findCardChecksUser(cardId);
-        List<Notice> notices = cardChecks.stream()
-                .map(cardCheck -> cardCheck.getNotice())
-                .collect(Collectors.toList());
 
-
-        return new ResponseEntity<>(noticeMapper.noticesToNoticeResponseDtos(notices), HttpStatus.OK);
+        List<NoticeResponseDto> notices = noticeService.findUserNotices(userId);
+        return new ResponseEntity<>(notices, HttpStatus.OK);
+        //r
     }
 
     @GetMapping
     public ResponseEntity getUsers(){
 
-        List<User> users = userService.findUsers();
+        List<UserResponseDto> users = userService.findUsers();
 
-        return new ResponseEntity<>(userMapper.usersToUserResponseDtos(users), HttpStatus.OK);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+        //r
     }
 
     @DeleteMapping("/delete/{user_id}")

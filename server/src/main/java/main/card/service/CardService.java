@@ -1,7 +1,9 @@
 package main.card.service;
 
 import lombok.RequiredArgsConstructor;
+import main.card.dto.CardResponseDto;
 import main.card.entity.Card;
+import main.card.mapper.CardMapper;
 import main.card.repository.CardRepository;
 import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
@@ -19,6 +21,7 @@ import java.util.Optional;
 public class CardService {
 
     private final CardRepository cardRepository;
+    private final CardMapper cardMapper;
 
     public Card createCard(User user){
         Card card = new Card();
@@ -30,10 +33,10 @@ public class CardService {
         return findVerifiedCard(cardId);
     }
 
-    public List<Card> findMostViewedCards(int page, int limit){
+    public List<CardResponseDto> findMostViewedCards(int page, int limit){
         Pageable limitPageable = PageRequest.of(page, limit);
         List<Card> cards = cardRepository.findAllByOrderByViewCountDesc(limitPageable);
-        return cards;
+        return cardMapper.cardsToCardResponsesDto(cards);
     }
 
 

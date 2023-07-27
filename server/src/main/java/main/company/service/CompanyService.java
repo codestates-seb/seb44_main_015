@@ -3,7 +3,11 @@ package main.company.service;
 import lombok.RequiredArgsConstructor;
 import main.card.entity.Card;
 import main.company.dto.CompanyDto;
+import main.company.dto.CompanyPatchDto;
+import main.company.dto.CompanyPostDto;
+import main.company.dto.CompanyResponseDto;
 import main.company.entity.Company;
+import main.company.mapper.CompanyMapper;
 import main.company.repository.CompanyRepository;
 import main.company.entity.Company;
 import main.companyTag.entity.CompanyTag;
@@ -27,10 +31,11 @@ public class CompanyService {
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final CompanyTagService companyTagService;
+    private final CompanyMapper companyMapper;
 
-
-    public Company createCompany(List<String> tagNames, Company company){
-
+    public Company createCompany(CompanyPostDto companyPostDto){
+        Company company = companyMapper.companyPostDtoToCompany(companyPostDto);
+        List<String> tagNames = companyPostDto.getTagNames();
         verifyExistEmail(company.getEmail());
 
         String encryptedPassword = passwordEncoder.encode(company.getPassword());
@@ -60,6 +65,10 @@ public class CompanyService {
         return findVerifiedCompany(companyId);
     }
 
+    public CompanyResponseDto findCompanyById(Long companyId){
+        return companyMapper.companyToCompanyResponseDto(findVerifiedCompany(companyId));
+    }
+
     public Company findCompanyByEmail(String email){
         return findVerifiedCompanyByEmail(email);
     }
@@ -68,7 +77,9 @@ public class CompanyService {
         return companyRepository.findById(companyId);
     }
 
-    public Company updateCompanyProfile(Company company) {
+    public Company updateCompanyProfile(CompanyPatchDto companyPatchDto) {
+        Company company = companyMapper.companyPatchDtoToCompany(companyPatchDto);
+
         Company findCompany = findVerifiedCompany(company.getCompanyId());
 
         Optional.ofNullable(company.getPassword())

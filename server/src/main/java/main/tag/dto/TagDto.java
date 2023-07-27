@@ -29,6 +29,7 @@ public class TagDto {
     public static class PostId{
         @NotBlank
         private Long tagId;
+        private Long Id;
 
     }
     @Getter

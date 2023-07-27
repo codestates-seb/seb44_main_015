@@ -1,6 +1,7 @@
 package main.card.mapper;
 
 import main.card.dto.CardDto;
+import main.card.dto.CardResponseDto;
 import main.card.entity.Card;
 import main.notice.entity.Notice;
 import org.mapstruct.Mapper;
@@ -18,10 +19,10 @@ public interface CardMapper {
     @Mapping(source = "user.phone", target = "phone")
     @Mapping(source = "user.email", target = "email")
     @Mapping(source = "user.userId", target = "userId")
-    CardDto.Response cardToCardResponseDto(Card card);
+    CardResponseDto cardToCardResponseDto(Card card);
 
 
-    List<CardDto.Response> cardsToCardResponsesDto(List<Card> cards);
+    List<CardResponseDto> cardsToCardResponsesDto(List<Card> cards);
 
     default List<String> getTagNames(Card card){
         return card.getUser().getUserTags().stream()

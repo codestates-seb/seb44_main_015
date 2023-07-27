@@ -1,17 +1,25 @@
 package main.notice.service;
 
 import lombok.RequiredArgsConstructor;
+import main.cardCheck.entity.CardCheck;
+import main.cardCheck.service.CardCheckService;
 import main.company.service.CompanyService;
 import main.companyTag.service.CompanyTagService;
 import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
+import main.notice.dto.NoticePatchDto;
+import main.notice.dto.NoticePostDto;
+import main.notice.dto.NoticeResponseDetailDto;
+import main.notice.dto.NoticeResponseDto;
 import main.notice.entity.Notice;
+import main.notice.mapper.NoticeMapper;
 import main.notice.repository.NoticeRepository;
 import main.noticeTag.entity.NoticeTag;
 import main.noticeTag.repository.NoticeTagRepository;
 import main.noticeTag.service.NoticeTagService;
 import main.tag.entity.Tag;
 import main.user.entity.User;
+import main.user.service.UserService;
 import org.aspectj.weaver.ast.Not;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,8 +39,14 @@ public class NoticeService {
     private final CompanyService companyService;
     private final NoticeTagService noticeTagService;
     private final NoticeTagRepository noticeTagRepository;
+    private final UserService userService;
+    private final CardCheckService cardCheckService;
+    private final NoticeMapper noticeMapper;
 
-    public Notice createNotice(Long companyId, List<String> tagNames, Notice notice){
+    public Notice createNotice(NoticePostDto noticePostDto){
+        Notice notice = noticeMapper.noticePostDtoToNotice(noticePostDto);
+        Long companyId = noticePostDto.getCompanyId();
+        List<String> tagNames = noticePostDto.getTagNames();
         notice.setCompany(companyService.findCompany(companyId));
         Notice createNotice = noticeRepository.save(notice);
         Long noticeId = createNotice.getNoticeId();
@@ -44,7 +58,9 @@ public class NoticeService {
         return noticeRepository.save(createNotice);
     }
 
-    public Notice updateNotice(Notice notice){
+    public Notice updateNotice(NoticePatchDto noticePatchDto){
+        Notice notice = noticeMapper.noticePatchDtoToNotice(noticePatchDto);
+
         Notice findNotice = findVerifiedNotice(notice.getNoticeId());
         notice.setViewCount(findNotice.getViewCount());
         notice.setCompany(findNotice.getCompany());
@@ -56,44 +72,55 @@ public class NoticeService {
         return findNotice;
     }
 
-    public Notice findNoticeAddViewCount(Long noticeId){
+    public NoticeResponseDetailDto findNoticeAddViewCount(Long noticeId){
         Notice findNotice = findVerifiedNotice(noticeId);
         findNotice.addViewCount();
-        return noticeRepository.save(findNotice);
+        noticeRepository.save(findNotice);
+        return noticeMapper.noticeToNoticeResponseDetailDto(findNotice);
     }
 
-    public List<Notice> findNoticesByCompanyId(Long companyId){
+    public List<NoticeResponseDto> findNoticesByCompanyId(Long companyId){
         List<Notice> notices = noticeRepository.findAllByCompanyCompanyId(companyId);
-        return notices;
+        return noticeMapper.noticesToNoticeResponseDtos(notices);
     }
 
-    public List<Notice> searchNotices(String name, int page, int limit){
+    public List<NoticeResponseDto> searchNotices(String name, int page, int limit){
         Pageable limitPageable = PageRequest.of(page, limit);
         LocalDateTime now = LocalDateTime.now();
-        return noticeRepository.findAllByDeadlineAfterAndTitleContainingOrDeadlineAfterAndContentContaining(now, name, now, name, limitPageable);
+        return noticeMapper.noticesToNoticeResponseDtos(
+                noticeRepository.findAllByDeadlineAfterAndTitleContainingOrDeadlineAfterAndContentContaining(now, name, now, name, limitPageable));
     }
 
-    public List<Notice> findNoticesPage(String tagName, int page, int limit){
+    public List<NoticeResponseDto> findNoticesPage(String tagName, int page, int limit){
         Pageable limitPageable = PageRequest.of(page, limit);
         List<NoticeTag> noticeTags = noticeTagRepository.findAllByTagNameOrderByNoticeCreatedAtDesc(tagName, limitPageable);
         List<Notice> notices = noticeTags.stream()
                 .map(noticeTag -> noticeTag.getNotice())
                 .collect(Collectors.toList());
-        return notices;
+        return noticeMapper.noticesToNoticeResponseDtos(notices);
     }
 
-    public List<Notice> findNoticesPage(int page, int limit){
+    public List<NoticeResponseDto> findNoticesPage(int page, int limit){
         Pageable limitPageable = PageRequest.of(page, limit);
-        return noticeRepository.findAllByOrderByCreatedAtDesc(limitPageable);
+        return noticeMapper.noticesToNoticeResponseDtos(noticeRepository.findAllByOrderByCreatedAtDesc(limitPageable));
     }
 
-    public List<Notice> findNoticesScroll(int scroll, int limit){
+    public List<NoticeResponseDto> findNoticesScroll(int scroll, int limit){
         Pageable limitPageable = PageRequest.of(scroll, limit);
-        return noticeRepository.findAllByOrderByCreatedAtDesc(limitPageable);
+        return noticeMapper.noticesToNoticeResponseDtos(noticeRepository.findAllByOrderByCreatedAtDesc(limitPageable));
     }
 
-    public List<Notice> findNotices(){
-        return noticeRepository.findAll();
+    public List<NoticeResponseDto> findNotices(){
+        return noticeMapper.noticesToNoticeResponseDtos(noticeRepository.findAll());
+    }
+
+    public List<NoticeResponseDto> findUserNotices(Long userId){
+        Long cardId = userService.findUser(userId).getCard().getCardId();
+        List<CardCheck> cardChecks = cardCheckService.findCardChecksUser(cardId);
+        List<Notice> notices = cardChecks.stream()
+                .map(cardCheck -> cardCheck.getNotice())
+                .collect(Collectors.toList());
+        return noticeMapper.noticesToNoticeResponseDtos(notices);
     }
 
     public void deleteNotice(Long noticeId){

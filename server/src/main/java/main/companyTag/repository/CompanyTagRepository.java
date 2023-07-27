@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface CompanyTagRepository extends JpaRepository<CompanyTag, Long> {
     Optional<CompanyTag> findByCompanyCompanyIdAndTagTagId(Long companyId, Long tagId);
+    Optional<CompanyTag> findByCompanyCompanyIdAndTagName(Long companyId, String name);
     List<CompanyTag> findAllByCompanyCompanyId(Long companyId);
 }

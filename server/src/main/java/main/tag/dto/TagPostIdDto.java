@@ -1,18 +1,16 @@
-package main.resume.dto;
+package main.tag.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.user.entity.User;
 
 import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class ResumePatchDto {
-    private Long resumeId;
-    private Long userId;
+public class TagPostIdDto {
     @NotBlank
-    private String content;
+    private Long tagId;
+    private Long id;
 }

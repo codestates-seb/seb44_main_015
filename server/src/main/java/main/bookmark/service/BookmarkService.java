@@ -5,7 +5,9 @@ import main.bookmark.entity.Bookmark;
 import main.bookmark.repository.BookmarkRepository;
 import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
+import main.notice.dto.NoticeResponseDto;
 import main.notice.entity.Notice;
+import main.notice.mapper.NoticeMapper;
 import main.notice.service.NoticeService;
 import main.noticeTag.entity.NoticeTag;
 import main.tag.entity.Tag;
@@ -24,6 +26,7 @@ public class BookmarkService {
     private final UserService userService;
     private final NoticeService noticeService;
     private final BookmarkRepository bookmarkRepository;
+    private final NoticeMapper noticeMapper;
 
     public Bookmark createBookmark(Long userId, Long noticeId){
         verifyExistBookmark(userId,noticeId);
@@ -35,8 +38,8 @@ public class BookmarkService {
         return bookmarkRepository.save(bookmark);
     }
 
-    public List<Bookmark> findBookmarks(Long userId){
-        return bookmarkRepository.findAllByUserUserId(userId);
+    public List<NoticeResponseDto> findBookmarks(Long userId){
+        return noticeMapper.bookmarksToNoticeResponseDtos(bookmarkRepository.findAllByUserUserId(userId));
     }
 
     private void verifyExistBookmark(Long userId, Long noticeId) {

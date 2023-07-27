@@ -4,6 +4,8 @@ package main.userTag.service;
 import lombok.RequiredArgsConstructor;
 import main.exception.BusinessLogicException;
 import main.exception.ExceptionCode;
+import main.tag.dto.TagPostIdDto;
+import main.tag.dto.TagPostNameDto;
 import main.tag.entity.Tag;
 import main.tag.service.TagService;
 import main.user.entity.User;
@@ -23,7 +25,10 @@ public class UserTagService {
     private final UserRepository userRepository;
     private final TagService tagService;
 
-    public UserTag createUserTag(Long userId, Long tagId){
+    public UserTag createUserTag(TagPostIdDto tagPostIdDto){
+        Long userId = tagPostIdDto.getId();
+        Long tagId = tagPostIdDto.getTagId();
+
         verifyExistUserTag(userId, tagId);
         User user = userRepository.findByUserId(userId).orElseThrow();
         Tag tag = tagService.findTag(tagId);
@@ -34,7 +39,10 @@ public class UserTagService {
         return userTagRepository.save(userTag);
     }
 
-    public UserTag createUserTag(Long userId, String tagName){
+    public UserTag createUserTag(TagPostNameDto tagPostNameDto){
+        Long userId = tagPostNameDto.getId();
+        String tagName = tagPostNameDto.getName();
+
         verifyExistUserTag(userId, tagName);
         User user = userRepository.findByUserId(userId).orElseThrow();
         Tag tag = tagService.findTagByName(tagName);

@@ -11,7 +11,12 @@ import main.notice.repository.NoticeRepository;
 import main.resume.service.ResumeService;
 import main.security.utils.CustomAuthorityUtils;
 import main.tag.entity.Tag;
+import main.user.dto.UserPatchDto;
+import main.user.dto.UserPostDto;
+import main.user.dto.UserProfileResponseDto;
+import main.user.dto.UserResponseDto;
 import main.user.entity.User;
+import main.user.mapper.UserMapper;
 import main.user.repository.UserRepository;
 import main.userTag.service.UserTagService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,12 +32,16 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
-    private final NoticeRepository noticeRepository;
     private final UserTagService userTagService;
     private final CardService cardService;
     private final ResumeService resumeService;
+    private final UserMapper userMapper;
 
-    public User createUser(List<String> tagNames, List<String> resumes, User user){
+    public UserResponseDto createUser(UserPostDto userPostDto){
+
+        User user = userMapper.userPostDtoToUser(userPostDto);
+        List<String> tagNames = userPostDto.getTagNames();
+        List<String> resumes = userPostDto.getResumeContent();
 
         verifyExistEmail(user.getEmail());
 
@@ -56,7 +65,7 @@ public class UserService {
         }
         Card card = cardService.createCard(savedUser);
         savedUser.setCard(card);
-        return savedUser;
+        return userMapper.userToUserResponseDto(savedUser);
     }
 
 /*
@@ -74,7 +83,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User updateUser(User user){
+    public UserResponseDto updateUser(UserPatchDto userPatchDto){
+        User user = userMapper.userPatchDtoToUser(userPatchDto);
 
         User findUser = findVerifiedUser(user.getUserId());
 
@@ -94,7 +104,7 @@ public class UserService {
                 .ifPresent(variable -> findUser.setRoles(variable));
 
         User updatedUser = userRepository.save(findUser);
-        return updatedUser;
+        return userMapper.userToUserResponseDto(updatedUser);
     }
 
 /*
@@ -115,11 +125,12 @@ public class UserService {
         return user;
     }
 
-    public User findOtherUser(long userId){
+    public UserProfileResponseDto findOtherUser(long userId){
 
         User findUser = findVerifiedUser(userId);
         findUser.getCard().addViewCount();
-        return userRepository.save(findUser);
+        userRepository.save(findUser);
+        return userMapper.userToUserProfileResponse(findUser);
     }
 
     public User findUserByCard(long cardId){
@@ -128,8 +139,8 @@ public class UserService {
                 new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
     }
 
-    public List<User> findUsers(){
-        return userRepository.findAll();
+    public List<UserResponseDto> findUsers(){
+        return userMapper.usersToUserResponseDtos(userRepository.findAll());
     }
 
     public void logoutUser(Long userId){
