@@ -1,9 +1,11 @@
-import styled from 'styled-components';
-import { Colors, Messages } from '../../../Assets/Theme';
+import styled from "styled-components";
+import { Colors, Messages } from "../../../Assets/Theme";
+import { useNavigate } from "react-router-dom";
 
 const PlusCareerButton = () => {
+  const navigate = useNavigate();
   return (
-    <PlusCareerButtonStyled onClick={() => alert('서비스 준비중입니다!')}>
+    <PlusCareerButtonStyled onClick={() => navigate("/post/notice")}>
       {Messages.plusCareerBtn}
     </PlusCareerButtonStyled>
   );

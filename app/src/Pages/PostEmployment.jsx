@@ -30,7 +30,7 @@ const PostEmployment = () => {
     "퍼블리셔",
     "ML/DL",
   ];
-  const userId = localStorage.getItem("userId");
+  const userId = localStorage.getItem("id");
   const [selectedTags, setSelectedTags] = useState([]);
   const [companyInfo, setCompanyInfo] = useState({});
 
