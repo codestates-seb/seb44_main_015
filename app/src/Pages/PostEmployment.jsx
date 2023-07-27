@@ -9,7 +9,9 @@ import MainButton from "../Components/Button/MainButton";
 import CompanyDetail from "../Components/Commons/CompanyDetail";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const PostEmployment = () => {
   const tagList = [
@@ -30,7 +32,8 @@ const PostEmployment = () => {
     "퍼블리셔",
     "ML/DL",
   ];
-  const userId = localStorage.getItem("userId");
+
+  let { userId } = useParams();
   const [selectedTags, setSelectedTags] = useState([]);
   const [companyInfo, setCompanyInfo] = useState({});
 
@@ -49,7 +52,7 @@ const PostEmployment = () => {
 
   useEffect(() => {
     const url = `http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/company/${userId}`;
-
+    console.log(userId);
     axios
       .get(url)
       .then((response) => {
@@ -60,7 +63,7 @@ const PostEmployment = () => {
         console.error("API 요청 실패:", error);
         // setLoading(false);
       });
-  }, [userId]);
+  }, []);
 
   const { email, phone, tagNames, intro, name } = companyInfo;
 

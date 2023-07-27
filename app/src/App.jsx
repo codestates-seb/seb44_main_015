@@ -19,7 +19,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* <Route path="/" element={<TestModal />}></Route> */}
-        <Route path="/" element={<MainPage />}></Route>
+        <Route path="/" element={<PostEmployment />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/employmentlist" element={<EmploymentList />}></Route>
