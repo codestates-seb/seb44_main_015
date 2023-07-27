@@ -21,6 +21,10 @@ const Modal = ({
     navigate(redirectPage);
   };
 
+  const handleSecondButtonClick = () => {
+    onClose(); // 모달 닫기
+  };
+
   return (
     <ModalOverlayStyled>
       <ModalWrapperStyled>
@@ -38,9 +42,11 @@ const Modal = ({
           >
             {content}
           </MainButton>
-          <SecondButtonStyled onClick={onClose} subButtonText={subButtonText}>
-            {subButtonText}
-          </SecondButtonStyled>
+          {subButtonText && (
+            <SecondButtonStyled onClick={onClose}>
+              {subButtonText}
+            </SecondButtonStyled>
+          )}
         </ModalContentStyled>
       </ModalWrapperStyled>
     </ModalOverlayStyled>
@@ -111,9 +117,9 @@ const SecondButtonStyled = styled.button`
   width: 360px;
   padding: 16px 0px;
   text-align: center;
-  background-color: ${Colors.Gray2};
-  color: ${Colors.Bgwhite};
-  font-weight: 700;
+  background-color: transparent;
+  color: ${Colors.mainPurple};
+  font-weight: 500;
   border-radius: 16px;
   border: none;
   cursor: pointer;
@@ -121,4 +127,9 @@ const SecondButtonStyled = styled.button`
   line-height: 24px;
   font-size: 16px;
   margin-top: 8px;
+
+  &:hover {
+    color: ${Colors.secondPurple};
+    font-weight: 700;
+  }
 `;

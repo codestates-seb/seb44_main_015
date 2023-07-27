@@ -1,5 +1,6 @@
 import Footer from "../Components/Commons/Layouts/Footer";
 import Header from "../Components/Commons/Layouts/Header";
+import Modal from "../Components/Commons/Modal";
 import { Colors } from "../Assets/Theme";
 import { Messages } from "../Assets/Theme";
 import { ButtonWrapperStyled } from "./MyPageFreelancer";
@@ -32,15 +33,16 @@ const PostEmployment = () => {
   ];
 
   const userId = localStorage.getItem("id");
+  const token = localStorage.getItem("accessToken");
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [noticeTagNames, setNoticeTagNames] = useState("");
   const [deadline, setDeadline] = useState("");
   const [errors, setErrors] = useState([]);
 
   const [selectedTags, setSelectedTags] = useState([]);
   const [companyInfo, setCompanyInfo] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleTagSelect = (tag) => {
     // 이미 선택한 태그인지 확인
@@ -90,12 +92,18 @@ const PostEmployment = () => {
         // 서버로 POST 요청 보내기
         const response = await axios.post(
           "http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/notice",
-          dataToSend
+          dataToSend, // 데이터는 두 번째 인자로 전달
+          {
+            headers: {
+              // "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 Bearer 토큰값 형식으로 포함
+            },
+          }
         );
 
         if (response.status === 201) {
           console.log("채용 등록 성공!", response);
-          // setModalOpen(true);
+          setModalOpen(true);
         } else {
           setErrors((prevErrors) => [...prevErrors, "PostFail"]);
           throw new Error(
@@ -165,7 +173,7 @@ const PostEmployment = () => {
             <TagWrapperStyled>
               <TextSecondStyled>태그</TextSecondStyled>
               <TextThirdStyled>
-                채용을 나타낼 수 있는 태그를 선택해 주세요.
+                채용을 나타낼 수 있는 태그를 선택해 주세요
               </TextThirdStyled>
               <TagContainerStyled>
                 {tagList.map((tag, index) => (
@@ -192,7 +200,11 @@ const PostEmployment = () => {
               )}
             </DateWrapper>
           </LowerWrapperStyled>
-          <MainButton width="100%" onClick={handlePostNotice} />
+          <MainButton
+            width="100%"
+            onClick={handlePostNotice}
+            content="채용 공고 등록하기"
+          />
         </PostContainerStyled>
         <CompanyContainerStyled>
           <CompanyCard name={name} phone={phone} email={email} />
@@ -209,6 +221,13 @@ const PostEmployment = () => {
         </CompanyContainerStyled>
       </PageContainerStyled>
       <Footer />
+      <Modal
+        isOpen={modalOpen}
+        title="채용 공고 등록 성공!"
+        text="프리랜서들의 지원을 기다려 봅시다!"
+        content="확인"
+        redirectPage={`/mypagecompany/${userId}`}
+      />
     </>
   );
 };
@@ -275,6 +294,7 @@ const TitleInputStyled = styled.input`
   width: 628px;
   height: 56px;
   padding: 16px;
+  font-size: 18px;
   border-radius: 16px;
   box-sizing: border-box;
   border: 1px solid var(--gray-2, #bebebe);
