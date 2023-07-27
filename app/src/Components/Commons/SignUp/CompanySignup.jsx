@@ -184,10 +184,6 @@ const CompanySignup = () => {
     }
   };
 
-  const handleModalClose = () => {
-    setIsSuccessModalOpen(false);
-  };
-
   return (
     <>
       <FormContainerStyled>
@@ -328,11 +324,9 @@ const CompanySignup = () => {
       </LoginContainerStyled>
       <Modal
         isOpen={modalOpen}
-        onClose={handleModalClose}
         title="회원가입 성공!"
         text="프리해요와 함께 성장해 나가는 모습을 기대합니다!"
         content="로그인 하러 가기"
-        subButtonText={"창 닫기"}
         redirectPage={"/login"}
       />
     </>

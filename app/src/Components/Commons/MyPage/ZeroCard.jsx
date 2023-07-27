@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { Colors, Messages } from '../../../Assets/Theme';
-import OutlineButton from '../../Button/OutlineButton';
-import { useNavigate } from 'react-router-dom';
+import styled from "styled-components";
+import { Colors, Messages } from "../../../Assets/Theme";
+import OutlineButton from "../../Button/OutlineButton";
+import { useNavigate } from "react-router-dom";
 
 const ZeroCard = ({ height, message, smallmessage, content }) => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const ZeroCard = ({ height, message, smallmessage, content }) => {
         <InfoStyled>
           {message ? message : `${Messages.cardInMessage}`}
         </InfoStyled>
-        <InfoStyled fontWeight={'400'}>
+        <InfoStyled fontWeight={"400"}>
           {smallmessage ? smallmessage : `${Messages.careeringMessage}`}
         </InfoStyled>
       </InfoWrapperStyled>
@@ -19,10 +19,10 @@ const ZeroCard = ({ height, message, smallmessage, content }) => {
         {content ? (
           <OutlineButton
             onClick={() => {
-              navigate('/employmentlist');
+              navigate("/post/notice");
             }}
             content={content}
-            width={'360px'}
+            width={"360px"}
           >
             {Messages.showCareerBtn}
           </OutlineButton>
@@ -36,7 +36,7 @@ export default ZeroCard;
 
 export const ZeroCardStyled = styled.div`
   width: 628px;
-  height: ${(props) => props.height || '320px'};
+  height: ${(props) => props.height || "320px"};
   flex-shrink: 0;
   margin: 0px 24px 32px 24px;
   border: 1px solid ${Colors.Gray2};
@@ -59,7 +59,7 @@ export const InfoStyled = styled.span`
   color: ${Colors.Gray4};
   font-size: 16px;
   font-style: normal;
-  font-weight: ${(props) => props.fontWeight || '700'};
+  font-weight: ${(props) => props.fontWeight || "700"};
   line-height: normal;
 `;
 export const ButtonWrapperStyled = styled.div`
