@@ -1,14 +1,14 @@
-import MainButton from '../Components/Button/MainButton';
-import Logo from '../Assets/Icons/Logo.png';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { Colors } from '../Assets/Theme';
-import styled from 'styled-components';
+import MainButton from "../Components/Button/MainButton";
+import Logo from "../Assets/Icons/Logo.png";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Colors } from "../Assets/Theme";
+import styled from "styled-components";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
   const [selectedUserType, setSelectedUserType] = useState(null);
@@ -18,11 +18,11 @@ const Login = () => {
   };
 
   const handleSignup = () => {
-    navigate('/signup');
+    navigate("/signup");
   };
 
   const handleLogo = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const handleLogin = async (e) => {
@@ -33,59 +33,63 @@ const Login = () => {
     let isValid = true;
     // 이메일 유효성 검사
     if (!email) {
-      setErrors((prevErrors) => [...prevErrors, 'Email_empty']);
+      setErrors((prevErrors) => [...prevErrors, "Email_empty"]);
       isValid = false;
-    } else if (!email.includes('@')) {
-      setErrors((prevErrors) => [...prevErrors, 'Email_invalid']);
+    } else if (!email.includes("@")) {
+      setErrors((prevErrors) => [...prevErrors, "Email_invalid"]);
       isValid = false;
     }
 
     // 비밀번호 유효성 검사
     if (!password) {
-      setErrors((prevErrors) => [...prevErrors, 'Password_empty']);
+      setErrors((prevErrors) => [...prevErrors, "Password_empty"]);
+      isValid = false;
+    }
+
+    if (!selectedUserType) {
       isValid = false;
     }
 
     if (isValid) {
       try {
         const postData =
-          selectedUserType === 'freelancer'
+          selectedUserType === "freelancer"
             ? {
-                userType: 'user',
+                userType: "user",
                 email: email,
                 password: password,
               }
             : {
-                userType: 'company',
+                userType: "company",
                 email: email,
                 password: password,
               };
 
         const response = await axios.post(
-          'http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/login',
+          "http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/login",
           postData,
           {
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
-          },
+          }
         );
 
         if (response.data.accessToken) {
-          localStorage.setItem('accessToken', response.data.accessToken);
-          localStorage.setItem('id', response.data.id);
-          localStorage.setItem('userType', response.data.userType);
+          localStorage.setItem("accessToken", response.data.accessToken);
+          localStorage.setItem("id", response.data.id);
+          localStorage.setItem("userType", response.data.userType);
 
-          navigate('/');
+          navigate("/");
         } else {
-          setErrors((prevErrors) => [...prevErrors, 'LoginFail']);
+          setErrors((prevErrors) => [...prevErrors, "LoginFail"]);
           throw new Error(
-            '로그인에 실패했습니다. 이메일과 비밀번호를 확인해 주세요.',
+            "로그인에 실패했습니다. 이메일과 비밀번호를 확인해 주세요."
           );
         }
       } catch (error) {
-        console.error('로그인 요청 중 오류가 발생했습니다.', error);
-        setErrors((prevErrors) => [...prevErrors, 'LoginFail']);
+        console.error("로그인 요청 중 오류가 발생했습니다.", error);
+        setErrors((prevErrors) => [...prevErrors, "LoginFail"]);
       }
     }
   };
@@ -107,14 +111,14 @@ const Login = () => {
             </NoticeStyled>
             <UserTypeContainerStyled>
               <UserTypeStyled
-                onClick={() => handleUserTypeSelect('freelancer')}
-                className={selectedUserType === 'freelancer' ? 'selected' : ''}
+                onClick={() => handleUserTypeSelect("freelancer")}
+                className={selectedUserType === "freelancer" ? "selected" : ""}
               >
                 🧑‍💻 프리랜서
               </UserTypeStyled>
               <UserTypeStyled
-                onClick={() => handleUserTypeSelect('company')}
-                className={selectedUserType === 'company' ? 'selected' : ''}
+                onClick={() => handleUserTypeSelect("company")}
+                className={selectedUserType === "company" ? "selected" : ""}
               >
                 🏢 회사 · 의뢰인
               </UserTypeStyled>
@@ -127,15 +131,11 @@ const Login = () => {
               value={email}
               placeholder="이메일을 입력해 주세요"
               onChange={(e) => setEmail(e.target.value)}
-              error={
-                errors.includes('Email_empty') ||
-                errors.includes('Email_invalid')
-              }
             />
-            {errors.includes('Email_empty') && (
+            {errors.includes("Email_empty") && (
               <ErrorMessage>이메일 주소를 입력해 주세요.</ErrorMessage>
             )}
-            {errors.includes('Email_invalid') && (
+            {errors.includes("Email_invalid") && (
               <ErrorMessage>유효하지 않은 이메일 주소입니다.</ErrorMessage>
             )}
             <LabelStyled>비밀번호</LabelStyled>
@@ -144,21 +144,21 @@ const Login = () => {
               value={password}
               placeholder="비밀번호를 입력해 주세요"
               onChange={(e) => setPassword(e.target.value)}
-              error={errors.includes('Password_empty')}
             />
-            {errors.includes('Password_empty') && (
+            {errors.includes("Password_empty") && (
               <ErrorMessage>비밀번호를 입력해 주세요.</ErrorMessage>
             )}
           </FormContainerStyled>
-          {errors.includes('LoginFail') && (
+          {errors.includes("LoginFail") && (
             <LoginFailStyled>
               로그인에 실패하였습니다. 이메일주소와 비밀번호를 확인해 주세요!
             </LoginFailStyled>
           )}
           <MainButton
-            width={'400px'}
-            content={'로그인'}
-            type={'submit'}
+            width={"400px"}
+            content={"로그인"}
+            type={"submit"}
+            disabled={!selectedUserType}
             onClick={handleLogin}
           />
           <SignupContainerStyled>
@@ -284,6 +284,11 @@ const InputStyled = styled.input`
   box-sizing: border-box;
   padding: 0px 10px;
   border: 1px solid var(--gray-2, #bebebe);
+
+  &::placeholder {
+    font-size: 15px;
+    color: ${Colors.Gray2};
+  }
 `;
 
 const SignupContainerStyled = styled.div`

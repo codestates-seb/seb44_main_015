@@ -148,4 +148,6 @@ const TagContainerStyled = styled.ul`
   display: flex;
   flex-wrap: wrap-reverse;
   gap: 8px 4px;
+  max-height: 95px;
+  overflow: hidden;
 `;

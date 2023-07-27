@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Colors } from '../../Assets/Theme';
+import styled from "styled-components";
+import { Colors } from "../../Assets/Theme";
 
 const Resume = ({ resume }) => {
   return (
@@ -8,8 +8,8 @@ const Resume = ({ resume }) => {
         <CardTitleStyled>이력</CardTitleStyled>
         <ResumeDetailWrapperStyled>
           {resume &&
-            resume.map((oneresume, idx) => (
-              <ResumeDetailStyled key={idx}>{oneresume}</ResumeDetailStyled>
+            resume.map((onecard, idx) => (
+              <ResumeDetailStyled key={idx}>{onecard}</ResumeDetailStyled>
             ))}
         </ResumeDetailWrapperStyled>
       </CardWrapperStyled>
@@ -67,7 +67,7 @@ export const ResumeDetailStyled = styled.li`
     margin-top: 8px;
   }
   &:before {
-    content: '';
+    content: "";
     display: inline-block;
     width: 4px;
     height: 4px;
@@ -77,3 +77,5 @@ export const ResumeDetailStyled = styled.li`
     border-radius: 100%;
   }
 `;
+
+//              <ResumeDetailStyled key={idx}>{onecard}</ResumeDetailStyled>

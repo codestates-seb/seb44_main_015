@@ -1,18 +1,18 @@
-import Notice from '../../../Assets/Icons/Notice.png';
-import { styled } from 'styled-components';
-import { Colors } from '../../../Assets/Theme';
+import Notice from "../../../Assets/Icons/Notice.png";
+import { styled } from "styled-components";
+import { Colors } from "../../../Assets/Theme";
 
 const formatDeadline = (deadline) => {
   const date = new Date(deadline);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더하고 문자열로 변환 후 2자리로 맞춤
-  const day = String(date.getDate()).padStart(2, '0'); // 일도 2자리로 맞춤
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 1을 더하고 문자열로 변환 후 2자리로 맞춤
+  const day = String(date.getDate()).padStart(2, "0"); // 일도 2자리로 맞춤
   return `${year}-${month}-${day}`;
 };
 
 const cityFromAddress = (address) => {
   if (address) {
-    const city = address.split(' ')[0]; // 공백(' ')을 기준으로 주소를 나누고 첫 번째 요소를 가져옴
+    const city = address.split(" ")[0]; // 공백(' ')을 기준으로 주소를 나누고 첫 번째 요소를 가져옴
     return city;
   }
 };
@@ -20,7 +20,7 @@ const cityFromAddress = (address) => {
 const CompanyDetail = ({ data }) => {
   return (
     <>
-      {data ? (
+      {Object.keys(data).length !== 0 ? (
         <LeftContainerStyled>
           <UpperContainerStyled>
             <TitleWrapperStyled title={data.title}>
@@ -63,7 +63,9 @@ const CompanyDetail = ({ data }) => {
           </LowerContainerStyled>
         </LeftContainerStyled>
       ) : (
-        <p>Loading...</p>
+        <LeftContainerStyled>
+          <NoticeStyled>로그인 해주세요.</NoticeStyled>
+        </LeftContainerStyled>
       )}
     </>
   );
@@ -151,6 +153,7 @@ const TextStyled = styled.p`
   font-size: 16px;
   font-weight: 400;
   line-height: 23px;
+  white-space: pre-line;
 `;
 
 const LowerContainerStyled = styled.section`

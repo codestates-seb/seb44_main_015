@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { Colors } from '../../../Assets/Theme';
-import { styled } from 'styled-components';
-import Logo from '../../../Assets/Icons/Logo.png';
-import Search from '../../../Assets/Icons/Search.png';
-import Profile from '../../../Assets/Icons/Profile.png';
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Colors } from "../../../Assets/Theme";
+import { styled } from "styled-components";
+import Logo from "../../../Assets/Icons/Logo.png";
+import Search from "../../../Assets/Icons/Search.png";
+import Profile from "../../../Assets/Icons/Profile.png";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -13,48 +13,48 @@ const Header = () => {
 
   useEffect(() => {
     // 컴포넌트가 마운트되었을 때 로그인 상태를 확인
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem("accessToken");
     setIsLoggedIn(!!accessToken); // 로그인 상태를 갱신
   }, []);
 
   const handleLogoClick = () => {
-    navigate('/');
+    navigate("/");
   };
   const handleEmploymentClick = () => {
-    navigate('/employmentlist');
+    navigate("/employmentlist");
   };
   const handleLoginClick = () => {
-    navigate('/login');
+    navigate("/login");
   };
   const handleSignupClick = () => {
-    navigate('/signup');
+    navigate("/signup");
   };
   const handleMakerClick = () => {
-    navigate('/maker');
+    navigate("/maker");
   };
 
   const handleSearchClick = () => {
-    navigate('/search');
+    navigate("/surfing");
   };
 
   const handleLogoutClick = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('id');
-    localStorage.removeItem('userType');
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("id");
+    localStorage.removeItem("userType");
 
-    navigate('/');
+    navigate("/");
   };
 
   const handleMypageClick = () => {
     if (isLoggedIn !== false) {
-      if (localStorage.getItem('userType') === 'user') {
-        navigate(`/mypageuser/${localStorage.getItem('id')}`);
+      if (localStorage.getItem("userType") === "user") {
+        navigate(`/mypageuser/${localStorage.getItem("id")}`);
       } else {
-        navigate(`/mypagecompany/${localStorage.getItem('id')}`);
+        navigate(`/mypagecompany/${localStorage.getItem("id")}`);
       }
     } else {
-      alert('회원가입해주세요!');
+      alert("회원가입해주세요!");
     }
   };
 
