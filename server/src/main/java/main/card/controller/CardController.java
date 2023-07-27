@@ -1,11 +1,17 @@
 package main.card.controller;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import main.card.dto.CardResponseDto;
 import main.card.entity.Card;
 import main.card.mapper.CardMapper;
 import main.card.repository.CardRepository;
 import main.card.service.CardService;
+import main.notice.dto.NoticeResponseDto;
 import main.notice.entity.Notice;
 import main.notice.service.NoticeService;
 import main.rating.dto.RatingDto;
@@ -35,6 +41,10 @@ public class CardController {
     private final NoticeService noticeService;
     private final CardService cardService;
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201"),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @PostMapping("{card_id}/rating")
     public ResponseEntity postRating(@Valid @RequestBody RatingPostDto ratingPostDto,
                                      @PathVariable("card_id") @Positive long cardId,
@@ -54,6 +64,9 @@ public class CardController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = CardResponseDto.class))))})
     @GetMapping("/weekly")
     public ResponseEntity getMostViewedCards(@RequestParam(required = false, defaultValue = "4") int limit,
                                              @RequestParam(required = false, defaultValue = "0") int page){

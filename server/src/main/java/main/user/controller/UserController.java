@@ -1,5 +1,10 @@
 package main.user.controller;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import main.bookmark.entity.Bookmark;
 import main.bookmark.service.BookmarkService;
@@ -55,6 +60,9 @@ public class UserController {
     private final BookmarkService bookmarkService;
     private final NoticeService noticeService;
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    content = @Content(schema = @Schema(implementation = UserResponseDto.class)))})
     @PostMapping("/signup")
     public ResponseEntity postUser(@Valid @RequestBody UserPostDto userPostDto){
         UserResponseDto responseDto = userService.createUser(userPostDto);
@@ -62,6 +70,11 @@ public class UserController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    content = @Content(schema = @Schema(implementation = ResumeResponseDto.class))),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @PostMapping("/{user_id}/resume")
     public ResponseEntity postResume(@PathVariable("user_id") @Positive long userId,
                                      @Valid @RequestBody ResumePostDto resumeDto,
@@ -77,7 +90,10 @@ public class UserController {
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
         //r
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403"),
+            @ApiResponse(responseCode = "201")})
     @PostMapping("/{user_id}/tag")
     public ResponseEntity postResume(@PathVariable("user_id") @Positive long userId,
                                      @RequestBody TagPostNameDto tagNameDto,
@@ -94,6 +110,11 @@ public class UserController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = UserResponseDto.class))),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @PatchMapping("/profile/{user_id}")
     public ResponseEntity patchUser(@PathVariable("user_id") @Positive long userId,
                                     @Valid @RequestBody UserPatchDto userPatchDto,
@@ -109,6 +130,10 @@ public class UserController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @PatchMapping("/{user_id}/resume/{resume_id}")
     public ResponseEntity patchResume(@PathVariable("user_id") @Positive long userId,
                                      @PathVariable("resume_id") @Positive long resumeId,
@@ -128,6 +153,9 @@ public class UserController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = UserProfileResponseDto.class)))})
     @GetMapping("/{user_id}")
     public ResponseEntity getUser(@PathVariable("user_id") @Positive long userId){
 
@@ -137,6 +165,9 @@ public class UserController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = NoticeResponseDto.class))))})
     @GetMapping("/{user_id}/bookmark")
     public ResponseEntity getUserBookmark(@PathVariable("user_id") @Positive long userId){
         List<NoticeResponseDto> responseDtos = bookmarkService.findBookmarks(userId);
@@ -145,6 +176,9 @@ public class UserController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = RatingResponseDto.class))))})
     @GetMapping("/{user_id}/rating")
     public ResponseEntity getUserRating(@PathVariable("user_id") @Positive long userId){
 
@@ -154,6 +188,9 @@ public class UserController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = NoticeResponseDto.class))))})
     @GetMapping("/{user_id}/notice")
     public ResponseEntity getUserNotice(@PathVariable("user_id") @Positive long userId){
 
@@ -162,6 +199,9 @@ public class UserController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserResponseDto.class))))})
     @GetMapping
     public ResponseEntity getUsers(){
 
@@ -170,7 +210,10 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
         //r
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204"),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @DeleteMapping("/delete/{user_id}")
     public ResponseEntity deleteUser(@PathVariable("user_id") long userId,
                                      Authentication authentication){
@@ -183,7 +226,10 @@ public class UserController {
         userService.deleteUser(userId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204"),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @DeleteMapping("/{user_id}/tag/{tag_id}")
     public ResponseEntity deleteUserTag(@PathVariable("user_id") @Positive long userId,
                                      @PathVariable("tag_id") @Positive long tagId,
@@ -197,7 +243,10 @@ public class UserController {
         userTagService.deleteUserTag(userId,tagId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204"),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @DeleteMapping("/{user_id}/resume/{resume_id}")
     public ResponseEntity deleteResume(@PathVariable("user_id") long userId,
                                        @PathVariable("resume_id") long resumeId,

@@ -1,5 +1,10 @@
 package main.company.controller;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import main.company.dto.CompanyDto;
 import main.company.dto.CompanyPatchDto;
@@ -43,7 +48,8 @@ public class CompanyController {
     private final CompanyService companyService;
     private final CompanyTagService companyTagService;
     private final NoticeService noticeService;
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201")})
     @PostMapping("/signup")
     public ResponseEntity signUpCompany(@Valid @RequestBody CompanyPostDto companyPostDto){
         companyService.createCompany(companyPostDto);
@@ -52,7 +58,9 @@ public class CompanyController {
         //r
     }
 
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = CompanyResponseDto.class))))})
     @GetMapping("/{company_id}")
     public ResponseEntity getCompanyById(@PathVariable("company_id") Long companyId) {
         CompanyResponseDto company = companyService.findCompanyById(companyId);
@@ -60,7 +68,10 @@ public class CompanyController {
         //r
 
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @PatchMapping("/profile/{company_id}")
     public ResponseEntity<String> updateCompanyProfile(@PathVariable("company_id") Long companyId,
                                                        @Valid @RequestBody CompanyPatchDto companyPatchDto,
@@ -83,7 +94,10 @@ public class CompanyController {
         }
         //r
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201"),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @PostMapping("/{company_id}/tag")
     public ResponseEntity createCompanyTag(@PathVariable("company_id") Long companyId,
                                            @RequestBody TagPostNameDto tagPostNameDto,
@@ -100,13 +114,19 @@ public class CompanyController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = TagResponseDto.class))))})
     @GetMapping("/{company_id}/tag")
     public ResponseEntity getCompanyTags(@PathVariable("company_id") Long companyId){
         List<TagResponseDto> companyTags = companyTagService.findCompanyTags(companyId);
         return new ResponseEntity<>(companyTags, HttpStatus.OK);
         //r
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204"),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @DeleteMapping("/{company_id}/tag/{tag_id}")
     public ResponseEntity deleteUserTag(@PathVariable("company_id") @Positive long companyId,
                                         @PathVariable("tag_id") @Positive long tagId,
@@ -121,6 +141,9 @@ public class CompanyController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = NoticeResponseDto.class))))})
     @GetMapping("/{company_id}/notice")
     public ResponseEntity getCompanyNotices(@PathVariable("company_id") Long companyId){
         List<NoticeResponseDto> notices = noticeService.findNoticesByCompanyId(companyId);

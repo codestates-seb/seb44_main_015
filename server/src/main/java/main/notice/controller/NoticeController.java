@@ -1,5 +1,10 @@
 package main.notice.controller;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import main.bookmark.service.BookmarkService;
 import main.card.entity.Card;
@@ -39,7 +44,8 @@ public class NoticeController {
     private final NoticeService noticeService;
     private final UserService userService;
     private final BookmarkService bookmarkService;
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201")})
     @PostMapping
     public ResponseEntity postNotice(@Valid @RequestBody NoticePostDto noticePostDto,
                                      Authentication authentication){
@@ -50,7 +56,9 @@ public class NoticeController {
         return new ResponseEntity(HttpStatus.CREATED);
         //r
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201"),
+            @ApiResponse(responseCode = "401")})
     @PostMapping("/{notice_id}/card")
     public ResponseEntity putCard(@PathVariable("notice_id") @Positive long noticeId,
                                   Authentication authentication){
@@ -69,7 +77,9 @@ public class NoticeController {
         return new ResponseEntity<>(HttpStatus.CREATED);
         //r
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "401")})
     @PostMapping("/{notice_id}/bookmark")
     public ResponseEntity postBookmark(@PathVariable("notice_id") @Positive long noticeId,
                                   Authentication authentication){
@@ -80,7 +90,10 @@ public class NoticeController {
         return new ResponseEntity<>(HttpStatus.CREATED);
         //r
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @PatchMapping("/{notice_id}")
     public ResponseEntity patchNotice(@PathVariable("notice_id") @Positive long noticeId,
                                       @Valid @RequestBody NoticePatchDto noticePatchDto,
@@ -96,6 +109,9 @@ public class NoticeController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = NoticeResponseDto.class))))})
     @GetMapping
     public ResponseEntity getNotices(){
         List<NoticeResponseDto> notices = noticeService.findNotices();
@@ -103,6 +119,9 @@ public class NoticeController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = NoticeResponseDto.class))))})
     @GetMapping("/search")
     public ResponseEntity searchNotices(@RequestParam(required = true) String keyword,
                                         @RequestParam(required = false, defaultValue = "10") int limit,
@@ -112,6 +131,9 @@ public class NoticeController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = NoticeResponseDto.class))))})
     @GetMapping("/new")
     public ResponseEntity getNewNotices(@RequestParam(required = false, defaultValue = "10") int limit,
                                         @RequestParam(required = false, defaultValue = "00") int page){
@@ -120,6 +142,9 @@ public class NoticeController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = NoticeResponseDto.class))))})
     @GetMapping("/scroll")
     public ResponseEntity getScrollNotice(@RequestParam(required = false, defaultValue = "10") int limit,
                                         @RequestParam(required = false, defaultValue = "00") int scroll){
@@ -128,6 +153,9 @@ public class NoticeController {
         //r
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = NoticeResponseDetailDto.class)))})
     @GetMapping("/{notice_id}")
     public ResponseEntity getNotice(@PathVariable("notice_id") @Positive long noticeId){
         NoticeResponseDetailDto notice = noticeService.findNoticeAddViewCount(noticeId);
@@ -136,6 +164,10 @@ public class NoticeController {
         return new ResponseEntity(notice, HttpStatus.OK);
         //r
     }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = CardCheckResponseDto.class))))})
     @GetMapping("/{notice_id}/card")
     public ResponseEntity getCards(@PathVariable("notice_id") @Positive long noticeId,
                                   @RequestParam(required = false, defaultValue = "") String checked,
@@ -155,7 +187,10 @@ public class NoticeController {
         }
         //r
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @PatchMapping("/{notice_id}/card/{check_id}")
     public ResponseEntity patchCardCheck(@PathVariable("notice_id") @Positive long noticeId,
                                          @PathVariable("check_id") @Positive long cardCheckId,
@@ -172,6 +207,10 @@ public class NoticeController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204"),
+            @ApiResponse(responseCode = "401"),
+            @ApiResponse(responseCode = "403")})
     @DeleteMapping("/{notice_id}")
     public ResponseEntity deleteNotice(@PathVariable("notice_id") @Positive long noticeId,
                                        Authentication authentication){
