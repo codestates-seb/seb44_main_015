@@ -9,9 +9,7 @@ import MainButton from "../Components/Button/MainButton";
 import CompanyDetail from "../Components/Commons/CompanyDetail";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 const PostEmployment = () => {
   const tagList = [
@@ -33,7 +31,14 @@ const PostEmployment = () => {
     "ML/DL",
   ];
 
-  let { userId } = useParams();
+  const userId = localStorage.getItem("id");
+
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [noticeTagNames, setNoticeTagNames] = useState("");
+  const [deadline, setDeadline] = useState("");
+  const [errors, setErrors] = useState([]);
+
   const [selectedTags, setSelectedTags] = useState([]);
   const [companyInfo, setCompanyInfo] = useState({});
 
@@ -47,6 +52,60 @@ const PostEmployment = () => {
     } else {
       // 선택하지 않은 태그이면 선택 추가
       setSelectedTags((prevTags) => [...prevTags, tag]);
+    }
+  };
+
+  const handlePostNotice = async (e) => {
+    e.preventDefault();
+    setErrors([]);
+
+    let isValid = true;
+
+    // 이메일 유효성 검사
+    if (!title) {
+      setErrors((prevErrors) => [...prevErrors, "Title_empty"]);
+      isValid = false;
+    }
+
+    if (!content) {
+      setErrors((prevErrors) => [...prevErrors, "Content_empty"]);
+      isValid = false;
+    }
+
+    if (!deadline) {
+      setErrors((prevErrors) => [...prevErrors, "Deadline_empty"]);
+      isValid = false;
+    }
+
+    if (isValid) {
+      try {
+        const deadlineDate = new Date(deadline);
+        const dataToSend = {
+          title: title,
+          content: content,
+          tagNames: selectedTags,
+          deadline: deadlineDate.toISOString(),
+        };
+
+        // 서버로 POST 요청 보내기
+        const response = await axios.post(
+          "http://ec2-13-125-92-28.ap-northeast-2.compute.amazonaws.com:8080/notice",
+          dataToSend
+        );
+
+        if (response.status === 201) {
+          console.log("채용 등록 성공!", response);
+          // setModalOpen(true);
+        } else {
+          setErrors((prevErrors) => [...prevErrors, "PostFail"]);
+          throw new Error(
+            "채용 등록에 실패했습니다. 입력 정보를 확인해 주세요."
+          );
+        }
+      } catch (error) {
+        console.error("채용 등록 요청 중 오류가 발생했습니다.", error);
+        setErrors((prevErrors) => [...prevErrors, "PostFail"]);
+      }
     }
   };
 
@@ -78,20 +137,35 @@ const PostEmployment = () => {
             <TextThirdStyled>
               채용하실 직군을 정확히 입력해 주세요
             </TextThirdStyled>
-            <TitleInputStyled type="text" placeholder="제목을 입력해 주세요" />
+            {errors.includes("Title_empty") && (
+              <ErrorMessage>제목을 입력해 주세요.</ErrorMessage>
+            )}
+            <TitleInputStyled
+              type="text"
+              value={title}
+              placeholder="제목을 입력해 주세요"
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </TitleContainerStyled>
           <ContentWrapperStyled>
             <TextSecondStyled>내용</TextSecondStyled>
             <TextThirdStyled>
               자격 요건, 우대 사항, 기술 스택 등을 입력해 주세요
             </TextThirdStyled>
-            <ContentInputStyled placeholder="내용을 입력해 주세요"></ContentInputStyled>
+            {errors.includes("Content_empty") && (
+              <ErrorMessage>내용을 입력해 주세요.</ErrorMessage>
+            )}
+            <ContentInputStyled
+              placeholder="내용을 입력해 주세요"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            ></ContentInputStyled>
           </ContentWrapperStyled>
           <LowerWrapperStyled>
             <TagWrapperStyled>
               <TextSecondStyled>태그</TextSecondStyled>
               <TextThirdStyled>
-                채용을 나타낼 수 있는 태그를 선택해 주세요
+                채용을 나타낼 수 있는 태그를 선택해 주세요.
               </TextThirdStyled>
               <TagContainerStyled>
                 {tagList.map((tag, index) => (
@@ -108,10 +182,17 @@ const PostEmployment = () => {
             <DateWrapper>
               <TextSecondStyled>마감일</TextSecondStyled>
               <TextThirdStyled>마감일을 선택해 주세요</TextThirdStyled>
-              <DateStyled type="date"></DateStyled>
+              <DateStyled
+                type="date"
+                value={deadline}
+                onChange={(e) => setDeadline(e.target.value)}
+              ></DateStyled>
+              {errors.includes("Deadline_empty") && (
+                <ErrorMessage>마감일을 선택해 주세요.</ErrorMessage>
+              )}
             </DateWrapper>
           </LowerWrapperStyled>
-          <MainButton width="100%" />
+          <MainButton width="100%" onClick={handlePostNotice} />
         </PostContainerStyled>
         <CompanyContainerStyled>
           <CompanyCard name={name} phone={phone} email={email} />
@@ -136,7 +217,7 @@ export default PostEmployment;
 
 const PageContainerStyled = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   height: auto;
   min-width: 1440px;
   padding: 50px 190px;
@@ -147,6 +228,7 @@ const PageContainerStyled = styled.div`
 const PostContainerStyled = styled.section`
   width: 680px;
   height: auto;
+  margin-right: 24px;
 `;
 
 const CompanyContainerStyled = styled.section`
@@ -300,4 +382,10 @@ const DateStyled = styled.input`
   border-radius: 16px;
   box-sizing: border-box;
   border: 1px solid var(--gray-2, #bebebe);
+`;
+
+const ErrorMessage = styled.p`
+  font-size: 12px;
+  color: red;
+  margin: 5px;
 `;
