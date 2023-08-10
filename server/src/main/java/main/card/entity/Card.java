@@ -18,10 +18,8 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cardId;
-
     @Column
     private int viewCount;
-
     @OneToOne
     @JoinColumn(name = "USER_ID")
     private User user;

@@ -19,6 +19,7 @@ import main.rating.dto.RatingPostDto;
 import main.rating.entity.Rating;
 import main.rating.mapper.RatingMapper;
 import main.rating.service.RatingService;
+import main.response.MultiResponseDto;
 import main.user.dto.UserDto;
 import main.user.service.UserService;
 import org.springframework.http.HttpStatus;

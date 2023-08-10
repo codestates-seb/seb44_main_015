@@ -58,7 +58,7 @@ public class User {
     private List<Bookmark> bookmarks = new ArrayList<>();
 
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Card card;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -73,7 +73,7 @@ public class User {
             resume.setUser(this);
         }
     }
-
+    
     public void setAvgRating(){
         double i = 0;
         for(Rating rating : this.getRatings()){

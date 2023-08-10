@@ -28,11 +28,11 @@ public class CardCheck {
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CARD_ID")
     private Card card;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "NOTICE_ID")
     private Notice notice;
 

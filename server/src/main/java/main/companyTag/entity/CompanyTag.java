@@ -17,11 +17,11 @@ public class CompanyTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long companyTagId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMPANY_ID")
     private Company company;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TAG_ID")
     private Tag tag;
 }

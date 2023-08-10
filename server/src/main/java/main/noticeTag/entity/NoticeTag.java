@@ -17,11 +17,11 @@ public class NoticeTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long noticeTagId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "NOTICE_ID")
     private Notice notice;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TAG_ID")
     private Tag tag;
 }
